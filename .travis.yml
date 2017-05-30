@@ -4,3 +4,6 @@ install:
   -
 script:
   -
+deploy:
+  provider: heroku
+  api_key: b3a40066-68cd-4421-8a3e-73e398287e69
