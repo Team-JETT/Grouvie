@@ -2,16 +2,6 @@ language: android
 jdk: oraclejdk8
 install: true
 
-android:
-  components:
-    - platform-tools
-    - tools
-    - build-tools-24.0.2
-    - android-22
-    - android-24
-    - sys-img-armeabi-v7a-android-22
-    - extra-android-m2repository
-
 before_script:
   - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window
