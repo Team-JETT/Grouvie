@@ -35,16 +35,16 @@ public class SelectFilm extends AppCompatActivity {
         filmsListView.setAdapter(filmAdapter);
 
         filmsListView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
+            new AdapterView.OnItemClickListener() {
 
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String filmTitle = showingFilmsArray[position];
-                        Intent intent = new Intent(view.getContext(), SelectShowtime.class);
-                        intent.putExtra(EXTRA_MESSAGE, filmTitle);
-                        startActivity(intent);
-                    }
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String filmTitle = showingFilmsArray[position];
+                    Intent intent = new Intent(view.getContext(), SelectShowtime.class);
+                    intent.putExtra(EXTRA_MESSAGE, filmTitle);
+                    startActivity(intent);
                 }
+            }
         );
 
     }
