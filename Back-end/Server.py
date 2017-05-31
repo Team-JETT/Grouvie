@@ -13,6 +13,8 @@ TIMES = []
 CINEMAS = []
 CINEMA_IDS = []
 DISTANCES = []
+F_TO_CID = {}
+FCID_TO_TIMES = {}
 app = Flask(__name__)
 
 
@@ -64,17 +66,48 @@ class Server:
     def get_films(self, cinema_id):
         films = requests.get(
              "http://api.cinelist.co.uk/get/times/cinema/{}".format(cinema_id))
-        print films.json()
+        #print(films.json())
         for i in films.json()['listings']:
-            FILMS.append(i['title'])
-            TIMES.append(i['times'])
+            filmname = i['title']
+            times = i['times']
+            FILMS.append(filmname)
+            TIMES.append(times)
+            if filmname in F_TO_CID:
+                F_TO_CID[filmname].append(cinema_id)
+            else:
+                F_TO_CID[filmname] = [cinema_id]
+            FCID_TO_TIMES[(filmname, cinema_id)] = times
 
     @app.route("/")
     def home_page(self):
         return "Hello World!"
 
 
+
+class WebServer:
+
+    def __init__(self):
+        pass
+
+    def get_event_from_film(self, filmname):
+        cid = F_TO_CID[filmname][0]
+        i = CINEMA_IDS.index(cid)
+        cine_name = CINEMAS[i]
+        dist = DISTANCES[i]
+        showtime = FCID_TO_TIMES[(filmname, cid)][0]
+        return (filmname, cine_name, dist, showtime)
+
+
 if __name__ == "__main__":
     server = Server()
-    # server.get_cinemas_postcode("en12lz")
-    # server.get_films(10477)
+    server.get_cinemas_postcode("en12lz")
+    for i in CINEMA_IDS:
+        server.get_films(i)
+    webserver = WebServer()
+    print(webserver.get_event_from_film('King Arthur - Legend of the Sword'))
+    #print(CINEMA_IDS)
+    #print(CINEMAS)
+    #print(FILMS)
+    #print(TIMES)
+    #print(F_TO_CID)
+    #print(FCID_TO_TIMES)
