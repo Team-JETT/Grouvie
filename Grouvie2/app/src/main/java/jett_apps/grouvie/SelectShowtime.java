@@ -24,8 +24,8 @@ public class SelectShowtime extends AppCompatActivity {
         ((TextView) findViewById(R.id.tutorial_text)).setText(filmTitle);
 
 
-        final String[] showtimesArray = {"09:00", "10:12", "11:40", "1:35", "3:50", "5:05", "6:45",
-                "7:18", "8:32", "9:00", "10:12", "11:02"};
+        final String[] showtimesArray = {"09:00", "10:12", "11:40", "13:35", "15:50", "17:05", "18:45",
+                "19:18", "20:32", "21:00", "22:12", "23:02"};
 
         ListAdapter showtimeAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, showtimesArray);
