@@ -4,7 +4,7 @@ install: true
 
 android:
   components:
-     - platform-tools
+    - platform-tools
     - tools
     - build-tools-24.0.2
     - android-22
