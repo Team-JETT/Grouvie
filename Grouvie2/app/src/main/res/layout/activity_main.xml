@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="jett_apps.grouvie.MainLandingPage">
+    tools:context="jett_apps.grouvie.MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
@@ -14,15 +14,20 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.358"
-        app:layout_constraintHorizontal_bias="0.49" />
+        app:layout_constraintVertical_bias="0.396"
+        android:id="@+id/textView" />
 
     <Button
-        android:id="@+id/PlanBut"
-        android:layout_width="155dp"
-        android:layout_height="86dp"
+        android:id="@+id/button"
+        android:layout_width="176dp"
+        android:layout_height="83dp"
+        android:onClick="startPlanning"
         android:text="Plan"
-        tools:layout_editor_absoluteX="115dp"
-        tools:layout_editor_absoluteY="48dp" />
+        android:layout_marginBottom="63dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
