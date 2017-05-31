@@ -100,7 +100,7 @@ class WebServer:
         i = CINEMA_IDS.index(cid)
         cine_name = CINEMAS[i]
         dist = DISTANCES[i]
-        showtime = FCID_TO_TIMES[(filmname, cid)][-1]
+        showtime = FCID_TO_TIMES[(filmname, cid)][0]
         return (filmname, cine_name, dist, showtime)
 
     """
