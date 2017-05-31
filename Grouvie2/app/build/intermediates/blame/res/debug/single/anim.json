@@ -1,0 +1,66 @@
+[
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/anim/design_bottom_sheet_slide_out.xml",
+        "source": "/Users/sai/.android/build-cache/adb0a2f9b5b266b70f99ec61136259f31e8c190b/output/res/anim/design_bottom_sheet_slide_out.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/anim/design_bottom_sheet_slide_in.xml",
+        "source": "/Users/sai/.android/build-cache/adb0a2f9b5b266b70f99ec61136259f31e8c190b/output/res/anim/design_bottom_sheet_slide_in.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/anim/abc_shrink_fade_out_from_bottom.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/anim/abc_shrink_fade_out_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/anim/abc_popup_exit.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/anim/abc_popup_exit.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/anim/abc_fade_out.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/anim/abc_fade_out.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/anim/abc_slide_out_bottom.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/anim/abc_slide_out_bottom.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/anim/abc_popup_enter.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/anim/abc_popup_enter.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/anim/design_fab_out.xml",
+        "source": "/Users/sai/.android/build-cache/adb0a2f9b5b266b70f99ec61136259f31e8c190b/output/res/anim/design_fab_out.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/anim/abc_fade_in.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/anim/abc_fade_in.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/anim/abc_grow_fade_in_from_bottom.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/anim/abc_grow_fade_in_from_bottom.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/anim/design_snackbar_out.xml",
+        "source": "/Users/sai/.android/build-cache/adb0a2f9b5b266b70f99ec61136259f31e8c190b/output/res/anim/design_snackbar_out.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/anim/abc_slide_in_bottom.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/anim/abc_slide_in_bottom.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/anim/abc_slide_out_top.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/anim/abc_slide_out_top.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/anim/design_fab_in.xml",
+        "source": "/Users/sai/.android/build-cache/adb0a2f9b5b266b70f99ec61136259f31e8c190b/output/res/anim/design_fab_in.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/anim/abc_slide_in_top.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/anim/abc_slide_in_top.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/anim/design_snackbar_in.xml",
+        "source": "/Users/sai/.android/build-cache/adb0a2f9b5b266b70f99ec61136259f31e8c190b/output/res/anim/design_snackbar_in.xml"
+    }
+]
