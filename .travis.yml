@@ -19,7 +19,7 @@ before_script:
   - adb shell input keyevent 82 &
 
 script:
-   Grouvie2/./gradlew clean build app/connectedCheck
+   Grouvie2/./gradlew build app/connectedCheck
 
 deploy:
   provider: heroku
