@@ -6,7 +6,7 @@ android:
   components:
     - tools
     - platform-tools
-    - build-tools-23.0.2
+    - tools
 
     - sys-img-armeabi-v7a-android-21
 
