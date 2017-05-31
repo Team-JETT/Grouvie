@@ -16,11 +16,13 @@ public class SelectFilm extends AppCompatActivity {
         setContentView(R.layout.activity_select_film);
 
         String[] showingFilmsArray = {"Guardians of the Galaxy Vol 2",
-                                        "Fast and Furious 8",
+                                        "The Fate of the Furious",
                                         "Boss Baby",
                                         "WonderWoman",
                                         "Baywatch",
                                         "Alien: Covenant",
+                                        "Beauty and the Beast",
+                                        "Lion",
                                         "Pirates of the Caribbean"};
 
         ListAdapter filmAdapter = new ArrayAdapter<String>(this,
