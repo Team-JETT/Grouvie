@@ -93,7 +93,7 @@ class WebServer:
     Function that, given the name of the movie FILMNAME, returns FILMNAME, the
     closest cinema that is showing FILMNAME, the distance from that cinema to
     the user's postcode in kilometres, and the earliest showtime for FILMNAME
-    in the cinema. It is returned as a tuple in the order mentioned above:
+    in the cinema. It is returned as a tuple in the order mentioned above.
     """
     def get_event_from_film(self, filmname):
         cid = F_TO_CID[filmname][0]
