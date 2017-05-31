@@ -6,4 +6,4 @@ script: android create avd --force -n test -t android-17 --abi armeabi-v7a
         gradle build
 deploy:
   provider: heroku
-  api_key: b3a40066-68cd-4421-8a3e-73e398287e69
+  api_key: b2a40066-68cd-4421-8a3e-73e398287e69 
