@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="jett_apps.grouvie.SelectFilm">
+
+    <ListView
+        android:id="@+id/filmList"
+        style="@style/Widget.AppCompat.Light.ListView.DropDown"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:headerDividersEnabled="false" />
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <include layout="@layout/content_select_film"
+        android:id="@+id/showingFilmsList" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:text="Select A Film"
+        app:layout_anchor="@+id/showingFilmsList"
+        app:layout_anchorGravity="top|center_horizontal" />
+
+</android.support.design.widget.CoordinatorLayout>
