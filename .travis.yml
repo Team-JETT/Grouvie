@@ -1,11 +1,13 @@
 language: android
 jdk: oraclejdk8
 install: true
-sudo: false
 
 before_script:
-  # Creates and starts the emulator
-  - android create avd --force -n test -t android-17 --abi armeabi-v7a
+  - android create avd --force -n test -t android-22 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window
 
-script: ./gradlew 
+script: ./gradlew
+
+deploy:
+  provider: heroku
+  api_key: b2a40066-68cd-4421-8a3e-73e398287e69
