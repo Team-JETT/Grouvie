@@ -4,20 +4,22 @@ install: true
 
 android:
   components:
+     - platform-tools
     - tools
-    - platform-tools
-    - tools
-
-    - sys-img-armeabi-v7a-android-21
+    - build-tools-24.0.2
+    - android-22
+    - android-24
+    - sys-img-armeabi-v7a-android-22
+    - extra-android-m2repository
 
 before_script:
-  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
   - emulator -avd test -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
 
 script:
-   Grouvie2/./gradlew connectedAndroidTest
+   Grouvie2/./gradlew build connectedAndroidTest
 
 deploy:
   provider: heroku
