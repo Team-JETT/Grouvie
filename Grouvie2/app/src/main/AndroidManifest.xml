@@ -19,7 +19,8 @@
         <activity
             android:name=".SelectFilm"
             android:label="@string/title_activity_select_film"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SelectShowtime"></activity>
     </application>
 
 </manifest>

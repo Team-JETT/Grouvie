@@ -1,4 +1,6 @@
 <resources>
     <string name="app_name">Grouvie</string>
     <string name="title_activity_select_film">SelectFilm</string>
+    <string name="select_a_showtime">Select A Showtime</string>
+    <string name="filmtitle">FilmTitle</string>
 </resources>
