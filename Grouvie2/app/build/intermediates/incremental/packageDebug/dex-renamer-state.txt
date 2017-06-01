@@ -1,7 +1,0 @@
-#Thu Jun 01 12:42:33 BST 2017
-base.0=C\:\\Users\\erkin\\Google Drive\\Imperial\\WebApps\\webapps\\Grouvie2\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_714d129ced39764eed9f4f5401932f7b88f69480
-renamed.1=classes.dex
-renamed.0=classes2.dex
-file.1=C\:\\Users\\erkin\\Google Drive\\Imperial\\WebApps\\webapps\\Grouvie2\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_0d7bbf184c792805607bfd51ba1be2c2eace6bed\\classes.dex
-base.1=C\:\\Users\\erkin\\Google Drive\\Imperial\\WebApps\\webapps\\Grouvie2\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run-bootstrap_0d7bbf184c792805607bfd51ba1be2c2eace6bed
-file.0=C\:\\Users\\erkin\\Google Drive\\Imperial\\WebApps\\webapps\\Grouvie2\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\10000\\instant-run_714d129ced39764eed9f4f5401932f7b88f69480\\classes.dex
