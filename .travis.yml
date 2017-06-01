@@ -2,8 +2,8 @@ language: android
 jdk: oraclejdk8
 env:
   global:
-  - secure: s2ajp+Yq3eUkD+vXFQG9tQTb6up9PTpkQYMLcJBJM9d3Pap5xNuTJCf8O1YFt/j+i5bDvNsbwVDyfR2tv2UQQSHDna+Pw8v5yFTMlOSosqdVF8lpv9MVDpkeLvTudRCjy/LoUvsUojAWghO1VHzErOBzWcl6hIX7yf6UDEKWcgubCzQl3kZYojUWgz2SUee5vZGpsbxdOzi4s2JhWBnWzh/1qEFritFuIhRpnExaCe/NbQsTWziNRxRyc1n7t62P18esT8plJim0yKcLKPOFf8XX/mf1CAKG4F2gNWrV8sLZJdy5caGoOG2TQlQPCRfojHEtRuBWjw+CGofyZj0ZyI9N75latFT0oKT5CEd+7pPsxv2KvMmt0yvueBj0U5wmVcD2vHM/Lk9X8rLCozo0sRU2Uq+LcUJ7y1+hGnAZVt2WbLeshuTUsH7Zu+8DtqZjm7DM2sR7iNdsFG7oYV4NGiUPuzSWbi/BcUs/cfhZUzQoT+odpN+7RUQ8wgpPZWp0a1httEYxaBDa+vCyLFR3VUuesd1EllguQIGfDOhVXzS/24KKwQjiTGE3p0Nfe1aYdBTZ4RetzFrGYMQ5AO7ujOkU1/A2Q6eiOMOZpeTEooEK6dmPMyBlAIrMpPbdVWlHKrpZFBSNSpQu6Tz4s7Trc4gn4HcUSnrp7QQVuplgH88=
-  - secure: kLfg76DjCOK3e+UQeMm9NLIYJZOmLQYSLKxBsCJZkJXCCjqUQM5lEupH40C1usfOpfdlJJWDxS5cnHv8kydywkWz4DdWvQajo1fQikDdzrrEIPy5932GDHapyAOgo29cZ4yiAdOZ8nuC0Ou7pccSTmKUHJ48cf4ERX42nffGBjRmqEv7WE+GhgaKAWgNiAotdkc4PNS542mRhbgNPjQvBNf30rejrjaR4yu8KkPH/TJ74j5FvObp4hVzcqRIKxHFU2HYelhmvokVcn6SpdckQt3saXgNblEqAkVh3K+efW3SaqmBcFFVTkTMVu7OEAeagehn54IaVDVRSTJd0KXlCp79qrO8hjAPK1Qq2ZHCh78UO9QIpeGtTsX6b2RIcAvQk97tWlka49U3FcTv23dau2wNQVbGQB0z8xyZf5S8lKrh50ZZs8xILhuevQ+vMxtBhsnlicyQfkCqr84WfNqtN8cLIxdmp7ROqHXA71L7iR192OA0rtiBrE6htHkZTbdo8hWv/WOWb7JiBInxb3R50LikqBsU3GeI6driJFn2xfv4XrB+7PzhL92K9+Hwh86GLJxH/7rVB8hdSiv0UVSMFQizJSU0lOPSCvEmpaAEyVTvHsa+jpZyN/zFWhPTJXpbq6pOOOxsCLoH/snqfog+dHStHr4ve1JQnP4bCRBEEtM=
+  - secure: E8yzFcJx4YZjwh8RLDm2cwb9uwZ5MHy6kMXu1Vdd66FFgbfGBk667H+MNSFmVqYYSWfhxq0N+ipz16fdKJ30SRwM/M6B8J4iqqBcblw1FYLYaF+ved4NxNa9vakeTW6X/uTCvy2W/AYo6J1dhvMuoP6eTiFoEEHpsOoWCMZRmaYUYazBJVFvLqJ+goyAs9YJncDklMulydhVljR1ivXIfyAL7qcbUhuRBZhDQJ8OPN8RURStp4GucTwiUZ06nLSXFG6ai343OULgputRfDtff/u6K8Qld4QusVTXbyYPv2rDDnp2J5cW2DB7Bid6CoC9ufMDGNXiAoc8efcrxKtM74xv+WPkfR1rMJ1fi0O5sCk/lma6y7J/49GbTwRvybZUMLLyi0HkFDg8u04rWXvg/lNOudHFwxi30b9rVxw25Wj2nh/wdW0ADzW/Lt7MxhhtiktmaW0/kivRczDZ59GaDzqepScMlsDglvIDH3XtiML0Vi5HUzIynxptxvNYM19fZFRHiYHRHvwNoPnram7Uz0ejqFA/K3lNQH02XAJjcycvnYIprEu0qT1QHgJwc0g/HLAJ08/DwK1NnWP1rURtfdyZeq8zavop4+ztbthEBHrc37Qfm/4NmlcHbnPoEllxRPWGz1WQwN+ty41/Caj1Fk6BdyNf0DnGPSghAZKVJJs=
+  - secure: nYL/zlK+tdKBrQKN3SLQ8uy5igk6ucspu7KrDZGL3hQI+W3sAVOsH/xC3ZNO8wqgaZiH98xAGJUEQDKpUmHECkI3XOewzDT+fS3jSLFjnr3XU6yceqcS7EuH850wX5cQaKy4jkppvc9YL21MGiaW4cOkDrdW+7+ITURRkSuTAMJP2AWcJNX7bwrrjZkQgMWzvbLUnfSsgQSCPuKKalxqK8fI6nfTMFFezHYmdH0sIoIb42u+2epZOqmxluWdE7l5I4f7o8/KUujJzuux51l+Dt5SJLj9bZ8vSfR37eHujkxRNEwwhQlhWNbN88FadmzNUXJYg1F6Ep2PEZLBUYq7YQpHyY9PIsPbEgOIbLuCjKxLHZZZSVMmOR/7YWS60j40bBBs2QeTFbihspF7V06n5QO+e3vxRSCrYTE7/8NU1Ap59ffUbCD+P/Ko4Ad0S4o1ikEVpFJGMwlv9Tx8hyia/EwVepelWLw6Yh0qh3j+Vkx915rHLmNaFz68sNv/ozF7pn/rzPZr2T5RKqn5+fsGCElycJXAe+pb/GeRj0MbvGOza2dpmwGQU1qJOwxXpbl9PLfzzpETMHb7zXEI/li8lOW1skgve6hTrGQLFRau1Bw3yVQ/iBfyBRIFnaMNZSm8+HviXusTvo5TFwPQhuJPxRyvwaGKlNhOH0sFNoNmQu4=
 android:
   components:
   - platform-tools
@@ -18,7 +18,7 @@ licenses:
 - android-sdk-license-.+
 before_install:
 - openssl aes-256-cbc -K $encrypted_be1ae8b65885_key -iv $encrypted_be1ae8b65885_iv
-  -in key.jks.enc -out key.jks -d
+  -in keystore.jks.enc -out keystore.jks -d
 - mkdir "$ANDROID_HOME/licenses" || true
 - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
 - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
@@ -40,12 +40,12 @@ cache:
   - "$HOME/.gradle/wrapper/"
   - "$HOME/.android/build-cache"
 before_deploy:
-- cp $TRAVIS_BUILD_DIR/key.jks $HOME
-- cd app/build/outputs/apk/
-- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -key $HOME/key.jks -storepass
-  $storepass -keypass $keypass app-release-unsigned.apk Grouvie_keystore
-- jarsigner -verify app-release-unsigned.apk
-- "${ANDROID_HOME}/build-tools/24.0.2/zipalign -v 4 app-release-unsigned.apk Grouvie.apk"
+  - cp $TRAVIS_BUILD_DIR/keystore.jks $HOME
+  - cd app/build/outputs/apk/
+  - jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore $HOME/keystore.jks -storepass $storepass -keypass $keypass app-release-unsigned.apk GrouvieKeystore
+
+  - jarsigner -verify app-release-unsigned.apk
+  - "${ANDROID_HOME}/build-tools/24.0.2/zipalign -v 4 app-release-unsigned.apk Grouvie.apk"
 deploy:
   provider: releases
   file: Grouvie.apk
@@ -55,5 +55,8 @@ deploy:
     tags: true
     jdk: oraclejdk8
   api_key:
-    secure: CGRSZItrZ1qrZqYjPDYVTeHVeoSG5MNbArg0NLU+FRWGQJzRa7aVOQg+racWt4/BnK/UHZIceX1M30FakG02VGnl1ZQj0HIjcKA/qT6kytbSH5J7VfjAglOncKRxkDBYYEQJrDgiyvP2trl3jIPTWumibD/fyhg2y6JWo/VhT2TxKLHi2siOyICcNq53aq0dpp0d0tNXj3JeDDMKMH1XLbkT/NTj5ONZoRmfTBVDEHuBHd2TYmFB89c4tMfHSslrlrR/URqjoxJmMTnaqJYWYma8IL4S7xClIPURvRcMD6FzpNtBmN9kw5zEtqXyp5OCHUJDMSCgo5DCUjF5heaLJLYZcZPgGw2WnkwXrSozxTkDxvnm2Z3DPTBadsyhXaqaagFfJDEiPbOCxIKBfKeMiwAc+lBSPKJX3ipF8RW+3PrvltK1bhIheZu5wZvNWOXF9L+tm0BNCvo+ZP20iHcUMzIBKe2bcEwY9zFc2l2oinSlQzGJSnN9X6yr245W2mBfiAKksl9Rhi7S6DElHVCqTDnU+dockuII0zbX1cTaXCGSyohRWc2PzrZlXdzOv/ACki/DaWHNGtiYLG+x0CfddskmVyj4lKD7PeQOMM7W1g4Z6pnOb4FeO+4RUVPtbMOU704287jeUY6a1aN9r0tMhOVVOCN7sCDuP+ELSEcvu0Q=
-  app: sleepy-hamlet-51777
+      secure: "UVhpedkzodRdZDlyPM2xtHGezqTTPyPKE5KIh4owylw66STRRhEtmUWrUUKBDD8Vvsg/vfOw5qEvGa29Ac3LZA05Ka+MztYUV04IJiBHu6sliHjhkAuo/X364JYjZA4up7rgFxe/0KqA4TsNpz+jeg6l217cLH+CJ
+ljF9nGUPEh8uHMY6QjFYD4ZMFxPfelyTlsVW+Kvr+8KxZP6/aLIRoeGBZnsS78xBD60kbot7dXCEs8cZDq4A512DASd95993IzuBeMob6bnPj3K82ktR4CnOrmtdUgRxe+X1KNlgd5MKYPk/X7OsAbOPpsklqHf5TRoHm2Kd2gNJ
+qEvrBa5Lwug558NFtLLWK/0n4XO4oTyLHxjpm9FXKMZezAMMERcKI6rMrP7+PVbABscqyOLL6jCVlnXatGK+r6Kv6ftahKcsX0EvJUuKsCPLQVxHOKVqBIl2aKG2PLTeZ98Y1xbl3CgtzuvHWGIOCNZ8zXwMJO1UdEknX4c3LDab
+rdrQnzCMlvojwyGUpZ+OZ9BGrmzL9oypzvep2NGG33onz9l02QwJ2RVV3dem/MxL1zu8+tP2BswGBSF7rrjlsZpOTa3etAfnM+h6AbndiDFz+LPxcUbkJI9WPxCQSYuPhZnffW2M3mzynCN+goaXdSZ1oulprGN3YhQqaI+Y4iOU
+EG+UG4="
