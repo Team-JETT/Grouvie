@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
@@ -45,8 +46,31 @@ public class LeaderInitialPlan extends AppCompatActivity {
         //TODO: Send initial/draft plan to web server to update the database
         //TODO: Send current plan to rest of the group
         enableStrictMode();
-        ServerContact sc = new ServerContact();
-        sc.doInBackground();
+//        ServerContact sc = new ServerContact();
+//        sc.doInBackground();
+
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpPost httpPost = new HttpPost("http://129.31.228.213:5000/insert");
+        JSONObject json = new JSONObject();
+        try {
+            json.put("PHONE_NUMBER", "1");
+            json.put("GROUP_ID", 0);
+            json.put("SHOWTIME", "s");
+            json.put("FILM", "GOTG3");
+            json.put("PRICE", 32.22);
+            json.put("LOCATION_LAT", 52.111100);
+            json.put("LOCATION_LONG", 21.211122);
+            json.put("IMAGE", "HTTP");
+            json.put("IS_LEADER", "0");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            HttpResponse response = httpClient.execute(httpPost);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         Toast.makeText(getApplicationContext(), "Plan submitted to group", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MainActivity.class);

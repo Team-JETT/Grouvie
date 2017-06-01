@@ -27,12 +27,6 @@ def get_cinemas():
     return cinemas
 
 
-@app.route("/get_films", methods=["GET"])
-def get_films():
-    print "HERE"
-    return "HERE"
-
-
 if __name__ == "__main__":
     global dbManager, dParser
     dbManager = DBManager()
