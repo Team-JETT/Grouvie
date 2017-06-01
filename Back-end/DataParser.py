@@ -67,16 +67,16 @@ class DataParser:
         return list(set(FILMS))
 
 
+    """Get all cinemas in your area showing a given film."""
+    def get_cinemas(self, filmname):
+        global F_TO_CID, CINEMA_IDS, CINEMAS
+        cids = F_TO_CID[filmname]
+        cinemas_showing_film = []
+        for cid in cids:
+            cid_index = CINEMA_IDS.index(cid)
+            cinemas_showing_film.append(CINEMAS[cid_index])
+        return cinemas_showing_film
 
-    # """Get all cinemas in your area showing a given film."""
-    # def get_cinemas(self, filmname):
-    #     global F_TO_CID, CINEMA_IDS, CINEMAS
-    #     cids = F_TO_CID[filmname]
-    #     cinemas_showing_film = []
-    #     for cid in cids:
-    #         cid_index = CINEMA_IDS.index(cid)
-    #         cinemas_showing_film.append(CINEMAS[cid_index])
-    #     return cinemas_showing_film
 
 
 if __name__ == '__main__':

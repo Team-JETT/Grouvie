@@ -128,8 +128,4 @@ if __name__ == '__main__':
              'GROUP_ID': 0,
              'SHOWTIME': "s"}
     db = DBManager()
-    ## Testing
-    # db.update(data)
-    # db.insert(data)
-    # db.select(query)
-
+    db.selectAll()

@@ -17,9 +17,10 @@ def homepage():
 
 @app.route("/insert", methods=["GET", "POST"])
 def insert():
-    print request.data
-    # dbManager.update_insert(request.arg())
-    return
+    entry = json.loads(request.data)
+    print entry
+    dbManager.insert(entry)
+    return "DONE!!!"
 
 
 @app.route("/get_films", methods=["GET", "POST"])
@@ -35,10 +36,9 @@ def get_films():
 
 @app.route("/get_cinemas", methods=["GET", "POST"])
 def get_cinemas():
-    location = request.get_json()
-    cinemas = dParser.get_cinemas_latlong(location['latitude'],
-                                          location['longitude'])
-    return cinemas
+    filmname = request.data
+    cinemas = dParser.get_cinemas(filmname)
+    return ",".join(cinemas)
 
 
 if __name__ == "__main__":
