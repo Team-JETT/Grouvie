@@ -1,12 +1,12 @@
 *.iml
+..*
+.gitignore~
 .gradle
 /local.properties
-/.idea/workspace.xml
-/.idea/libraries
+/.idea/*
+Back-end/.idea/*
 .DS_Store
 /build
 /captures
 .externalNativeBuild
-.idea/runConfigurations.xml
-.idea/modules.xml
 modules.xml
