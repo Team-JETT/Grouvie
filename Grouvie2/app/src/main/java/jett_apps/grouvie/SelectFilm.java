@@ -15,7 +15,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 public class SelectFilm extends AppCompatActivity implements LocationListener {
 
@@ -104,8 +103,10 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         this.location = location;
         latitude = location.getLatitude();
         longitude = location.getLongitude();
-        Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
-                + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+
+        //Print out location message for debugging purposes
+//        Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
+//                + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
     }
 
     @Override
