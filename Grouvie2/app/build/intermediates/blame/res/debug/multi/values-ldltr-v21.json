@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-ldltr-v21/values-ldltr-v21.xml",
+        "outputFile": "C:\\Users\\erkin\\Google Drive\\Imperial\\WebApps\\webapps\\Grouvie2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ldltr-v21\\values-ldltr-v21.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 163
                 },
                 "from": {
-                    "file": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/values-ldltr-v21/values-ldltr-v21.xml",
+                    "file": "C:\\Android\\.android\\build-cache\\40bfcea94ce36d03faa12aa14495e8abc820469d\\output\\res\\values-ldltr-v21\\values-ldltr-v21.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,

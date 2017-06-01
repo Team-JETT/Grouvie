@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-xlarge-v4/values-xlarge-v4.xml",
+        "outputFile": "C:\\Users\\erkin\\Google Drive\\Imperial\\WebApps\\webapps\\Grouvie2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-xlarge-v4\\values-xlarge-v4.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 121
                 },
                 "from": {
-                    "file": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/values-xlarge-v4/values-xlarge-v4.xml",
+                    "file": "C:\\Android\\.android\\build-cache\\40bfcea94ce36d03faa12aa14495e8abc820469d\\output\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -30,7 +30,7 @@
                     "endOffset": 192
                 },
                 "from": {
-                    "file": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/values-xlarge-v4/values-xlarge-v4.xml",
+                    "file": "C:\\Android\\.android\\build-cache\\40bfcea94ce36d03faa12aa14495e8abc820469d\\output\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
@@ -49,7 +49,7 @@
                     "endOffset": 262
                 },
                 "from": {
-                    "file": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/values-xlarge-v4/values-xlarge-v4.xml",
+                    "file": "C:\\Android\\.android\\build-cache\\40bfcea94ce36d03faa12aa14495e8abc820469d\\output\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
@@ -68,7 +68,7 @@
                     "endOffset": 332
                 },
                 "from": {
-                    "file": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/values-xlarge-v4/values-xlarge-v4.xml",
+                    "file": "C:\\Android\\.android\\build-cache\\40bfcea94ce36d03faa12aa14495e8abc820469d\\output\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -87,7 +87,7 @@
                     "endOffset": 400
                 },
                 "from": {
-                    "file": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/values-xlarge-v4/values-xlarge-v4.xml",
+                    "file": "C:\\Android\\.android\\build-cache\\40bfcea94ce36d03faa12aa14495e8abc820469d\\output\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
                     "position": {
                         "startLine": 6,
                         "startColumn": 4,
@@ -106,7 +106,7 @@
                     "endOffset": 468
                 },
                 "from": {
-                    "file": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/values-xlarge-v4/values-xlarge-v4.xml",
+                    "file": "C:\\Android\\.android\\build-cache\\40bfcea94ce36d03faa12aa14495e8abc820469d\\output\\res\\values-xlarge-v4\\values-xlarge-v4.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,

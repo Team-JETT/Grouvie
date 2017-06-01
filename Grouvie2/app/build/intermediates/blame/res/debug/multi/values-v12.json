@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values-v12/values-v12.xml",
+        "outputFile": "C:\\Users\\erkin\\Google Drive\\Imperial\\WebApps\\webapps\\Grouvie2\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v12\\values-v12.xml",
         "map": [
             {
                 "to": {
@@ -12,7 +12,7 @@
                     "endOffset": 274
                 },
                 "from": {
-                    "file": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/values-v12/values-v12.xml",
+                    "file": "C:\\Android\\.android\\build-cache\\40bfcea94ce36d03faa12aa14495e8abc820469d\\output\\res\\values-v12\\values-v12.xml",
                     "position": {
                         "startLine": 2,
                         "startColumn": 4,
@@ -33,7 +33,7 @@
                     "endOffset": 474
                 },
                 "from": {
-                    "file": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/values-v12/values-v12.xml",
+                    "file": "C:\\Android\\.android\\build-cache\\40bfcea94ce36d03faa12aa14495e8abc820469d\\output\\res\\values-v12\\values-v12.xml",
                     "position": {
                         "startLine": 5,
                         "startColumn": 4,
@@ -53,7 +53,7 @@
                     "endOffset": 593
                 },
                 "from": {
-                    "file": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/values-v12/values-v12.xml",
+                    "file": "C:\\Android\\.android\\build-cache\\40bfcea94ce36d03faa12aa14495e8abc820469d\\output\\res\\values-v12\\values-v12.xml",
                     "position": {
                         "startLine": 8,
                         "startColumn": 4,
@@ -72,7 +72,7 @@
                     "endOffset": 688
                 },
                 "from": {
-                    "file": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/values-v12/values-v12.xml",
+                    "file": "C:\\Android\\.android\\build-cache\\40bfcea94ce36d03faa12aa14495e8abc820469d\\output\\res\\values-v12\\values-v12.xml",
                     "position": {
                         "startLine": 9,
                         "startColumn": 4,

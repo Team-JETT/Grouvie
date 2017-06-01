@@ -27,13 +27,14 @@ def get_cinemas():
     return cinemas
 
 
-@app.route("/get_films", methods=["GET", "POST"])
+@app.route("/get_films", methods=["GET"])
 def get_films():
-    pass
+    print "HERE"
+    return "HERE"
 
 
 if __name__ == "__main__":
     global dbManager, dParser
     dbManager = DBManager()
     dParser = DataParser()
-    app.run()
+    app.run(host='0.0.0.0', port=5000, debug=True)

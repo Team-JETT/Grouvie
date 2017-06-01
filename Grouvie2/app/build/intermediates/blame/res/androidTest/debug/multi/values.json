@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values/values.xml",
+        "outputFile": "C:\\Users\\erkin\\Google Drive\\Imperial\\WebApps\\webapps\\Grouvie2\\app\\build\\intermediates\\incremental\\mergeDebugAndroidTestResources\\merged.dir\\values\\values.xml",
         "map": [
             {
                 "to": {
@@ -11,7 +11,7 @@
                     "endOffset": 96
                 },
                 "from": {
-                    "file": "/Users/sai/.android/build-cache/7d88d6518f5a5a7dbb9457f115fedeb7f7a9f315/output/res/values/values.xml",
+                    "file": "C:\\Android\\.android\\build-cache\\98cc228519d3f0179fca67736ef44b77565a6194\\output\\res\\values\\values.xml",
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,

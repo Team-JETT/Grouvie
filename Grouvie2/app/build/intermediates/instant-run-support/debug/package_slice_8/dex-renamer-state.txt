@@ -1,4 +1,4 @@
-#Wed May 31 14:20:42 BST 2017
-base.0=/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_8
+#Thu Jun 01 12:42:33 BST 2017
+base.0=C\:\\Users\\erkin\\Google Drive\\Imperial\\WebApps\\webapps\\Grouvie2\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_8
 renamed.0=classes.dex
-file.0=/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/transforms/dex/debug/folders/1000/5/slice_8/classes.dex
+file.0=C\:\\Users\\erkin\\Google Drive\\Imperial\\WebApps\\webapps\\Grouvie2\\app\\build\\intermediates\\transforms\\dex\\debug\\folders\\1000\\5\\slice_8\\classes.dex
