@@ -49,4 +49,5 @@ cache:
 deploy:
   provider: heroku
   api_key:
-    secure: b2a40066-68cd-4421-8a3e-73e398287e69
+    secure: 03c387d9-c1a9-47ff-a899-3d17d3b7454c
+  app: sleepy-hamlet-51777
