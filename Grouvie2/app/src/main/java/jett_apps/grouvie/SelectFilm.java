@@ -18,7 +18,10 @@ import android.widget.ListView;
 
 public class SelectFilm extends AppCompatActivity implements LocationListener {
 
-    public static final String EXTRA_MESSAGE = "FILMTITLE";
+    public static final String FILM_MESSAGE = "FILMTITLE";
+    public static final String CINEMA_MESSAGE= "CINEMATITLE";
+    public static final String SHOWTIME_MESSAGE = "SHOWTIME";
+
     Location location;
     double latitude = 51.499074;
     double longitude = -0.177070;
@@ -31,6 +34,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_film);
 
+        //TODO: Obtain from web server
         final String[] showingFilmsArray = {"Guardians of the Galaxy Vol 2",
                 "The Fate of the Furious",
                 "Boss Baby",
@@ -40,18 +44,17 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                 "Beauty and the Beast",
                 "Lion",
                 "Pirates of the Caribbean"};
+        final String allocatedCinema = "Vue Westfield Stratford";
 
         ListAdapter filmAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, showingFilmsArray);
         ListView filmsListView = (ListView) findViewById(R.id.filmList);
         filmsListView.setAdapter(filmAdapter);
 
-        //TODO: Obtain location (latitude and longitude)
 
         LocationManager manager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
             //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
@@ -90,7 +93,8 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String filmTitle = showingFilmsArray[position];
                     Intent intent = new Intent(view.getContext(), SelectShowtime.class);
-                    intent.putExtra(EXTRA_MESSAGE, filmTitle);
+                    intent.putExtra(FILM_MESSAGE, filmTitle);
+                    intent.putExtra(CINEMA_MESSAGE, allocatedCinema);
                     startActivity(intent);
                 }
             }
