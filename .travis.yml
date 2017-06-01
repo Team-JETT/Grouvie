@@ -33,9 +33,9 @@ before_script:
   - adb shell input keyevent 82 &
 
 script:
-  - cd Grouvie2/app/
+  - cd app/
   - ../gradlew build connectedCheck
-  - cd ../../
+  - cd ../
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
