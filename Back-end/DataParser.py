@@ -16,7 +16,6 @@ TIMES = []
 CINEMAS = []
 CINEMA_IDS = []
 DISTANCES = []
-CID_CINEMA = {}
 F_TO_CID = {}
 FCID_TO_TIMES = {}
 class DataParser:
@@ -26,7 +25,7 @@ class DataParser:
     DISTANCES lists are populated with (up to) 5 results.
     """
     def get_cinemas_latlong(self, latitude, longitude):
-        global CINEMA_IDS, CID_CINEMA, DISTANCES, CINEMAS
+        global CINEMA_IDS, DISTANCES, CINEMAS
         film_names = requests.get(
             "https://api.cinelist.co.uk/search/cinemas/coordinates/{}/{}".
                 format(latitude, longitude))
@@ -37,7 +36,6 @@ class DataParser:
             CINEMAS.append(cinema_name)
             # Bind the Cinema ID's to their cinema names
             CINEMA_IDS.append(i['id'])
-            CID_CINEMA[i['id']] = cinema_name
             # Converts distance from mile to km and rounds to 3dp
             DISTANCES.append(round(i['distance'] * MILE_TO_KM, 3))
 
@@ -66,16 +64,19 @@ class DataParser:
         self.get_cinemas_latlong(latitude, longitude)
         for i in CINEMA_IDS:
             self.get_films_for_cinema_id(i)
-        return FILMS
+        return set(FILMS)
 
-    """Get all cinemas in your area showing a given film."""
-    def get_cinemas(self, filmname):
-        global F_TO_CID, CID_CINEMA
-        cids = F_TO_CID[filmname]
-        cinemas_showing_film = []
-        for cid in cids:
-            cinemas_showing_film.append(CID_CINEMA[cid])
-        return cinemas_showing_film
+
+
+    # """Get all cinemas in your area showing a given film."""
+    # def get_cinemas(self, filmname):
+    #     global F_TO_CID, CINEMA_IDS, CINEMAS
+    #     cids = F_TO_CID[filmname]
+    #     cinemas_showing_film = []
+    #     for cid in cids:
+    #         cid_index = CINEMA_IDS.index(cid)
+    #         cinemas_showing_film.append(CINEMAS[cid_index])
+    #     return cinemas_showing_film
 
 
 if __name__ == '__main__':

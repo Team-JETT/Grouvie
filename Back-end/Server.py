@@ -15,12 +15,6 @@ def homepage():
 
 @app.route("/insert", methods=["GET", "POST"])
 def insert():
-    dbManager.insert(request.get_json())
-    return
-
-
-@app.route("/update_member", methods=["GET", "POST"])
-def update():
     dbManager.update_insert(request.get_json())
     return
 
