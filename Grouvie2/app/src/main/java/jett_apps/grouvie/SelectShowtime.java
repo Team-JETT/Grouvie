@@ -10,9 +10,12 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import static jett_apps.grouvie.SelectFilm.EXTRA_MESSAGE;
+import static jett_apps.grouvie.SelectFilm.CINEMA_MESSAGE;
+import static jett_apps.grouvie.SelectFilm.FILM_MESSAGE;
+import static jett_apps.grouvie.SelectFilm.SHOWTIME_MESSAGE;
 
 public class SelectShowtime extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,10 +23,11 @@ public class SelectShowtime extends AppCompatActivity {
         setContentView(R.layout.activity_select_showtime);
 
         Intent intent = getIntent();
-        final String filmTitle = intent.getStringExtra(EXTRA_MESSAGE);
+        final String filmTitle  = intent.getStringExtra(FILM_MESSAGE);
+        final String cinemaName = intent.getStringExtra(CINEMA_MESSAGE);
         ((TextView) findViewById(R.id.tutorial_text)).setText(filmTitle);
 
-
+        //TODO: Obtain from web server
         final String[] showtimesArray = {"09:00", "10:12", "11:40", "13:35", "15:50", "17:05",
                 "18:45", "19:18", "20:32", "21:00", "22:12", "23:02"};
 
@@ -39,11 +43,12 @@ public class SelectShowtime extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String showTime = showtimesArray[position];
 
-                      //TODO
-//                    Intent intent = new Intent(view.getContext(), SelectShowtime.class);
-//                    intent.putExtra(EXTRA_MESSAGE, filmTitle);
-//                    intent.putExtra(EXTRA_MESSAGE, showTime);
-//                    startActivity(intent);
+                    //Sending the current plan to the final planning page
+                    Intent intent = new Intent(view.getContext(), LeaderInitialPlan.class);
+                    intent.putExtra(FILM_MESSAGE, filmTitle);
+                    intent.putExtra(CINEMA_MESSAGE, cinemaName);
+                    intent.putExtra(SHOWTIME_MESSAGE, showTime);
+                    startActivity(intent);
 
                     }
                 }
