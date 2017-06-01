@@ -1,9 +1,5 @@
 language: android
 jdk: oraclejdk8
-env:
-  global:
-  - secure: s2ajp+Yq3eUkD+vXFQG9tQTb6up9PTpkQYMLcJBJM9d3Pap5xNuTJCf8O1YFt/j+i5bDvNsbwVDyfR2tv2UQQSHDna+Pw8v5yFTMlOSosqdVF8lpv9MVDpkeLvTudRCjy/LoUvsUojAWghO1VHzErOBzWcl6hIX7yf6UDEKWcgubCzQl3kZYojUWgz2SUee5vZGpsbxdOzi4s2JhWBnWzh/1qEFritFuIhRpnExaCe/NbQsTWziNRxRyc1n7t62P18esT8plJim0yKcLKPOFf8XX/mf1CAKG4F2gNWrV8sLZJdy5caGoOG2TQlQPCRfojHEtRuBWjw+CGofyZj0ZyI9N75latFT0oKT5CEd+7pPsxv2KvMmt0yvueBj0U5wmVcD2vHM/Lk9X8rLCozo0sRU2Uq+LcUJ7y1+hGnAZVt2WbLeshuTUsH7Zu+8DtqZjm7DM2sR7iNdsFG7oYV4NGiUPuzSWbi/BcUs/cfhZUzQoT+odpN+7RUQ8wgpPZWp0a1httEYxaBDa+vCyLFR3VUuesd1EllguQIGfDOhVXzS/24KKwQjiTGE3p0Nfe1aYdBTZ4RetzFrGYMQ5AO7ujOkU1/A2Q6eiOMOZpeTEooEK6dmPMyBlAIrMpPbdVWlHKrpZFBSNSpQu6Tz4s7Trc4gn4HcUSnrp7QQVuplgH88=
-  - secure: kLfg76DjCOK3e+UQeMm9NLIYJZOmLQYSLKxBsCJZkJXCCjqUQM5lEupH40C1usfOpfdlJJWDxS5cnHv8kydywkWz4DdWvQajo1fQikDdzrrEIPy5932GDHapyAOgo29cZ4yiAdOZ8nuC0Ou7pccSTmKUHJ48cf4ERX42nffGBjRmqEv7WE+GhgaKAWgNiAotdkc4PNS542mRhbgNPjQvBNf30rejrjaR4yu8KkPH/TJ74j5FvObp4hVzcqRIKxHFU2HYelhmvokVcn6SpdckQt3saXgNblEqAkVh3K+efW3SaqmBcFFVTkTMVu7OEAeagehn54IaVDVRSTJd0KXlCp79qrO8hjAPK1Qq2ZHCh78UO9QIpeGtTsX6b2RIcAvQk97tWlka49U3FcTv23dau2wNQVbGQB0z8xyZf5S8lKrh50ZZs8xILhuevQ+vMxtBhsnlicyQfkCqr84WfNqtN8cLIxdmp7ROqHXA71L7iR192OA0rtiBrE6htHkZTbdo8hWv/WOWb7JiBInxb3R50LikqBsU3GeI6driJFn2xfv4XrB+7PzhL92K9+Hwh86GLJxH/7rVB8hdSiv0UVSMFQizJSU0lOPSCvEmpaAEyVTvHsa+jpZyN/zFWhPTJXpbq6pOOOxsCLoH/snqfog+dHStHr4ve1JQnP4bCRBEEtM=
 android:
   components:
   - platform-tools
@@ -17,8 +13,6 @@ licenses:
 - android-sdk-preview-license-.+
 - android-sdk-license-.+
 before_install:
-- openssl aes-256-cbc -K $encrypted_be1ae8b65885_key -iv $encrypted_be1ae8b65885_iv
-  -in key.jks.enc -out key.jks -d
 - mkdir "$ANDROID_HOME/licenses" || true
 - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
 - echo -e "\n84831b9409646a918e30573bab4c9c91346d8abd" > "$ANDROID_HOME/licenses/android-sdk-preview-license"
@@ -31,6 +25,8 @@ script:
 - cd app/
 - "../gradlew build connectedCheck"
 - cd ../
+- chmod +x ./deploy.sh
+- ./deploy.sh
 before_cache:
 - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
 - rm -rf $HOME/.gradle/caches/*/plugin-resolution/
@@ -39,21 +35,3 @@ cache:
   - "$HOME/.gradle/caches/"
   - "$HOME/.gradle/wrapper/"
   - "$HOME/.android/build-cache"
-before_deploy:
-- cp $TRAVIS_BUILD_DIR/key.jks $HOME
-- cd app/build/outputs/apk/
-- jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -key $HOME/key.jks -storepass
-  $storepass -keypass $keypass app-release-unsigned.apk Grouvie_keystore
-- jarsigner -verify app-release-unsigned.apk
-- "${ANDROID_HOME}/build-tools/24.0.2/zipalign -v 4 app-release-unsigned.apk Grouvie.apk"
-deploy:
-  provider: releases
-  file: Grouvie.apk
-  skip_cleanup: true
-  on:
-    repo: T-Khanna/Grouvie
-    tags: true
-    jdk: oraclejdk8
-  api_key:
-    secure: CGRSZItrZ1qrZqYjPDYVTeHVeoSG5MNbArg0NLU+FRWGQJzRa7aVOQg+racWt4/BnK/UHZIceX1M30FakG02VGnl1ZQj0HIjcKA/qT6kytbSH5J7VfjAglOncKRxkDBYYEQJrDgiyvP2trl3jIPTWumibD/fyhg2y6JWo/VhT2TxKLHi2siOyICcNq53aq0dpp0d0tNXj3JeDDMKMH1XLbkT/NTj5ONZoRmfTBVDEHuBHd2TYmFB89c4tMfHSslrlrR/URqjoxJmMTnaqJYWYma8IL4S7xClIPURvRcMD6FzpNtBmN9kw5zEtqXyp5OCHUJDMSCgo5DCUjF5heaLJLYZcZPgGw2WnkwXrSozxTkDxvnm2Z3DPTBadsyhXaqaagFfJDEiPbOCxIKBfKeMiwAc+lBSPKJX3ipF8RW+3PrvltK1bhIheZu5wZvNWOXF9L+tm0BNCvo+ZP20iHcUMzIBKe2bcEwY9zFc2l2oinSlQzGJSnN9X6yr245W2mBfiAKksl9Rhi7S6DElHVCqTDnU+dockuII0zbX1cTaXCGSyohRWc2PzrZlXdzOv/ACki/DaWHNGtiYLG+x0CfddskmVyj4lKD7PeQOMM7W1g4Z6pnOb4FeO+4RUVPtbMOU704287jeUY6a1aN9r0tMhOVVOCN7sCDuP+ELSEcvu0Q=
-  app: sleepy-hamlet-51777
