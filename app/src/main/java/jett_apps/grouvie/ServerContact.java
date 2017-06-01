@@ -1,20 +1,16 @@
 package jett_apps.grouvie;
 
-import android.os.AsyncTask;
-
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.DefaultHttpClient;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
 
 public class ServerContact {
-
-    @Override
+    
     protected Void doInBackground(JSONObject... params) {
         HttpClient httpClient = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost("http://129.31.228.213:5000/insert");
