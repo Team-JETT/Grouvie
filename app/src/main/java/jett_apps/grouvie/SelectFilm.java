@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,6 +16,19 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 
 public class SelectFilm extends AppCompatActivity implements LocationListener {
 
@@ -33,24 +47,6 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_film);
-
-        //TODO: Obtain from web server
-        final String[] showingFilmsArray = {"Guardians of the Galaxy Vol 2",
-                "The Fate of the Furious",
-                "Boss Baby",
-                "WonderWoman",
-                "Baywatch",
-                "Alien: Covenant",
-                "Beauty and the Beast",
-                "Lion",
-                "Pirates of the Caribbean"};
-        final String allocatedCinema = "Vue Westfield Stratford";
-
-        ListAdapter filmAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, showingFilmsArray);
-        ListView filmsListView = (ListView) findViewById(R.id.filmList);
-        filmsListView.setAdapter(filmAdapter);
-
 
         LocationManager manager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
@@ -86,6 +82,65 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 0, this);
 
+
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+
+        StrictMode.setThreadPolicy(policy);
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpPost httpPost = new HttpPost("http://129.31.228.213:5000/get_films");
+        JSONObject json = new JSONObject();
+        try {
+            json.accumulate("latitude", latitude);
+            json.accumulate("longitude", longitude);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String json_str = json.toString();
+        StringEntity se = null;
+        try {
+            se = new StringEntity(json_str);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        httpPost.setEntity(se);
+
+        httpPost.setHeader("Accept", "application/json");
+        httpPost.setHeader("Content-type", "application/json");
+        InputStream is = null;
+        try {
+            HttpResponse httpResponse = httpClient.execute(httpPost);
+            is = httpResponse.getEntity().getContent();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String result;
+        if(is != null) {
+            result = is.toString();
+            Toast.makeText(getApplicationContext(), result,
+                    Toast.LENGTH_LONG).show();
+        } else {
+            result = "Did not work!";
+        }
+
+
+        final String[] showingFilmsArray = {"Guardians of the Galaxy Vol 2",
+                "The Fate of the Furious",
+                "Boss Baby",
+                "WonderWoman",
+                "Baywatch",
+                "Alien: Covenant",
+                "Beauty and the Beast",
+                "Lion",
+                "Pirates of the Caribbean"};
+        final String allocatedCinema = "Vue Westfield Stratford";
+
+        ListAdapter filmAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, showingFilmsArray);
+        ListView filmsListView = (ListView) findViewById(R.id.filmList);
+        filmsListView.setAdapter(filmAdapter);
+
+
         filmsListView.setOnItemClickListener(
             new AdapterView.OnItemClickListener() {
 
@@ -111,6 +166,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         //Print out location message for debugging purposes
 //        Toast.makeText(getApplicationContext(), "Your Location is - \nLat: "
 //                + latitude + "\nLong: " + longitude, Toast.LENGTH_LONG).show();
+
     }
 
     @Override

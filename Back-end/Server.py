@@ -1,4 +1,6 @@
-from flask import Flask, jsonify, request
+import json
+
+from flask import Flask, request
 from DBManager import DBManager
 from DataParser import DataParser
 
@@ -18,6 +20,17 @@ def insert():
     print request.data
     # dbManager.update_insert(request.arg())
     return
+
+
+@app.route("/get_films", methods=["GET", "POST"])
+def get_films():
+    location = request.data
+    print request.data
+    location = json.loads(location)
+    latitude = location['latitude']
+    longitude = location['longitude']
+    print latitude, longitude
+    return dParser.get_films(latitude, longitude)
 
 
 @app.route("/get_cinemas", methods=["GET", "POST"])

@@ -91,41 +91,6 @@ public class LeaderInitialPlan extends AppCompatActivity {
         } else {
             result = "Did not work!";
         }
-//        List<NameValuePair> urlParams = new ArrayList<>();
-//        urlParams.add(new BasicNameValuePair("PHONE_NUMBER", "1"));
-//        urlParams.add(new BasicNameValuePair("GROUP_ID", "0"));
-//        urlParams.add(new BasicNameValuePair("SHOWTIME", "s"));
-//        urlParams.add(new BasicNameValuePair("FILM", "GOTG3"));
-//        urlParams.add(new BasicNameValuePair("PRICE", "32.22"));
-//        urlParams.add(new BasicNameValuePair("LOCATION_LAT", "52.111100"));
-//        urlParams.add(new BasicNameValuePair("LOCATION_LONG", "21.211122"));
-//        urlParams.add(new BasicNameValuePair("IMAGE", "HTTP"));
-//        urlParams.add(new BasicNameValuePair("IS_LEADER", "0"));
-//
-//        httpPost.setEntity(new UrlEncodedFormEntity(urlParams));
-
-
-//        JSONObject json = new JSONObject();
-//        try {
-//            json.accumulate("PHONE_NUMBER", "1");
-//            json.accumulate("GROUP_ID", 0);
-//            json.accumulate("SHOWTIME", "s");
-//            json.accumulate("FILM", "GOTG3");
-//            json.accumulate("PRICE", 32.22);
-//            json.accumulate("LOCATION_LAT", 52.111100);
-//            json.accumulate("LOCATION_LONG", 21.211122);
-//            json.accumulate("IMAGE", "HTTP");
-//            json.accumulate("IS_LEADER", "0");
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-
-//        try {
-//            HttpResponse response = httpClient.execute(httpPost);
-//            System.out.println(response.getStatusLine());
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
 
         Toast.makeText(getApplicationContext(), "Plan submitted to group", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MainActivity.class);
