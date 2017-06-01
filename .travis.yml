@@ -1,6 +1,5 @@
 language: android
 jdk: oraclejdk8
-install: true
 
 android:
   components:
@@ -13,6 +12,10 @@ android:
     - android-25
     - sys-img-armeabi-v7a-android-22
     - extra-android-m2repository
+
+install:
+  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout;1.0.2"
+  - echo yes | sdkmanager "extras;m2repository;com;android;support;constraint;constraint-layout-solver;1.0.2"
 
 licenses:
   - android-sdk-preview-license-.+
@@ -27,6 +30,7 @@ before_script:
 script:
   - cd Grouvie2/app/
   - ../gradlew build connectedCheck
+  - cd ../../
 
 before_cache:
   - rm -f  $HOME/.gradle/caches/modules-2/modules-2.lock
