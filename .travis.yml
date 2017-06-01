@@ -17,7 +17,7 @@ licenses:
 - android-sdk-preview-license-.+
 - android-sdk-license-.+
 before_install:
-- openssl aes-256-cbc -K $encrypted_be1ae8b65885_key -iv $encrypted_be1ae8b65885_iv
+- openssl aes-256-cbc -K $encrypted_be1ae8b65885_key -iv $encrypted_be1ae8b65885_iv -in key.jks.enc -out .\\key.jks -d
   -in key.jks.enc -out .\\key.jks -d
 - mkdir "$ANDROID_HOME/licenses" || true
 - echo -e "\n8933bad161af4178b1185d1a37fbf41ea5269c55" > "$ANDROID_HOME/licenses/android-sdk-license"
