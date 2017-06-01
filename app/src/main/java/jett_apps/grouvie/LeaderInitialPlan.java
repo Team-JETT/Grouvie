@@ -10,14 +10,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 import static jett_apps.grouvie.SelectFilm.CINEMA_MESSAGE;
 import static jett_apps.grouvie.SelectFilm.FILM_MESSAGE;
@@ -42,7 +53,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
 
     }
 
-    public void sendToGroup(View view) {
+    public void sendToGroup(View view) throws IOException {
         //TODO: Send initial/draft plan to web server to update the database
         //TODO: Send current plan to rest of the group
         enableStrictMode();
@@ -53,24 +64,68 @@ public class LeaderInitialPlan extends AppCompatActivity {
         HttpPost httpPost = new HttpPost("http://129.31.228.213:5000/insert");
         JSONObject json = new JSONObject();
         try {
-            json.put("PHONE_NUMBER", "1");
-            json.put("GROUP_ID", 0);
-            json.put("SHOWTIME", "s");
-            json.put("FILM", "GOTG3");
-            json.put("PRICE", 32.22);
-            json.put("LOCATION_LAT", 52.111100);
-            json.put("LOCATION_LONG", 21.211122);
-            json.put("IMAGE", "HTTP");
-            json.put("IS_LEADER", "0");
+            json.accumulate("PHONE_NUMBER", "1");
+            json.accumulate("GROUP_ID", 0);
+            json.accumulate("SHOWTIME", "s");
+            json.accumulate("FILM", "GOTG3");
+            json.accumulate("PRICE", 32.22);
+            json.accumulate("LOCATION_LAT", 52.111100);
+            json.accumulate("LOCATION_LONG", 21.211122);
+            json.accumulate("IMAGE", "HTTP");
+            json.accumulate("IS_LEADER", "0");
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        String json_str = json.toString();
+        StringEntity se = new StringEntity(json_str);
+        httpPost.setEntity(se);
 
-        try {
-            HttpResponse response = httpClient.execute(httpPost);
-        } catch (IOException e) {
-            e.printStackTrace();
+        httpPost.setHeader("Accept", "application/json");
+        httpPost.setHeader("Content-type", "application/json");
+        HttpResponse httpResponse = httpClient.execute(httpPost);
+        InputStream inputStream = httpResponse.getEntity().getContent();
+
+        String result;
+        if(inputStream != null) {
+            result = inputStream.toString();
+        } else {
+            result = "Did not work!";
         }
+//        List<NameValuePair> urlParams = new ArrayList<>();
+//        urlParams.add(new BasicNameValuePair("PHONE_NUMBER", "1"));
+//        urlParams.add(new BasicNameValuePair("GROUP_ID", "0"));
+//        urlParams.add(new BasicNameValuePair("SHOWTIME", "s"));
+//        urlParams.add(new BasicNameValuePair("FILM", "GOTG3"));
+//        urlParams.add(new BasicNameValuePair("PRICE", "32.22"));
+//        urlParams.add(new BasicNameValuePair("LOCATION_LAT", "52.111100"));
+//        urlParams.add(new BasicNameValuePair("LOCATION_LONG", "21.211122"));
+//        urlParams.add(new BasicNameValuePair("IMAGE", "HTTP"));
+//        urlParams.add(new BasicNameValuePair("IS_LEADER", "0"));
+//
+//        httpPost.setEntity(new UrlEncodedFormEntity(urlParams));
+
+
+//        JSONObject json = new JSONObject();
+//        try {
+//            json.accumulate("PHONE_NUMBER", "1");
+//            json.accumulate("GROUP_ID", 0);
+//            json.accumulate("SHOWTIME", "s");
+//            json.accumulate("FILM", "GOTG3");
+//            json.accumulate("PRICE", 32.22);
+//            json.accumulate("LOCATION_LAT", 52.111100);
+//            json.accumulate("LOCATION_LONG", 21.211122);
+//            json.accumulate("IMAGE", "HTTP");
+//            json.accumulate("IS_LEADER", "0");
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+
+//        try {
+//            HttpResponse response = httpClient.execute(httpPost);
+//            System.out.println(response.getStatusLine());
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         Toast.makeText(getApplicationContext(), "Plan submitted to group", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MainActivity.class);
