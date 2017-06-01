@@ -1,0 +1,46 @@
+[
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/color-v23/abc_tint_switch_thumb.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/color-v23/abc_tint_switch_thumb.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/color-v23/abc_tint_edittext.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/color-v23/abc_tint_edittext.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/color-v23/abc_tint_seek_thumb.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/color-v23/abc_tint_seek_thumb.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/color-v23/abc_tint_btn_checkable.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/color-v23/abc_tint_btn_checkable.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/color-v23/abc_color_highlight_material.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/color-v23/abc_color_highlight_material.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/color-v23/abc_tint_default.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/color-v23/abc_tint_default.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/color-v23/abc_tint_spinner.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/color-v23/abc_tint_spinner.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/color-v23/abc_btn_colored_text_material.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/color-v23/abc_btn_colored_text_material.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/color-v23/abc_btn_colored_borderless_text_material.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/color-v23/abc_btn_colored_borderless_text_material.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/color-v23/abc_tint_switch_track.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/color-v23/abc_tint_switch_track.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/color-v23/design_tint_password_toggle.xml",
+        "source": "/Users/sai/.android/build-cache/adb0a2f9b5b266b70f99ec61136259f31e8c190b/output/res/color-v23/design_tint_password_toggle.xml"
+    }
+]

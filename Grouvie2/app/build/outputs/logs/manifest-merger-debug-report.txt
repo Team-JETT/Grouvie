@@ -1,0 +1,107 @@
+-- Merging decision tree log ---
+manifest
+ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:2:1-26:12
+	package
+		ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:3:5-32
+		INJECTED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:2:11-69
+	android:versionCode
+		INJECTED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml
+application
+ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:5:5-24:19
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /Users/sai/.android/build-cache/c759278a47448b9bfb6ba4abd3e087f4fcb0fb9d/output/AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:design:25.3.1] /Users/sai/.android/build-cache/adb0a2f9b5b266b70f99ec61136259f31e8c190b/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/sai/.android/build-cache/497a5d934b2a4ec989531f51f6bfb5d54b111d9d/output/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/sai/.android/build-cache/7ff89310e72045e2a2316b5dd22f3d4be8eb9d9b/output/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:transition:25.3.1] /Users/sai/.android/build-cache/b52b12f9c5afdbd50baadd0cb184504b31c63da9/output/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-v4:25.3.1] /Users/sai/.android/build-cache/dd2a6d134a4266e999b0b3c9a2c6fbcbfc92815e/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/sai/.android/build-cache/fe907308bd468cf4712895db232b42a67bdcc08c/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/sai/.android/build-cache/e0c2c9cf71009ed6af6845314dcf0cecd845c0d0/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/sai/.android/build-cache/ee68aaaab9db28182f63cd9a82fb2b9d8c526672/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/sai/.android/build-cache/380ba058fe0492994653e311c167b9b40222dd17/output/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-compat:25.3.1] /Users/sai/.android/build-cache/99a02cea2e9a08e1c0040c4a7f501650982c7797/output/AndroidManifest.xml:29:5-20
+	android:label
+		ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:8:9-41
+	android:supportsRtl
+		ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:10:9-35
+	android:roundIcon
+		ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:9:9-54
+	android:allowBackup
+		ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:6:9-35
+	android:icon
+		ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:7:9-43
+	android:theme
+		ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:11:9-40
+activity#jett_apps.grouvie.MainActivity
+ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:12:9-18:20
+	android:name
+		ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:12:19-47
+intent-filter#android.intent.action.MAIN+android.intent.category.LAUNCHER
+ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:13:13-17:29
+action#android.intent.action.MAIN
+ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:14:17-69
+	android:name
+		ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:14:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:16:17-77
+	android:name
+		ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:16:27-74
+activity#jett_apps.grouvie.SelectFilm
+ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:19:9-22:59
+	android:label
+		ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:21:13-63
+	android:theme
+		ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:22:13-56
+	android:name
+		ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:20:13-39
+activity#jett_apps.grouvie.SelectShowtime
+ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:23:9-61
+	android:name
+		ADDED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml:23:19-49
+uses-sdk
+INJECTED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+MERGED from [com.android.support.constraint:constraint-layout:1.0.2] /Users/sai/.android/build-cache/c759278a47448b9bfb6ba4abd3e087f4fcb0fb9d/output/AndroidManifest.xml:5:5-7:41
+MERGED from [com.android.support:design:25.3.1] /Users/sai/.android/build-cache/adb0a2f9b5b266b70f99ec61136259f31e8c190b/output/AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/sai/.android/build-cache/497a5d934b2a4ec989531f51f6bfb5d54b111d9d/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/sai/.android/build-cache/7ff89310e72045e2a2316b5dd22f3d4be8eb9d9b/output/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/sai/.android/build-cache/1d3e1268d59cb133d8e56204122a9ab7b07e19c2/output/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:transition:25.3.1] /Users/sai/.android/build-cache/b52b12f9c5afdbd50baadd0cb184504b31c63da9/output/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-v4:25.3.1] /Users/sai/.android/build-cache/dd2a6d134a4266e999b0b3c9a2c6fbcbfc92815e/output/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/sai/.android/build-cache/fe907308bd468cf4712895db232b42a67bdcc08c/output/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/sai/.android/build-cache/e0c2c9cf71009ed6af6845314dcf0cecd845c0d0/output/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/sai/.android/build-cache/ee68aaaab9db28182f63cd9a82fb2b9d8c526672/output/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/sai/.android/build-cache/380ba058fe0492994653e311c167b9b40222dd17/output/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-compat:25.3.1] /Users/sai/.android/build-cache/99a02cea2e9a08e1c0040c4a7f501650982c7797/output/AndroidManifest.xml:21:5-23:58
+	tools:overrideLibrary
+		ADDED from [com.android.support:design:25.3.1] /Users/sai/.android/build-cache/adb0a2f9b5b266b70f99ec61136259f31e8c190b/output/AndroidManifest.xml:23:9-59
+	android:targetSdkVersion
+		INJECTED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/src/main/AndroidManifest.xml
+meta-data#android.support.VERSION
+ADDED from [com.android.support:design:25.3.1] /Users/sai/.android/build-cache/adb0a2f9b5b266b70f99ec61136259f31e8c190b/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/sai/.android/build-cache/497a5d934b2a4ec989531f51f6bfb5d54b111d9d/output/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/sai/.android/build-cache/7ff89310e72045e2a2316b5dd22f3d4be8eb9d9b/output/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/sai/.android/build-cache/1d3e1268d59cb133d8e56204122a9ab7b07e19c2/output/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:transition:25.3.1] /Users/sai/.android/build-cache/b52b12f9c5afdbd50baadd0cb184504b31c63da9/output/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-v4:25.3.1] /Users/sai/.android/build-cache/dd2a6d134a4266e999b0b3c9a2c6fbcbfc92815e/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/sai/.android/build-cache/fe907308bd468cf4712895db232b42a67bdcc08c/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/sai/.android/build-cache/e0c2c9cf71009ed6af6845314dcf0cecd845c0d0/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/sai/.android/build-cache/ee68aaaab9db28182f63cd9a82fb2b9d8c526672/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/sai/.android/build-cache/380ba058fe0492994653e311c167b9b40222dd17/output/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-compat:25.3.1] /Users/sai/.android/build-cache/99a02cea2e9a08e1c0040c4a7f501650982c7797/output/AndroidManifest.xml:25:5-27:34
+	android:value
+		ADDED from [com.android.support:design:25.3.1] /Users/sai/.android/build-cache/adb0a2f9b5b266b70f99ec61136259f31e8c190b/output/AndroidManifest.xml:27:9-31
+	android:name
+		ADDED from [com.android.support:design:25.3.1] /Users/sai/.android/build-cache/adb0a2f9b5b266b70f99ec61136259f31e8c190b/output/AndroidManifest.xml:26:9-47

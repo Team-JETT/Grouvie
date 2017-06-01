@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/layout-v21/notification_action.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/layout-v21/notification_action.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/layout-v21/notification_action_tombstone.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/layout-v21/notification_action_tombstone.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/layout-v21/notification_template_custom_big.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/layout-v21/notification_template_custom_big.xml"
+    },
+    {
+        "merged": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/res/merged/debug/layout-v21/notification_template_icon_group.xml",
+        "source": "/Users/sai/.android/build-cache/c0e5d7800bbd7a63a90183567150add0304f6286/output/res/layout-v21/notification_template_icon_group.xml"
+    }
+]

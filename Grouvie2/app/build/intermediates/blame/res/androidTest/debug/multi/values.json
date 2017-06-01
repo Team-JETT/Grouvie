@@ -1,0 +1,26 @@
+[
+    {
+        "outputFile": "/Users/sai/GoogleDrive/Imperial/Year2/Term3/webapps/Grouvie2/app/build/intermediates/incremental/mergeDebugAndroidTestResources/merged.dir/values/values.xml",
+        "map": [
+            {
+                "to": {
+                    "startLine": 2,
+                    "startColumn": 4,
+                    "startOffset": 55,
+                    "endColumn": 45,
+                    "endOffset": 96
+                },
+                "from": {
+                    "file": "/Users/sai/.android/build-cache/7d88d6518f5a5a7dbb9457f115fedeb7f7a9f315/output/res/values/values.xml",
+                    "position": {
+                        "startLine": 4,
+                        "startColumn": 4,
+                        "startOffset": 229,
+                        "endColumn": 45,
+                        "endOffset": 270
+                    }
+                }
+            }
+        ]
+    }
+]
