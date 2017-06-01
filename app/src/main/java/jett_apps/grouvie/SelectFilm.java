@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,6 +30,9 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SelectFilm extends AppCompatActivity implements LocationListener {
 
@@ -87,7 +91,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         StrictMode.setThreadPolicy(policy);
         HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost("http://129.31.228.213:5000/get_films");
+        HttpPost httpPost = new HttpPost("http://192.168.1.70:5000/get_films");
         JSONObject json = new JSONObject();
         try {
             json.accumulate("latitude", latitude);
@@ -116,23 +120,26 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         String result;
         if(is != null) {
-            result = is.toString();
+            result = convertStreamToString(is);
             Toast.makeText(getApplicationContext(), result,
                     Toast.LENGTH_LONG).show();
         } else {
             result = "Did not work!";
         }
+        String[] films = result.split(",");
+        Log.v("DANK MEMES", Arrays.toString(films));
 
 
-        final String[] showingFilmsArray = {"Guardians of the Galaxy Vol 2",
-                "The Fate of the Furious",
-                "Boss Baby",
-                "WonderWoman",
-                "Baywatch",
-                "Alien: Covenant",
-                "Beauty and the Beast",
-                "Lion",
-                "Pirates of the Caribbean"};
+        final String[] showingFilmsArray = result.split(",");
+//                {"Guardians of the Galaxy Vol 2",
+//                "The Fate of the Furious",
+//                "Boss Baby",
+//                "WonderWoman",
+//                "Baywatch",
+//                "Alien: Covenant",
+//                "Beauty and the Beast",
+//                "Lion",
+//                "Pirates of the Caribbean"};
         final String allocatedCinema = "Vue Westfield Stratford";
 
         ListAdapter filmAdapter = new ArrayAdapter<String>(this,
@@ -155,6 +162,11 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
             }
         );
 
+    }
+
+    public static String convertStreamToString(java.io.InputStream is) {
+        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+        return s.hasNext() ? s.next() : "";
     }
 
     @Override

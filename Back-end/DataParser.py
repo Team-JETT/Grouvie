@@ -64,7 +64,7 @@ class DataParser:
         self.get_cinemas_latlong(latitude, longitude)
         for i in CINEMA_IDS:
             self.get_films_for_cinema_id(i)
-        return set(FILMS)
+        return list(set(FILMS))
 
 
 

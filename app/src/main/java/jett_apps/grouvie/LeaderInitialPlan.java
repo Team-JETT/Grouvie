@@ -61,7 +61,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
 //        sc.doInBackground();
 
         HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost("http://129.31.228.213:5000/insert");
+        HttpPost httpPost = new HttpPost("http://192.168.1.70:5000/insert");
         JSONObject json = new JSONObject();
         try {
             json.accumulate("PHONE_NUMBER", "1");

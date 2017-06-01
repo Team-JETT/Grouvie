@@ -1,5 +1,6 @@
 *.iml
 ..*
+*.pyc
 .gitignore~
 .gradle
 /local.properties
