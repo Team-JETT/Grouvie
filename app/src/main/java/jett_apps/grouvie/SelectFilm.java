@@ -88,7 +88,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         StrictMode.setThreadPolicy(policy);
         HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost("http://172.31.0.97:5000/get_films");
+        HttpPost httpPost = new HttpPost("http://" + ServerContact.WebServerIP + ":5000/get_films");
         JSONObject json = new JSONObject();
         try {
             json.accumulate("latitude", latitude);
