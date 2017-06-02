@@ -30,8 +30,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.sql.Array;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class SelectFilm extends AppCompatActivity implements LocationListener {
@@ -91,7 +89,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         StrictMode.setThreadPolicy(policy);
         HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost("http://192.168.1.70:5000/get_films");
+        HttpPost httpPost = new HttpPost("http://172.31.0.97:5000/get_films");
         JSONObject json = new JSONObject();
         try {
             json.accumulate("latitude", latitude);
@@ -121,8 +119,8 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         String result;
         if(is != null) {
             result = convertStreamToString(is);
-            Toast.makeText(getApplicationContext(), result,
-                    Toast.LENGTH_LONG).show();
+//            Toast.makeText(getApplicationContext(), result,
+//                    Toast.LENGTH_LONG).show();
         } else {
             result = "Did not work!";
         }

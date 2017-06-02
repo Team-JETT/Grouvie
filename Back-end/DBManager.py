@@ -52,13 +52,22 @@ class DBManager:
         global cnxn, cursor
         conn_str = "dbname='g1627137_u' user='g1627137_u'" \
                    "host='db.doc.ic.ac.uk' password='Vk426n3Kjx'"
-        cnxn = psycopg2.connect(conn_str)
-        cnxn.autocommit = True
-        cursor = cnxn.cursor()
+        try:
+            cnxn = psycopg2.connect(conn_str)
+            cnxn.autocommit = True
+            cursor = cnxn.cursor()
+        except Exception as e:
+            message = e.message + "\nFailed to establish connection. " \
+                  "Check connection string."
+            exit(message)
 
     def close_connection(self):
-        cursor.close()
-        cnxn.close()
+        try:
+            cursor.close()
+            cnxn.close()
+        except Exception as e:
+            message = e.message + "\nFailed to close connection."
+            exit(message)
 
     def make_table(self):
         self.establish_connection()

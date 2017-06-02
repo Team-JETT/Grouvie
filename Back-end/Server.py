@@ -30,7 +30,7 @@ def get_films():
     latitude = location['latitude']
     longitude = location['longitude']
     films = dParser.get_films(latitude, longitude)
-    print ','.join(films)
+    print ', '.join(films)
     return ','.join(films)
 
 
