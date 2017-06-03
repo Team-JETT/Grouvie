@@ -9,8 +9,8 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class ServerContact {
-
-    static String WebServerIP = "129.31.246.37";
+    
+    static String WebServerIP = "52.88.244.134";
 
     protected Void doInBackground(JSONObject... params) throws IOException {
         URL url = new URL("http://" + WebServerIP + ":5000/insert");

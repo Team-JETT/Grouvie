@@ -127,6 +127,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         Log.v("DANK MEMES", Arrays.toString(films));
 
 
+        final String allocatedCinema = "Cineworld London - Fulham Road";
         final String[] showingFilmsArray = result.split(",");
 //                {"Guardians of the Galaxy Vol 2",
 //                "The Fate of the Furious",
@@ -137,7 +138,6 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 //                "Beauty and the Beast",
 //                "Lion",
 //                "Pirates of the Caribbean"};
-        final String allocatedCinema = "Vue Westfield Stratford";
 
         ListAdapter filmAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, showingFilmsArray);
