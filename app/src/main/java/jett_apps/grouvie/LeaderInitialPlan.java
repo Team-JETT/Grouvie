@@ -39,18 +39,11 @@ public class LeaderInitialPlan extends AppCompatActivity {
         ((TextView) findViewById(R.id.SelectedCinema)).setText(cinemaName);
         ((TextView) findViewById(R.id.SelectedShowtime)).setText(showtime);
 
-
     }
 
     public void sendToGroup(View view) throws IOException {
         //TODO: Send initial/draft plan to web server to update the database
         //TODO: Send current plan to rest of the group
-        enableStrictMode();
-//        ServerContact sc = new ServerContact();
-//        sc.doInBackground();
-
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost("http://" + ServerContact.WebServerIP + ":5000/insert");
 
         JSONObject json = new JSONObject();
         try {
@@ -66,21 +59,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        String json_str = json.toString();
-        StringEntity se = new StringEntity(json_str);
-        httpPost.setEntity(se);
-
-        httpPost.setHeader("Accept", "application/json");
-        httpPost.setHeader("Content-type", "application/json");
-        HttpResponse httpResponse = httpClient.execute(httpPost);
-        InputStream inputStream = httpResponse.getEntity().getContent();
-
-        String result;
-        if(inputStream != null) {
-            result = inputStream.toString();
-        } else {
-            result = "Did not work!";
-        }
+        new ServerContact().execute("insert", json.toString());
 
         Toast.makeText(getApplicationContext(), "Plan submitted to group", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, MainActivity.class);
@@ -89,7 +68,6 @@ public class LeaderInitialPlan extends AppCompatActivity {
 
     public void enableStrictMode() {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-
         StrictMode.setThreadPolicy(policy);
     }
 

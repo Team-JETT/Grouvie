@@ -1,73 +1,60 @@
 package jett_apps.grouvie;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import android.os.AsyncTask;
 
-import java.io.DataOutputStream;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 
-public class ServerContact {
-    
-    static String WebServerIP = "54.148.4.84";
+class ServerContact extends AsyncTask<String, Integer, String> {
 
-    protected Void doInBackground(JSONObject... params) throws IOException {
-        URL url = new URL("http://" + WebServerIP + ":5000/insert");
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+    final static String WebServerIP = "54.148.4.84";
 
-        connection.setDoOutput(true);
-        connection.setUseCaches(false);
+    /*
+     * HOW TO USE PARAMS:
+     * params[0] = URL to send data to.
+     * params[1] = String data to POST to that URL.
+     */
+    @Override
+    protected String doInBackground(String... params) {
 
-        connection.setRequestMethod("POST");
+        HttpClient httpClient = new DefaultHttpClient();
+        HttpPost httpPost = new HttpPost("http://" + WebServerIP + ":5000/" + params[0]);
 
-        connection.setRequestProperty("Content-Type", "application/json");
-
-        connection.setRequestProperty("charset", "utf-8");
-
-        DataOutputStream printout = new DataOutputStream(connection.getOutputStream());
-        JSONObject json = new JSONObject();
+        StringEntity se = null;
         try {
-            json.put("PHONE_NUMBER", "1");
-            json.put("GROUP_ID", 0);
-            json.put("SHOWTIME", "s");
-            json.put("FILM", "GOTG3");
-            json.put("PRICE", 32.22);
-            json.put("LOCATION_LAT", 52.111100);
-            json.put("LOCATION_LONG", 21.211122);
-            json.put("IMAGE", "HTTP");
-            json.put("IS_LEADER", "0");
-        } catch (JSONException e) {
+            // We only ever pass in 1 string so grab the first element in the array.
+            se = new StringEntity(params[1]);
+        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        printout.write(json.toString().getBytes("UTF8"));
+        httpPost.setEntity(se);
 
-        printout.flush();
-        printout.close();
+        httpPost.setHeader("Accept", "application/json");
+        httpPost.setHeader("Content-type", "application/json");
 
+        HttpResponse httpResponse;
+        InputStream inputStream = null;
+        try {
+            httpResponse = httpClient.execute(httpPost);
+            inputStream = httpResponse.getEntity().getContent();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-//        HttpClient httpClient = new DefaultHttpClient();
-//        HttpPost httpPost = new HttpPost("http://129.31.228.213:5000/insert");
-//        JSONObject json = new JSONObject();
-//        try {
-//            json.put("PHONE_NUMBER", "1");
-//            json.put("GROUP_ID", 0);
-//            json.put("SHOWTIME", "s");
-//            json.put("FILM", "GOTG3");
-//            json.put("PRICE", 32.22);
-//            json.put("LOCATION_LAT", 52.111100);
-//            json.put("LOCATION_LONG", 21.211122);
-//            json.put("IMAGE", "HTTP");
-//            json.put("IS_LEADER", "0");
-//        } catch (JSONException e) {
-//            e.printStackTrace();
-//        }
-//        try {
-//            HttpResponse response = httpClient.execute(httpPost);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//        return null;
-        return null;
+        return (inputStream != null) ?
+                convertStreamToString(inputStream) : "Did not work!";
     }
+
+    private static String convertStreamToString(java.io.InputStream is) {
+        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
+        return s.hasNext() ? s.next() : "";
+    }
+
 }

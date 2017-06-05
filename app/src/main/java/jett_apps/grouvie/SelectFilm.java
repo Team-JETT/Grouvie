@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 
 public class SelectFilm extends AppCompatActivity implements LocationListener {
 
@@ -84,11 +85,9 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 0, this);
 
 
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+//        StrictMode.setThreadPolicy(policy);
 
-        StrictMode.setThreadPolicy(policy);
-        HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost("http://" + ServerContact.WebServerIP + ":5000/get_films");
 
         JSONObject json = new JSONObject();
         try {
@@ -97,32 +96,11 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        String json_str = json.toString();
-        StringEntity se = null;
+        String result = null;
         try {
-            se = new StringEntity(json_str);
-        } catch (UnsupportedEncodingException e) {
+            result = new ServerContact().execute("get_films", json.toString()).get();
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
-        }
-        httpPost.setEntity(se);
-
-        httpPost.setHeader("Accept", "application/json");
-        httpPost.setHeader("Content-type", "application/json");
-        InputStream is = null;
-        try {
-            HttpResponse httpResponse = httpClient.execute(httpPost);
-            is = httpResponse.getEntity().getContent();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String result;
-        if(is != null) {
-            result = convertStreamToString(is);
-//            Toast.makeText(getApplicationContext(), result,
-//                    Toast.LENGTH_LONG).show();
-        } else {
-            result = "Did not work!";
         }
         String[] films = result.split(",");
         Log.v("DANK MEMES", Arrays.toString(films));
