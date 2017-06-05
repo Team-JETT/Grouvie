@@ -35,20 +35,20 @@ class DBTest:
 
     def testMakingOfTestTable(self):
         global dbManager, MAKE_TEST_TABLE
-        dbManager.establish_connection()
-        dbManager.cursor.execute(MAKE_TEST_TABLE)
+        cursor = dbManager.establish_connection()
+        cursor.execute(MAKE_TEST_TABLE)
         dbManager.close_connection()
 
     def testInsertingIntoTestTable(self):
         global dbManager, INSERT_INTO_TEST_TABLE
-        dbManager.establish_connection()
-        dbManager.cursor.execute(INSERT_INTO_TEST_TABLE)
+        cursor = dbManager.establish_connection()
+        cursor.execute(INSERT_INTO_TEST_TABLE)
         dbManager.close_connection()
 
     def testReadingFromTestTableAndVerifyData(self):
         global dbManager, SELECT_ALL_IN_TABLE
-        dbManager.establish_connection()
-        dbManager.cursor.execute(SELECT_ALL_IN_TABLE)
+        cursor = dbManager.establish_connection()
+        cursor.execute(SELECT_ALL_IN_TABLE)
         result = dbManager.cursor.fetchall()
         dbManager.close_connection()
         print result

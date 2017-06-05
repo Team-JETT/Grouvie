@@ -56,6 +56,7 @@ class DBManager:
             cnxn = psycopg2.connect(conn_str)
             cnxn.autocommit = True
             cursor = cnxn.cursor()
+            return cursor
         except Exception as e:
             message = e.message + "\nFailed to establish connection. " \
                   "Check connection string."

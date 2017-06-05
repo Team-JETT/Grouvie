@@ -1,26 +1,19 @@
 package jett_apps.grouvie;
 
-import android.os.AsyncTask;
-
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
 
 public class ServerContact {
 
+    static String WebServerIP = "52.88.244.134";
+
     protected Void doInBackground(JSONObject... params) throws IOException {
-        URL url = new URL("http://129.31.228.213:5000/insert");
+        URL url = new URL("http://" + WebServerIP + ":5000/insert");
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
         connection.setDoOutput(true);
