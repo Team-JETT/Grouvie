@@ -10,7 +10,7 @@ import java.net.URL;
 
 public class ServerContact {
     
-    static String WebServerIP = "52.88.244.134";
+    static String WebServerIP = "54.148.4.84";
 
     protected Void doInBackground(JSONObject... params) throws IOException {
         URL url = new URL("http://" + WebServerIP + ":5000/insert");
