@@ -1,7 +1,6 @@
 package jett_apps.grouvie;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
@@ -10,25 +9,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 import static jett_apps.grouvie.SelectFilm.CINEMA_MESSAGE;
 import static jett_apps.grouvie.SelectFilm.FILM_MESSAGE;
@@ -61,7 +50,8 @@ public class LeaderInitialPlan extends AppCompatActivity {
 //        sc.doInBackground();
 
         HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost("http://129.31.229.213:5000/insert");
+        HttpPost httpPost = new HttpPost("http://" + ServerContact.WebServerIP + ":5000/insert");
+
         JSONObject json = new JSONObject();
         try {
             json.accumulate("PHONE_NUMBER", "1");

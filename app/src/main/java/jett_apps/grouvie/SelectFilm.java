@@ -17,7 +17,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -89,7 +88,8 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         StrictMode.setThreadPolicy(policy);
         HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost("http://129.31.229.213:5000/get_films");
+        HttpPost httpPost = new HttpPost("http://" + ServerContact.WebServerIP + ":5000/get_films");
+
         JSONObject json = new JSONObject();
         try {
             json.accumulate("latitude", latitude);
@@ -128,6 +128,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         Log.v("DANK MEMES", Arrays.toString(films));
 
 
+        final String allocatedCinema = "Cineworld London - Fulham Road";
         final String[] showingFilmsArray = result.split(",");
 //                {"Guardians of the Galaxy Vol 2",
 //                "The Fate of the Furious",
@@ -138,7 +139,6 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 //                "Beauty and the Beast",
 //                "Lion",
 //                "Pirates of the Caribbean"};
-        final String allocatedCinema = "Vue Westfield Stratford";
 
         ListAdapter filmAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, showingFilmsArray);

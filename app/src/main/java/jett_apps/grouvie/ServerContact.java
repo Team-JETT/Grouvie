@@ -9,7 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class ServerContact {
-
+    
     static String WebServerIP = "52.88.244.134";
 
     protected Void doInBackground(JSONObject... params) throws IOException {
