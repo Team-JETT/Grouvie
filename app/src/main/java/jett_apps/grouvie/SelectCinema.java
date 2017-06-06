@@ -23,7 +23,6 @@ public class SelectCinema extends AppCompatActivity {
 
         Intent intent = getIntent();
         final String filmTitle = intent.getStringExtra(FILM_MESSAGE);
-        //TODO: 
         ((TextView) findViewById(R.id.chosen_film)).setText(filmTitle);
 
         //TODO: Obtain from web server
