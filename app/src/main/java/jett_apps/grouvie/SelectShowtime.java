@@ -10,8 +10,15 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 import static jett_apps.grouvie.SelectFilm.CINEMA_MESSAGE;
 import static jett_apps.grouvie.SelectFilm.FILM_MESSAGE;
+import static jett_apps.grouvie.SelectFilm.LOCAL_DATA;
 import static jett_apps.grouvie.SelectFilm.SHOWTIME_MESSAGE;
 
 public class SelectShowtime extends AppCompatActivity {
@@ -25,9 +32,10 @@ public class SelectShowtime extends AppCompatActivity {
         Intent intent = getIntent();
         final String filmTitle  = intent.getStringExtra(FILM_MESSAGE);
         final String cinemaName = intent.getStringExtra(CINEMA_MESSAGE);
+        final String localData = intent.getStringExtra(LOCAL_DATA);
         ((TextView) findViewById(R.id.tutorial_text)).setText(filmTitle);
 
-        //TODO: Obtain from web server
+
         final String[] showtimesArray = {"09:00", "10:12", "11:40", "13:35", "15:50", "17:05",
                 "18:45", "19:18", "20:32", "21:00", "22:12", "23:02"};
 

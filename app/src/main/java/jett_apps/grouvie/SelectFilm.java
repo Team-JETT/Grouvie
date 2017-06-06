@@ -8,7 +8,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,18 +17,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
 public class SelectFilm extends AppCompatActivity implements LocationListener {
@@ -37,6 +29,8 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
     public static final String FILM_MESSAGE = "FILMTITLE";
     public static final String CINEMA_MESSAGE= "CINEMATITLE";
     public static final String SHOWTIME_MESSAGE = "SHOWTIME";
+    public static final String LOCAL_DATA = "LOCALDATA";
+
 
     Location location;
     double latitude = 51.499074;
@@ -68,7 +62,6 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         }
 
 
-
         location = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         if (location != null) {
             onLocationChanged(location);
@@ -84,11 +77,6 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 0, this);
 
-
-//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-//        StrictMode.setThreadPolicy(policy);
-
-
         JSONObject json = new JSONObject();
         try {
             json.accumulate("latitude", latitude);
@@ -98,28 +86,30 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         }
         String result = null;
         try {
-            result = new ServerContact().execute("get_films", json.toString()).get();
+            result = new ServerContact().execute("get_local_data", json.toString()).get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        String[] films = result.split(",");
-        Log.v("DANK MEMES", Arrays.toString(films));
-
+        JSONObject local_data = null;
+        try {
+            if (result == null) {
+                Log.e("DANK MEMES", "Failed to get anything back from web server.");
+            }
+            local_data = new JSONObject(result);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        final ArrayList<String> films = new ArrayList<>(local_data.length());
+        Iterator<String> iter = local_data.keys();
+        while (iter.hasNext()) {
+            films.add(iter.next());
+        }
 
         final String allocatedCinema = "Cineworld London - Fulham Road";
-        final String[] showingFilmsArray = result.split(",");
-//                {"Guardians of the Galaxy Vol 2",
-//                "The Fate of the Furious",
-//                "Boss Baby",
-//                "WonderWoman",
-//                "Baywatch",
-//                "Alien: Covenant",
-//                "Beauty and the Beast",
-//                "Lion",
-//                "Pirates of the Caribbean"};
+        final JSONObject final_Local_data = local_data;
 
         ListAdapter filmAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, showingFilmsArray);
+                android.R.layout.simple_list_item_1, films);
         ListView filmsListView = (ListView) findViewById(R.id.filmList);
         filmsListView.setAdapter(filmAdapter);
 
@@ -129,20 +119,16 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String filmTitle = showingFilmsArray[position];
+                    String filmTitle = films.get(position);
                     Intent intent = new Intent(view.getContext(), SelectShowtime.class);
                     intent.putExtra(FILM_MESSAGE, filmTitle);
                     intent.putExtra(CINEMA_MESSAGE, allocatedCinema);
+                    intent.putExtra(LOCAL_DATA, final_Local_data.toString());
                     startActivity(intent);
                 }
             }
         );
 
-    }
-
-    public static String convertStreamToString(java.io.InputStream is) {
-        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
-        return s.hasNext() ? s.next() : "";
     }
 
     @Override

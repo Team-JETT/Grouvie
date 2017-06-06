@@ -14,7 +14,7 @@ import java.io.UnsupportedEncodingException;
 
 class ServerContact extends AsyncTask<String, Integer, String> {
 
-    final static String WebServerIP = "54.148.4.84";
+    final static String WebServerIP = "192.168.1.70";//"54.148.4.84";
 
     /*
      * HOW TO USE PARAMS:

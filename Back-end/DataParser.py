@@ -2,22 +2,22 @@
 
 import requests
 import re
+import pprint
 
 MILE_TO_KM = 1.60934
-FILM_MATCH_REGEX = r"(?P<film>[^\(]*)"
 CINEMA_MATCH_REGEX = r"(?P<cinema>[^,]*)"
-
 
 
 # TODO: PLEASE DON'T USE THESE METHODS TOO MUCH. THEY ACTUALLY QUERY THE API.
 # IF YOU'RE GOING TO USE A LOT, SAVE THE DATA YOURSELF FOR TESTING.
-FILMS = []
-TIMES = []
 CINEMAS = []
-CINEMA_IDS = []
-DISTANCES = []
-F_TO_CID = {}
+CINEMA_CID = {}
+CINEMA_DIST = {}
+F_TO_CINEMAS = {}
 FCID_TO_TIMES = {}
+F_CINEMA_TO_TIMES = {}
+
+
 class DataParser:
 
     """
@@ -25,7 +25,7 @@ class DataParser:
     DISTANCES lists are populated with (up to) 5 results.
     """
     def get_cinemas_latlong(self, latitude, longitude):
-        global CINEMA_IDS, DISTANCES, CINEMAS
+        global CINEMAS, CINEMA_CID, CINEMA_DIST
         film_names = requests.get(
             "https://api.cinelist.co.uk/search/cinemas/coordinates/{}/{}".
                 format(latitude, longitude))
@@ -33,56 +33,51 @@ class DataParser:
         for i in cinemas:
             # Runs regex over cinemas to remove the location
             cinema_name = re.match(CINEMA_MATCH_REGEX, i['name']).group("cinema")
-            CINEMAS.append(cinema_name)
-            # Bind the Cinema ID's to their cinema names
-            CINEMA_IDS.append(i['id'])
-            # Converts distance from mile to km and rounds to 3dp
-            DISTANCES.append(round(i['distance'] * MILE_TO_KM, 3))
+            # Dict storing {cinema name: cinema ID}
+            CINEMA_CID[cinema_name] = i['id']
+            # Converts distance from mile to km and rounds to 3dp.
+            # Dict storing {cinema name: distance}
+            CINEMA_DIST[cinema_name] = round(i['distance'] * MILE_TO_KM, 3)
 
     """
     Give this function a cinema ID and day and we can populate FILMS with all 
     film showings and times.
     :param day: If no day provided, assume today.
     """
-    def get_films_for_cinema_id(self, cinema_id):
-        global FILMS, TIMES, F_TO_CID, FCID_TO_TIMES
-        films = requests.get(
-            "http://api.cinelist.co.uk/get/times/cinema/{}".format(cinema_id))
-        for i in films.json()['listings']:
-            filmname = i['title']
-            times = i['times']
-            FILMS.append(filmname)
-            TIMES.append(times)
-            if filmname in F_TO_CID:
-                F_TO_CID[filmname].append(cinema_id)
-            else:
-                F_TO_CID[filmname] = [cinema_id]
-            FCID_TO_TIMES[(filmname, cinema_id)] = times
+    def get_films_for_cinema(self):
+        global CINEMA_CID, CINEMA_DIST
+        local_data = {}
+        for cinema in CINEMA_CID.keys():
+            # Get the cinema ID for a given cinema,
+            # E.g. Cineworld London - Enfield: 10477
+            cinema_id = CINEMA_CID[cinema]
+            # Get list of films showing at this cinema
+            films = requests.get(
+                "http://api.cinelist.co.uk/get/times/cinema/{}".format(cinema_id))
+            # Create a JSON object storing film name, cinema, showtimes and
+            # distance to the cinema.
+            for i in films.json()['listings']:
+                filmname = i['title']
+                times = i['times']
+                if filmname in local_data:
+                    local_data[filmname].append(
+                        {cinema: {"showtimes": times},
+                         "distance": CINEMA_DIST[cinema]})
+                else:
+                    local_data[filmname] = [{cinema: {"showtimes": times},
+                                             "distance": CINEMA_DIST[cinema]}]
+        return local_data
 
-    """Get all films showing in your local cinemas."""
-    def get_films(self, latitude, longitude):
+    """Get all film data for your local area."""
+    def get_local_data(self, latitude, longitude):
         self.get_cinemas_latlong(latitude, longitude)
-        for i in CINEMA_IDS:
-            self.get_films_for_cinema_id(i)
-        return list(set(FILMS))
-
-
-    """Get all cinemas in your area showing a given film."""
-    def get_cinemas(self, filmname):
-        global F_TO_CID, CINEMA_IDS, CINEMAS
-        cids = F_TO_CID[filmname]
-        cinemas_showing_film = []
-        for cid in cids:
-            cid_index = CINEMA_IDS.index(cid)
-            cinemas_showing_film.append(CINEMAS[cid_index])
-        return cinemas_showing_film
-
+        return self.get_films_for_cinema()
 
 
 if __name__ == '__main__':
     dParser = DataParser()
-    print dParser.get_films(51.636743, -0.069069)
-    print dParser.get_cinemas("The Boss Baby")
+    pprint.PrettyPrinter(indent=4).pprint(
+        dParser.get_local_data(51.636743, -0.069069))
 
 
 

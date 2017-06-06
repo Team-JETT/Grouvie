@@ -65,11 +65,5 @@ public class LeaderInitialPlan extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
-    public void enableStrictMode() {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-    }
-
 }
 
