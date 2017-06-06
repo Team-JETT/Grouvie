@@ -105,13 +105,16 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         filmsListView.setAdapter(filmAdapter);
 
 
+
+        //Now goes to group selection instead.
+
         filmsListView.setOnItemClickListener(
             new AdapterView.OnItemClickListener() {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String filmTitle = showingFilmsArray[position];
-                    Intent intent = new Intent(view.getContext(), SelectCinema.class);
+                    Intent intent = new Intent(view.getContext(), GroupSelection.class);
                     intent.putExtra(FILM_MESSAGE, filmTitle);
                     startActivity(intent);
                 }

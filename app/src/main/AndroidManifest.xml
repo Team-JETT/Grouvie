@@ -31,7 +31,11 @@
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
 
-        <activity android:name=".SelectCinema"></activity>
+        <activity android:name=".SelectCinema" />
+        <activity
+            android:name=".GroupSelection"
+            android:label="@string/title_activity_group_selection"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
