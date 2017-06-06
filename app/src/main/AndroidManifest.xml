@@ -25,8 +25,14 @@
             android:label="@string/title_activity_select_film"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".SelectShowtime" />
-        <activity android:name=".LeaderInitialPlan"></activity>
-        <meta-data android:name="net.hockeyapp.android.appIdentifier" android:value="${HOCKEYAPP_APP_ID}" />
+        <activity android:name=".LeaderInitialPlan" />
+
+        <meta-data
+            android:name="net.hockeyapp.android.appIdentifier"
+            android:value="${HOCKEYAPP_APP_ID}" />
+
+        <activity android:name=".SelectCinema" />
+        <activity android:name=".SelectDay"></activity>
     </application>
 
 </manifest>

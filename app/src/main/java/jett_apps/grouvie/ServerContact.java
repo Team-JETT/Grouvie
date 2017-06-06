@@ -14,7 +14,9 @@ import java.io.UnsupportedEncodingException;
 
 class ServerContact extends AsyncTask<String, Integer, String> {
 
-    final static String WebServerIP = "192.168.1.70";//"54.148.4.84";
+//    final static String WebServerAddr = "54.148.4.84";
+
+    final static String WebServerAddr = "https://murmuring-peak-87447.herokuapp.com/";
 
     /*
      * HOW TO USE PARAMS:
@@ -25,7 +27,8 @@ class ServerContact extends AsyncTask<String, Integer, String> {
     protected String doInBackground(String... params) {
 
         HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost("http://" + WebServerIP + ":5000/" + params[0]);
+        HttpPost httpPost = new HttpPost(WebServerAddr + params[0]);
+//        HttpPost httpPost = new HttpPost("http://" + WebServerAddr + ":5000/" + params[0]);
 
         StringEntity se = null;
         try {

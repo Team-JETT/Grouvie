@@ -10,41 +10,30 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-
-import static jett_apps.grouvie.SelectDay.LOCAL_DATA;
 import static jett_apps.grouvie.SelectDay.CINEMA_MESSAGE;
 import static jett_apps.grouvie.SelectDay.DAY_MESSAGE;
 import static jett_apps.grouvie.SelectDay.FILM_MESSAGE;
-import static jett_apps.grouvie.SelectDay.SHOWTIME_MESSAGE;
 
-public class SelectShowtime extends AppCompatActivity {
-
+public class SelectCinema extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_showtime);
+        setContentView(R.layout.activity_select_cinema);
 
         Intent intent = getIntent();
-        final String chosenFilm  = intent.getStringExtra(FILM_MESSAGE);
-        final String chosenCinema = intent.getStringExtra(CINEMA_MESSAGE);
+        final String chosenFilm = intent.getStringExtra(FILM_MESSAGE);
         final String chosenDay = intent.getStringExtra(DAY_MESSAGE);
-        final String localData = intent.getStringExtra(LOCAL_DATA);
-        ((TextView) findViewById(R.id.chosenFilm)).setText(chosenFilm);
-        ((TextView) findViewById(R.id.chosenCinema)).setText(chosenCinema);
+        ((TextView) findViewById(R.id.chosen_film)).setText(chosenFilm);
 
-
-        final String[] showtimesArray = {"09:00", "10:12", "11:40", "13:35", "15:50", "17:05",
-                "18:45", "19:18", "20:32", "21:00", "22:12", "23:02"};
+        //TODO: Obtain from web server
+        final String[] cinemasArray = {"Cineworld - Fulham Road", "Vue - Shepard's Bush",
+                "Odeon"};
 
         ListAdapter showtimeAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, showtimesArray);
-        ListView showtimeListView = (ListView) findViewById(R.id.timeList);
+                android.R.layout.simple_list_item_1, cinemasArray);
+        ListView showtimeListView = (ListView) findViewById(R.id.cinemaList);
         showtimeListView.setAdapter(showtimeAdapter);
 
         showtimeListView.setOnItemClickListener(
@@ -52,18 +41,17 @@ public class SelectShowtime extends AppCompatActivity {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String chosenTime = showtimesArray[position];
+                    String chosenCinema = cinemasArray[position];
 
                     //Sending the current plan to the final planning page
-                    Intent intent = new Intent(view.getContext(), LeaderInitialPlan.class);
+                    Intent intent = new Intent(view.getContext(), SelectShowtime.class);
                     intent.putExtra(FILM_MESSAGE, chosenFilm);
-                    intent.putExtra(CINEMA_MESSAGE, chosenCinema);
                     intent.putExtra(DAY_MESSAGE, chosenDay);
-                    intent.putExtra(SHOWTIME_MESSAGE, chosenTime);
+                    intent.putExtra(CINEMA_MESSAGE, chosenCinema);
                     startActivity(intent);
 
-                    }
                 }
+            }
         );
 
     }

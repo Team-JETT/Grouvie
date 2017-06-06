@@ -1,5 +1,6 @@
 import json
 
+from os import environ
 from flask import Flask, request
 from DBManager import DBManager
 from DataParser import DataParser
@@ -36,4 +37,5 @@ if __name__ == "__main__":
     global dbManager, dParser
     dbManager = DBManager()
     dParser = DataParser()
+    port = int(environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=5000)

@@ -24,13 +24,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
+import static jett_apps.grouvie.SelectDay.DAY_MESSAGE;
+import static jett_apps.grouvie.SelectDay.FILM_MESSAGE;
+import static jett_apps.grouvie.SelectDay.LOCAL_DATA;
+
+
 public class SelectFilm extends AppCompatActivity implements LocationListener {
-
-    public static final String FILM_MESSAGE = "FILMTITLE";
-    public static final String CINEMA_MESSAGE= "CINEMATITLE";
-    public static final String SHOWTIME_MESSAGE = "SHOWTIME";
-    public static final String LOCAL_DATA = "LOCALDATA";
-
 
     Location location;
     double latitude = 51.499074;
@@ -96,10 +95,11 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                 Log.e("DANK MEMES", "Failed to get anything back from web server.");
             }
             local_data = new JSONObject(result);
+            Log.v("DANK MEMES:", local_data.toString());
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        final ArrayList<String> films = new ArrayList<>(local_data.length());
+        final ArrayList<String> films = new ArrayList<>();
         Iterator<String> iter = local_data.keys();
         while (iter.hasNext()) {
             films.add(iter.next());
@@ -120,9 +120,13 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String filmTitle = films.get(position);
-                    Intent intent = new Intent(view.getContext(), SelectShowtime.class);
+
+                    Intent prevIntent = getIntent();
+                    String chosenDay = prevIntent.getStringExtra(DAY_MESSAGE);
+
+                    Intent intent = new Intent(view.getContext(), SelectCinema.class);
                     intent.putExtra(FILM_MESSAGE, filmTitle);
-                    intent.putExtra(CINEMA_MESSAGE, allocatedCinema);
+                    intent.putExtra(DAY_MESSAGE, chosenDay);
                     intent.putExtra(LOCAL_DATA, final_Local_data.toString());
                     startActivity(intent);
                 }

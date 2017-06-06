@@ -12,7 +12,9 @@ tools:context="jett_apps.grouvie.SelectShowtime">
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:headerDividersEnabled="false"
-        android:paddingTop="70dp" />
+        android:layout_below="@+id/chosenCinema"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 <include
     android:id="@+id/showingShowtimes"
@@ -35,15 +37,26 @@ tools:context="jett_apps.grouvie.SelectShowtime">
     android:layout_centerHorizontal="true" />
 
     <TextView
-        android:id="@+id/tutorial_text"
+        android:id="@+id/chosenFilm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:text="@string/filmtitle"
-        android:textSize="30sp"
+        android:text="@string/chosenfilm"
+        android:textSize="20sp"
         app:layout_anchorGravity="top|center_horizontal"
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:id="@+id/chosenCinema"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chosenFilm"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="bottom|center_horizontal"
+        android:text="@string/chosencinema"
+        android:textSize="20sp"
+        app:layout_anchorGravity="top|center_horizontal" />
 
     <android.support.design.widget.AppBarLayout
     android:layout_width="match_parent"
