@@ -37,6 +37,7 @@ after_success:
 
 deploy:
   provider: heroku
+  buildpack: ruby
   api_key:
     secure: 5410f47f-8142-43fd-b103-9d6b4c1bccfe
   app: grouvie
