@@ -8,7 +8,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -18,17 +17,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
@@ -106,17 +97,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         Log.v("DANK MEMES", Arrays.toString(films));
 
 
-        final String allocatedCinema = "Cineworld London - Fulham Road";
         final String[] showingFilmsArray = result.split(",");
-//                {"Guardians of the Galaxy Vol 2",
-//                "The Fate of the Furious",
-//                "Boss Baby",
-//                "WonderWoman",
-//                "Baywatch",
-//                "Alien: Covenant",
-//                "Beauty and the Beast",
-//                "Lion",
-//                "Pirates of the Caribbean"};
 
         ListAdapter filmAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, showingFilmsArray);
@@ -130,9 +111,8 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String filmTitle = showingFilmsArray[position];
-                    Intent intent = new Intent(view.getContext(), SelectShowtime.class);
+                    Intent intent = new Intent(view.getContext(), SelectCinema.class);
                     intent.putExtra(FILM_MESSAGE, filmTitle);
-                    intent.putExtra(CINEMA_MESSAGE, allocatedCinema);
                     startActivity(intent);
                 }
             }

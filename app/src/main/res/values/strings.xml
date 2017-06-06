@@ -4,4 +4,6 @@
     <string name="select_a_showtime">Select A Showtime</string>
     <string name="filmtitle">FilmTitle</string>
     <string name="current_plan">Current Plan</string>
+    <string name="chosencinema">chosenCinema</string>
+    <string name="chosenfilm">chosenFilm</string>
 </resources>

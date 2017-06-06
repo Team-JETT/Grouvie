@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="jett_apps.grouvie.SelectFilm">
+    tools:context="jett_apps.grouvie.SelectShowtime">
 
     <ListView
-        android:id="@+id/filmList"
+        android:id="@+id/cinemaList"
         style="@style/Widget.AppCompat.Light.ListView.DropDown"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -15,31 +15,41 @@
         android:paddingTop="70dp" />
 
     <include
-        android:id="@+id/showingCinemasList"
+        android:id="@+id/showingCinemas"
         layout="@layout/content_select_film"
         android:layout_width="match_parent"
+        android:layout_height="500dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true" />
 
     <TextView
         android:id="@+id/textView3"
-        android:textSize="30dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="bottom|center_horizontal"
+        android:text="Select a Cinema"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        app:layout_anchorGravity="top|center_horizontal" />
+
+    <TextView
+        android:id="@+id/chosen_film"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center_horizontal"
-        android:text="Select A Film"
-        app:layout_anchor="@+id/showingCinemasList"
+        android:text="@string/filmtitle"
+        android:textSize="20sp"
         app:layout_anchorGravity="top|center_horizontal"
-        android:layout_below="@+id/appBarLayout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp" />
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true" />
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay"
-        android:id="@+id/appBarLayout"
-        android:layout_alignParentTop="true">
+        android:id="@+id/appBarLayout">
 
 
     </android.support.design.widget.AppBarLayout>
