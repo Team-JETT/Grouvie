@@ -25,7 +25,8 @@ class ServerContact extends AsyncTask<String, Integer, String> {
     protected String doInBackground(String... params) {
 
         HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost("http://" + WebServerIP + ":5000/" + params[0]);
+        HttpPost httpPost = new HttpPost("https://murmuring-peak-87447.herokuapp.com/" + params[0]);
+        //HttpPost httpPost = new HttpPost("http://" + WebServerIP + ":5000/" + params[0]);
 
         StringEntity se = null;
         try {
