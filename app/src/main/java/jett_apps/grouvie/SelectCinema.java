@@ -10,8 +10,9 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import static jett_apps.grouvie.SelectFilm.CINEMA_MESSAGE;
-import static jett_apps.grouvie.SelectFilm.FILM_MESSAGE;
+import static jett_apps.grouvie.SelectDay.CINEMA_MESSAGE;
+import static jett_apps.grouvie.SelectDay.DAY_MESSAGE;
+import static jett_apps.grouvie.SelectDay.FILM_MESSAGE;
 
 public class SelectCinema extends AppCompatActivity {
 
@@ -22,8 +23,9 @@ public class SelectCinema extends AppCompatActivity {
         setContentView(R.layout.activity_select_cinema);
 
         Intent intent = getIntent();
-        final String filmTitle = intent.getStringExtra(FILM_MESSAGE);
-        ((TextView) findViewById(R.id.chosen_film)).setText(filmTitle);
+        final String chosenFilm = intent.getStringExtra(FILM_MESSAGE);
+        final String chosenDay = intent.getStringExtra(DAY_MESSAGE);
+        ((TextView) findViewById(R.id.chosen_film)).setText(chosenFilm);
 
         //TODO: Obtain from web server
         final String[] cinemasArray = {"Cineworld - Fulham Road", "Vue - Shepard's Bush",
@@ -43,7 +45,8 @@ public class SelectCinema extends AppCompatActivity {
 
                     //Sending the current plan to the final planning page
                     Intent intent = new Intent(view.getContext(), SelectShowtime.class);
-                    intent.putExtra(FILM_MESSAGE, filmTitle);
+                    intent.putExtra(FILM_MESSAGE, chosenFilm);
+                    intent.putExtra(DAY_MESSAGE, chosenDay);
                     intent.putExtra(CINEMA_MESSAGE, chosenCinema);
                     startActivity(intent);
 

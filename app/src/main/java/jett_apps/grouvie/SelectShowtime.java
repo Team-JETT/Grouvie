@@ -10,9 +10,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import static jett_apps.grouvie.SelectFilm.CINEMA_MESSAGE;
-import static jett_apps.grouvie.SelectFilm.FILM_MESSAGE;
-import static jett_apps.grouvie.SelectFilm.SHOWTIME_MESSAGE;
+import static jett_apps.grouvie.SelectDay.CINEMA_MESSAGE;
+import static jett_apps.grouvie.SelectDay.DAY_MESSAGE;
+import static jett_apps.grouvie.SelectDay.FILM_MESSAGE;
+import static jett_apps.grouvie.SelectDay.SHOWTIME_MESSAGE;
 
 public class SelectShowtime extends AppCompatActivity {
 
@@ -23,10 +24,11 @@ public class SelectShowtime extends AppCompatActivity {
         setContentView(R.layout.activity_select_showtime);
 
         Intent intent = getIntent();
-        final String filmTitle  = intent.getStringExtra(FILM_MESSAGE);
-        final String cinemaName = intent.getStringExtra(CINEMA_MESSAGE);
-        ((TextView) findViewById(R.id.chosenFilm)).setText(filmTitle);
-        ((TextView) findViewById(R.id.chosenCinema)).setText(cinemaName);
+        final String chosenFilm  = intent.getStringExtra(FILM_MESSAGE);
+        final String chosenCinema = intent.getStringExtra(CINEMA_MESSAGE);
+        final String chosenDay = intent.getStringExtra(DAY_MESSAGE);
+        ((TextView) findViewById(R.id.chosenFilm)).setText(chosenFilm);
+        ((TextView) findViewById(R.id.chosenCinema)).setText(chosenCinema);
 
         //TODO: Obtain from web server
         final String[] showtimesArray = {"09:00", "10:12", "11:40", "13:35", "15:50", "17:05",
@@ -42,13 +44,14 @@ public class SelectShowtime extends AppCompatActivity {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String showTime = showtimesArray[position];
+                    String chosenTime = showtimesArray[position];
 
                     //Sending the current plan to the final planning page
                     Intent intent = new Intent(view.getContext(), LeaderInitialPlan.class);
-                    intent.putExtra(FILM_MESSAGE, filmTitle);
-                    intent.putExtra(CINEMA_MESSAGE, cinemaName);
-                    intent.putExtra(SHOWTIME_MESSAGE, showTime);
+                    intent.putExtra(FILM_MESSAGE, chosenFilm);
+                    intent.putExtra(CINEMA_MESSAGE, chosenCinema);
+                    intent.putExtra(DAY_MESSAGE, chosenDay);
+                    intent.putExtra(SHOWTIME_MESSAGE, chosenTime);
                     startActivity(intent);
 
                     }

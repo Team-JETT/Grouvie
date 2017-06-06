@@ -23,11 +23,10 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
-public class SelectFilm extends AppCompatActivity implements LocationListener {
+import static jett_apps.grouvie.SelectDay.DAY_MESSAGE;
+import static jett_apps.grouvie.SelectDay.FILM_MESSAGE;
 
-    public static final String FILM_MESSAGE = "FILMTITLE";
-    public static final String CINEMA_MESSAGE= "CINEMATITLE";
-    public static final String SHOWTIME_MESSAGE = "SHOWTIME";
+public class SelectFilm extends AppCompatActivity implements LocationListener {
 
     Location location;
     double latitude = 51.499074;
@@ -111,8 +110,13 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String filmTitle = showingFilmsArray[position];
+
+                    Intent prevIntent = getIntent();
+                    String chosenDay = prevIntent.getStringExtra(DAY_MESSAGE);
+
                     Intent intent = new Intent(view.getContext(), SelectCinema.class);
                     intent.putExtra(FILM_MESSAGE, filmTitle);
+                    intent.putExtra(DAY_MESSAGE, chosenDay);
                     startActivity(intent);
                 }
             }

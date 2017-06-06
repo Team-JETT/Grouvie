@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void startPlanning(View view) {
-        Intent intent = new Intent(this, SelectFilm.class);
+        Intent intent = new Intent(this, SelectDay.class);
         startActivity(intent);
     }
 
