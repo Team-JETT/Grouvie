@@ -18,10 +18,6 @@ public class MainActivity extends AppCompatActivity {
     public static final String DAY_MESSAGE = "EVENTDAY";
     public static final String LOCAL_DATA = "LOCALDATA";
 
-    private int mYear;
-    private int mDay;
-    private int mMonth;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +28,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, SelectFilm.class);
 
         final Calendar c = Calendar.getInstance();
-        mYear = c.get(Calendar.YEAR);
-        mMonth = c.get(Calendar.MONTH);
-        mDay = c.get(Calendar.DAY_OF_MONTH);
+        c.add(Calendar.DAY_OF_MONTH, 1);
+        Calendar cMax = Calendar.getInstance();
+        cMax.add(Calendar.DAY_OF_MONTH, 7);
+        int mYear = c.get(Calendar.YEAR);
+        int mMonth = c.get(Calendar.MONTH);
+        int mDay = c.get(Calendar.DAY_OF_MONTH);
 
 
         DatePickerDialog datePickerDialog =
@@ -56,6 +55,8 @@ public class MainActivity extends AppCompatActivity {
                 }
             }, mYear, mMonth, mDay);
 
+        datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
+        datePickerDialog.getDatePicker().setMaxDate(cMax.getTimeInMillis());
         datePickerDialog.show();
 
     }
