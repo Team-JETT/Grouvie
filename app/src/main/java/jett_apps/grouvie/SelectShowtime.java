@@ -10,10 +10,10 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import static jett_apps.grouvie.MainActivity.CINEMA_DATA;
 import static jett_apps.grouvie.MainActivity.CINEMA_MESSAGE;
 import static jett_apps.grouvie.MainActivity.DAY_MESSAGE;
 import static jett_apps.grouvie.MainActivity.FILM_MESSAGE;
-import static jett_apps.grouvie.MainActivity.LOCAL_DATA;
 import static jett_apps.grouvie.MainActivity.SHOWTIME_MESSAGE;
 
 public class SelectShowtime extends AppCompatActivity {
@@ -28,7 +28,7 @@ public class SelectShowtime extends AppCompatActivity {
         final String chosenFilm  = intent.getStringExtra(FILM_MESSAGE);
         final String chosenCinema = intent.getStringExtra(CINEMA_MESSAGE);
         final String chosenDay = intent.getStringExtra(DAY_MESSAGE);
-        final String localData = intent.getStringExtra(LOCAL_DATA);
+        final String cinemaData = intent.getStringExtra(CINEMA_DATA);
         ((TextView) findViewById(R.id.chosenFilm)).setText(chosenFilm);
         ((TextView) findViewById(R.id.chosenCinema)).setText(chosenCinema);
 

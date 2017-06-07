@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static jett_apps.grouvie.MainActivity.FILM_MESSAGE;
+import static jett_apps.grouvie.MainActivity.CINEMA_DATA;
 import static jett_apps.grouvie.MainActivity.DAY_MESSAGE;
-import static jett_apps.grouvie.MainActivity.LOCAL_DATA;
+import static jett_apps.grouvie.MainActivity.FILM_MESSAGE;
 
 public class SelectGroup extends AppCompatActivity {
 
@@ -187,7 +187,7 @@ public class SelectGroup extends AppCompatActivity {
         Intent currIntent = getIntent();
         String filmTitle = currIntent.getStringExtra(FILM_MESSAGE);
         String chosenDay = currIntent.getStringExtra(DAY_MESSAGE);
-        String final_Local_data = currIntent.getStringExtra(LOCAL_DATA);
+        String cinemaData = currIntent.getStringExtra(CINEMA_DATA);
         Intent intent = new Intent(this, SelectCinema.class);
         selectedFriends = new String[friends.length];
 
@@ -201,7 +201,7 @@ public class SelectGroup extends AppCompatActivity {
 
         intent.putExtra(FILM_MESSAGE, filmTitle);
         intent.putExtra(DAY_MESSAGE, chosenDay);
-        intent.putExtra(LOCAL_DATA, final_Local_data);
+        intent.putExtra(CINEMA_DATA, cinemaData);
         intent.putExtra(GROUP_LIST, selectedFriends);
 
         startActivity(intent);
