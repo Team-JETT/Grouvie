@@ -1,5 +1,6 @@
 package jett_apps.grouvie;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -41,6 +42,13 @@ public class SelectDay extends AppCompatActivity {
                         //Sending the current plan to the final planning page
                         Intent intent = new Intent(view.getContext(), SelectFilm.class);
                         intent.putExtra(DAY_MESSAGE, chosenDay);
+
+                        ServerContact.dialog = new ProgressDialog(SelectDay.this, ProgressDialog.BUTTON_POSITIVE);
+//                        ServerContact.dialog = new ProgressDialog(SelectDay.this, ProgressDialog.THEME_HOLO_LIGHT);
+                        ServerContact.dialog.setTitle("Please wait");
+                        ServerContact.dialog.setMessage("Obtaining listings from server");
+                        ServerContact.dialog.show();
+
                         startActivity(intent);
 
                     }

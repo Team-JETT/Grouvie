@@ -8,6 +8,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -39,10 +40,78 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_film);
 
+        obtainLocation();
+
+        JSONObject local_data = getJsonObject();
+
+        final ArrayList<String> films = new ArrayList<>();
+        Iterator<String> iter = local_data.keys();
+        while (iter.hasNext()) {
+            films.add(iter.next());
+        }
+
+        final JSONObject final_Local_data = local_data;
+
+        ListAdapter filmAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, films);
+        ListView filmsListView = (ListView) findViewById(R.id.filmList);
+        filmsListView.setAdapter(filmAdapter);
+
+        ServerContact.dialog.dismiss();
+
+        filmsListView.setOnItemClickListener(
+            new AdapterView.OnItemClickListener() {
+
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String filmTitle = films.get(position);
+
+                    Intent prevIntent = getIntent();
+                    String chosenDay = prevIntent.getStringExtra(DAY_MESSAGE);
+
+                    Intent intent = new Intent(view.getContext(), SelectCinema.class);
+                    intent.putExtra(FILM_MESSAGE, filmTitle);
+                    intent.putExtra(DAY_MESSAGE, chosenDay);
+                    intent.putExtra(LOCAL_DATA, final_Local_data.toString());
+                    startActivity(intent);
+                }
+            }
+        );
+
+    }
+
+    @Nullable
+    private JSONObject getJsonObject() {
+        JSONObject json = new JSONObject();
+        try {
+            json.accumulate("latitude", latitude);
+            json.accumulate("longitude", longitude);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String result = null;
+        try {
+            result = new ServerContact().execute("get_local_data", json.toString()).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        JSONObject local_data = null;
+        try {
+            if (result == null) {
+                Log.e("DANK MEMES", "Failed to get anything back from web server.");
+            }
+            local_data = new JSONObject(result);
+            Log.v("DANK MEMES:", local_data.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return local_data;
+    }
+
+    private void obtainLocation() {
         LocationManager manager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -75,64 +144,6 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         }
 
         manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 0, this);
-
-        JSONObject json = new JSONObject();
-        try {
-            json.accumulate("latitude", latitude);
-            json.accumulate("longitude", longitude);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        String result = null;
-        try {
-            result = new ServerContact().execute("get_local_data", json.toString()).get();
-        } catch (InterruptedException | ExecutionException e) {
-            e.printStackTrace();
-        }
-        JSONObject local_data = null;
-        try {
-            if (result == null) {
-                Log.e("DANK MEMES", "Failed to get anything back from web server.");
-            }
-            local_data = new JSONObject(result);
-            Log.v("DANK MEMES:", local_data.toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        final ArrayList<String> films = new ArrayList<>();
-        Iterator<String> iter = local_data.keys();
-        while (iter.hasNext()) {
-            films.add(iter.next());
-        }
-
-        final String allocatedCinema = "Cineworld London - Fulham Road";
-        final JSONObject final_Local_data = local_data;
-
-        ListAdapter filmAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, films);
-        ListView filmsListView = (ListView) findViewById(R.id.filmList);
-        filmsListView.setAdapter(filmAdapter);
-
-
-        filmsListView.setOnItemClickListener(
-            new AdapterView.OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String filmTitle = films.get(position);
-
-                    Intent prevIntent = getIntent();
-                    String chosenDay = prevIntent.getStringExtra(DAY_MESSAGE);
-
-                    Intent intent = new Intent(view.getContext(), SelectCinema.class);
-                    intent.putExtra(FILM_MESSAGE, filmTitle);
-                    intent.putExtra(DAY_MESSAGE, chosenDay);
-                    intent.putExtra(LOCAL_DATA, final_Local_data.toString());
-                    startActivity(intent);
-                }
-            }
-        );
-
     }
 
     @Override
