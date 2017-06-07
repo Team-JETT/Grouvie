@@ -2,201 +2,208 @@ package jett_apps.grouvie;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
-import android.widget.CheckedTextView;
-import android.widget.FrameLayout;
-import android.widget.GridView;
-import android.widget.ListAdapter;
+import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import static jett_apps.grouvie.SelectFilm.CINEMA_MESSAGE;
-import static jett_apps.grouvie.SelectFilm.FILM_MESSAGE;
+import static jett_apps.grouvie.SelectDay.FILM_MESSAGE;
+import static jett_apps.grouvie.SelectDay.DAY_MESSAGE;
+import static jett_apps.grouvie.SelectDay.LOCAL_DATA;
 
 public class SelectGroup extends AppCompatActivity {
 
     public static final String GROUP_LIST = "GROUPLIST";
-    public static final String FRIEND_LIST = "FRIENDLIST";
 
     // This will be updated by real values later.
-    static final String[] friends = new String[]{
-            "Diana", "Peter", "Carol", "Steve"
-    };
-
-    ArrayList<String> selectedFriends = new ArrayList<>();
-
-    String cinemaName;
-    String filmTitle;
-
+    private Friend[] friends;
+    private ArrayAdapter<Friend> friendsAdapter;
+    private String[] selectedFriends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_group);
+        // Finds the listView resource.
+        ListView listView = (ListView) findViewById(R.id.listView);
+        // When item is tapped, checkBox and Friend object are updated.
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Friend friend = friendsAdapter.getItem(position);
+                friend.toggleChecked();
+                // To display friend that is checked.
+                FriendViewHolder viewHolder = (FriendViewHolder) view.getTag();
+                viewHolder.getCheckBox().setChecked(friend.isChecked());
+            }
+        });
+        // Populates the friends list with friend objects.
+        friends = (Friend[]) getLastNonConfigurationInstance();
+        if (friends == null) {
+            friends = new Friend[] {
+                    new Friend("Steve"),
+                    new Friend("Diana"),
+                    new Friend("Bruce"),
+                    new Friend("Carol")
 
-        ListAdapter friendsAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, friends);
-        ListView friendsView = (ListView) findViewById(R.id.filmList);
-        friendsView.setAdapter(friendsAdapter);
+            };
+        }
 
-        friendsView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        friendsView.setItemsCanFocus(false);
+        ArrayList<Friend> friendList = new ArrayList<>();
+        friendList.addAll(Arrays.asList(friends));
+        // Set our adapter as the ListView's adapter.
+        friendsAdapter = new FriendsAdapter(this, friendList);
+        listView.setAdapter(friendsAdapter);
 
     }
 
-    public void onListItemClick(ListView parent, View v,int position,long id){
-        CheckedTextView item = (CheckedTextView) v;
-        Toast.makeText(this, friends[position] + " checked : " +
-                item.isChecked(), Toast.LENGTH_SHORT).show();
+    // Adapter for displaying an array of Friend objects.
+    private static class FriendsAdapter extends ArrayAdapter<Friend> {
+
+        private LayoutInflater inflater;
+
+        public FriendsAdapter(Context context, List<Friend> friendList) {
+            super(context, R.layout.simplerow, R.id.rowTextView, friendList);
+            inflater = LayoutInflater.from(context);
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            Friend friend = this.getItem(position);
+
+            CheckBox checkBox;
+            TextView textView;
+            // Creates a new row view.
+            if(convertView == null) {
+                convertView = inflater.inflate(R.layout.simplerow, null);
+
+                textView = (TextView) convertView.findViewById(R.id.rowTextView);
+                checkBox = (CheckBox) convertView.findViewById(R.id.CheckBox01);
+                // Tagging the row with the child view means that it's easier
+                // to access later on.
+                convertView.setTag(new FriendViewHolder(textView, checkBox));
+
+                checkBox.setOnClickListener(new View.OnClickListener(){
+
+                    @Override
+                    public void onClick(View v) {
+                        CheckBox cb = (CheckBox) v;
+                        Friend friend = (Friend) cb.getTag();
+                        friend.setChecked(cb.isChecked());
+                    }
+                });
+            } else {
+                FriendViewHolder viewHolder = (FriendViewHolder) convertView.getTag();
+                checkBox = viewHolder.getCheckBox();
+                textView = viewHolder.getTextView();
+            }
+
+            checkBox.setTag(friend);
+
+            checkBox.setChecked(friend.isChecked());
+            textView.setText(friend.getName());
+
+            return convertView;
+        }
+
     }
+
+    // Object holding the child views of the rows.
+    private static class FriendViewHolder {
+        private CheckBox checkBox;
+        private TextView textView;
+
+        public FriendViewHolder(TextView textView, CheckBox checkBox) {
+            this.checkBox = checkBox;
+            this.textView = textView;
+        }
+
+        public TextView getTextView() {
+            return textView;
+        }
+
+        public void setTextView(TextView textView) {
+            this.textView = textView;
+        }
+
+        public CheckBox getCheckBox() {
+            return checkBox;
+        }
+
+        public void setCheckBox(CheckBox checkBox) {
+            this.checkBox = checkBox;
+        }
+    }
+
+    public Object onRetainCustomNonConfigurationInstance() {
+        return friends;
+    }
+
+    private static class Friend {
+        private String name = "";
+        private boolean checked = false;
+
+        public Friend(String name){
+            this.name = name;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+
+        public boolean isChecked() {
+            return checked;
+        }
+
+        public void setChecked(boolean checked) {
+            this.checked = checked;
+        }
+
+        public String toString() {
+            return name;
+        }
+        public void toggleChecked() {
+            checked = !checked;
+        }
+    }
+
 
 
     public void finishGroupSelection(View view) {
+        Intent currIntent = getIntent();
+        String filmTitle = currIntent.getStringExtra(FILM_MESSAGE);
+        String chosenDay = currIntent.getStringExtra(DAY_MESSAGE);
+        String final_Local_data = currIntent.getStringExtra(LOCAL_DATA);
         Intent intent = new Intent(this, SelectCinema.class);
+        selectedFriends = new String[friends.length];
+
+        int j = 0;
+        for (int i = 0; i < friends.length; i++) {
+            if(friends[i].isChecked()) {
+                selectedFriends[j] = friends[i].getName();
+                j++;
+            }
+        }
 
         intent.putExtra(FILM_MESSAGE, filmTitle);
-        intent.putExtra(CINEMA_MESSAGE, cinemaName);
+        intent.putExtra(DAY_MESSAGE, chosenDay);
+        intent.putExtra(LOCAL_DATA, final_Local_data);
         intent.putExtra(GROUP_LIST, selectedFriends);
 
         startActivity(intent);
     }
 }
-
-
-//
-//
-//        groupGrid = (GridView) findViewById(R.id.groupList);
-//        final GroupAdapter groupAdapter = new GroupAdapter(friendList);
-//        groupGrid.setAdapter(groupAdapter);
-//        groupGrid.setChoiceMode(GridView.CHOICE_MODE_MULTIPLE_MODAL);
-//        groupGrid.setMultiChoiceModeListener(AbsListView.CHOICE_MODE_MULTIPLE_MODAL listner);
-//    }
-//
-//        groupGrid.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                int selectedIndex = groupAdapter.selectedPositions.indexOf(position);
-//                if (selectedIndex > -1) {
-//                    groupAdapter.selectedPositions.remove(selectedIndex);
-//                    ((CustomView)view).display(false);
-//                } else {
-//                    groupAdapter.selectedPositions.add(position);
-//                    ((CustomView)view).display(true);
-//                }
-//            }
-//        });
-//    }
-//
-//    public class GroupAdapter extends BaseAdapter {
-//
-//        private String[] friends;
-//        List<Integer> selectedPositions = new ArrayList<>();
-//
-//        GroupAdapter(String[] friends) {
-//            this.friends = friends;
-//        }
-//        @Override
-//        public int getCount() {
-//            return friends.length;
-//        }
-//
-//        @Override
-//        public Object getItem(int position) {
-//            return friends[position];
-//        }
-//
-//        @Override
-//        public long getItemId(int position) {
-//            return position;
-//        }
-//
-//        @Override
-//        public View getView(int position, View convertView, ViewGroup parent) {
-//            CustomView customView = (convertView == null)?
-//                                    new CustomView(SelectGroup.this) :
-//                                    (CustomView) convertView;
-//            customView.display(friends[position], selectedPositions.contains(position));
-//            return customView;
-//        }
-//    }
-//
-//    class CustomView extends FrameLayout {
-//
-//        TextView textView;
-//
-//        public CustomView(Context context) {
-//            super(context);
-//            LayoutInflater.from(context).inflate(R.layout.activity_select_group, this);
-//            textView = (TextView) getRootView().findViewById(R.id.textView);
-//        }
-//
-//        public void display(String text, boolean isSelected) {
-//            textView.setText(text);
-//            display(isSelected);
-//        }
-//
-//        public void display(boolean isSelected) {
-//            textView.setBackgroundColor(isSelected? Color.RED : Color.LTGRAY);
-//        }
-//    }
-//
-//        // This allows for the people to be removed from the list once selected.
-//        if(intent.getStringArrayListExtra(FRIEND_LIST) == null) {
-//            friendList.add("Diana");
-//            friendList.add("Peter");
-//            friendList.add("Bruce");
-//            friendList.add("Alice");
-//            friendList.add("Carol");
-//            friendList.add("Peter");
-//            friendList.add("Steve");
-//        } else {
-//            friendList = intent.getStringArrayListExtra(FRIEND_LIST);
-//        }
-//
-//        ListAdapter groupAdapter = new ArrayAdapter<String>(this,
-//                android.R.layout.simple_list_item_1, friendList);
-//
-//        groupGrid = (GridView) findViewById(R.id.groupList);
-//        groupGrid.setAdapter(groupAdapter);
-//
-//        // Propogates the data from the last page to the next one.
-//        filmTitle  = intent.getStringExtra(FILM_MESSAGE);
-//        cinemaName = intent.getStringExtra(CINEMA_MESSAGE);
-//
-//        groupGrid.setOnItemClickListener(
-//                new AdapterView.OnItemClickListener() {
-//
-//                    @Override
-//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                        String friend = friendList.get(position);
-//                        // Removes the selected friend from options.
-//                        friendList.remove(friend);
-//                        // Adds friend to current group.
-//                        selectedFriends.add(friend);
-//                        Intent intent = getIntent();
-//                        // Propogates data.
-//                        intent.putExtra(FILM_MESSAGE, filmTitle);
-//                        intent.putExtra(CINEMA_MESSAGE, cinemaName);
-//                        intent.putExtra(FRIEND_LIST, friendList);
-//                        intent.putExtra(GROUP_LIST, selectedFriends);
-//                        startActivity(intent);
-//                    }
-//                }
-//        );
-//
-//    }
-//

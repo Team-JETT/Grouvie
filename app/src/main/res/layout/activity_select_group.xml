@@ -25,10 +25,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp" />
 
-    <ListView
+    <ListView android:id="@+id/listView"
         android:layout_width="377dp"
         android:layout_height="474dp"
-        android:id="@+id/listView"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
