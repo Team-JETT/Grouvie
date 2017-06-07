@@ -8,20 +8,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.InputStream;
 
-import static jett_apps.grouvie.SelectFilm.CINEMA_MESSAGE;
-import static jett_apps.grouvie.SelectFilm.FILM_MESSAGE;
-import static jett_apps.grouvie.SelectFilm.SHOWTIME_MESSAGE;
+import static jett_apps.grouvie.SelectDay.CINEMA_MESSAGE;
+import static jett_apps.grouvie.SelectDay.DAY_MESSAGE;
+import static jett_apps.grouvie.SelectDay.FILM_MESSAGE;
+import static jett_apps.grouvie.SelectDay.SHOWTIME_MESSAGE;
 
 public class LeaderInitialPlan extends AppCompatActivity {
 
@@ -31,13 +26,15 @@ public class LeaderInitialPlan extends AppCompatActivity {
         setContentView(R.layout.activity_leader_initial_plan);
 
         Intent intent = getIntent();
-        final String filmTitle = intent.getStringExtra(FILM_MESSAGE);
-        final String cinemaName = intent.getStringExtra(CINEMA_MESSAGE);
-        final String showtime = intent.getStringExtra(SHOWTIME_MESSAGE);
+        final String chosenFilm = intent.getStringExtra(FILM_MESSAGE);
+        final String chosenCinema = intent.getStringExtra(CINEMA_MESSAGE);
+        final String chosenTime = intent.getStringExtra(SHOWTIME_MESSAGE);
+        final String chosenDay = intent.getStringExtra(DAY_MESSAGE);
 
-        ((TextView) findViewById(R.id.SelectedFilm)).setText(filmTitle);
-        ((TextView) findViewById(R.id.SelectedCinema)).setText(cinemaName);
-        ((TextView) findViewById(R.id.SelectedShowtime)).setText(showtime);
+        ((TextView) findViewById(R.id.SelectedFilm)).setText(chosenFilm);
+        ((TextView) findViewById(R.id.SelectedCinema)).setText(chosenCinema);
+        ((TextView) findViewById(R.id.SelectedShowtime)).setText(chosenTime);
+        ((TextView) findViewById(R.id.SelectedDay)).setText(chosenDay);
 
     }
 
@@ -65,11 +62,5 @@ public class LeaderInitialPlan extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-
-    public void enableStrictMode() {
-        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-        StrictMode.setThreadPolicy(policy);
-    }
-
 }
 

@@ -1,7 +1,7 @@
 import json
 
 from os import environ
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from DBManager import DBManager
 from DataParser import DataParser
 
@@ -24,22 +24,13 @@ def insert():
     return "DONE!!!"
 
 
-@app.route("/get_films", methods=["GET", "POST"])
-def get_films():
+@app.route("/get_local_data", methods=["GET", "POST"])
+def get_local_data():
     location = request.data
     location = json.loads(location)
     latitude = location['latitude']
     longitude = location['longitude']
-    films = dParser.get_films(latitude, longitude)
-    print ', '.join(films)
-    return ','.join(films)
-
-
-@app.route("/get_cinemas", methods=["GET", "POST"])
-def get_cinemas():
-    filmname = request.data
-    cinemas = dParser.get_cinemas(filmname)
-    return ",".join(cinemas)
+    return json.dumps(dParser.get_local_data(latitude, longitude))
 
 
 if __name__ == "__main__":

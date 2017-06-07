@@ -20,14 +20,16 @@ import android.widget.ListView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
-public class SelectFilm extends AppCompatActivity implements LocationListener {
+import static jett_apps.grouvie.SelectDay.DAY_MESSAGE;
+import static jett_apps.grouvie.SelectDay.FILM_MESSAGE;
+import static jett_apps.grouvie.SelectDay.LOCAL_DATA;
 
-    public static final String FILM_MESSAGE = "FILMTITLE";
-    public static final String CINEMA_MESSAGE= "CINEMATITLE";
-    public static final String SHOWTIME_MESSAGE = "SHOWTIME";
+
+public class SelectFilm extends AppCompatActivity implements LocationListener {
 
     Location location;
     double latitude = 51.499074;
@@ -59,7 +61,6 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         }
 
 
-
         location = manager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         if (location != null) {
             onLocationChanged(location);
@@ -75,11 +76,6 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         manager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 100, 0, this);
 
-
-//        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-//        StrictMode.setThreadPolicy(policy);
-
-
         JSONObject json = new JSONObject();
         try {
             json.accumulate("latitude", latitude);
@@ -89,43 +85,55 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         }
         String result = null;
         try {
-            result = new ServerContact().execute("get_films", json.toString()).get();
+            result = new ServerContact().execute("get_local_data", json.toString()).get();
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
-        String[] films = result.split(",");
-        Log.v("DANK MEMES", Arrays.toString(films));
+        JSONObject local_data = null;
+        try {
+            if (result == null) {
+                Log.e("DANK MEMES", "Failed to get anything back from web server.");
+            }
+            local_data = new JSONObject(result);
+            Log.v("DANK MEMES:", local_data.toString());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        final ArrayList<String> films = new ArrayList<>();
+        Iterator<String> iter = local_data.keys();
+        while (iter.hasNext()) {
+            films.add(iter.next());
+        }
 
-
-        final String[] showingFilmsArray = result.split(",");
+        final String allocatedCinema = "Cineworld London - Fulham Road";
+        final JSONObject final_Local_data = local_data;
 
         ListAdapter filmAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, showingFilmsArray);
+                android.R.layout.simple_list_item_1, films);
         ListView filmsListView = (ListView) findViewById(R.id.filmList);
         filmsListView.setAdapter(filmAdapter);
 
-
-
-        //Now goes to group selection instead.
 
         filmsListView.setOnItemClickListener(
             new AdapterView.OnItemClickListener() {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String filmTitle = showingFilmsArray[position];
+                    String filmTitle = films.get(position);
+
+                    Intent prevIntent = getIntent();
+                    String chosenDay = prevIntent.getStringExtra(DAY_MESSAGE);
+
+                    // Goes to select now.
                     Intent intent = new Intent(view.getContext(), SelectGroup.class);
                     intent.putExtra(FILM_MESSAGE, filmTitle);
+                    intent.putExtra(DAY_MESSAGE, chosenDay);
+                    intent.putExtra(LOCAL_DATA, final_Local_data.toString());
                     startActivity(intent);
                 }
             }
         );
 
-    }
-
-    public static String convertStreamToString(java.io.InputStream is) {
-        java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
-        return s.hasNext() ? s.next() : "";
     }
 
     @Override
