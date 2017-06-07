@@ -17,6 +17,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String SHOWTIME_MESSAGE = "SHOWTIME";
     public static final String DAY_MESSAGE = "EVENTDAY";
     public static final String CINEMA_DATA = "CINEMADATA";
+    public static final String SHOWTIME_DISTANCE_DATA = "SHOWTIMEDISTANCEDATA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

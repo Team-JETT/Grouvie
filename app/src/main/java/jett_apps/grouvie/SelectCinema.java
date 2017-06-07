@@ -22,6 +22,7 @@ import static jett_apps.grouvie.MainActivity.CINEMA_MESSAGE;
 import static jett_apps.grouvie.MainActivity.CINEMA_DATA;
 import static jett_apps.grouvie.MainActivity.DAY_MESSAGE;
 import static jett_apps.grouvie.MainActivity.FILM_MESSAGE;
+import static jett_apps.grouvie.MainActivity.SHOWTIME_DISTANCE_DATA;
 
 public class SelectCinema extends AppCompatActivity {
 
@@ -59,7 +60,6 @@ public class SelectCinema extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-//                {"Cineworld - Fulham Road", "Vue - Shepard's Bush", "Odeon"};
 
         ListAdapter showtimeAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, cinemas);
@@ -74,9 +74,12 @@ public class SelectCinema extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String chosenCinema = cinemas.get(position);
                     Log.v("CHOSEN CINEMA", chosenCinema);
+                    JSONArray showtimeDistanceData = null;
                     try {
-                        JSONObject chosenCinemaData = (JSONObject) finalCinema_data.get(position);
-                        Log.v("CINEMA DATA", chosenCinemaData.toString());
+                        // For our chosen cinema get the showtimes and distance to the cinema.
+                        showtimeDistanceData = ((JSONObject) finalCinema_data.get(position)).
+                                getJSONArray(chosenCinema);
+                        Log.v("CHOSEN CINEMA DATA", cinemaData.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -86,6 +89,7 @@ public class SelectCinema extends AppCompatActivity {
                     intent.putExtra(FILM_MESSAGE, chosenFilm);
                     intent.putExtra(DAY_MESSAGE, chosenDay);
                     intent.putExtra(CINEMA_MESSAGE, chosenCinema);
+                    intent.putExtra(SHOWTIME_DISTANCE_DATA, showtimeDistanceData.toString());
                     startActivity(intent);
 
                 }

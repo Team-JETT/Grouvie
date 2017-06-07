@@ -3,6 +3,7 @@ package jett_apps.grouvie;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -10,14 +11,20 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+
 import static jett_apps.grouvie.MainActivity.CINEMA_DATA;
 import static jett_apps.grouvie.MainActivity.CINEMA_MESSAGE;
 import static jett_apps.grouvie.MainActivity.DAY_MESSAGE;
 import static jett_apps.grouvie.MainActivity.FILM_MESSAGE;
+import static jett_apps.grouvie.MainActivity.SHOWTIME_DISTANCE_DATA;
 import static jett_apps.grouvie.MainActivity.SHOWTIME_MESSAGE;
 
 public class SelectShowtime extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,16 +35,32 @@ public class SelectShowtime extends AppCompatActivity {
         final String chosenFilm  = intent.getStringExtra(FILM_MESSAGE);
         final String chosenCinema = intent.getStringExtra(CINEMA_MESSAGE);
         final String chosenDay = intent.getStringExtra(DAY_MESSAGE);
-        final String cinemaData = intent.getStringExtra(CINEMA_DATA);
+        final String showtimeDistanceData = intent.getStringExtra(SHOWTIME_DISTANCE_DATA);
         ((TextView) findViewById(R.id.chosenFilm)).setText(chosenFilm);
         ((TextView) findViewById(R.id.chosenCinema)).setText(chosenCinema);
 
 
-        final String[] showtimesArray = {"09:00", "10:12", "11:40", "13:35", "15:50", "17:05",
-                "18:45", "19:18", "20:32", "21:00", "22:12", "23:02"};
+        // Convert the string to JSONArray.
+        JSONObject showtime_distance_data = null;
+        try {
+            Log.v("CINEMA DATA", showtimeDistanceData);
+            showtime_distance_data = (new JSONArray(showtimeDistanceData)).getJSONObject(0);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
-        ListAdapter showtimeAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, showtimesArray);
+        final ArrayList<String> showtimes = new ArrayList<>();
+        try {
+            JSONArray showtimesJSON = showtime_distance_data.getJSONArray("showtimes");
+            for (int i = 0; i < showtimesJSON.length(); ++i) {
+                showtimes.add(showtimesJSON.getString(i));
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        ListAdapter showtimeAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1, showtimes);
         ListView showtimeListView = (ListView) findViewById(R.id.timeList);
         showtimeListView.setAdapter(showtimeAdapter);
 
@@ -46,7 +69,7 @@ public class SelectShowtime extends AppCompatActivity {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String chosenTime = showtimesArray[position];
+                    String chosenTime = showtimes.get(position);
 
                     //Sending the current plan to the final planning page
                     Intent intent = new Intent(view.getContext(), LeaderInitialPlan.class);
@@ -54,6 +77,7 @@ public class SelectShowtime extends AppCompatActivity {
                     intent.putExtra(CINEMA_MESSAGE, chosenCinema);
                     intent.putExtra(DAY_MESSAGE, chosenDay);
                     intent.putExtra(SHOWTIME_MESSAGE, chosenTime);
+//                    intent.putExtra(SHOWTIME_DISTANCE_DATA, totalDistance);
                     startActivity(intent);
 
                     }

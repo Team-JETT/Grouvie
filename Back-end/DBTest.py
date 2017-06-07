@@ -26,7 +26,13 @@ TEST_RESULT = [(0, 'c', 'text')]
 
 
 class DBTest:
-
+    ###########################################################################
+    # The basis of this test is simple.
+    # 1) We make a new table.
+    # 2) We insert an entry into the table.
+    # 3) We read from the table.
+    # 4) We verift what we read is the same as what we wrote
+    ###########################################################################
     def __init__(self):
         dbManager = DBManager()
         self.testMakingOfTestTable(dbManager)
