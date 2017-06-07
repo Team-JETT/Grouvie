@@ -55,7 +55,6 @@ public class SelectGroup extends AppCompatActivity {
                     new Friend("Diana"),
                     new Friend("Bruce"),
                     new Friend("Carol")
-
             };
         }
 

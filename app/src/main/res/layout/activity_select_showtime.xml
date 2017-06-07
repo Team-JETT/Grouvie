@@ -44,6 +44,7 @@ tools:context="jett_apps.grouvie.SelectShowtime">
         android:text="@string/chosenfilm"
         android:textSize="20sp"
         app:layout_anchorGravity="top|center_horizontal"
+        android:textAlignment="center"
         android:layout_below="@+id/textView3"
         android:layout_centerHorizontal="true" />
 
