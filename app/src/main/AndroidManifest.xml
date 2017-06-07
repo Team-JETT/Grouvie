@@ -32,6 +32,11 @@
             android:value="${HOCKEYAPP_APP_ID}" />
 
         <activity android:name=".SelectCinema" />
+
+        <activity
+            android:name=".SelectGroup"
+            android:label="@string/title_activity_group_selection"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

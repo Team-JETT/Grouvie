@@ -72,7 +72,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                     Intent prevIntent = getIntent();
                     String chosenDay = prevIntent.getStringExtra(DAY_MESSAGE);
 
-                    Intent intent = new Intent(view.getContext(), SelectCinema.class);
+                    Intent intent = new Intent(view.getContext(), SelectGroup.class);
                     intent.putExtra(FILM_MESSAGE, filmTitle);
                     intent.putExtra(DAY_MESSAGE, chosenDay);
                     intent.putExtra(LOCAL_DATA, final_Local_data.toString());
@@ -134,7 +134,6 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         if (location != null) {
             onLocationChanged(location);
         } else {
-
             location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
             if (location != null) {
