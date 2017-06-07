@@ -45,24 +45,21 @@ PHONE_NUMBER = %s AND GROUP_ID = %s
 
 
 class DBManager:
-    cnxn = None
-    cursor = None
 
     def establish_connection(self):
-        global cnxn, cursor
         conn_str = "dbname='g1627137_u' user='g1627137_u'" \
                    "host='db.doc.ic.ac.uk' password='Vk426n3Kjx'"
         try:
             cnxn = psycopg2.connect(conn_str)
             cnxn.autocommit = True
             cursor = cnxn.cursor()
-            return cursor
+            return cnxn, cursor
         except Exception as e:
             message = e.message + "\nFailed to establish connection. " \
                   "Check connection string."
             exit(message)
 
-    def close_connection(self):
+    def close_connection(self, cnxn, cursor):
         try:
             cursor.close()
             cnxn.close()
@@ -71,17 +68,17 @@ class DBManager:
             exit(message)
 
     def make_table(self):
-        self.establish_connection()
+        cnxn, cursor = self.establish_connection()
         cursor.execute(CREATE_GROUVIE)
-        self.close_connection()
+        self.close_connection(cnxn, cursor)
 
     def drop_table(self):
-        self.establish_connection()
+        cnxn, cursor = self.establish_connection()
         cursor.execute(DROP_GROUVIE)
-        self.close_connection()
+        self.close_connection(cnxn, cursor)
 
     def insert(self, data):
-        self.establish_connection()
+        cnxn, cursor = self.establish_connection()
         cursor.execute(INSERT, (
             data['PHONE_NUMBER'],
             data['GROUP_ID'],
@@ -93,10 +90,10 @@ class DBManager:
             data['IMAGE'],
             data['IS_LEADER']
         ))
-        self.close_connection()
+        self.close_connection(cnxn, cursor)
 
     def update_insert(self, data):
-        self.establish_connection()
+        cnxn, cursor = self.establish_connection()
         cursor.execute(UPDATE, (
             data['SHOWTIME'],
             data['FILM'],
@@ -109,19 +106,20 @@ class DBManager:
             data['GROUP_ID']
         ))
         self.insert(data)
-        self.close_connection()
+        self.close_connection(cnxn, cursor)
 
     def select(self, query):
-        self.establish_connection()
+        cnxn, cursor = self.establish_connection()
         cursor.execute(SELECT, (query['PHONE_NUMBER'], query['GROUP_ID']))
         print cursor.fetchall()
-        self.close_connection()
+        self.close_connection(cnxn, cursor)
 
     def selectAll(self):
-        self.establish_connection()
+        cnxn, cursor = self.establish_connection()
         cursor.execute(SELECT_ALL)
-        print cursor.fetchall()
-        self.close_connection()
+        result = cursor.fetchall()
+        self.close_connection(cnxn, cursor)
+        return result
 
 
 if __name__ == '__main__':

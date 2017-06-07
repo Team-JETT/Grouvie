@@ -94,6 +94,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
             if (result == null) {
                 Log.e("DANK MEMES", "Failed to get anything back from web server.");
             }
+            Log.e("DANK MEMES", result);
             local_data = new JSONObject(result);
             Log.v("DANK MEMES:", local_data.toString());
         } catch (JSONException e) {

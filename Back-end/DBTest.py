@@ -22,37 +22,43 @@ SELECT_ALL_IN_TABLE = """
 SELECT * FROM TEST
 """
 
+TEST_RESULT = [(0, 'c', 'text')]
+
+
 class DBTest:
 
-    dbManager = None
     def __init__(self):
-        global dbManager
         dbManager = DBManager()
-        self.testMakingOfTestTable()
-        self.testInsertingIntoTestTable()
-        self.testReadingFromTestTableAndVerifyData()
+        self.testMakingOfTestTable(dbManager)
+        self.testInsertingIntoTestTable(dbManager)
+        print self.testReadingFromTestTableAndVerifyData(dbManager)
+        self.dropTestTable(dbManager)
 
-
-    def testMakingOfTestTable(self):
-        global dbManager, MAKE_TEST_TABLE
-        cursor = dbManager.establish_connection()
+    def testMakingOfTestTable(self, dbManager):
+        global MAKE_TEST_TABLE
+        cnxn, cursor = dbManager.establish_connection()
         cursor.execute(MAKE_TEST_TABLE)
-        dbManager.close_connection()
+        dbManager.close_connection(cnxn, cursor)
 
-    def testInsertingIntoTestTable(self):
-        global dbManager, INSERT_INTO_TEST_TABLE
-        cursor = dbManager.establish_connection()
-        cursor.execute(INSERT_INTO_TEST_TABLE)
-        dbManager.close_connection()
+    def testInsertingIntoTestTable(self, dbManager):
+        global INSERT_INTO_TEST_TABLE
+        cnxn, cursor = dbManager.establish_connection()
+        cursor.execute(INSERT_INTO_TEST_TABLE, ("0", "c", "text"))
+        dbManager.close_connection(cnxn, cursor)
 
-    def testReadingFromTestTableAndVerifyData(self):
-        global dbManager, SELECT_ALL_IN_TABLE
-        cursor = dbManager.establish_connection()
+    def testReadingFromTestTableAndVerifyData(self, dbManager):
+        global SELECT_ALL_IN_TABLE, TEST_RESULT
+        cnxn, cursor = dbManager.establish_connection()
         cursor.execute(SELECT_ALL_IN_TABLE)
-        result = dbManager.cursor.fetchall()
-        dbManager.close_connection()
-        print result
+        result = cursor.fetchall()
+        dbManager.close_connection(cnxn, cursor)
+        return "Success" if result == TEST_RESULT else "Failure"
+
+    def dropTestTable(self, dbManager):
+        global DROP_TEST_TABLE
+        cnxn, cursor = dbManager.establish_connection()
+        cursor.execute(DROP_TEST_TABLE)
+        dbManager.close_connection(cnxn, cursor)
 
 if __name__ == '__main__':
     dbTest = DBTest()
-
