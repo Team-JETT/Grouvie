@@ -4,13 +4,14 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class LandingPage extends AppCompatActivity {
@@ -20,11 +21,20 @@ public class LandingPage extends AppCompatActivity {
     public static final String SHOWTIME_MESSAGE = "SHOWTIME";
     public static final String DAY_MESSAGE = "EVENTDAY";
     public static final String CINEMA_DATA = "CINEMADATA";
+    public static final String GROUP_LIST = "GROUPLIST";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page);
+
+        ArrayList<Plan> currentPlans = CurrentPlans.getPlans(LandingPage.this);
+        ListAdapter planAdapter = new ArrayAdapter<Plan>(this,
+                android.R.layout.simple_list_item_1, currentPlans);
+
+        ListView plansListView = (ListView) findViewById(R.id.plansList);
+        plansListView.setAdapter(planAdapter);
+
     }
 
     public void startPlanning(View view) {

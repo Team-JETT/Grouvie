@@ -22,6 +22,7 @@ import static jett_apps.grouvie.LandingPage.CINEMA_MESSAGE;
 import static jett_apps.grouvie.LandingPage.CINEMA_DATA;
 import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
 import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
+import static jett_apps.grouvie.LandingPage.GROUP_LIST;
 
 public class SelectCinema extends AppCompatActivity {
 
@@ -35,6 +36,7 @@ public class SelectCinema extends AppCompatActivity {
         final String chosenFilm = intent.getStringExtra(FILM_MESSAGE);
         final String chosenDay = intent.getStringExtra(DAY_MESSAGE);
         final String cinemaData = intent.getStringExtra(CINEMA_DATA);
+        final String chosenFriends = intent.getStringExtra(GROUP_LIST);
         ((TextView) findViewById(R.id.chosen_film)).setText(chosenFilm);
 
         JSONArray cinema_data = null;
@@ -86,6 +88,7 @@ public class SelectCinema extends AppCompatActivity {
                     intent.putExtra(FILM_MESSAGE, chosenFilm);
                     intent.putExtra(DAY_MESSAGE, chosenDay);
                     intent.putExtra(CINEMA_MESSAGE, chosenCinema);
+                    intent.putExtra(GROUP_LIST, chosenFriends);
                     startActivity(intent);
 
                 }

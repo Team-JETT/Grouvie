@@ -16,9 +16,16 @@ import java.io.IOException;
 import static jett_apps.grouvie.LandingPage.CINEMA_MESSAGE;
 import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
 import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
+import static jett_apps.grouvie.LandingPage.GROUP_LIST;
 import static jett_apps.grouvie.LandingPage.SHOWTIME_MESSAGE;
 
 public class LeaderInitialPlan extends AppCompatActivity {
+
+    private String chosenFilm;
+    private String chosenCinema;
+    private String chosenTime;
+    private String chosenDay;
+    private String[] chosenFriends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +33,11 @@ public class LeaderInitialPlan extends AppCompatActivity {
         setContentView(R.layout.activity_leader_initial_plan);
 
         Intent intent = getIntent();
-        final String chosenFilm = intent.getStringExtra(FILM_MESSAGE);
-        final String chosenCinema = intent.getStringExtra(CINEMA_MESSAGE);
-        final String chosenTime = intent.getStringExtra(SHOWTIME_MESSAGE);
-        final String chosenDay = intent.getStringExtra(DAY_MESSAGE);
+        chosenFilm = intent.getStringExtra(FILM_MESSAGE);
+        chosenCinema = intent.getStringExtra(CINEMA_MESSAGE);
+        chosenTime = intent.getStringExtra(SHOWTIME_MESSAGE);
+        chosenDay = intent.getStringExtra(DAY_MESSAGE);
+        chosenFriends = intent.getStringArrayExtra(GROUP_LIST);
 
         ((TextView) findViewById(R.id.SelectedFilm)).setText(chosenFilm);
         ((TextView) findViewById(R.id.SelectedCinema)).setText(chosenCinema);
@@ -57,6 +65,9 @@ public class LeaderInitialPlan extends AppCompatActivity {
             e.printStackTrace();
         }
         new ServerContact().execute("insert", json.toString());
+
+        Plan p = new Plan(chosenFilm, chosenCinema, chosenTime, chosenDay, chosenFriends);
+        CurrentPlans.addPlan(p, LeaderInitialPlan.this);
 
         Toast.makeText(getApplicationContext(), "Plan submitted to group", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, LandingPage.class);

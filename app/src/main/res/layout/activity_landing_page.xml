@@ -31,4 +31,23 @@
         android:layout_marginTop="8dp"
         app:layout_constraintVertical_bias="0.209" />
 
+    <ListView
+        android:id="@+id/plansList"
+        style="@style/Widget.AppCompat.Light.ListView.DropDown"
+        android:layout_width="338dp"
+        android:layout_height="207dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/appBarLayout"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="7dp"
+        android:headerDividersEnabled="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:layout_constraintVertical_bias="0.236" />
+
 </android.support.constraint.ConstraintLayout>
