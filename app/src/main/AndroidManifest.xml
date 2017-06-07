@@ -41,10 +41,7 @@
             android:name=".SelectGroup"
             android:label="@string/title_activity_group_selection"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".LandingPage"
-            android:label="@string/title_activity_landing_page"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".LandingPage"></activity>
     </application>
 
 </manifest>
