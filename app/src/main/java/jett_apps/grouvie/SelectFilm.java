@@ -25,9 +25,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
-import static jett_apps.grouvie.SelectDay.DAY_MESSAGE;
-import static jett_apps.grouvie.SelectDay.FILM_MESSAGE;
-import static jett_apps.grouvie.SelectDay.LOCAL_DATA;
+import static jett_apps.grouvie.MainActivity.DAY_MESSAGE;
+import static jett_apps.grouvie.MainActivity.FILM_MESSAGE;
+import static jett_apps.grouvie.MainActivity.LOCAL_DATA;
 
 
 public class SelectFilm extends AppCompatActivity implements LocationListener {

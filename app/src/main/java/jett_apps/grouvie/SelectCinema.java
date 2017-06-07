@@ -10,9 +10,9 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import static jett_apps.grouvie.SelectDay.CINEMA_MESSAGE;
-import static jett_apps.grouvie.SelectDay.DAY_MESSAGE;
-import static jett_apps.grouvie.SelectDay.FILM_MESSAGE;
+import static jett_apps.grouvie.MainActivity.CINEMA_MESSAGE;
+import static jett_apps.grouvie.MainActivity.DAY_MESSAGE;
+import static jett_apps.grouvie.MainActivity.FILM_MESSAGE;
 
 public class SelectCinema extends AppCompatActivity {
 

@@ -32,7 +32,6 @@
             android:value="${HOCKEYAPP_APP_ID}" />
 
         <activity android:name=".SelectCinema" />
-        <activity android:name=".SelectDay"></activity>
     </application>
 
 </manifest>
