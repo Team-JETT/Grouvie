@@ -17,9 +17,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static jett_apps.grouvie.MainActivity.CINEMA_DATA;
-import static jett_apps.grouvie.MainActivity.DAY_MESSAGE;
-import static jett_apps.grouvie.MainActivity.FILM_MESSAGE;
+import static jett_apps.grouvie.LandingPage.CINEMA_DATA;
+import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
+import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
 
 public class SelectGroup extends AppCompatActivity {
 

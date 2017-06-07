@@ -10,11 +10,11 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import static jett_apps.grouvie.MainActivity.CINEMA_DATA;
-import static jett_apps.grouvie.MainActivity.CINEMA_MESSAGE;
-import static jett_apps.grouvie.MainActivity.DAY_MESSAGE;
-import static jett_apps.grouvie.MainActivity.FILM_MESSAGE;
-import static jett_apps.grouvie.MainActivity.SHOWTIME_MESSAGE;
+import static jett_apps.grouvie.LandingPage.CINEMA_DATA;
+import static jett_apps.grouvie.LandingPage.CINEMA_MESSAGE;
+import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
+import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
+import static jett_apps.grouvie.LandingPage.SHOWTIME_MESSAGE;
 
 public class SelectShowtime extends AppCompatActivity {
 

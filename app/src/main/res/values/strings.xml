@@ -7,4 +7,5 @@
     <string name="chosencinema">chosenCinema</string>
     <string name="chosenfilm">chosenFilm</string>
     <string name="title_activity_group_selection">GroupSelection</string>
+    <string name="title_activity_landing_page">LandingPage</string>
 </resources>

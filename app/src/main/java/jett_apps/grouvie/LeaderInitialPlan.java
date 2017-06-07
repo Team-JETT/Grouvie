@@ -12,10 +12,11 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-import static jett_apps.grouvie.MainActivity.CINEMA_MESSAGE;
-import static jett_apps.grouvie.MainActivity.DAY_MESSAGE;
-import static jett_apps.grouvie.MainActivity.FILM_MESSAGE;
-import static jett_apps.grouvie.MainActivity.SHOWTIME_MESSAGE;
+
+import static jett_apps.grouvie.LandingPage.CINEMA_MESSAGE;
+import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
+import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
+import static jett_apps.grouvie.LandingPage.SHOWTIME_MESSAGE;
 
 public class LeaderInitialPlan extends AppCompatActivity {
 
@@ -58,7 +59,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
         new ServerContact().execute("insert", json.toString());
 
         Toast.makeText(getApplicationContext(), "Plan submitted to group", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LandingPage.class);
         startActivity(intent);
     }
 }
