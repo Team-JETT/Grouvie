@@ -20,6 +20,7 @@ public class LandingPage extends AppCompatActivity {
     public static final String SHOWTIME_MESSAGE = "SHOWTIME";
     public static final String DAY_MESSAGE = "EVENTDAY";
     public static final String CINEMA_DATA = "CINEMADATA";
+    public static final String USER_NAME = "USERNAME";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
