@@ -26,10 +26,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
-import static jett_apps.grouvie.SelectDay.CINEMA_DATA;
-import static jett_apps.grouvie.SelectDay.DAY_MESSAGE;
-import static jett_apps.grouvie.SelectDay.FILM_MESSAGE;
-import static jett_apps.grouvie.SelectDay.LOCAL_DATA;
+import static jett_apps.grouvie.MainActivity.DAY_MESSAGE;
+import static jett_apps.grouvie.MainActivity.FILM_MESSAGE;
+import static jett_apps.grouvie.MainActivity.CINEMA_DATA;
 
 
 public class SelectFilm extends AppCompatActivity implements LocationListener {
@@ -81,7 +80,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                     Intent prevIntent = getIntent();
                     String chosenDay = prevIntent.getStringExtra(DAY_MESSAGE);
 
-                    Intent intent = new Intent(view.getContext(), SelectCinema.class);
+                    Intent intent = new Intent(view.getContext(), SelectGroup.class);
                     intent.putExtra(FILM_MESSAGE, filmTitle);
                     intent.putExtra(DAY_MESSAGE, chosenDay);
                     intent.putExtra(CINEMA_DATA, cinemaData.toString());
@@ -144,7 +143,6 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         if (location != null) {
             onLocationChanged(location);
         } else {
-
             location = manager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
             if (location != null) {

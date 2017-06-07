@@ -6,4 +6,5 @@
     <string name="current_plan">Current Plan</string>
     <string name="chosencinema">chosenCinema</string>
     <string name="chosenfilm">chosenFilm</string>
+    <string name="title_activity_group_selection">GroupSelection</string>
 </resources>

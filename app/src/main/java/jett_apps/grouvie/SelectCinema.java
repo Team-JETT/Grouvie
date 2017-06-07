@@ -18,10 +18,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static jett_apps.grouvie.SelectDay.CINEMA_DATA;
-import static jett_apps.grouvie.SelectDay.CINEMA_MESSAGE;
-import static jett_apps.grouvie.SelectDay.DAY_MESSAGE;
-import static jett_apps.grouvie.SelectDay.FILM_MESSAGE;
+import static jett_apps.grouvie.MainActivity.CINEMA_MESSAGE;
+import static jett_apps.grouvie.MainActivity.CINEMA_DATA;
+import static jett_apps.grouvie.MainActivity.DAY_MESSAGE;
+import static jett_apps.grouvie.MainActivity.FILM_MESSAGE;
 
 public class SelectCinema extends AppCompatActivity {
 

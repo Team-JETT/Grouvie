@@ -10,14 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-public class SelectDay extends AppCompatActivity {
+import static jett_apps.grouvie.MainActivity.DAY_MESSAGE;
 
-    public static final String FILM_MESSAGE = "FILMTITLE";
-    public static final String CINEMA_MESSAGE= "CINEMATITLE";
-    public static final String SHOWTIME_MESSAGE = "SHOWTIME";
-    public static final String DAY_MESSAGE = "EVENTDAY";
-    public static final String LOCAL_DATA = "LOCALDATA";
-    public static final String CINEMA_DATA = "CINEMADATA";
+public class SelectDay extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

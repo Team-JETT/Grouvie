@@ -2,7 +2,6 @@ package jett_apps.grouvie;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
@@ -13,10 +12,10 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-import static jett_apps.grouvie.SelectDay.CINEMA_MESSAGE;
-import static jett_apps.grouvie.SelectDay.DAY_MESSAGE;
-import static jett_apps.grouvie.SelectDay.FILM_MESSAGE;
-import static jett_apps.grouvie.SelectDay.SHOWTIME_MESSAGE;
+import static jett_apps.grouvie.MainActivity.CINEMA_MESSAGE;
+import static jett_apps.grouvie.MainActivity.DAY_MESSAGE;
+import static jett_apps.grouvie.MainActivity.FILM_MESSAGE;
+import static jett_apps.grouvie.MainActivity.SHOWTIME_MESSAGE;
 
 public class LeaderInitialPlan extends AppCompatActivity {
 
