@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.TextView;
 
 import java.util.Calendar;
 
@@ -22,10 +23,16 @@ public class LandingPage extends AppCompatActivity {
     public static final String CINEMA_DATA = "CINEMADATA";
     public static final String USER_NAME = "USERNAME";
 
+    private TextView name;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page);
+
+        name = (TextView) findViewById(R.id.user_name);
+        Intent currIntent = getIntent();
+        name.setText(currIntent.getStringExtra(USER_NAME));
     }
 
     public void startPlanning(View view) {

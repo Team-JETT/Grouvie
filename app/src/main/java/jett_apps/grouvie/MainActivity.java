@@ -17,12 +17,6 @@ import static jett_apps.grouvie.LandingPage.USER_NAME;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
 
-//    private ConstraintLayout profileSection;
-//    private Button signout;
-//    private TextView name;
-//    private TextView email;
-//    private ImageView image;
-
     private SignInButton signin;
     private GoogleApiClient googleApiClient;
     private static final int REQ_CODE = 9001;
@@ -32,22 +26,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        Encapsulates the next four items into one section.
-//        profileSection = (ConstraintLayout) findViewById(R.id.profileSection);
-//        signout = (Button) findViewById(R.id.button_logout);
-//        name = (TextView) findViewById(R.id.input_name);
-//        email = (TextView) findViewById(R.id.input_email);
-//        image = (ImageView) findViewById(R.id.profileImage);
-
-
 //        Sign in button from Google.
         signin = (SignInButton) findViewById(R.id.bn_login);
         // Tapping the buttons will trigger events.
         signin.setOnClickListener(this);
-
-//        signout.setOnClickListener(this);
-        // Hides info until login complete.
-//        profileSection.setVisibility(View.GONE);
 
         GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, this).addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions).build();
@@ -56,6 +38,49 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        // Sign in procedure.
+        Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+        startActivityForResult(intent,REQ_CODE);
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQ_CODE) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            GoogleSignInAccount account = result.getSignInAccount();
+            Intent intent = new Intent(this, LandingPage.class);
+            intent.putExtra(USER_NAME, account.getDisplayName());
+            startActivity(intent);
+        }
+    }
+}
+
+
+//    private ConstraintLayout profileSection;
+//    private Button signout;
+//    private TextView name;
+//    private TextView email;
+//    private ImageView image;
+
+
+//        Encapsulates the next four items into one section.
+//        profileSection = (ConstraintLayout) findViewById(R.id.profileSection);
+//        signout = (Button) findViewById(R.id.button_logout);
+//        name = (TextView) findViewById(R.id.input_name);
+//        email = (TextView) findViewById(R.id.input_email);
+//        image = (ImageView) findViewById(R.id.profileImage);
+
+//        signout.setOnClickListener(this);
+// Hides info until login complete.
+//        profileSection.setVisibility(View.GONE);
+
 //        switch(v.getId()) {
 //            case R.id.bn_login:
 //                signIn();
@@ -64,19 +89,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //                signOut();
 //                break;
 //        }
-        signIn();
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
-    }
-
-    private void signIn() {
-        Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
-        startActivityForResult(intent,REQ_CODE);
-
-    }
 
 //    private void signOut() {
 //        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
@@ -118,16 +130,3 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //
 //    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == REQ_CODE) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            GoogleSignInAccount account = result.getSignInAccount();
-            Intent intent = new Intent(this, LandingPage.class);
-            intent.putExtra(USER_NAME, account.getDisplayName());
-            startActivity(intent);
-        }
-    }
-}
