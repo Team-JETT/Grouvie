@@ -17,6 +17,7 @@ public class SelectDay extends AppCompatActivity {
     public static final String SHOWTIME_MESSAGE = "SHOWTIME";
     public static final String DAY_MESSAGE = "EVENTDAY";
     public static final String LOCAL_DATA = "LOCALDATA";
+    public static final String CINEMA_DATA = "CINEMADATA";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

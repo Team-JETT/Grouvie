@@ -61,11 +61,12 @@ class DataParser:
                 times = i['times']
                 if filmname in local_data:
                     local_data[filmname].append(
-                        {cinema: {"showtimes": times},
-                         "distance": CINEMA_DIST[cinema]})
+                        {cinema: [{"showtimes": times,
+                                   "distance": CINEMA_DIST[cinema]}]})
                 else:
-                    local_data[filmname] = [{cinema: {"showtimes": times},
-                                             "distance": CINEMA_DIST[cinema]}]
+                    local_data[filmname] = \
+                        [{cinema: [{"showtimes": times,
+                                    "distance": CINEMA_DIST[cinema]}]}]
         return local_data
 
     """Get all film data for your local area."""

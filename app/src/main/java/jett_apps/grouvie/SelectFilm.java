@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
+import static jett_apps.grouvie.SelectDay.CINEMA_DATA;
 import static jett_apps.grouvie.SelectDay.DAY_MESSAGE;
 import static jett_apps.grouvie.SelectDay.FILM_MESSAGE;
 import static jett_apps.grouvie.SelectDay.LOCAL_DATA;
@@ -45,7 +47,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         obtainLocation();
 
-        JSONObject local_data = getJsonObject();
+        final JSONObject local_data = getLocalData();
 
         final ArrayList<String> films = new ArrayList<>();
         Iterator<String> iter = local_data.keys();
@@ -53,7 +55,6 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
             films.add(iter.next());
         }
 
-        final JSONObject final_Local_data = local_data;
 
         ListAdapter filmAdapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, films);
@@ -68,14 +69,22 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String filmTitle = films.get(position);
-
+                    Log.v("CHOSEN FILM", filmTitle);
+                    JSONArray cinema_data = null;
+                    try {
+                        cinema_data = local_data.getJSONArray(filmTitle);
+                        Log.v("CINEMA DATA", cinema_data.toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    final JSONArray cinemaData = cinema_data;
                     Intent prevIntent = getIntent();
                     String chosenDay = prevIntent.getStringExtra(DAY_MESSAGE);
 
                     Intent intent = new Intent(view.getContext(), SelectCinema.class);
                     intent.putExtra(FILM_MESSAGE, filmTitle);
                     intent.putExtra(DAY_MESSAGE, chosenDay);
-                    intent.putExtra(LOCAL_DATA, final_Local_data.toString());
+                    intent.putExtra(CINEMA_DATA, cinemaData.toString());
                     startActivity(intent);
                 }
             }
@@ -84,7 +93,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
     }
 
     @Nullable
-    private JSONObject getJsonObject() {
+    private JSONObject getLocalData() {
         JSONObject json = new JSONObject();
         try {
             json.accumulate("latitude", latitude);
