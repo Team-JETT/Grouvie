@@ -114,7 +114,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String filmTitle = showingFilmsArray[position];
-                    Intent intent = new Intent(view.getContext(), GroupSelection.class);
+                    Intent intent = new Intent(view.getContext(), SelectGroup.class);
                     intent.putExtra(FILM_MESSAGE, filmTitle);
                     startActivity(intent);
                 }

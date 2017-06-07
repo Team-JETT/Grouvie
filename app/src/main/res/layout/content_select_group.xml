@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="jett_apps.grouvie.GroupSelection"
-    tools:showIn="@layout/activity_group_selection">
+    tools:context="jett_apps.grouvie.SelectGroup"
+    tools:showIn="@layout/activity_select_group">
 
 </android.support.constraint.ConstraintLayout>
