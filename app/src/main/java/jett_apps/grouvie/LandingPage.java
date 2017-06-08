@@ -37,6 +37,7 @@ public class LandingPage extends AppCompatActivity {
     }
 
     public void startPlanning(View view) {
+        //
         Intent intent = new Intent(this, SelectFilm.class);
 
         final Calendar c = Calendar.getInstance();
