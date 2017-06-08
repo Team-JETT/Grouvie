@@ -21,10 +21,11 @@ import static jett_apps.grouvie.LandingPage.CINEMA_DATA;
 import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
 import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
 import static jett_apps.grouvie.LandingPage.USER_NAME;
+import static jett_apps.grouvie.LandingPage.GROUP_LIST;
 
 public class SelectGroup extends AppCompatActivity {
 
-    public static final String GROUP_LIST = "GROUPLIST";
+
 
     // This will be updated by real values later.
     private Friend[] friends;
