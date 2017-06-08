@@ -64,6 +64,9 @@ class DataParser:
         if '%25' in wiki_url:
             wiki_url = '%'.join(wiki_url.split('%25'))
 
+        print(film_name)
+        print(wiki_url)
+
         res = requests.get(wiki_url)
         soup = BeautifulSoup(res.text, "lxml")
 
