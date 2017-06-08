@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from bs4 import BeautifulSoup
 from urlparse import urljoin
 import requests
@@ -56,7 +54,7 @@ class DataParser:
 
         wiki_main_url = 'http://en.wikipedia.org/wiki/Main_Page'
         res = requests.get(url + film_name + extra)
-        soup = BeautifulSoup(res.text, "lxml")
+        soup = BeautifulSoup(res.text)
 
         # Parsing the html page to get the first url link in the google search
         # results, which will be the wikipedia page link
@@ -66,11 +64,8 @@ class DataParser:
         if '%25' in wiki_url:
             wiki_url = '%'.join(wiki_url.split('%25'))
 
-        print(film_name)
-        print(wiki_url)
-
         res = requests.get(wiki_url)
-        soup = BeautifulSoup(res.text, "lxml")
+        soup = BeautifulSoup(res.text)
 
         # Get the first image tag of the wikipedia page
         img = soup.select('a.image > img')[0]
