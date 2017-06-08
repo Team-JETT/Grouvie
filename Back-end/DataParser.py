@@ -54,7 +54,7 @@ class DataParser:
 
         wiki_main_url = 'http://en.wikipedia.org/wiki/Main_Page'
         res = requests.get(url + film_name + extra)
-        soup = BeautifulSoup(res.text)
+        soup = BeautifulSoup(res.text, "lxml")
 
         # Parsing the html page to get the first url link in the google search
         # results, which will be the wikipedia page link
@@ -65,7 +65,7 @@ class DataParser:
             wiki_url = '%'.join(wiki_url.split('%25'))
 
         res = requests.get(wiki_url)
-        soup = BeautifulSoup(res.text)
+        soup = BeautifulSoup(res.text, "lxml")
 
         # Get the first image tag of the wikipedia page
         img = soup.select('a.image > img')[0]
