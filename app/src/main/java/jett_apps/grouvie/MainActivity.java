@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private Button signout;
     private TextView message;
+    private Button carryOn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +37,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         signout = (Button) findViewById(R.id.bn_signout);
         signout.setOnClickListener(this);
+        carryOn = (Button) findViewById(R.id.carry_on);
+        carryOn.setOnClickListener(this);
+
         message = (TextView) findViewById(R.id.succes_text);
         message.setVisibility(View.GONE);
 
@@ -57,6 +61,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.bn_signout:
                 signOut();
+                break;
+            case R.id.carry_on:
+                startActivity(new Intent(this, LandingPage.class));
                 break;
         }
     }
