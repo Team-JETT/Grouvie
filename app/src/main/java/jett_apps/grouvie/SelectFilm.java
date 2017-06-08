@@ -26,12 +26,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
-import static jett_apps.grouvie.MainActivity.DAY;
-import static jett_apps.grouvie.MainActivity.DAY_MESSAGE;
-import static jett_apps.grouvie.MainActivity.FILM_MESSAGE;
-import static jett_apps.grouvie.MainActivity.CINEMA_DATA;
-import static jett_apps.grouvie.MainActivity.MONTH;
-import static jett_apps.grouvie.MainActivity.YEAR;
+import static jett_apps.grouvie.LandingPage.DAY;
+import static jett_apps.grouvie.LandingPage.MONTH;
+import static jett_apps.grouvie.LandingPage.YEAR;
+import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
+import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
+import static jett_apps.grouvie.LandingPage.CINEMA_DATA;
+import static jett_apps.grouvie.LandingPage.USER_NAME;
 
 
 public class SelectFilm extends AppCompatActivity implements LocationListener {
@@ -82,11 +83,13 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                     final JSONArray cinemaData = cinema_data;
                     Intent prevIntent = getIntent();
                     String chosenDay = prevIntent.getStringExtra(DAY_MESSAGE);
+                    String user_name = prevIntent.getStringExtra(USER_NAME);
 
                     Intent intent = new Intent(view.getContext(), SelectGroup.class);
                     intent.putExtra(FILM_MESSAGE, filmTitle);
                     intent.putExtra(DAY_MESSAGE, chosenDay);
                     intent.putExtra(CINEMA_DATA, cinemaData.toString());
+                    intent.putExtra(USER_NAME, user_name);
                     startActivity(intent);
                 }
             }

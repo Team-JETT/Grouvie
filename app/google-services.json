@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "44973864753",
+    "project_id": "grouvie-170017"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:44973864753:android:7029ba96bd1ffa2d",
+        "android_client_info": {
+          "package_name": "jett_apps.grouvie"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "44973864753-kqunjs43eol38mj8vs20qirhv8vau0ch.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "jett_apps.grouvie",
+            "certificate_hash": "ca114a64870db9dba0506e930ac2ca542aecc90a"
+          }
+        },
+        {
+          "client_id": "44973864753-c5atecf1qqt5fvpa5dquudqdcjr4ulkb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYHHMt66KvOUdLOMymgRlpclDrg8l6fxQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

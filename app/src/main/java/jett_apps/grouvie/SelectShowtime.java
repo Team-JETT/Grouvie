@@ -17,12 +17,14 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static jett_apps.grouvie.MainActivity.CINEMA_DATA;
-import static jett_apps.grouvie.MainActivity.CINEMA_MESSAGE;
-import static jett_apps.grouvie.MainActivity.DAY_MESSAGE;
-import static jett_apps.grouvie.MainActivity.FILM_MESSAGE;
-import static jett_apps.grouvie.MainActivity.SHOWTIME_DISTANCE_DATA;
-import static jett_apps.grouvie.MainActivity.SHOWTIME_MESSAGE;
+
+import static jett_apps.grouvie.LandingPage.CINEMA_DATA;
+import static jett_apps.grouvie.LandingPage.CINEMA_MESSAGE;
+import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
+import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
+import static jett_apps.grouvie.LandingPage.SHOWTIME_MESSAGE;
+import static jett_apps.grouvie.LandingPage.SHOWTIME_DISTANCE_DATA;
+import static jett_apps.grouvie.LandingPage.USER_NAME;
 
 public class SelectShowtime extends AppCompatActivity {
 
@@ -70,6 +72,7 @@ public class SelectShowtime extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String chosenTime = showtimes.get(position);
+                    String user_name = getIntent().getStringExtra(USER_NAME);
 
                     //Sending the current plan to the final planning page
                     Intent intent = new Intent(view.getContext(), LeaderInitialPlan.class);
@@ -77,6 +80,7 @@ public class SelectShowtime extends AppCompatActivity {
                     intent.putExtra(CINEMA_MESSAGE, chosenCinema);
                     intent.putExtra(DAY_MESSAGE, chosenDay);
                     intent.putExtra(SHOWTIME_MESSAGE, chosenTime);
+                    intent.putExtra(USER_NAME, user_name);
 //                    intent.putExtra(SHOWTIME_DISTANCE_DATA, totalDistance);
                     startActivity(intent);
 
