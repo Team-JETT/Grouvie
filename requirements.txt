@@ -4,4 +4,4 @@ requests==2.12.3
 psycopg2==2.7.1
 environ==1.0
 bs4==0.0.1
-urllib==1.21.1
+urlparse==1.0
