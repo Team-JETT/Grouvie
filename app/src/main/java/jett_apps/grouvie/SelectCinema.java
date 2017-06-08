@@ -23,6 +23,7 @@ import static jett_apps.grouvie.LandingPage.CINEMA_DATA;
 import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
 import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
 import static jett_apps.grouvie.LandingPage.SHOWTIME_DISTANCE_DATA;
+import static jett_apps.grouvie.LandingPage.USER_NAME;
 
 public class SelectCinema extends AppCompatActivity {
 
@@ -84,11 +85,14 @@ public class SelectCinema extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
+                    String user_name = getIntent().getStringExtra(USER_NAME);
+
                     //Sending the current plan to the final planning page
                     Intent intent = new Intent(view.getContext(), SelectShowtime.class);
                     intent.putExtra(FILM_MESSAGE, chosenFilm);
                     intent.putExtra(DAY_MESSAGE, chosenDay);
                     intent.putExtra(CINEMA_MESSAGE, chosenCinema);
+                    intent.putExtra(USER_NAME, user_name);
                     intent.putExtra(SHOWTIME_DISTANCE_DATA, showtimeDistanceData.toString());
                     startActivity(intent);
 

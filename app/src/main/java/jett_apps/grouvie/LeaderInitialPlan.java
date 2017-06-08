@@ -17,6 +17,7 @@ import static jett_apps.grouvie.LandingPage.CINEMA_MESSAGE;
 import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
 import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
 import static jett_apps.grouvie.LandingPage.SHOWTIME_MESSAGE;
+import static jett_apps.grouvie.LandingPage.USER_NAME;
 
 public class LeaderInitialPlan extends AppCompatActivity {
 
@@ -59,7 +60,9 @@ public class LeaderInitialPlan extends AppCompatActivity {
         new ServerContact().execute("insert", json.toString());
 
         Toast.makeText(getApplicationContext(), "Plan submitted to group", Toast.LENGTH_LONG).show();
+        String user_name = getIntent().getStringExtra(USER_NAME);
         Intent intent = new Intent(this, LandingPage.class);
+        intent.putExtra(USER_NAME, user_name);
         startActivity(intent);
     }
 }
