@@ -45,7 +45,7 @@ public class LandingPage extends AppCompatActivity {
         Calendar cMax = Calendar.getInstance();
         cMax.add(Calendar.DAY_OF_MONTH, 7);
         int mYear = c.get(Calendar.YEAR);
-        int mMonth = c.get(Calendar.MONTH);
+        int mMonth = c.get(Calendar.MONTH) + 1;
         int mDay = c.get(Calendar.DAY_OF_MONTH);
 
 
