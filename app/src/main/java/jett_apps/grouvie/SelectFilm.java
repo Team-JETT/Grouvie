@@ -26,9 +26,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
+import static jett_apps.grouvie.MainActivity.DAY;
 import static jett_apps.grouvie.MainActivity.DAY_MESSAGE;
 import static jett_apps.grouvie.MainActivity.FILM_MESSAGE;
 import static jett_apps.grouvie.MainActivity.CINEMA_DATA;
+import static jett_apps.grouvie.MainActivity.MONTH;
+import static jett_apps.grouvie.MainActivity.YEAR;
 
 
 public class SelectFilm extends AppCompatActivity implements LocationListener {
@@ -93,10 +96,19 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
     @Nullable
     private JSONObject getLocalData() {
+        // Grab the date from the MainActivity
+        Intent intent = getIntent();
+        final int day = intent.getIntExtra(DAY, 0);
+        final int month = intent.getIntExtra(MONTH, 0);
+        final int year = intent.getIntExtra(YEAR, 1900);
+
         JSONObject json = new JSONObject();
         try {
             json.accumulate("latitude", latitude);
             json.accumulate("longitude", longitude);
+            json.accumulate("day", day);
+            json.accumulate("month", month);
+            json.accumulate("year", year);
         } catch (JSONException e) {
             e.printStackTrace();
         }

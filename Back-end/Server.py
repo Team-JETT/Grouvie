@@ -35,11 +35,13 @@ def insert():
 # -- Distance from provided location to cinema in Km.
 @app.route("/get_local_data", methods=["GET", "POST"])
 def get_local_data():
-    location = request.data
-    location = json.loads(location)
-    latitude = location['latitude']
-    longitude = location['longitude']
-    return json.dumps(dParser.get_local_data(latitude, longitude))
+    phone_data = request.data
+    phone_data = json.loads(phone_data)
+    return json.dumps(dParser.get_local_data(phone_data['latitude'],
+                                             phone_data['longitude'],
+                                             phone_data['day'],
+                                             phone_data['month'],
+                                             phone_data['year']))
 
 
 if __name__ == "__main__":

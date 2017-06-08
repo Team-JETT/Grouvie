@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 
@@ -19,6 +20,10 @@ public class MainActivity extends AppCompatActivity {
     public static final String CINEMA_DATA = "CINEMADATA";
     public static final String SHOWTIME_DISTANCE_DATA = "SHOWTIMEDISTANCEDATA";
 
+    public static final String DAY = "DAY";
+    public static final String MONTH = "MONTH";
+    public static final String YEAR = "YEAR";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +37,10 @@ public class MainActivity extends AppCompatActivity {
         c.add(Calendar.DAY_OF_MONTH, 1);
         Calendar cMax = Calendar.getInstance();
         cMax.add(Calendar.DAY_OF_MONTH, 7);
-        int mYear = c.get(Calendar.YEAR);
-        int mMonth = c.get(Calendar.MONTH);
-        int mDay = c.get(Calendar.DAY_OF_MONTH);
+        final int mYear = c.get(Calendar.YEAR);
+        final int mMonth = c.get(Calendar.MONTH);
+        final int mDay = c.get(Calendar.DAY_OF_MONTH);
+        Log.v("DATE", mDay + ":" + mMonth + ":" + mYear);
 
 
         DatePickerDialog datePickerDialog =
@@ -46,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
 
                     Intent intent = new Intent(view.getContext(), SelectFilm.class);
                     intent.putExtra(DAY_MESSAGE, chosenDay);
+                    intent.putExtra(DAY, mDay);
+                    intent.putExtra(MONTH, mMonth);
+                    intent.putExtra(YEAR, mYear);
 
                     ServerContact.dialog = new ProgressDialog(MainActivity.this, ProgressDialog.BUTTON_POSITIVE);
                     ServerContact.dialog.setTitle("Please wait");

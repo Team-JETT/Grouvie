@@ -44,21 +44,24 @@ class DataParser:
     film showings and times.
     :param day: If no day provided, assume today.
     """
-    def get_films_for_cinema(self):
+    def get_films_for_cinema(self, date):
         global CINEMA_CID, CINEMA_DIST
         local_data = {}
+        print date
         for cinema in CINEMA_CID.keys():
             # Get the cinema ID for a given cinema,
             # E.g. Cineworld London - Enfield: 10477
             cinema_id = CINEMA_CID[cinema]
             # Get list of films showing at this cinema
-            films = requests.get(
-                "http://api.cinelist.co.uk/get/times/cinema/{}".format(cinema_id))
+            url = "http://moviesapi.herokuapp.com/cinemas/{}/" \
+                  "showings/{}".format(cinema_id, date)
+            films = requests.get(url)
             # Create a JSON object storing film name, cinema, showtimes and
             # distance to the cinema.
-            for i in films.json()['listings']:
-                filmname = i['title']
-                times = i['times']
+            print url
+            for i in films.json():
+                filmname = i["title"]
+                times = i['time']
                 if filmname in local_data:
                     local_data[filmname].append(
                         {cinema: [{"showtimes": times,
@@ -69,10 +72,22 @@ class DataParser:
                                     "distance": CINEMA_DIST[cinema]}]}]
         return local_data
 
+    def parse_date(self, day, month, year):
+        day = str(day)
+        month = str(month)
+        year = str(year)
+
+        if len(day) == 1:
+            day = "0" + day
+        if len(month) == 1:
+            month = "0" + month
+        return year + "-" + month + "-" + day
+
     """Get all film data for your local area."""
-    def get_local_data(self, latitude, longitude):
+    def get_local_data(self, latitude, longitude, day, month, year):
         self.get_cinemas_latlong(latitude, longitude)
-        return self.get_films_for_cinema()
+        formattedDate = self.parse_date(day, month, year)
+        return self.get_films_for_cinema(formattedDate)
 
 
 if __name__ == '__main__':
