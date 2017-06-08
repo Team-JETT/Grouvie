@@ -1,7 +1,10 @@
 package jett_apps.grouvie;
 
 
-public class Plan {
+import java.io.Serializable;
+import java.util.Arrays;
+
+public class Plan implements Serializable {
 
     private String suggestedFilm;
     private String suggestedCinema;
@@ -57,6 +60,32 @@ public class Plan {
 
     public void setEventMembers(String[] eventMembers) {
         this.eventMembers = eventMembers;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Plan plan = (Plan) o;
+
+        if (!suggestedFilm.equals(plan.suggestedFilm)) return false;
+        if (!suggestedCinema.equals(plan.suggestedCinema)) return false;
+        if (!suggestedShowTime.equals(plan.suggestedShowTime)) return false;
+        if (!suggestedDate.equals(plan.suggestedDate)) return false;
+        // Probably incorrect - comparing Object[] arrays with Arrays.equals
+        return Arrays.equals(eventMembers, plan.eventMembers);
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = suggestedFilm.hashCode();
+        result = 31 * result + suggestedCinema.hashCode();
+        result = 31 * result + suggestedShowTime.hashCode();
+        result = 31 * result + suggestedDate.hashCode();
+        result = 31 * result + Arrays.hashCode(eventMembers);
+        return result;
     }
 }
 

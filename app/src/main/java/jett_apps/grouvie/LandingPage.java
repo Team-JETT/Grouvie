@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.ListAdapter;
 import android.widget.ListView;
@@ -21,17 +22,36 @@ public class LandingPage extends AppCompatActivity {
     public static final String DAY_MESSAGE = "EVENTDAY";
     public static final String CINEMA_DATA = "CINEMADATA";
     public static final String GROUP_LIST = "GROUPLIST";
+    public static final String PLAN_MESSAGE = "PLAN_MESSAGE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page);
 
-        ArrayList<Plan> currentPlans = CurrentPlans.getPlans(LandingPage.this);
+        final ArrayList<Plan> currentPlans = CurrentPlans.getPlans(LandingPage.this);
         ListAdapter planAdapter = new CustomPlanAdapter(this, currentPlans);
 
         ListView plansListView = (ListView) findViewById(R.id.plansList);
         plansListView.setAdapter(planAdapter);
+
+        plansListView.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Plan p = currentPlans.get(position);
+
+                        //Sending the current plan to the final planning page
+                        Intent intent = new Intent(view.getContext(), CurrentPlanView.class);
+                        intent.putExtra(PLAN_MESSAGE, p);
+                        Plan savedP = (Plan) intent.getSerializableExtra(PLAN_MESSAGE);
+                        startActivity(intent);
+
+                    }
+                }
+        );
+
 
     }
 
