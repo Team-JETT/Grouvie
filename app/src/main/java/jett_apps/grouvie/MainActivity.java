@@ -1,65 +1,132 @@
 package jett_apps.grouvie;
-
-import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.DatePicker;
 
-import java.util.Calendar;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
 
-public class MainActivity extends AppCompatActivity {
+import static jett_apps.grouvie.LandingPage.USER_NAME;
 
-    public static final String FILM_MESSAGE = "FILMTITLE";
-    public static final String CINEMA_MESSAGE= "CINEMATITLE";
-    public static final String SHOWTIME_MESSAGE = "SHOWTIME";
-    public static final String DAY_MESSAGE = "EVENTDAY";
-    public static final String CINEMA_DATA = "CINEMADATA";
-    public static final String SHOWTIME_DISTANCE_DATA = "SHOWTIMEDISTANCEDATA";
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
+
+    private SignInButton signin;
+    private GoogleApiClient googleApiClient;
+    private static final int REQ_CODE = 9001;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
 
-    public void startPlanning(View view) {
-        Intent intent = new Intent(this, SelectFilm.class);
+//        Sign in button from Google.
+        signin = (SignInButton) findViewById(R.id.bn_login);
+        // Tapping the buttons will trigger events.
+        signin.setOnClickListener(this);
 
-        final Calendar c = Calendar.getInstance();
-        c.add(Calendar.DAY_OF_MONTH, 1);
-        Calendar cMax = Calendar.getInstance();
-        cMax.add(Calendar.DAY_OF_MONTH, 7);
-        int mYear = c.get(Calendar.YEAR);
-        int mMonth = c.get(Calendar.MONTH);
-        int mDay = c.get(Calendar.DAY_OF_MONTH);
-
-
-        DatePickerDialog datePickerDialog =
-            new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-                    String chosenDay = dayOfMonth + "/" + month + "/" + year;
-
-                    Intent intent = new Intent(view.getContext(), SelectFilm.class);
-                    intent.putExtra(DAY_MESSAGE, chosenDay);
-
-                    ServerContact.dialog = new ProgressDialog(MainActivity.this, ProgressDialog.BUTTON_POSITIVE);
-                    ServerContact.dialog.setTitle("Please wait");
-                    ServerContact.dialog.setMessage("Obtaining listings from server");
-                    ServerContact.dialog.show();
-
-                    startActivity(intent);
-                }
-            }, mYear, mMonth, mDay);
-
-        datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
-        datePickerDialog.getDatePicker().setMaxDate(cMax.getTimeInMillis());
-        datePickerDialog.show();
+        GoogleSignInOptions signInOptions = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        googleApiClient = new GoogleApiClient.Builder(this).enableAutoManage(this, this).addApi(Auth.GOOGLE_SIGN_IN_API, signInOptions).build();
 
     }
 
+    @Override
+    public void onClick(View v) {
+        // Sign in procedure.
+        Intent intent = Auth.GoogleSignInApi.getSignInIntent(googleApiClient);
+        startActivityForResult(intent,REQ_CODE);
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == REQ_CODE) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            GoogleSignInAccount account = result.getSignInAccount();
+            Intent intent = new Intent(this, LandingPage.class);
+            intent.putExtra(USER_NAME, account.getDisplayName());
+            startActivity(intent);
+        }
+    }
 }
+
+
+//    private ConstraintLayout profileSection;
+//    private Button signout;
+//    private TextView name;
+//    private TextView email;
+//    private ImageView image;
+
+
+//        Encapsulates the next four items into one section.
+//        profileSection = (ConstraintLayout) findViewById(R.id.profileSection);
+//        signout = (Button) findViewById(R.id.button_logout);
+//        name = (TextView) findViewById(R.id.input_name);
+//        email = (TextView) findViewById(R.id.input_email);
+//        image = (ImageView) findViewById(R.id.profileImage);
+
+//        signout.setOnClickListener(this);
+// Hides info until login complete.
+//        profileSection.setVisibility(View.GONE);
+
+//        switch(v.getId()) {
+//            case R.id.bn_login:
+//                signIn();
+//                break;
+//            case R.id.button_logout:
+//                signOut();
+//                break;
+//        }
+
+//    private void signOut() {
+//        Auth.GoogleSignInApi.signOut(googleApiClient).setResultCallback(new ResultCallback<Status>() {
+//            @Override
+//            public void onResult(@NonNull Status status) {
+//               updateUI(false);
+//            }
+//        });
+//
+//    }
+//
+//    private void handleResult(GoogleSignInResult result) {
+//        if(result.isSuccess()) {
+//            GoogleSignInAccount account = result.getSignInAccount();
+//            String a_name = account.getDisplayName();
+//            String a_email = account.getEmail();
+//            android.net.Uri img_url = account.getPhotoUrl();
+//
+//            name.setText(a_name);
+//            email.setText(a_email);
+//            if(img_url != null) {
+//                Glide.with(this).load(img_url).into(image);
+//            }
+//            updateUI(true);
+//        } else {
+//            updateUI(false);
+//        }
+//
+//    }
+
+//    private void updateUI(boolean login) {
+//        if(login) {
+//            profileSection.setVisibility(View.VISIBLE);
+//            signin.setVisibility(View.GONE);
+//        } else {
+//            profileSection.setVisibility(View.GONE);
+//            signin.setVisibility(View.VISIBLE);
+//        }
+//
+//    }
+
