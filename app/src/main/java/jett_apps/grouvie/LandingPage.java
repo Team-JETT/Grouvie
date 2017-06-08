@@ -16,8 +16,12 @@ import java.util.Calendar;
 
 public class LandingPage extends AppCompatActivity {
 
+    public static final String LATITUDE = "LATITUDE";
+    public static final String LONGITUDE = "LONGITUDE";
+
+
     public static final String FILM_MESSAGE = "FILMTITLE";
-    public static final String CINEMA_MESSAGE= "CINEMATITLE";
+    public static final String CINEMA_MESSAGE = "CINEMATITLE";
     public static final String SHOWTIME_MESSAGE = "SHOWTIME";
     public static final String DAY_MESSAGE = "EVENTDAY";
     public static final String CINEMA_DATA = "CINEMADATA";
@@ -56,14 +60,14 @@ public class LandingPage extends AppCompatActivity {
         DatePickerDialog datePickerDialog =
                 new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                     @Override
-                    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        String chosenDay = dayOfMonth + "/" + month + "/" + year;
+                    public void onDateSet(DatePicker view, int year, int month, int day) {
+                        String chosenDay = day + "/" + month + "/" + year;
 
                         Intent intent = new Intent(view.getContext(), SelectFilm.class);
                         intent.putExtra(DAY_MESSAGE, chosenDay);
-                        intent.putExtra(DAY, mDay);
-                        intent.putExtra(MONTH, mMonth);
-                        intent.putExtra(YEAR, mYear);
+                        intent.putExtra(DAY, day);
+                        intent.putExtra(MONTH, month + 1);
+                        intent.putExtra(YEAR, year);
 
 
                         intent.putExtra(DAY_MESSAGE, chosenDay);

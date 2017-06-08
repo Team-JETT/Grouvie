@@ -20,6 +20,8 @@ import java.util.List;
 import static jett_apps.grouvie.LandingPage.CINEMA_DATA;
 import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
 import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
+import static jett_apps.grouvie.LandingPage.LATITUDE;
+import static jett_apps.grouvie.LandingPage.LONGITUDE;
 import static jett_apps.grouvie.LandingPage.USER_NAME;
 
 public class SelectGroup extends AppCompatActivity {
@@ -185,6 +187,8 @@ public class SelectGroup extends AppCompatActivity {
 
     public void finishGroupSelection(View view) {
         Intent currIntent = getIntent();
+        double latitude = currIntent.getDoubleExtra(LATITUDE, 0);
+        double longitude = currIntent.getDoubleExtra(LONGITUDE, 0);
         String filmTitle = currIntent.getStringExtra(FILM_MESSAGE);
         String chosenDay = currIntent.getStringExtra(DAY_MESSAGE);
         String cinemaData = currIntent.getStringExtra(CINEMA_DATA);
@@ -193,13 +197,15 @@ public class SelectGroup extends AppCompatActivity {
         selectedFriends = new String[friends.length];
 
         int j = 0;
-        for (int i = 0; i < friends.length; i++) {
-            if(friends[i].isChecked()) {
-                selectedFriends[j] = friends[i].getName();
+        for (Friend friend : friends) {
+            if (friend.isChecked()) {
+                selectedFriends[j] = friend.getName();
                 j++;
             }
         }
 
+        intent.putExtra(LATITUDE, latitude);
+        intent.putExtra(LONGITUDE, longitude);
         intent.putExtra(FILM_MESSAGE, filmTitle);
         intent.putExtra(DAY_MESSAGE, chosenDay);
         intent.putExtra(CINEMA_DATA, cinemaData);

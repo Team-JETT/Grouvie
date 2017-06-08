@@ -16,10 +16,17 @@ import java.io.IOException;
 import static jett_apps.grouvie.LandingPage.CINEMA_MESSAGE;
 import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
 import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
+import static jett_apps.grouvie.LandingPage.LATITUDE;
+import static jett_apps.grouvie.LandingPage.LONGITUDE;
 import static jett_apps.grouvie.LandingPage.SHOWTIME_MESSAGE;
 import static jett_apps.grouvie.LandingPage.USER_NAME;
 
 public class LeaderInitialPlan extends AppCompatActivity {
+
+    double latitude, longitude;
+    String chosenFilm, chosenCinema, chosenTime, chosenDay;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,10 +34,12 @@ public class LeaderInitialPlan extends AppCompatActivity {
         setContentView(R.layout.activity_leader_initial_plan);
 
         Intent intent = getIntent();
-        final String chosenFilm = intent.getStringExtra(FILM_MESSAGE);
-        final String chosenCinema = intent.getStringExtra(CINEMA_MESSAGE);
-        final String chosenTime = intent.getStringExtra(SHOWTIME_MESSAGE);
-        final String chosenDay = intent.getStringExtra(DAY_MESSAGE);
+        latitude = intent.getDoubleExtra(LATITUDE, 0);
+        longitude = intent.getDoubleExtra(LONGITUDE, 0);
+        chosenFilm = intent.getStringExtra(FILM_MESSAGE);
+        chosenCinema = intent.getStringExtra(CINEMA_MESSAGE);
+        chosenTime = intent.getStringExtra(SHOWTIME_MESSAGE);
+        chosenDay = intent.getStringExtra(DAY_MESSAGE);
 
         ((TextView) findViewById(R.id.SelectedFilm)).setText(chosenFilm);
         ((TextView) findViewById(R.id.SelectedCinema)).setText(chosenCinema);
@@ -47,11 +56,11 @@ public class LeaderInitialPlan extends AppCompatActivity {
         try {
             json.accumulate("PHONE_NUMBER", "1");
             json.accumulate("GROUP_ID", 0);
-            json.accumulate("SHOWTIME", "s");
-            json.accumulate("FILM", "GOTG3");
+            json.accumulate("SHOWTIME", chosenTime);
+            json.accumulate("FILM", chosenFilm);
             json.accumulate("PRICE", 32.22);
-            json.accumulate("LOCATION_LAT", 52.111100);
-            json.accumulate("LOCATION_LONG", 21.211122);
+            json.accumulate("LOCATION_LAT", latitude);
+            json.accumulate("LOCATION_LONG", longitude);
             json.accumulate("IMAGE", "HTTP");
             json.accumulate("IS_LEADER", "0");
         } catch (JSONException e) {

@@ -47,7 +47,6 @@ class DataParser:
     def get_films_for_cinema(self, date):
         global CINEMA_CID, CINEMA_DIST
         local_data = {}
-        print date
         for cinema in CINEMA_CID.keys():
             # Get the cinema ID for a given cinema,
             # E.g. Cineworld London - Enfield: 10477
@@ -58,7 +57,6 @@ class DataParser:
             films = requests.get(url)
             # Create a JSON object storing film name, cinema, showtimes and
             # distance to the cinema.
-            print url
             for i in films.json():
                 filmname = i["title"]
                 times = i['time']

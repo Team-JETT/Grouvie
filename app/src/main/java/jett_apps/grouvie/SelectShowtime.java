@@ -22,6 +22,8 @@ import static jett_apps.grouvie.LandingPage.CINEMA_DATA;
 import static jett_apps.grouvie.LandingPage.CINEMA_MESSAGE;
 import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
 import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
+import static jett_apps.grouvie.LandingPage.LATITUDE;
+import static jett_apps.grouvie.LandingPage.LONGITUDE;
 import static jett_apps.grouvie.LandingPage.SHOWTIME_MESSAGE;
 import static jett_apps.grouvie.LandingPage.SHOWTIME_DISTANCE_DATA;
 import static jett_apps.grouvie.LandingPage.USER_NAME;
@@ -34,10 +36,13 @@ public class SelectShowtime extends AppCompatActivity {
         setContentView(R.layout.activity_select_showtime);
 
         Intent intent = getIntent();
+        final double latitude = intent.getDoubleExtra(LATITUDE, 0);
+        final double longitude = intent.getDoubleExtra(LONGITUDE, 0);
         final String chosenFilm  = intent.getStringExtra(FILM_MESSAGE);
         final String chosenCinema = intent.getStringExtra(CINEMA_MESSAGE);
         final String chosenDay = intent.getStringExtra(DAY_MESSAGE);
         final String showtimeDistanceData = intent.getStringExtra(SHOWTIME_DISTANCE_DATA);
+        final String user_name = intent.getStringExtra(USER_NAME);
         ((TextView) findViewById(R.id.chosenFilm)).setText(chosenFilm);
         ((TextView) findViewById(R.id.chosenCinema)).setText(chosenCinema);
 
@@ -72,18 +77,18 @@ public class SelectShowtime extends AppCompatActivity {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                     String chosenTime = showtimes.get(position);
-                    String user_name = getIntent().getStringExtra(USER_NAME);
 
                     //Sending the current plan to the final planning page
                     Intent intent = new Intent(view.getContext(), LeaderInitialPlan.class);
+                    intent.putExtra(LATITUDE, latitude);
+                    intent.putExtra(LONGITUDE, longitude);
                     intent.putExtra(FILM_MESSAGE, chosenFilm);
                     intent.putExtra(CINEMA_MESSAGE, chosenCinema);
                     intent.putExtra(DAY_MESSAGE, chosenDay);
                     intent.putExtra(SHOWTIME_MESSAGE, chosenTime);
                     intent.putExtra(USER_NAME, user_name);
-//                    intent.putExtra(SHOWTIME_DISTANCE_DATA, totalDistance);
+                    Log.v("STUFF", latitude + " " + longitude + " " + chosenFilm);
                     startActivity(intent);
-
                     }
                 }
         );

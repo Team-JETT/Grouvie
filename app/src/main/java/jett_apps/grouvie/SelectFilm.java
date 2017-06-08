@@ -27,6 +27,8 @@ import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
 import static jett_apps.grouvie.LandingPage.DAY;
+import static jett_apps.grouvie.LandingPage.LATITUDE;
+import static jett_apps.grouvie.LandingPage.LONGITUDE;
 import static jett_apps.grouvie.LandingPage.MONTH;
 import static jett_apps.grouvie.LandingPage.YEAR;
 import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
@@ -81,15 +83,14 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                         e.printStackTrace();
                     }
                     final JSONArray cinemaData = cinema_data;
-                    Intent prevIntent = getIntent();
-                    String chosenDay = prevIntent.getStringExtra(DAY_MESSAGE);
-                    String user_name = prevIntent.getStringExtra(USER_NAME);
 
                     Intent intent = new Intent(view.getContext(), SelectGroup.class);
+                    intent.putExtra(LATITUDE, latitude);
+                    intent.putExtra(LONGITUDE, longitude);
                     intent.putExtra(FILM_MESSAGE, filmTitle);
-                    intent.putExtra(DAY_MESSAGE, chosenDay);
+                    intent.putExtra(DAY_MESSAGE, getIntent().getStringExtra(DAY_MESSAGE));
                     intent.putExtra(CINEMA_DATA, cinemaData.toString());
-                    intent.putExtra(USER_NAME, user_name);
+                    intent.putExtra(USER_NAME, getIntent().getStringExtra(USER_NAME));
                     startActivity(intent);
                 }
             }

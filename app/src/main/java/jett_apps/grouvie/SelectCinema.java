@@ -22,6 +22,8 @@ import static jett_apps.grouvie.LandingPage.CINEMA_MESSAGE;
 import static jett_apps.grouvie.LandingPage.CINEMA_DATA;
 import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
 import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
+import static jett_apps.grouvie.LandingPage.LATITUDE;
+import static jett_apps.grouvie.LandingPage.LONGITUDE;
 import static jett_apps.grouvie.LandingPage.SHOWTIME_DISTANCE_DATA;
 import static jett_apps.grouvie.LandingPage.USER_NAME;
 
@@ -34,6 +36,8 @@ public class SelectCinema extends AppCompatActivity {
         setContentView(R.layout.activity_select_cinema);
 
         Intent intent = getIntent();
+        final double latitude =  intent.getDoubleExtra(LATITUDE, 0);
+        final double longitude =  intent.getDoubleExtra(LONGITUDE, 0);
         final String chosenFilm = intent.getStringExtra(FILM_MESSAGE);
         final String chosenDay = intent.getStringExtra(DAY_MESSAGE);
         final String cinemaData = intent.getStringExtra(CINEMA_DATA);
@@ -85,14 +89,15 @@ public class SelectCinema extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    String user_name = getIntent().getStringExtra(USER_NAME);
 
                     //Sending the current plan to the final planning page
                     Intent intent = new Intent(view.getContext(), SelectShowtime.class);
+                    intent.putExtra(LATITUDE, latitude);
+                    intent.putExtra(LONGITUDE, longitude);
                     intent.putExtra(FILM_MESSAGE, chosenFilm);
                     intent.putExtra(DAY_MESSAGE, chosenDay);
                     intent.putExtra(CINEMA_MESSAGE, chosenCinema);
-                    intent.putExtra(USER_NAME, user_name);
+                    intent.putExtra(USER_NAME, getIntent().getStringExtra(USER_NAME));
                     intent.putExtra(SHOWTIME_DISTANCE_DATA, showtimeDistanceData.toString());
                     startActivity(intent);
 
