@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from urlparse import urljoin
+import sys
 import requests
 import re
 import pprint
@@ -66,6 +67,7 @@ class DataParser:
 
         print(film_name)
         print(wiki_url)
+        sys.stdout.flush()
 
         res = requests.get(wiki_url)
         soup = BeautifulSoup(res.text, "lxml")
