@@ -65,9 +65,8 @@ class DataParser:
         if '%25' in wiki_url:
             wiki_url = '%'.join(wiki_url.split('%25'))
 
-        print(film_name)
-        print(wiki_url)
-        sys.stdout.flush()
+        if 'wikipedia' not in wiki_url:
+            return 'https://literalminded.files.wordpress.com/2010/11/image-unavailable1.png'
 
         res = requests.get(wiki_url)
         soup = BeautifulSoup(res.text, "lxml")
@@ -90,9 +89,6 @@ class DataParser:
             # Get the cinema ID for a given cinema,
             # E.g. Cineworld London - Enfield: 10477
             cinema_id = CINEMA_CID[cinema]
-
-            print(cinema_id)
-            sys.stdout.flush()
 
             # Get list of films showing at this cinema
             films = requests.get(
