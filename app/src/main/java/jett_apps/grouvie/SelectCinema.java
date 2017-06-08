@@ -26,6 +26,7 @@ import static jett_apps.grouvie.LandingPage.LATITUDE;
 import static jett_apps.grouvie.LandingPage.LONGITUDE;
 import static jett_apps.grouvie.LandingPage.SHOWTIME_DISTANCE_DATA;
 import static jett_apps.grouvie.LandingPage.USER_NAME;
+import static jett_apps.grouvie.LandingPage.GROUP_LIST;
 
 public class SelectCinema extends AppCompatActivity {
 
@@ -41,6 +42,7 @@ public class SelectCinema extends AppCompatActivity {
         final String chosenFilm = intent.getStringExtra(FILM_MESSAGE);
         final String chosenDay = intent.getStringExtra(DAY_MESSAGE);
         final String cinemaData = intent.getStringExtra(CINEMA_DATA);
+        final String chosenFriends = intent.getStringExtra(GROUP_LIST);
         ((TextView) findViewById(R.id.chosen_film)).setText(chosenFilm);
 
         JSONArray cinema_data = null;
@@ -99,6 +101,7 @@ public class SelectCinema extends AppCompatActivity {
                     intent.putExtra(CINEMA_MESSAGE, chosenCinema);
                     intent.putExtra(USER_NAME, getIntent().getStringExtra(USER_NAME));
                     intent.putExtra(SHOWTIME_DISTANCE_DATA, showtimeDistanceData.toString());
+                    intent.putExtra(GROUP_LIST, chosenFriends);
                     startActivity(intent);
 
                 }

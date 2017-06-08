@@ -18,15 +18,15 @@ import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
 import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
 import static jett_apps.grouvie.LandingPage.LATITUDE;
 import static jett_apps.grouvie.LandingPage.LONGITUDE;
+import static jett_apps.grouvie.LandingPage.GROUP_LIST;
 import static jett_apps.grouvie.LandingPage.SHOWTIME_MESSAGE;
 import static jett_apps.grouvie.LandingPage.USER_NAME;
 
 public class LeaderInitialPlan extends AppCompatActivity {
 
-    double latitude, longitude;
-    String chosenFilm, chosenCinema, chosenTime, chosenDay;
-
-
+    private double latitude, longitude;
+    private String chosenFilm, chosenCinema, chosenTime, chosenDay;
+    private String[] chosenFriends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +40,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
         chosenCinema = intent.getStringExtra(CINEMA_MESSAGE);
         chosenTime = intent.getStringExtra(SHOWTIME_MESSAGE);
         chosenDay = intent.getStringExtra(DAY_MESSAGE);
+        chosenFriends = intent.getStringArrayExtra(GROUP_LIST);
 
         ((TextView) findViewById(R.id.SelectedFilm)).setText(chosenFilm);
         ((TextView) findViewById(R.id.SelectedCinema)).setText(chosenCinema);
@@ -67,6 +68,9 @@ public class LeaderInitialPlan extends AppCompatActivity {
             e.printStackTrace();
         }
         new ServerContact().execute("insert", json.toString());
+
+        Plan p = new Plan(chosenFilm, chosenCinema, chosenTime, chosenDay, chosenFriends);
+        CurrentPlans.addPlan(p, LeaderInitialPlan.this);
 
         Toast.makeText(getApplicationContext(), "Plan submitted to group", Toast.LENGTH_LONG).show();
         String user_name = getIntent().getStringExtra(USER_NAME);

@@ -1,5 +1,6 @@
-#!/usr/bin/python3
-
+from bs4 import BeautifulSoup
+from urlparse import urljoin
+import sys
 import requests
 import re
 import pprint
@@ -40,6 +41,43 @@ class DataParser:
             CINEMA_DIST[cinema_name] = round(i['distance'] * MILE_TO_KM, 3)
 
     """
+    Given FILM_NAME, this will find the corresponding movie poster and return
+    the wikipedia image url for the movie poster
+    """
+    def get_film_poster(self, film_name):
+        url = 'https://www.google.co.uk/search?q='
+        extra = ' film wikipedia'
+
+        # Check for '&' character. We need to replace any of these with 'and'
+        # strings as '&' in a url has a different meaning
+        if '&' in film_name:
+            film_name = 'and'.join(film_name.split('&'))
+
+        wiki_main_url = 'http://en.wikipedia.org/wiki/Main_Page'
+        res = requests.get(url + film_name + extra)
+        soup = BeautifulSoup(res.text, "lxml")
+
+        # Parsing the html page to get the first url link in the google search
+        # results, which will be the wikipedia page link
+        wiki_url = soup.select('.r a')[0].get('href').split('=')[1].split('&')[0]
+
+        # Same as '&' case above
+        if '%25' in wiki_url:
+            wiki_url = '%'.join(wiki_url.split('%25'))
+
+        if 'wikipedia' not in wiki_url:
+            return 'https://literalminded.files.wordpress.com/2010/11/image-unavailable1.png'
+
+        res = requests.get(wiki_url)
+        soup = BeautifulSoup(res.text, "lxml")
+
+        # Get the first image tag of the wikipedia page
+        img = soup.select('a.image > img')[0]
+        img_url = urljoin(wiki_main_url, img['src'])
+
+        return img_url
+
+    """
     Give this function a cinema ID and day and we can populate FILMS with all 
     film showings and times.
     :param day: If no day provided, assume today.
@@ -51,6 +89,7 @@ class DataParser:
             # Get the cinema ID for a given cinema,
             # E.g. Cineworld London - Enfield: 10477
             cinema_id = CINEMA_CID[cinema]
+
             # Get list of films showing at this cinema
             url = "http://moviesapi.herokuapp.com/cinemas/{}/" \
                   "showings/{}".format(cinema_id, date)
@@ -61,13 +100,17 @@ class DataParser:
                 filmname = i["title"]
                 times = i['time']
                 if filmname in local_data:
+                    img_url = local_data[filmname][0]['image']
                     local_data[filmname].append(
                         {cinema: [{"showtimes": times,
-                                   "distance": CINEMA_DIST[cinema]}]})
+                                   "distance": CINEMA_DIST[cinema]}],
+                         "image": img_url})
                 else:
+                    img_url = self.get_film_poster(filmname)
                     local_data[filmname] = \
                         [{cinema: [{"showtimes": times,
-                                    "distance": CINEMA_DIST[cinema]}]}]
+                                    "distance": CINEMA_DIST[cinema]}],
+                          "image": img_url}]
         return local_data
 
     def parse_date(self, day, month, year):
