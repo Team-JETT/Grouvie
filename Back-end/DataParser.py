@@ -134,7 +134,7 @@ class DataParser:
 if __name__ == '__main__':
     dParser = DataParser()
     pprint.PrettyPrinter(indent=4).pprint(
-        dParser.get_local_data(51.636743, -0.069069))
+        dParser.get_local_data(51.636743, -0.069069, 9, 6, 2017))
 
 
 
