@@ -14,7 +14,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -26,15 +25,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
+import static jett_apps.grouvie.LandingPage.CINEMA_DATA;
 import static jett_apps.grouvie.LandingPage.DAY;
+import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
+import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
 import static jett_apps.grouvie.LandingPage.LATITUDE;
 import static jett_apps.grouvie.LandingPage.LONGITUDE;
 import static jett_apps.grouvie.LandingPage.MONTH;
-import static jett_apps.grouvie.LandingPage.YEAR;
-import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
-import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
-import static jett_apps.grouvie.LandingPage.CINEMA_DATA;
 import static jett_apps.grouvie.LandingPage.USER_NAME;
+import static jett_apps.grouvie.LandingPage.YEAR;
 
 
 public class SelectFilm extends AppCompatActivity implements LocationListener {
@@ -68,9 +67,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
             films.add(new Film(filmName, imageUrl));
         }
 
-
-        ListAdapter filmAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, films);
+        ListAdapter filmAdapter = new CustomFilmAdapter(SelectFilm.this, films);
         ListView filmsListView = (ListView) findViewById(R.id.filmList);
         filmsListView.setAdapter(filmAdapter);
 

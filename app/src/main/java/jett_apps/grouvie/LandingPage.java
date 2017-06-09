@@ -44,6 +44,7 @@ public class LandingPage extends AppCompatActivity {
         name = (TextView) findViewById(R.id.user_name);
         Intent currIntent = getIntent();
         name.setText(currIntent.getStringExtra(USER_NAME));
+
         final ArrayList<Plan> currentPlans = CurrentPlans.getPlans(LandingPage.this);
         ListAdapter planAdapter = new CustomPlanAdapter(this, currentPlans);
 
