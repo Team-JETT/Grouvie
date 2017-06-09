@@ -54,14 +54,22 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         final JSONObject local_data = getLocalData();
 
-        final ArrayList<String> films = new ArrayList<>();
+        final ArrayList<Film> films = new ArrayList<>();
         Iterator<String> iter = local_data.keys();
         while (iter.hasNext()) {
-            films.add(iter.next());
+            String filmName = iter.next();
+            String imageUrl = "https://literalminded.files.wordpress.com/2010/11/image-unavailable1.png";
+            try {
+                imageUrl = local_data.getJSONArray(filmName).getJSONObject(0).get("image").toString();
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            films.add(new Film(filmName, imageUrl));
         }
 
 
-        ListAdapter filmAdapter = new ArrayAdapter<String>(this,
+        ListAdapter filmAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1, films);
         ListView filmsListView = (ListView) findViewById(R.id.filmList);
         filmsListView.setAdapter(filmAdapter);
@@ -73,7 +81,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String filmTitle = films.get(position);
+                    String filmTitle = films.get(position).getFilmName();
                     Log.v("CHOSEN FILM", filmTitle);
                     JSONArray cinema_data = null;
                     try {
