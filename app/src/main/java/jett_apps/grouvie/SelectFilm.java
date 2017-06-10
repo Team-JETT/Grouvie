@@ -59,8 +59,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
             String filmName = iter.next();
             String imageUrl = "https://literalminded.files.wordpress.com/2010/11/image-unavailable1.png";
             try {
-                imageUrl = local_data.getJSONArray(filmName).getJSONObject(0).get("image").toString();
-
+                imageUrl = local_data.getJSONObject(filmName).get("image").toString();
             } catch (JSONException e) {
                 e.printStackTrace();
             }

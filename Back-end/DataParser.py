@@ -100,17 +100,15 @@ class DataParser:
                 filmname = i["title"]
                 times = i['time']
                 if filmname in local_data:
-                    img_url = local_data[filmname][0]['image']
-                    local_data[filmname].append(
+                    local_data[filmname]["cinema"].append(
                         {cinema: [{"showtimes": times,
-                                   "distance": CINEMA_DIST[cinema]}],
-                         "image": img_url})
+                                   "distance": CINEMA_DIST[cinema]}]})
                 else:
-                    img_url = self.get_film_poster(filmname)
-                    local_data[filmname] = \
+                    local_data[filmname] = {}
+                    local_data[filmname]["image"] = self.get_film_poster(filmname)
+                    local_data[filmname]["cinema"] = \
                         [{cinema: [{"showtimes": times,
-                                    "distance": CINEMA_DIST[cinema]}],
-                          "image": img_url}]
+                                    "distance": CINEMA_DIST[cinema]}]}]
         return local_data
 
     def parse_date(self, day, month, year):
