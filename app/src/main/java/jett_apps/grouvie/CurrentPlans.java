@@ -16,6 +16,8 @@ public class CurrentPlans {
     //Obtain current plans
     public static ArrayList<Plan> getPlans(Context context) {
 
+        Plan plan = new Plan("Test", "Test", "Test", "Test", null);
+
         SharedPreferences sp = context.getSharedPreferences(PLANS_KEY, Context.MODE_PRIVATE);
         final Gson gson = new Gson();
 
@@ -23,6 +25,10 @@ public class CurrentPlans {
 
         ArrayList<Plan> mSelectedList = gson.fromJson(sp.getString(PLANS_KEY, empty_list),
                 new TypeToken<ArrayList<Plan>>() {}.getType());
+
+        if (mSelectedList == null) {
+            mSelectedList = new ArrayList<>();
+        }
 
         return mSelectedList;
 
@@ -35,7 +41,12 @@ public class CurrentPlans {
 
         //Create new Gson to represent current plans with plan specified
         Gson gson = new Gson();
+
+        if (currentPlans == null) {
+            currentPlans = new ArrayList<Plan>();
+        }
         currentPlans.add(plan);
+
         String jsonString = gson.toJson(currentPlans);
         SharedPreferences sp = context.getSharedPreferences(PLANS_KEY, Context.MODE_PRIVATE);
 
