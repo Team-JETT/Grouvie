@@ -57,6 +57,9 @@ class DataParser:
         res = requests.get(url + film_name + extra)
         soup = BeautifulSoup(res.text, "lxml")
 
+        print(film_name)
+        sys.stdout.flush()
+
         # Parsing the html page to get the first url link in the google search
         # results, which will be the wikipedia page link
         wiki_url = soup.select('.r a')[0].get('href').split('=')[1].split('&')[0]
