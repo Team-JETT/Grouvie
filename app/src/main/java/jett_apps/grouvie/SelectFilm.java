@@ -81,7 +81,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                     Log.v("CHOSEN FILM", filmTitle);
                     JSONArray cinema_data = null;
                     try {
-                        cinema_data = local_data.getJSONArray(filmTitle);
+                        cinema_data = local_data.getJSONObject(filmTitle).getJSONArray("cinema");
                         Log.v("CINEMA DATA", cinema_data.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
