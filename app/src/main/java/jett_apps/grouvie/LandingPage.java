@@ -47,7 +47,6 @@ public class LandingPage extends AppCompatActivity {
 
         final ArrayList<Plan> currentPlans = CurrentPlans.getPlans(LandingPage.this);
         ListAdapter planAdapter = new CustomPlanAdapter(this, currentPlans);
-        ArrayList<Plan> plans = CurrentPlans.getPlans(this);
 
         ListView plansListView = (ListView) findViewById(R.id.plansList);
         plansListView.setAdapter(planAdapter);
