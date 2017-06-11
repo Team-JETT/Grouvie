@@ -16,8 +16,6 @@ public class CurrentPlans {
     //Obtain current plans
     public static ArrayList<Plan> getPlans(Context context) {
 
-        Plan plan = new Plan("Test", "Test", "Test", "Test", null);
-
         SharedPreferences sp = context.getSharedPreferences(PLANS_KEY, Context.MODE_PRIVATE);
         final Gson gson = new Gson();
 
