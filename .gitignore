@@ -11,3 +11,4 @@ Back-end/.idea/*
 /captures
 .externalNativeBuild
 modules.xml
+/app/app-release.apk
