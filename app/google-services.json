@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "44973864753",
-    "project_id": "grouvie-170017"
+    "project_number": "296099194048",
+    "project_id": "grouvie-a83b6"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:44973864753:android:7029ba96bd1ffa2d",
+        "mobilesdk_app_id": "1:296099194048:android:7029ba96bd1ffa2d",
         "android_client_info": {
           "package_name": "jett_apps.grouvie"
         }
       },
       "oauth_client": [
         {
-          "client_id": "44973864753-kqunjs43eol38mj8vs20qirhv8vau0ch.apps.googleusercontent.com",
+          "client_id": "296099194048-h5jkbnq155785l49obs3r7d9ve8bfmtp.apps.googleusercontent.com",
+          "client_type": 3
+        },
+        {
+          "client_id": "296099194048-akfoagkrr6srih0n38subtnht9qfpone.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "jett_apps.grouvie",
-            "certificate_hash": "ca114a64870db9dba0506e930ac2ca542aecc90a"
+            "certificate_hash": "915447551ce2fb9f7fdcf468ca5536a1a1d47204"
           }
-        },
-        {
-          "client_id": "44973864753-c5atecf1qqt5fvpa5dquudqdcjr4ulkb.apps.googleusercontent.com",
-          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBYHHMt66KvOUdLOMymgRlpclDrg8l6fxQ"
+          "current_key": "AIzaSyB-9TKn7ylUbQO9Pfa-J6_DRqwUs9fsvlg"
         }
       ],
       "services": {
