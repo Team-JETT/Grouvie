@@ -68,5 +68,21 @@ public class CurrentPlans {
 
     }
 
+    //Clear current plans
+    public static void clearPlans(Context context) {
+
+        //Obtain current plans
+        ArrayList<Plan> currentPlans = new ArrayList<>();
+
+        //Create new Gson to represent current plans without plan specified
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(currentPlans);
+        SharedPreferences sp = context.getSharedPreferences(PLANS_KEY, Context.MODE_PRIVATE);
+
+        //Save it through sharedPreferences
+        sp.edit().putString(PLANS_KEY, jsonString).apply();
+
+    }
+
 
 }
