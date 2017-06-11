@@ -74,7 +74,7 @@ public class CurrentPlans {
         //Obtain current plans
         ArrayList<Plan> currentPlans = new ArrayList<>();
 
-        //Create new Gson to represent current plans without plan specified
+        //Create new Gson to represent current plans
         Gson gson = new Gson();
         String jsonString = gson.toJson(currentPlans);
         SharedPreferences sp = context.getSharedPreferences(PLANS_KEY, Context.MODE_PRIVATE);
