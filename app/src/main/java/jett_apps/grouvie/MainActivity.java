@@ -1,5 +1,6 @@
 package jett_apps.grouvie;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -127,6 +128,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                             mStatusTextView.setText(R.string.auth_failed);
                         }
                         hideProgressDialog();
+
+                        if (task.isSuccessful()) {
+                            Intent intent = new Intent(MainActivity.this, SelectFilm.class);
+                            startActivity(intent);
+                        }
                         // [END_EXCLUDE]
                     }
                 });
