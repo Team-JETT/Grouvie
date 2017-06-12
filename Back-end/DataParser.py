@@ -46,35 +46,55 @@ class DataParser:
     def get_film_poster(self, film_name):
         url = 'https://www.google.co.uk/search?q='
         extra = ' film wikipedia'
+        error_url = 'https://literalminded.files.wordpress.com/2010/11/image-unavailable1.png'
 
         # Check for '&' character. We need to replace any of these with 'and'
         # strings as '&' in a url has a different meaning
         if '&' in film_name:
             film_name = 'and'.join(film_name.split('&'))
 
-        wiki_main_url = 'http://en.wikipedia.org/wiki/Main_Page'
         res = requests.get(url + film_name + extra)
         soup = BeautifulSoup(res.text, "lxml")
 
         # Parsing the html page to get the first url link in the google search
         # results, which will be the wikipedia page link
-        wiki_url = soup.select('.r a')[0].get('href').split('=')[1].split('&')[0]
+        g_search_res = soup.select('.r a')
+
+        if not g_search_res:
+            print 'VERY BAD: No google search results could be obtained'
+            sys.stdout.flush()
+            return error_url
+
+        fst_ref_url = g_search_res[0].get('href')
+
+        if not fst_ref_url:
+            print 'RED ALERT: First google search result has no href tag'
+            sys.stdout.flush()
+            return error_url
+
+        wiki_url = fst_ref_url.split('=')[1].split('&')[0]
 
         # Same as '&' case above
         if '%25' in wiki_url:
             wiki_url = '%'.join(wiki_url.split('%25'))
 
         if 'wikipedia' not in wiki_url:
-            return 'https://literalminded.files.wordpress.com/2010/11/image-unavailable1.png'
+            print 'UNLUCKY: First google search result was not a wikipedia page'
+            sys.stdout.flush()
+            return error_url
 
         res = requests.get(wiki_url)
         soup = BeautifulSoup(res.text, "lxml")
 
         # Get the first image tag of the wikipedia page
-        img = soup.select('a.image > img')[0]
-        img_url = urljoin(wiki_main_url, img['src'])
+        imgs = soup.select('a.image > img')
+        if not imgs:
+            print 'WEIRD: No images in the wikipedia page'
+            sys.stdout.flush()
+            return error_url
 
-        return img_url
+        return urljoin('http://en.wikipedia.org/wiki/Main_Page', imgs[0]['src'])
+
 
     """
     Give this function a cinema ID and day and we can populate FILMS with all 

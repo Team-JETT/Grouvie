@@ -31,16 +31,16 @@ script:
   - "../gradlew build connectedCheck"
   - cd ../
 
-after_success:
-  - chmod +x ./deploy.sh
-  - ./deploy.sh
-
 deploy:
   provider: heroku
   buildpack: python
   api_key:
     secure: 5410f47f-8142-43fd-b103-9d6b4c1bccfe
   app: murmuring-peak-87447
+
+after_success:
+  - chmod +x ./deploy.sh
+  - ./deploy.sh
 
 
 # Github release attempt (commented out)
