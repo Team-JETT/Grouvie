@@ -65,7 +65,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new ServerContact().execute("insert", json.toString());
+        new ServerContact().execute("make_plan", json.toString());
 
         Plan p = new Plan(chosenFilm, chosenCinema, chosenTime, chosenDay, chosenFriends);
         CurrentPlans.addPlan(p, LeaderInitialPlan.this);

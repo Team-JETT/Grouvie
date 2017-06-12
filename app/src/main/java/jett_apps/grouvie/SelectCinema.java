@@ -61,9 +61,7 @@ public class SelectCinema extends AppCompatActivity {
                 JSONObject cinema = cinema_data.getJSONObject(i);
                 Iterator<String> iter = cinema.keys();
                 while (iter.hasNext()) {
-                    String key = iter.next();
-                    if (!key.equals("image"))
-                        cinemas.add(key);
+                    cinemas.add(iter.next());
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

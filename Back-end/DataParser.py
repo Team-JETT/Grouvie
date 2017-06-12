@@ -4,6 +4,7 @@ import sys
 import requests
 import re
 import pprint
+import time
 
 MILE_TO_KM = 1.60934
 CINEMA_MATCH_REGEX = r"(?P<cinema>[^,]*)"
@@ -126,7 +127,8 @@ class DataParser:
                                    "distance": CINEMA_DIST[cinema]}]})
                 else:
                     local_data[filmname] = {}
-                    local_data[filmname]["image"] = self.get_film_poster(filmname)
+                    local_data[filmname]["image"] = \
+                        self.get_film_poster(filmname)
                     local_data[filmname]["cinema"] = \
                         [{cinema: [{"showtimes": times,
                                     "distance": CINEMA_DIST[cinema]}]}]
@@ -152,8 +154,10 @@ class DataParser:
 
 if __name__ == '__main__':
     dParser = DataParser()
+    start_time = time.time()
     pprint.PrettyPrinter(indent=4).pprint(
         dParser.get_local_data(51.636743, -0.069069, 9, 6, 2017))
+    print time.time() - start_time
 
 
 

@@ -10,6 +10,8 @@ app = Flask(__name__)
 dbManager = None
 dParser = None
 
+GROUVIE = "GROUVIE"
+USER = "USER"
 
 @app.route("/")
 def homepage():
@@ -50,19 +52,20 @@ def make_plan():
     latitude = phone_data['latitude']
     longitude = phone_data['longitude']
     # Make a new entry for the group leader.
-    dbManager.insert(username, leader, showtime, film, cinema, latitude,
-                     longitude)
+    dbManager.insert_grouvie(GROUVIE, username, leader, showtime, film, cinema,
+                             latitude, longitude)
     # Make a new entry in the table for each friend.
     # TODO: What happens if duplicate?
     for friend in phone_data['friends']:
-        dbManager.insert(friend, leader, showtime, None, None, None, None)
+        dbManager.insert_grouvie(GROUVIE, friend, leader, showtime, None, None,
+                                 None, None)
 
 
 # TODO: UNTESTED
 @app.route("/check_username", methods=['GET', 'POST'])
 def check_username():
     """Check if a user name already exists."""
-    result = dbManager.select(request.data)
+    result = dbManager.select(GROUVIE, request.data)
     print result
     if not result:
         # Return status code '201' for NOT OK
@@ -70,15 +73,30 @@ def check_username():
     else:
         return '', 200
 
+# TODO: UNTESTED
+@app.route("/submit_postcode", methods=['GET', 'POST'])
+def submit_postcode():
+    """Add postcode date for a given user."""
+    phone_data = json.load(request.data)
+    dbManager.insert_user(USER, phone_data['userid'], phone_data['postcode'])
+    return "DONE!!!"
+
+# TODO: UNTESTED
+@app.route("/update_postcode", methods=['GET', 'POST'])
+def update_postcode():
+    """Update postcode data for a given user."""
+    phone_data = json.load(request.data)
+    dbManager.update()
+
 
 # TODO: UNTESTED
 app.route("/delete_single", methods=['GET', 'POST'])
 def delete_single():
     """Delete an entry from the database - someone can't make it to the plan."""
     phone_data = json.loads(request.data)
-    dbManager.delete_single(phone_data['username'],
-                            phone_data['leader'],
-                            phone_data['showtime'])
+    dbManager.delete_single_grouvie(phone_data['username'],
+                                    phone_data['leader'],
+                                    phone_data['showtime'])
     return "DONE!!!"
 
 
@@ -88,13 +106,12 @@ def delete_plan():
     """Delete a plan from the database, this deletes the plan for all members of
     the plan."""
     phone_data = json.loads(request.data)
-    dbManager.delete_plan(phone_data['leader'],
-                          phone_data['showtime'])
+    dbManager.delete_plan_grouvie(phone_data['leader'],
+                                  phone_data['showtime'])
     return "DONE!!!"
 
 
 if __name__ == "__main__":
-    global dbManager, dParser
     dbManager = DBManager()
     dParser = DataParser()
     port = int(environ.get('PORT', 5000))
