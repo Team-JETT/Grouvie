@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from urlparse import urljoin
+from datetime import datetime
 import sys
 import requests
 import re
@@ -41,6 +42,24 @@ class DataParser:
             # Dict storing {cinema name: distance}
             CINEMA_DIST[cinema_name] = round(i['distance'] * MILE_TO_KM, 3)
 
+    def fast_get_film_poster(self, film_name):
+        error_url = 'https://literalminded.files.wordpress.com' \
+                    '/2010/11/image-unavailable1.png'
+        if '&' in film_name:
+            film_name = 'and'.join(film_name.split('&'))
+
+        api_url = 'https://api.themoviedb.org/3/search/movie?api_key=' \
+                  'ab499564677631cc1c25f6749d42a16e' \
+                  '&language=en-US&query={}'.format(film_name)
+        res = requests.get(api_url).json()
+
+        if res['total_results'] == 0:
+            return error_url
+
+        poster_path = res['results'][0]['poster_path']
+
+        return 'http://image.tmdb.org/t/p/w154' + poster_path
+
     def get_film_poster(self, film_name):
         """
         Given FILM_NAME, this will find the corresponding movie poster and
@@ -48,7 +67,8 @@ class DataParser:
         """
         url = 'https://www.google.co.uk/search?q='
         extra = ' film wikipedia'
-        error_url = 'https://literalminded.files.wordpress.com/2010/11/image-unavailable1.png'
+        error_url = 'https://literalminded.files.wordpress.com/2010/11/' \
+                    'image-unavailable1.png'
 
         # Check for '&' character. We need to replace any of these with 'and'
         # strings as '&' in a url has a different meaning
@@ -128,7 +148,7 @@ class DataParser:
                 else:
                     local_data[filmname] = {}
                     local_data[filmname]["image"] = \
-                        self.get_film_poster(filmname)
+                        self.fast_get_film_poster(filmname)
                     local_data[filmname]["cinema"] = \
                         [{cinema: [{"showtimes": times,
                                     "distance": CINEMA_DIST[cinema]}]}]
