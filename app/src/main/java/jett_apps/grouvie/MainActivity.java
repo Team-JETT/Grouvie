@@ -130,7 +130,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                         hideProgressDialog();
 
                         if (task.isSuccessful()) {
-                            Intent intent = new Intent(MainActivity.this, SelectFilm.class);
+                            Intent intent = new Intent(MainActivity.this, LandingPage.class);
                             startActivity(intent);
                         }
                         // [END_EXCLUDE]
