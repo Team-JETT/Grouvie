@@ -1,7 +1,5 @@
 package jett_apps.grouvie;
 
-import android.view.View;
-
 import org.junit.Test;
 
 import static org.junit.Assert.*;
