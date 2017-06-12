@@ -1,9 +1,11 @@
 from bs4 import BeautifulSoup
 from urlparse import urljoin
+from datetime import datetime
 import sys
 import requests
 import re
 import pprint
+import wikipedia
 
 MILE_TO_KM = 1.60934
 CINEMA_MATCH_REGEX = r"(?P<cinema>[^,]*)"
@@ -39,6 +41,21 @@ class DataParser:
             # Converts distance from mile to km and rounds to 3dp.
             # Dict storing {cinema name: distance}
             CINEMA_DIST[cinema_name] = round(i['distance'] * MILE_TO_KM, 3)
+
+    def fast_get_film_poster(self, film_name):
+        error_url = 'https://literalminded.files.wordpress.com/2010/11/image-unavailable1.png'
+        if '&' in film_name:
+            film_name = 'and'.join(film_name.split('&'))
+
+        api_url = 'https://api.themoviedb.org/3/search/movie?api_key=ab499564677631cc1c25f6749d42a16e&language=en-US&query={}'.format(film_name)
+        res = requests.get(api_url).json()
+
+        if res['total_results'] == 0:
+            return error_url
+
+        poster_path = res['results'][0]['poster_path']
+
+        return 'http://image.tmdb.org/t/p/w154' + poster_path
 
     def get_film_poster(self, film_name):
         """
@@ -126,7 +143,7 @@ class DataParser:
                                    "distance": CINEMA_DIST[cinema]}]})
                 else:
                     local_data[filmname] = {}
-                    local_data[filmname]["image"] = self.get_film_poster(filmname)
+                    local_data[filmname]["image"] = self.fast_get_film_poster(filmname)
                     local_data[filmname]["cinema"] = \
                         [{cinema: [{"showtimes": times,
                                     "distance": CINEMA_DIST[cinema]}]}]
@@ -147,7 +164,11 @@ class DataParser:
         """Get all film data for your local area."""
         self.get_cinemas_latlong(latitude, longitude)
         formatted_date = self.parse_date(day, month, year)
-        return self.get_films_for_cinema(formatted_date)
+        before = datetime.now()
+        x = self.get_films_for_cinema(formatted_date)
+        after = datetime.now()
+        print(after - before)
+        return x
 
 
 if __name__ == '__main__':
