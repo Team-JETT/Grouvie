@@ -56,63 +56,6 @@ class DataParser:
 
         return 'http://image.tmdb.org/t/p/w154' + poster_path
 
-    def get_film_poster(self, film_name):
-        """
-        Given FILM_NAME, this will find the corresponding movie poster and
-        return the wikipedia image url for the movie poster
-        """
-        url = 'https://www.google.co.uk/search?q='
-        extra = ' film wikipedia'
-        error_url = 'https://literalminded.files.wordpress.com/2010/11/image-unavailable1.png'
-
-        # Check for '&' character. We need to replace any of these with 'and'
-        # strings as '&' in a url has a different meaning
-        if '&' in film_name:
-            film_name = 'and'.join(film_name.split('&'))
-
-        res = requests.get(url + film_name + extra)
-        soup = BeautifulSoup(res.text, "lxml")
-
-        # Parsing the html page to get the first url link in the google search
-        # results, which will be the wikipedia page link
-        g_search_res = soup.select('.r a')
-
-        if not g_search_res:
-            print 'VERY BAD: No google search results could be obtained'
-            sys.stdout.flush()
-            return error_url
-
-        fst_ref_url = g_search_res[0].get('href')
-
-        if not fst_ref_url:
-            print 'RED ALERT: First google search result has no href tag'
-            sys.stdout.flush()
-            return error_url
-
-        wiki_url = fst_ref_url.split('=')[1].split('&')[0]
-
-        # Same as '&' case above
-        if '%25' in wiki_url:
-            wiki_url = '%'.join(wiki_url.split('%25'))
-
-        if 'wikipedia' not in wiki_url:
-            print 'UNLUCKY: First google search result was not a wikipedia page'
-            sys.stdout.flush()
-            return error_url
-
-        res = requests.get(wiki_url)
-        soup = BeautifulSoup(res.text, "lxml")
-
-        # Get the first image tag of the wikipedia page
-        imgs = soup.select('a.image > img')
-        if not imgs:
-            print 'WEIRD: No images in the wikipedia page'
-            sys.stdout.flush()
-            return error_url
-
-        return urljoin('http://en.wikipedia.org/wiki/Main_Page', imgs[0]['src'])
-
-
     def get_films_for_cinema(self, date):
         """
         Give this function a cinema ID and day and we can populate FILMS with
