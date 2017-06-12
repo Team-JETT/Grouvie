@@ -1,5 +1,6 @@
 from bs4 import BeautifulSoup
 from urlparse import urljoin
+import sys
 import requests
 import re
 import pprint
@@ -39,11 +40,11 @@ class DataParser:
             # Dict storing {cinema name: distance}
             CINEMA_DIST[cinema_name] = round(i['distance'] * MILE_TO_KM, 3)
 
-    """
-    Given FILM_NAME, this will find the corresponding movie poster and return
-    the wikipedia image url for the movie poster
-    """
     def get_film_poster(self, film_name):
+        """
+        Given FILM_NAME, this will find the corresponding movie poster and
+        return the wikipedia image url for the movie poster
+        """
         url = 'https://www.google.co.uk/search?q='
         extra = ' film wikipedia'
         error_url = 'https://literalminded.files.wordpress.com/2010/11/image-unavailable1.png'
@@ -96,12 +97,13 @@ class DataParser:
         return urljoin('http://en.wikipedia.org/wiki/Main_Page', imgs[0]['src'])
 
 
-    """
-    Give this function a cinema ID and day and we can populate FILMS with all 
-    film showings and times.
-    :param day: If no day provided, assume today.
-    """
     def get_films_for_cinema(self, date):
+        """
+        Give this function a cinema ID and day and we can populate FILMS with
+        all film showings and times.
+        :param date: Date to get cinema films for.
+        :return:
+        """
         global CINEMA_CID, CINEMA_DIST
         local_data = {}
         for cinema in CINEMA_CID.keys():
@@ -141,8 +143,8 @@ class DataParser:
             month = "0" + month
         return year + "-" + month + "-" + day
 
-    """Get all film data for your local area."""
     def get_local_data(self, latitude, longitude, day, month, year):
+        """Get all film data for your local area."""
         self.get_cinemas_latlong(latitude, longitude)
         formatted_date = self.parse_date(day, month, year)
         return self.get_films_for_cinema(formatted_date)

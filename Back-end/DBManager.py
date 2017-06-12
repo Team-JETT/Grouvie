@@ -3,13 +3,13 @@ import psycopg2
 # Make a new Grouvie table to store all the plans
 CREATE_GROUVIE = """
 CREATE TABLE GROUVIE(
-    USERNAME       CHAR(16)           NOT NULL,
+    USERNAME        CHAR(16)           NOT NULL,
     LEADER          CHAR(16)           NOT NULL,
     SHOWTIME        CHAR(16)           NOT NULL,
     FILM            TEXT,
     CINEMA          TEXT,
-    LATITUDE    NUMERIC(8, 6),
-    LONGITUDE   NUMERIC(9, 6),
+    LATITUDE        NUMERIC(8, 6),
+    LONGITUDE       NUMERIC(9, 6),
     
     PRIMARY KEY (USERNAME, LEADER, SHOWTIME)
 )
@@ -156,3 +156,5 @@ if __name__ == '__main__':
              'LEADER': 0,
              'SHOWTIME': "s"}
     db = DBManager()
+    db.drop_table()
+    db.make_table()

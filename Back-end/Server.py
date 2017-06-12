@@ -11,37 +11,25 @@ dbManager = None
 dParser = None
 
 
-"""
-Our homepage, should never be directly accessed, unless by devs to make
-sure the web server is actually running.
-"""
 @app.route("/")
 def homepage():
+    """
+    Our homepage, should never be directly accessed, unless by devs to make
+    sure the web server is actually running.
+    """
     return "Why are you here?"
 
 
-"""
-Insert command, used to insert a new entry into the Postgres database.
-Data is received through a POST call to ensure those snooping can't read it.
-"""
-@app.route("/insert", methods=["GET", "POST"])
-def insert():
-    entry = json.loads(request.data)
-    print entry
-    dbManager.insert(entry)
-    return "DONE!!!"
-
-
-"""
-Reads the latitude and longitude provided by the user in order to get local
-cinema data - includes:
-# -- Films being shown.
-# -- Closest cinemas
-# -- Showtimes of given films at given cinemas
-# -- Distance from provided location to cinema in Km.
-"""
 @app.route("/get_local_data", methods=["GET", "POST"])
 def get_local_data():
+    """
+    Reads the latitude and longitude provided by the user in order to get local
+    cinema data - includes:
+    -- Films being shown.
+    -- Closest cinemas
+    -- Showtimes of given films at given cinemas
+    -- Distance from provided location to cinema in Km.
+    """
     phone_data = json.loads(request.data)
     return json.dumps(dParser.get_local_data(phone_data['latitude'],
                                              phone_data['longitude'],
@@ -49,10 +37,10 @@ def get_local_data():
                                              phone_data['month'],
                                              phone_data['year']))
 
-"""Make new plan for all users."""
 # TODO: UNTESTED
 @app.route("/make_plan", methods=['GET', 'POST'])
 def make_plan():
+    """Make new plan for all users."""
     phone_data = json.loads(request.data)
     username = phone_data['username']
     leader = phone_data['leader']
@@ -70,10 +58,10 @@ def make_plan():
         dbManager.insert(friend, leader, showtime, None, None, None, None)
 
 
-"""Check if a user name already exists."""
 # TODO: UNTESTED
 @app.route("/check_username", methods=['GET', 'POST'])
 def check_username():
+    """Check if a user name already exists."""
     result = dbManager.select(request.data)
     print result
     if not result:
@@ -83,10 +71,10 @@ def check_username():
         return '', 200
 
 
-"""Delete an entry from the database - someone can't make it to the plan."""
 # TODO: UNTESTED
 app.route("/delete_single", methods=['GET', 'POST'])
 def delete_single():
+    """Delete an entry from the database - someone can't make it to the plan."""
     phone_data = json.loads(request.data)
     dbManager.delete_single(phone_data['username'],
                             phone_data['leader'],
@@ -94,11 +82,11 @@ def delete_single():
     return "DONE!!!"
 
 
-"""Delete a plan from the database, this deletes the plan for all members of 
-the plan."""
 # TODO: UNTESTED
 @app.route("/delete_plan", methods=['GET', 'POST'])
 def delete_plan():
+    """Delete a plan from the database, this deletes the plan for all members of
+    the plan."""
     phone_data = json.loads(request.data)
     dbManager.delete_plan(phone_data['leader'],
                           phone_data['showtime'])
