@@ -3,18 +3,16 @@ import psycopg2
 # Make a new Grouvie table to store all the plans
 CREATE_GROUVIE = """
 CREATE TABLE GROUVIE(
-    PHONE_NUMBER    CHAR(11)           NOT NULL,
-    GROUP_ID        SERIAL             NOT NULL,
+    USERNAME       CHAR(16)           NOT NULL,
+    LEADER          CHAR(16)           NOT NULL,
     SHOWTIME        CHAR(16)           NOT NULL,
     FILM            TEXT,
-    PRICE           NUMERIC(5, 2),
-    LOCATION_LAT    NUMERIC(8, 6),
-    LOCATION_LONG   NUMERIC(9, 6),
-    IMAGE           TEXT,
-    IS_LEADER       BIT,
+    CINEMA          TEXT,
+    LATITUDE    NUMERIC(8, 6),
+    LONGITUDE   NUMERIC(9, 6),
     
-    PRIMARY KEY (PHONE_NUMBER, GROUP_ID, SHOWTIME)
-    )
+    PRIMARY KEY (USERNAME, LEADER, SHOWTIME)
+)
 """
 
 # Delete our Grouvie table
@@ -26,16 +24,27 @@ DROP TABLE GROUVIE
 INSERT = """
 INSERT INTO GROUVIE
 VALUES
-(%s, %s, %s, %s, %s, %s, %s, %s, %s)
+(%s, %s, %s, %s, %s, %s, %s)
 """
 
 # Update an already existing entry in the Grouvie table
 UPDATE = """
 UPDATE GROUVIE
-SET SHOWTIME = %s, FILM = %s, PRICE = %s, LOCATION_LAT = %s, 
-LOCATION_LONG = %s, IMAGE = %s, IS_LEADER = %s
+SET SHOWTIME = %s, FILM = %s, CINEMA = %s, LATITUDE = %s, 
+LONGITUDE = %s
 WHERE
-PHONE_NUMBER = %s AND GROUP_ID = %s
+USERNAME = %s AND LEADER = %s
+"""
+
+# Delete entry from a table given a username, leader and showtime
+DELETE_SINGLE = """
+DELETE FROM GROUVIE
+WHERE USERNAME = %s and LEADER = %s and SHOWTIME = %s
+"""
+# Delete entries from a table given a leader and showtime
+DELETE_PLAN = """
+DELETE FROM GROUVIE
+WHERE LEADER = %s and SHOWTIME = %s
 """
 
 # Display everything in the Grouvie table
@@ -43,11 +52,10 @@ SELECT_ALL = """
 SELECT * FROM GROUVIE
 """
 
-# Select a single entry from the Grouvie table based on phone number and
-# group id
+# Select a single entry from the Grouvie table based on username
 SELECT = """
 SELECT * FROM GROUVIE WHERE
-PHONE_NUMBER = %s AND GROUP_ID = %s
+USERNAME = %s
 """
 
 
@@ -91,45 +99,41 @@ class DBManager:
         self.close_connection(cnxn, cursor)
 
     # Insert a new entry into the Grouvie table.
-    def insert(self, data):
+    def insert(self, username, leader, showtime, film, cinema, latitude,
+               longitude):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(INSERT, (
-            data['PHONE_NUMBER'],
-            data['GROUP_ID'],
-            data['SHOWTIME'],
-            data['FILM'],
-            data['PRICE'],
-            data['LOCATION_LAT'],
-            data['LOCATION_LONG'],
-            data['IMAGE'],
-            data['IS_LEADER']
-        ))
+        cursor.execute(INSERT, (username, leader, showtime, film, cinema,
+                                latitude, longitude))
         self.close_connection(cnxn, cursor)
 
     # Update an entry in the Grouvie table if it exists, otherwise, make a
     # new entry.
-    def update_insert(self, data):
+    def update(self, username, leader, showtime, film, cinema, latitude,
+               longitude):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(UPDATE, (
-            data['SHOWTIME'],
-            data['FILM'],
-            data['PRICE'],
-            data['LOCATION_LAT'],
-            data['LOCATION_LONG'],
-            data['IMAGE'],
-            data['IS_LEADER'],
-            data['PHONE_NUMBER'],
-            data['GROUP_ID']
-        ))
-        self.insert(data)
+        cursor.execute(UPDATE, (username, leader, showtime, film, cinema,
+                                latitude, longitude))
         self.close_connection(cnxn, cursor)
 
-    # Select an entry in the Grouvie table based on phone number and group id.
-    def select(self, query):
+    # Delete an entry from the table correlating with a user
+    def delete_single(self, username, leader, showtime):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(SELECT, (query['PHONE_NUMBER'], query['GROUP_ID']))
-        print cursor.fetchall()
+        cursor.execute(DELETE_SINGLE, username, leader, showtime)
         self.close_connection(cnxn, cursor)
+
+    # Delete entries from the table correlating with a plan
+    def delete_plan(self, leader, showtime):
+        cnxn, cursor = self.establish_connection()
+        cursor.execute(DELETE_PLAN, leader, showtime)
+        self.close_connection(cnxn, cursor)
+
+    # Select an entry in the Grouvie table based on username.
+    def select(self, username):
+        cnxn, cursor = self.establish_connection()
+        cursor.execute(SELECT, username)
+        result = cursor.fetchall()
+        self.close_connection(cnxn, cursor)
+        return result
 
     # Display everything in the Grouvie table.
     def selectAll(self):
@@ -141,17 +145,14 @@ class DBManager:
 
 
 if __name__ == '__main__':
-    data = {'PHONE_NUMBER': "1",
-            'GROUP_ID': 0,
+    data = {'USERNAME': "1",
+            'LEADER': 0,
             'SHOWTIME': "s",
             'FILM': "GOTG3",
-            'PRICE': 32.22,
-            'LOCATION_LAT': 52.111100,
-            'LOCATION_LONG': 21.211122,
-            'IMAGE': "HTTP",
-            'IS_LEADER': '0'}
-    query = {'PHONE_NUMBER': "1",
-             'GROUP_ID': 0,
+            'CINEMA': "MEMES",
+            'LATITUDE': 52.111100,
+            'LONGITUDE': 21.211122}
+    query = {'USERNAME': "1",
+             'LEADER': 0,
              'SHOWTIME': "s"}
     db = DBManager()
-    print db.selectAll()

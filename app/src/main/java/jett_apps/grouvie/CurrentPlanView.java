@@ -43,6 +43,7 @@ public class CurrentPlanView extends AppCompatActivity {
 
     public void cantGo(View view) {
         CurrentPlans.deletePlan(p, this);
+        // TODO: Delete the plan on the server - awaiting username in Plan class
         Intent intent = new Intent(view.getContext(), LandingPage.class);
         startActivity(intent);
         //TODO: Show activity with group replies and option to replan.
@@ -50,6 +51,7 @@ public class CurrentPlanView extends AppCompatActivity {
 
     public void cancelPlan(View view) {
         CurrentPlans.deletePlan(p, this);
+        // TODO: Delete the plan on the server - awaiting username in Plan class
         Intent intent = new Intent(view.getContext(), LandingPage.class);
         startActivity(intent);
         //TODO: Show activity with group replies and option to replan.

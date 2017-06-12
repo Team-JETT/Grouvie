@@ -1,6 +1,5 @@
 from bs4 import BeautifulSoup
 from urlparse import urljoin
-import sys
 import requests
 import re
 import pprint
@@ -125,8 +124,8 @@ class DataParser:
     """Get all film data for your local area."""
     def get_local_data(self, latitude, longitude, day, month, year):
         self.get_cinemas_latlong(latitude, longitude)
-        formattedDate = self.parse_date(day, month, year)
-        return self.get_films_for_cinema(formattedDate)
+        formatted_date = self.parse_date(day, month, year)
+        return self.get_films_for_cinema(formatted_date)
 
 
 if __name__ == '__main__':

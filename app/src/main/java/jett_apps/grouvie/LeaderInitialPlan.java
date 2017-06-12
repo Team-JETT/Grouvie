@@ -55,15 +55,13 @@ public class LeaderInitialPlan extends AppCompatActivity {
 
         JSONObject json = new JSONObject();
         try {
-            json.accumulate("PHONE_NUMBER", "1");
-            json.accumulate("GROUP_ID", 0);
+            json.accumulate("USER_NAME", "1");
+            json.accumulate("LEADER", 0);
             json.accumulate("SHOWTIME", chosenTime);
             json.accumulate("FILM", chosenFilm);
-            json.accumulate("PRICE", 32.22);
+            json.accumulate("CINEMA", chosenCinema);
             json.accumulate("LOCATION_LAT", latitude);
             json.accumulate("LOCATION_LONG", longitude);
-            json.accumulate("IMAGE", "HTTP");
-            json.accumulate("IS_LEADER", "0");
         } catch (JSONException e) {
             e.printStackTrace();
         }

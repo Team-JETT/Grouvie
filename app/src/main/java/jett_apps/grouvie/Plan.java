@@ -69,17 +69,18 @@ public class Plan implements Serializable {
 
         Plan plan = (Plan) o;
 
-        if (!suggestedFilm.equals(plan.suggestedFilm)) return false;
-        if (!suggestedCinema.equals(plan.suggestedCinema)) return false;
-        if (!suggestedShowTime.equals(plan.suggestedShowTime)) return false;
-        if (!suggestedDate.equals(plan.suggestedDate)) return false;
+        return  (suggestedFilm.equals(plan.suggestedFilm) &&
+                 suggestedCinema.equals(plan.suggestedCinema) &&
+                 suggestedShowTime.equals(plan.suggestedShowTime) &&
+                 suggestedDate.equals(plan.suggestedDate) &&
+                 Arrays.equals(eventMembers, plan.eventMembers));
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        return Arrays.equals(eventMembers, plan.eventMembers);
-
+        // My 2p - I think this is okay. Btw, have rewritten in a more succinct way.
     }
 
     @Override
     public int hashCode() {
+        // TODO: Someone explain to Erkin why 31?
         int result = suggestedFilm.hashCode();
         result = 31 * result + suggestedCinema.hashCode();
         result = 31 * result + suggestedShowTime.hashCode();

@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class CurrentPlans {
@@ -45,6 +48,8 @@ public class CurrentPlans {
         }
         currentPlans.add(plan);
 
+        // TODO: Add to web server here
+
         String jsonString = gson.toJson(currentPlans);
         SharedPreferences sp = context.getSharedPreferences(PLANS_KEY, Context.MODE_PRIVATE);
 
@@ -56,6 +61,11 @@ public class CurrentPlans {
     public static void deletePlan(Plan plan, Context context) {
         //Obtain current plans
         ArrayList<Plan> currentPlans = getPlans(context);
+        JSONArray json = new JSONArray(currentPlans);
+
+
+        // Delete on web server here
+        new ServerContact().execute("delete_plan", json.toString());
 
         //Create new Gson to represent current plans without plan specified
         Gson gson = new Gson();
