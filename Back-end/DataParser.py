@@ -5,7 +5,6 @@ import sys
 import requests
 import re
 import pprint
-import wikipedia
 
 MILE_TO_KM = 1.60934
 CINEMA_MATCH_REGEX = r"(?P<cinema>[^,]*)"
@@ -164,11 +163,12 @@ class DataParser:
         """Get all film data for your local area."""
         self.get_cinemas_latlong(latitude, longitude)
         formatted_date = self.parse_date(day, month, year)
-        before = datetime.now()
-        x = self.get_films_for_cinema(formatted_date)
-        after = datetime.now()
-        print(after - before)
-        return x
+        #before = datetime.now()
+        #x = self.get_films_for_cinema(formatted_date)
+        #after = datetime.now()
+        #print(after - before)
+        #return x
+        return self.get_films_for_cinema(formatted_date)
 
 
 if __name__ == '__main__':
