@@ -51,6 +51,10 @@ class DataParser:
         return round(latitude, 6), round(longitude, 6)
 
     def fast_get_film_poster(self, film_name):
+        """
+        Given FILM_NAME, this will find the corresponding movie poster and
+        return the wikipedia image url for the movie poster
+        """
         error_url = 'https://literalminded.files.wordpress.com' \
                     '/2010/11/image-unavailable1.png'
         if '&' in film_name:
@@ -61,10 +65,13 @@ class DataParser:
                   '&language=en-US&query={}'.format(film_name)
         res = requests.get(api_url).json()
 
-        if res['total_results'] == 0:
+        if not res['total_results']:
             return error_url
 
         poster_path = res['results'][0]['poster_path']
+
+        if not poster_path:
+            return error_url
 
         return 'http://image.tmdb.org/t/p/w154' + poster_path
 
@@ -126,5 +133,5 @@ if __name__ == '__main__':
     # print dParser.get_latlong("en12lz")
     start_time = time.time()
     pprint.PrettyPrinter(indent=4).pprint(
-        dParser.get_local_data(51.636743, -0.069069, 9, 6, 2017))
+        dParser.get_local_data(51.636743, -0.069069, 22, 6, 2017))
     print time.time() - start_time

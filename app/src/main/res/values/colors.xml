@@ -5,4 +5,7 @@
     <color name="colorAccent">#ff6973</color>
     <color name="badButton">#89c31b26</color>
     <color name="evenBadButton">#80ff6973</color>
+
+    <color name="grey_100">#F5F5F5</color>
+    <color name="grey_300">#E0E0E0</color>
 </resources>
