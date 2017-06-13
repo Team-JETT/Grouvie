@@ -27,7 +27,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private EditText mPasswordField;
 
     // [START declare_auth]
-    private FirebaseAuth mAuth;
+    public static FirebaseAuth mAuth;
     // [END declare_auth]
 
 
@@ -241,6 +241,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             sendEmailVerification();
         }
     }
+
+    @Override
+    public void onBackPressed() {
+    }
+
 }
 
 
