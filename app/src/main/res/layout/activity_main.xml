@@ -36,10 +36,17 @@
 
 
     <Button
-        android:id="@+id/continueButton"
+        android:id="@+id/signinButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Continue"
+        android:text="SignIn"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/signupButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SignUp"
         android:visibility="invisible" />
 
     <RelativeLayout

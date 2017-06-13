@@ -68,12 +68,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         setContentView(R.layout.activity_main);
 
         //TODO: Remove this and the button
-        Button contButton = (Button) findViewById(R.id.continueButton);
+        Button signInButton = (Button) findViewById(R.id.signinButton);
+        signInButton.setVisibility(View.VISIBLE);
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LandingPage.class);
+                startActivity(intent);
+            }
+        });
+
+        Button contButton = (Button) findViewById(R.id.signupButton);
         contButton.setVisibility(View.VISIBLE);
         contButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LandingPage.class);
+                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
                 startActivity(intent);
             }
         });
