@@ -36,6 +36,13 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user != null) {
+            // User is signed in
+            Intent i = new Intent(MainActivity.this, LandingPage.class);
+            startActivity(i);
+        }
+
         // Views
         mStatusTextView = (TextView) findViewById(R.id.status);
         mDetailTextView = (TextView) findViewById(R.id.detail);
@@ -81,6 +88,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                             Log.d(TAG, "createUserWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             updateUI(user);
+                            //TODO: Go to signup activity
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w(TAG, "createUserWithEmail:failure", task.getException());
@@ -129,6 +137,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                         }
                         hideProgressDialog();
 
+                        //GOTO Sign in activity
                         if (task.isSuccessful()) {
                             Intent intent = new Intent(MainActivity.this, LandingPage.class);
                             startActivity(intent);

@@ -113,5 +113,7 @@ public class LandingPage extends AppCompatActivity {
 
     }
 
-
+    @Override
+    public void onBackPressed() {
+    }
 }
