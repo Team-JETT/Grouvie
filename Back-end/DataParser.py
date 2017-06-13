@@ -48,6 +48,7 @@ class DataParser:
         if '&' in film_name:
             film_name = 'and'.join(film_name.split('&'))
 
+        film_name = film_name.encode('utf-8')
         api_url = 'https://api.themoviedb.org/3/search/movie?api_key=' \
                   'ab499564677631cc1c25f6749d42a16e' \
                   '&language=en-US&query={}'.format(film_name)
@@ -76,7 +77,6 @@ class DataParser:
             # Get the cinema ID for a given cinema,
             # E.g. Cineworld London - Enfield: 10477
             cinema_id = CINEMA_CID[cinema]
-            print((cinema_id, date))
 
             # Get list of films showing at this cinema
             url = "http://moviesapi.herokuapp.com/cinemas/{}/" \
@@ -84,7 +84,11 @@ class DataParser:
             films = requests.get(url)
             # Create a JSON object storing film name, cinema, showtimes and
             # distance to the cinema.
-            for i in films.json():
+            try:
+                films_json = films.json()
+            except ValueError:
+                films_json = {}
+            for i in films_json:
                 filmname = i["title"]
                 times = i['time']
                 if filmname in local_data:
@@ -122,5 +126,5 @@ if __name__ == '__main__':
     dParser = DataParser()
     start_time = time.time()
     pprint.PrettyPrinter(indent=4).pprint(
-        dParser.get_local_data(51.636743, -0.069069, 22, 6, 2017))
+        dParser.get_local_data(51.636743, -0.069069, 19, 6, 2017))
     print time.time() - start_time
