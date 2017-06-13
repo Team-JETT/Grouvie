@@ -5,7 +5,7 @@ import time
 
 MILE_TO_KM = 1.60934
 CINEMA_MATCH_REGEX = r"(?P<cinema>[^,]*)"
-
+NUM_OF_CINEMAS = 10
 
 # TODO: PLEASE DON'T USE THESE METHODS TOO MUCH. THEY ACTUALLY QUERY THE API.
 # IF YOU'RE GOING TO USE A LOT, SAVE THE DATA YOURSELF FOR TESTING.
@@ -27,7 +27,7 @@ class DataParser:
         film_names = requests.get(
             "https://api.cinelist.co.uk/search/cinemas/coordinates/{}/{}".
                 format(latitude, longitude))
-        cinemas = film_names.json()["cinemas"][:15]
+        cinemas = film_names.json()["cinemas"][:NUM_OF_CINEMAS]
         for i in cinemas:
             # Runs regex over cinemas to remove the location
             cinema_name = re.match(CINEMA_MATCH_REGEX, i['name']).group("cinema")
@@ -140,5 +140,5 @@ if __name__ == '__main__':
     # print dParser.get_latlong("en12lz")
     start_time = time.time()
     pprint.PrettyPrinter(indent=4).pprint(
-        dParser.get_local_data(51.636743, -0.069069, 19, 6, 2017))
+        dParser.get_local_data(51.636743, -0.069069, 14, 6, 2017))
     print time.time() - start_time
