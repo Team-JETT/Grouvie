@@ -49,10 +49,13 @@ class DataParser:
                   '&language=en-US&query={}'.format(film_name)
         res = requests.get(api_url).json()
 
-        if res['total_results'] == 0:
+        if not res['total_results']:
             return error_url
 
         poster_path = res['results'][0]['poster_path']
+
+        if not poster_path:
+            return error_url
 
         return 'http://image.tmdb.org/t/p/w154' + poster_path
 
@@ -69,6 +72,7 @@ class DataParser:
             # Get the cinema ID for a given cinema,
             # E.g. Cineworld London - Enfield: 10477
             cinema_id = CINEMA_CID[cinema]
+            print((cinema_id, date))
 
             # Get list of films showing at this cinema
             url = "http://moviesapi.herokuapp.com/cinemas/{}/" \
@@ -114,5 +118,5 @@ if __name__ == '__main__':
     dParser = DataParser()
     start_time = time.time()
     pprint.PrettyPrinter(indent=4).pprint(
-        dParser.get_local_data(51.636743, -0.069069, 9, 6, 2017))
+        dParser.get_local_data(51.636743, -0.069069, 16, 6, 2017))
     print time.time() - start_time
