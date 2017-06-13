@@ -99,7 +99,7 @@ class DataParser:
             try:
                 films_json = films.json()
             except ValueError:
-                films_json = {}
+                continue
 
             for i in films_json:
                 filmname = i["title"]
