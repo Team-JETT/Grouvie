@@ -113,5 +113,14 @@ public class LandingPage extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onBackPressed() {
+    }
+
+    public void signOut(View view) {
+        MainActivity.mAuth.signOut();
+        Intent intent = new Intent(LandingPage.this, MainActivity.class);
+        startActivity(intent);
+    }
 
 }

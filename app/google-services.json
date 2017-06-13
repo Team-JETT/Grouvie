@@ -1,33 +1,35 @@
 {
   "project_info": {
-    "project_number": "296099194048",
-    "project_id": "grouvie-a83b6"
+    "project_number": "1013389044249",
+    "firebase_url": "https://webapps-40bcb.firebaseio.com",
+    "project_id": "webapps-40bcb",
+    "storage_bucket": "webapps-40bcb.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:296099194048:android:7029ba96bd1ffa2d",
+        "mobilesdk_app_id": "1:1013389044249:android:7029ba96bd1ffa2d",
         "android_client_info": {
           "package_name": "jett_apps.grouvie"
         }
       },
       "oauth_client": [
         {
-          "client_id": "296099194048-h5jkbnq155785l49obs3r7d9ve8bfmtp.apps.googleusercontent.com",
-          "client_type": 3
-        },
-        {
-          "client_id": "296099194048-akfoagkrr6srih0n38subtnht9qfpone.apps.googleusercontent.com",
+          "client_id": "1013389044249-u17qc0du3hm7n5iks4u34p3h0p5ep4ma.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "jett_apps.grouvie",
             "certificate_hash": "915447551ce2fb9f7fdcf468ca5536a1a1d47204"
           }
+        },
+        {
+          "client_id": "1013389044249-sq1153ak3k7nl1jmfhkqkc40cm5o3bml.apps.googleusercontent.com",
+          "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyB-9TKn7ylUbQO9Pfa-J6_DRqwUs9fsvlg"
+          "current_key": "AIzaSyCA5ZRPwR4lay9DuUIjUsHtw1PXOc0DWiM"
         }
       ],
       "services": {
@@ -35,11 +37,16 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1013389044249-sq1153ak3k7nl1jmfhkqkc40cm5o3bml.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
-          "status": 1
+          "status": 2
         }
       }
     }

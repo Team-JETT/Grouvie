@@ -18,7 +18,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name="jett_apps.grouvie.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,23 +26,23 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SelectFilm"
+            android:name="jett_apps.grouvie.SelectFilm"
             android:label="@string/title_activity_select_film"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SelectShowtime" />
-        <activity android:name=".LeaderInitialPlan" />
+        <activity android:name="jett_apps.grouvie.SelectShowtime" />
+        <activity android:name="jett_apps.grouvie.LeaderInitialPlan" />
 
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
 
-        <activity android:name=".SelectCinema" />
+        <activity android:name="jett_apps.grouvie.SelectCinema" />
         <activity
-            android:name=".SelectGroup"
+            android:name="jett_apps.grouvie.SelectGroup"
             android:label="@string/title_activity_group_selection"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LandingPage" />
-        <activity android:name=".CurrentPlanView"></activity>
+        <activity android:name="jett_apps.grouvie.LandingPage" />
+        <activity android:name="jett_apps.grouvie.CurrentPlanView"></activity>
     </application>
 
 </manifest>
