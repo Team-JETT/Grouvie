@@ -52,20 +52,20 @@ def make_plan():
     latitude = phone_data['latitude']
     longitude = phone_data['longitude']
     # Make a new entry for the group leader.
-    dbManager.insert_grouvie(GROUVIE, username, leader, showtime, film, cinema,
+    dbManager.insert_grouvie(username, leader, showtime, film, cinema,
                              latitude, longitude)
     # Make a new entry in the table for each friend.
     # TODO: What happens if duplicate?
     for friend in phone_data['friends']:
-        dbManager.insert_grouvie(GROUVIE, friend, leader, showtime, None, None,
-                                 None, None)
+        dbManager.insert_grouvie(friend, leader, showtime, None, None, None,
+                                 None)
 
 
 # TODO: UNTESTED
 @app.route("/check_username", methods=['GET', 'POST'])
 def check_username():
     """Check if a user name already exists."""
-    result = dbManager.select(GROUVIE, request.data)
+    result = dbManager.select_users(request.data)
     print result
     if not result:
         # Return status code '201' for NOT OK
@@ -74,11 +74,11 @@ def check_username():
         return '', 200
 
 # TODO: UNTESTED
-@app.route("/submit_postcode", methods=['GET', 'POST'])
-def submit_postcode():
+@app.route("/new_user", methods=['GET', 'POST'])
+def new_user():
     """Add postcode date for a given user."""
     phone_data = json.load(request.data)
-    dbManager.insert_user(USER, phone_data['userid'], phone_data['postcode'])
+    dbManager.insert_user(phone_data['username'], phone_data['postcode'])
     return "DONE!!!"
 
 # TODO: UNTESTED
@@ -86,8 +86,8 @@ def submit_postcode():
 def update_postcode():
     """Update postcode data for a given user."""
     phone_data = json.load(request.data)
-    dbManager.update()
-
+    dbManager.update_users(phone_data['username'], phone_data['postcode'])
+    return "DONE!!!"
 
 # TODO: UNTESTED
 app.route("/delete_single", methods=['GET', 'POST'])

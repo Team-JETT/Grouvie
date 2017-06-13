@@ -17,8 +17,8 @@ class ServerContact extends AsyncTask<String, Integer, String> {
 
     static ProgressDialog dialog;
 //    Debug IP
-//    final static String WebServerAddr = "129.31.227.17";
-    final static String WebServerAddr = "https://murmuring-peak-87447.herokuapp.com/";
+    final static String WebServerAddr = "192.168.1.70";
+//    final static String WebServerAddr = "https://murmuring-peak-87447.herokuapp.com/";
 
     /*
      * HOW TO USE PARAMS:
@@ -29,8 +29,8 @@ class ServerContact extends AsyncTask<String, Integer, String> {
     protected String doInBackground(String... params) {
 
         HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost(WebServerAddr + params[0]);
-//        HttpPost httpPost = new HttpPost("http://" + WebServerAddr + ":5000/" + params[0]);
+//        HttpPost httpPost = new HttpPost(WebServerAddr + params[0]);
+        HttpPost httpPost = new HttpPost("http://" + WebServerAddr + ":5000/" + params[0]);
 
         StringEntity se = null;
         try {

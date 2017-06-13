@@ -3,7 +3,7 @@ import psycopg2
 # Make a new Grouvie table to store all the plans
 CREATE_GROUVIE = """
 CREATE TABLE GROUVIE(
-    USERNAME        CHAR(16)            NOT NULL,
+    USERNAME        CHAR(30)            NOT NULL,
     LEADER          CHAR(16)            NOT NULL,
     SHOWTIME        CHAR(16)            NOT NULL,
     FILM            TEXT,
@@ -16,24 +16,39 @@ CREATE TABLE GROUVIE(
 """
 
 # Make a new User table to store all user data
-CREATE_USER = """
-CREATE TABLE USER(
+CREATE_USERS = """
+CREATE TABLE USERS(
     USERNAME        CHAR(30)            NOT NULL,
     POSTCODE        CHAR(7)             NOT NULL,
     
     PRIMARY KEY (USERNAME)
+)
 """
 
 # Delete a table
-DROP_TABLE = """
-DROP TABLE %s
+DROP_GROUVIE_TABLE = """
+DROP TABLE GROUVIE
+"""
+
+# Delete a user table
+DROP_USERS_TABLE = """
+DROP TABLE USERS
 """
 
 # Insert a new entry into the a table
-INSERT = """
-INSERT INTO %s
-VALUES %s
+INSERT_GROUVIE = """
+INSERT INTO GROUVIE
+VALUES
+(%s, %s, %s, %s, %s, %s, %s)
 """
+
+# Insert a new entry into the a table
+INSERT_USERS = """
+INSERT INTO USERS
+VALUES
+(%s, %s)
+"""
+
 
 # Update an already existing entry in the Grouvie table
 UPDATE_GROUVIE = """
@@ -45,13 +60,12 @@ USERNAME = %s AND LEADER = %s
 """
 
 # Update an already existing entry in the USER table
-UPDATE_USER = """
-UPDATE USER
+UPDATE_USERS = """
+UPDATE USERS
 SET POSTCODE = %s
 WHERE
 USERNAME = %s
 """
-
 
 # Delete entry from a table given a username, leader and showtime
 DELETE_SINGLE = """
@@ -65,13 +79,25 @@ WHERE LEADER = %s and SHOWTIME = %s
 """
 
 # Display everything in the Grouvie table
-SELECT_ALL = """
-SELECT * FROM %s
+SELECT_ALL_GROUVIE = """
+SELECT * FROM GROUVIE
+"""
+
+# Display everything in the Grouvie table
+SELECT_ALL_USERS = """
+SELECT * FROM USERS
+"""
+
+
+# Select a single entry from the Grouvie table based on username
+SELECT_GROUVIE = """
+SELECT * FROM GROUVIE WHERE
+USERNAME = %s
 """
 
 # Select a single entry from the Grouvie table based on username
-SELECT = """
-SELECT * FROM %s WHERE
+SELECT_USERS = """
+SELECT * FROM USERS WHERE
 USERNAME = %s
 """
 
@@ -114,42 +140,46 @@ class DBManager:
     # Make a new User table.
     def make_user_table(self):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(CREATE_USER)
+        cursor.execute(CREATE_USERS)
         self.close_connection(cnxn, cursor)
 
-    # Delete the pre-existing Grouvie table.
-    def drop_table(self, table):
+    # Delete a pre-existing table.
+    def drop_grouvie_table(self):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(DROP_TABLE, table)
+        cursor.execute(DROP_GROUVIE_TABLE)
+        self.close_connection(cnxn, cursor)
+
+    # Delete a pre-existing table.
+    def drop_user_table(self):
+        cnxn, cursor = self.establish_connection()
+        cursor.execute(DROP_USERS_TABLE)
         self.close_connection(cnxn, cursor)
 
     # Insert a new entry into the Grouvie table.
-    def insert_grouvie(self, table, username, leader, showtime, film, cinema,
+    def insert_grouvie(self, username, leader, showtime, film, cinema,
                        latitude, longitude):
         cnxn, cursor = self.establish_connection()
-        store_data = str((showtime, film, cinema, latitude, longitude,
-                          username, leader))
-        cursor.execute(INSERT, (table, store_data))
+        cursor.execute(INSERT_GROUVIE, (showtime, film, cinema, latitude,
+                                        longitude, username, leader))
         self.close_connection(cnxn, cursor)
 
-    def insert_user(self, table, userid, postcode):
+    def insert_user(self, username, postcode):
         cnxn, cursor = self.establish_connection()
-        store_data = str((userid, postcode))
-        cursor.execute(INSERT, (table, store_data))
+        cursor.execute(INSERT_USERS, (username, postcode))
         self.close_connection(cnxn, cursor)
 
     # Update an entry in the Grouvie table if it exists.
     def update_grouvie(self, username, leader, showtime, film, cinema, latitude,
                        longitude):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(UPDATE_GROUVIE, (username, leader, showtime, film,
-                                        cinema, latitude, longitude))
+        cursor.execute(UPDATE_GROUVIE, (showtime, film, cinema, latitude,
+                                        longitude, username, leader))
         self.close_connection(cnxn, cursor)
 
-    # Update an entry in the USER table if it exists.
-    def update_user(self, username, postcode):
+    # Update an entry in the USERS table if it exists.
+    def update_users(self, username, postcode):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(UPDATE_USER, (postcode, username))
+        cursor.execute(UPDATE_USERS, (postcode, username))
         self.close_connection(cnxn, cursor)
 
     # Delete an entry from the table correlating with a user
@@ -165,17 +195,33 @@ class DBManager:
         self.close_connection(cnxn, cursor)
 
     # Select an entry in a table based on username.
-    def select(self, table, username):
+    def select_grouvie(self, username):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(SELECT, (table, username))
+        cursor.execute(SELECT_GROUVIE, username)
+        result = cursor.fetchall()
+        self.close_connection(cnxn, cursor)
+        return result
+
+    # Select an entry in a table based on username.
+    def select_users(self, username):
+        cnxn, cursor = self.establish_connection()
+        cursor.execute(SELECT_USERS, username)
         result = cursor.fetchall()
         self.close_connection(cnxn, cursor)
         return result
 
     # Display everything in the Grouvie table.
-    def selectAll(self, table):
+    def select_all_grouvie(self):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(SELECT_ALL, table)
+        cursor.execute(SELECT_ALL_GROUVIE)
+        result = cursor.fetchall()
+        self.close_connection(cnxn, cursor)
+        return result
+
+    # Display everything in the Grouvie table.
+    def select_all_users(self):
+        cnxn, cursor = self.establish_connection()
+        cursor.execute(SELECT_ALL_USERS)
         result = cursor.fetchall()
         self.close_connection(cnxn, cursor)
         return result
@@ -193,4 +239,8 @@ if __name__ == '__main__':
              'LEADER': 0,
              'SHOWTIME': "s"}
     db = DBManager()
-    print db.selectAll("GROUVIE")
+    db.drop_grouvie_table()
+    db.make_grouvie_table()
+    db.insert_grouvie("1", "1", "1", "1", "1", 4, 2)
+    db.update_grouvie("1", "1", "1", "2", "2", 33, 44)
+    print db.select_all_grouvie()

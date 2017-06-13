@@ -1,7 +1,3 @@
-from bs4 import BeautifulSoup
-from urlparse import urljoin
-from datetime import datetime
-import sys
 import requests
 import re
 import pprint
@@ -59,64 +55,6 @@ class DataParser:
         poster_path = res['results'][0]['poster_path']
 
         return 'http://image.tmdb.org/t/p/w154' + poster_path
-
-    def get_film_poster(self, film_name):
-        """
-        Given FILM_NAME, this will find the corresponding movie poster and
-        return the wikipedia image url for the movie poster
-        """
-        url = 'https://www.google.co.uk/search?q='
-        extra = ' film wikipedia'
-        error_url = 'https://literalminded.files.wordpress.com/2010/11/' \
-                    'image-unavailable1.png'
-
-        # Check for '&' character. We need to replace any of these with 'and'
-        # strings as '&' in a url has a different meaning
-        if '&' in film_name:
-            film_name = 'and'.join(film_name.split('&'))
-
-        res = requests.get(url + film_name + extra)
-        soup = BeautifulSoup(res.text, "lxml")
-
-        # Parsing the html page to get the first url link in the google search
-        # results, which will be the wikipedia page link
-        g_search_res = soup.select('.r a')
-
-        if not g_search_res:
-            print 'VERY BAD: No google search results could be obtained'
-            sys.stdout.flush()
-            return error_url
-
-        fst_ref_url = g_search_res[0].get('href')
-
-        if not fst_ref_url:
-            print 'RED ALERT: First google search result has no href tag'
-            sys.stdout.flush()
-            return error_url
-
-        wiki_url = fst_ref_url.split('=')[1].split('&')[0]
-
-        # Same as '&' case above
-        if '%25' in wiki_url:
-            wiki_url = '%'.join(wiki_url.split('%25'))
-
-        if 'wikipedia' not in wiki_url:
-            print 'UNLUCKY: First google search result was not a wikipedia page'
-            sys.stdout.flush()
-            return error_url
-
-        res = requests.get(wiki_url)
-        soup = BeautifulSoup(res.text, "lxml")
-
-        # Get the first image tag of the wikipedia page
-        imgs = soup.select('a.image > img')
-        if not imgs:
-            print 'WEIRD: No images in the wikipedia page'
-            sys.stdout.flush()
-            return error_url
-
-        return urljoin('http://en.wikipedia.org/wiki/Main_Page', imgs[0]['src'])
-
 
     def get_films_for_cinema(self, date):
         """
@@ -178,27 +116,3 @@ if __name__ == '__main__':
     pprint.PrettyPrinter(indent=4).pprint(
         dParser.get_local_data(51.636743, -0.069069, 9, 6, 2017))
     print time.time() - start_time
-
-
-
-    # """
-    # Function that, given the name of the movie FILMNAME, returns FILMNAME, the
-    # closest cinema that is showing FILMNAME, the distance from that cinema to
-    # the user's postcode in kilometres, and the earliest showtime for FILMNAME
-    # in the cinema. It is returned as a tuple in the order mentioned above.
-    # """
-    # def get_event_from_film(self, filmname):
-    #     cid = F_TO_CID[filmname][0]
-    #     i = CINEMA_IDS.index(cid)
-    #     cine_name = CINEMAS[i]
-    #     dist = DISTANCES[i]
-    #     showtime = FCID_TO_TIMES[(filmname, cid)][0]
-    #     return filmname, cine_name, dist, showtime
-    # """
-
-    # *****FOR DEBUGGING PURPOSES*****
-    # Function for testing output received from passing FILMNAME into the
-    # get_event_from_film method
-    # """
-    # def print_event_for_film(self, filmname):
-    #     print (self.get_event_from_film(self, filmname))
