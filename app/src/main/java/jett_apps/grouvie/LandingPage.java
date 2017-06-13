@@ -8,14 +8,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
-import android.widget.TextView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import static jett_apps.grouvie.MainActivity.mAuth;
 
 public class LandingPage extends AppCompatActivity {
 
@@ -117,12 +115,6 @@ public class LandingPage extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-    }
-
-    public void signOut(View view) {
-        mAuth.signOut();
-        Intent intent = new Intent(LandingPage.this, MainActivity.class);
-        startActivity(intent);
     }
 
 }

@@ -30,6 +30,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private static final String TAG = "PhoneAuthActivity";
 
     private static final String KEY_VERIFY_IN_PROGRESS = "key_verify_in_progress";
+    public static final String USER_PHONE_NO = "firebase_phone_no";
 
     private static final int STATE_INITIALIZED = 1;
     private static final int STATE_CODE_SENT = 2;
@@ -41,6 +42,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     // [START declare_auth]
     public static FirebaseAuth mAuth;
     // [END declare_auth]
+
+    private String userPhoneNo;
 
     private boolean mVerificationInProgress = false;
     private String mVerificationId;
@@ -67,7 +70,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //TODO: Remove this and the button
+
+
+
+        //TODO: Remove this and the button for release
+        userPhoneNo = "07964006128";
+
         Button signInButton = (Button) findViewById(R.id.signinButton);
         signInButton.setVisibility(View.VISIBLE);
         signInButton.setOnClickListener(new View.OnClickListener() {
@@ -84,17 +92,16 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                intent.putExtra(USER_PHONE_NO, userPhoneNo);
                 startActivity(intent);
             }
         });
-        //TODO: Remove above
+        //TODO: Remove above beofore release
 
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user != null) {
-            // User is signed in
-            Intent i = new Intent(MainActivity.this, LandingPage.class);
-            startActivity(i);
-        }
+
+
+
+
 
         // Restore instance state
         if (savedInstanceState != null) {
@@ -203,15 +210,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
 
-        // [START_EXCLUDE]
-        if (mVerificationInProgress && validatePhoneNumber()) {
-            startPhoneNumberVerification(mPhoneNumberField.getText().toString());
+        //Skip to landing if user is signed in
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if (currentUser != null) {
+            //User is already signed in
+            Intent i = new Intent(MainActivity.this, LandingPage.class);
+            startActivity(i);
         }
-        // [END_EXCLUDE]
+
     }
     // [END on_start_check_user]
 
@@ -276,10 +283,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                             // [START_EXCLUDE]
                             updateUI(STATE_SIGNIN_SUCCESS, user);
                             // [END_EXCLUDE]
-                            if (task.isSuccessful()) {
-                                Intent intent = new Intent(MainActivity.this, LandingPage.class);
-                                startActivity(intent);
-                            }
+
+                            //Sign in successful, going to Signup page
+                            Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+                            intent.putExtra(USER_PHONE_NO, user.getPhoneNumber());
+                            startActivity(intent);
+
                         } else {
                             // Sign in failed, display a message and update the UI
                             Log.w(TAG, "signInWithCredential:failure", task.getException());
@@ -297,7 +306,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                     }
                 });
     }
-    // [END sign_in_with_phone]
 
     private void signOut() {
         mAuth.signOut();
