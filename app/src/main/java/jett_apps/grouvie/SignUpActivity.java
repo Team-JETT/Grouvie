@@ -18,11 +18,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
         userPhoneNo = getIntent().getStringExtra(USER_PHONE_NO);
 
         //TODO: Check if phoneNo is registered already. If so, skip signup
