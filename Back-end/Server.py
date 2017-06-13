@@ -44,7 +44,7 @@ def get_local_data():
 def make_plan():
     """Make new plan for all users."""
     phone_data = json.loads(request.data)
-    username = phone_data['username']
+    phone_number = phone_data['phone_number']
     leader = phone_data['leader']
     showtime = phone_data['showtime']
     film = phone_data['film']
@@ -52,7 +52,7 @@ def make_plan():
     latitude = phone_data['latitude']
     longitude = phone_data['longitude']
     # Make a new entry for the group leader.
-    dbManager.insert_grouvie(username, leader, showtime, film, cinema,
+    dbManager.insert_grouvie(phone_number, leader, showtime, film, cinema,
                              latitude, longitude)
     # Make a new entry in the table for each friend.
     # TODO: What happens if duplicate?
@@ -60,25 +60,14 @@ def make_plan():
         dbManager.insert_grouvie(friend, leader, showtime, None, None, None,
                                  None)
 
-
-# TODO: UNTESTED
-@app.route("/check_username", methods=['GET', 'POST'])
-def check_username():
-    """Check if a user name already exists."""
-    result = dbManager.select_users(request.data)
-    print result
-    if not result:
-        # Return status code '201' for NOT OK
-        return '', 201
-    else:
-        return '', 200
-
 # TODO: UNTESTED
 @app.route("/new_user", methods=['GET', 'POST'])
 def new_user():
     """Add postcode date for a given user."""
     phone_data = json.load(request.data)
-    dbManager.insert_user(phone_data['username'], phone_data['postcode'])
+    latitude, longitude = dParser.get_latlong(phone_data['postcode'])
+    dbManager.insert_user(phone_data['phone_number'], phone_data['name'],
+                          latitude, longitude)
     return "DONE!!!"
 
 # TODO: UNTESTED
@@ -86,7 +75,9 @@ def new_user():
 def update_postcode():
     """Update postcode data for a given user."""
     phone_data = json.load(request.data)
-    dbManager.update_users(phone_data['username'], phone_data['postcode'])
+    latitude, longitude = dParser.get_latlong(phone_data['postcode'])
+    dbManager.update_users(phone_data['phone_number'], phone_data['name'],
+                           latitude, longitude)
     return "DONE!!!"
 
 # TODO: UNTESTED
@@ -94,7 +85,7 @@ app.route("/delete_single", methods=['GET', 'POST'])
 def delete_single():
     """Delete an entry from the database - someone can't make it to the plan."""
     phone_data = json.loads(request.data)
-    dbManager.delete_single_grouvie(phone_data['username'],
+    dbManager.delete_single_grouvie(phone_data['phone_number'],
                                     phone_data['leader'],
                                     phone_data['showtime'])
     return "DONE!!!"

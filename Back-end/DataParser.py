@@ -18,10 +18,9 @@ F_CINEMA_TO_TIMES = {}
 
 
 class DataParser:
-
     def get_cinemas_latlong(self, latitude, longitude):
         """
-        Give this function a longitude and latitude and CINEMAS, CINEMA_IDS and 
+        Give this function a longitude and latitude and CINEMAS, CINEMA_IDS and
         DISTANCES lists are populated with (up to) 5 results.
         """
         global CINEMAS, CINEMA_CID, CINEMA_DIST
@@ -37,6 +36,19 @@ class DataParser:
             # Converts distance from mile to km and rounds to 3dp.
             # Dict storing {cinema name: distance}
             CINEMA_DIST[cinema_name] = round(i['distance'] * MILE_TO_KM, 3)
+
+    def get_latlong(self, postcode):
+        """
+        Give this function a postcode and get the corresponding latitude and
+        longitude.
+        """
+        location_data = requests.get(
+            "http://api.postcodes.io/postcodes/{}".format(postcode)
+        )
+        location_data = location_data.json()
+        latitude = location_data['result']['latitude']
+        longitude = location_data['result']['longitude']
+        return round(latitude, 6), round(longitude, 6)
 
     def fast_get_film_poster(self, film_name):
         """
@@ -77,17 +89,18 @@ class DataParser:
             # Get the cinema ID for a given cinema,
             # E.g. Cineworld London - Enfield: 10477
             cinema_id = CINEMA_CID[cinema]
-
             # Get list of films showing at this cinema
             url = "http://moviesapi.herokuapp.com/cinemas/{}/" \
                   "showings/{}".format(cinema_id, date)
             films = requests.get(url)
             # Create a JSON object storing film name, cinema, showtimes and
             # distance to the cinema.
+
             try:
                 films_json = films.json()
             except ValueError:
                 films_json = {}
+
             for i in films_json:
                 filmname = i["title"]
                 times = i['time']
@@ -124,6 +137,7 @@ class DataParser:
 
 if __name__ == '__main__':
     dParser = DataParser()
+    # print dParser.get_latlong("en12lz")
     start_time = time.time()
     pprint.PrettyPrinter(indent=4).pprint(
         dParser.get_local_data(51.636743, -0.069069, 19, 6, 2017))
