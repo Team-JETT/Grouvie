@@ -27,7 +27,7 @@ class DataParser:
         film_names = requests.get(
             "https://api.cinelist.co.uk/search/cinemas/coordinates/{}/{}".
                 format(latitude, longitude))
-        cinemas = film_names.json()["cinemas"][:5]
+        cinemas = film_names.json()["cinemas"][:15]
         for i in cinemas:
             # Runs regex over cinemas to remove the location
             cinema_name = re.match(CINEMA_MATCH_REGEX, i['name']).group("cinema")
