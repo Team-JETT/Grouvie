@@ -43,12 +43,12 @@ class DataParser:
         longitude.
         """
         location_data = requests.get(
-            "api.postcodes.io/postcodes/{}".format(postcode)
+            "http://api.postcodes.io/postcodes/{}".format(postcode)
         )
         location_data = location_data.json()
         latitude = location_data['result']['latitude']
         longitude = location_data['result']['longitude']
-        return latitude, longitude
+        return round(latitude, 6), round(longitude, 6)
 
     def fast_get_film_poster(self, film_name):
         error_url = 'https://literalminded.files.wordpress.com' \
@@ -81,7 +81,6 @@ class DataParser:
             # Get the cinema ID for a given cinema,
             # E.g. Cineworld London - Enfield: 10477
             cinema_id = CINEMA_CID[cinema]
-
             # Get list of films showing at this cinema
             url = "http://moviesapi.herokuapp.com/cinemas/{}/" \
                   "showings/{}".format(cinema_id, date)
@@ -124,6 +123,7 @@ class DataParser:
 
 if __name__ == '__main__':
     dParser = DataParser()
+    # print dParser.get_latlong("en12lz")
     start_time = time.time()
     pprint.PrettyPrinter(indent=4).pprint(
         dParser.get_local_data(51.636743, -0.069069, 9, 6, 2017))
