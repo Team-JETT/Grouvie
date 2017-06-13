@@ -18,12 +18,11 @@ F_CINEMA_TO_TIMES = {}
 
 
 class DataParser:
-
-    """
-    Give this function a longitude and latitude and CINEMAS, CINEMA_IDS and 
-    DISTANCES lists are populated with (up to) 5 results.
-    """
     def get_cinemas_latlong(self, latitude, longitude):
+        """
+        Give this function a longitude and latitude and CINEMAS, CINEMA_IDS and
+        DISTANCES lists are populated with (up to) 5 results.
+        """
         global CINEMAS, CINEMA_CID, CINEMA_DIST
         film_names = requests.get(
             "https://api.cinelist.co.uk/search/cinemas/coordinates/{}/{}".
@@ -37,6 +36,19 @@ class DataParser:
             # Converts distance from mile to km and rounds to 3dp.
             # Dict storing {cinema name: distance}
             CINEMA_DIST[cinema_name] = round(i['distance'] * MILE_TO_KM, 3)
+
+    def get_latlong(self, postcode):
+        """
+        Give this function a postcode and get the corresponding latitude and
+        longitude.
+        """
+        location_data = requests.get(
+            "api.postcodes.io/postcodes/{}".format(postcode)
+        )
+        location_data = location_data.json()
+        latitude = location_data['result']['latitude']
+        longitude = location_data['result']['longitude']
+        return latitude, longitude
 
     def fast_get_film_poster(self, film_name):
         error_url = 'https://literalminded.files.wordpress.com' \

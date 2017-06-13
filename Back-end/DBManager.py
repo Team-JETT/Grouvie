@@ -19,7 +19,8 @@ CREATE TABLE GROUVIE(
 CREATE_USERS = """
 CREATE TABLE USERS(
     USERNAME        CHAR(30)            NOT NULL,
-    POSTCODE        CHAR(7)             NOT NULL,
+    LATITUDE        NUMERIC(8, 6)       NOT NULL,
+    LONGITUDE       NUMERIC(9, 6)       NOT NULL,
     
     PRIMARY KEY (USERNAME)
 )
@@ -46,7 +47,7 @@ VALUES
 INSERT_USERS = """
 INSERT INTO USERS
 VALUES
-(%s, %s)
+(%s, %s, %s)
 """
 
 
@@ -62,7 +63,7 @@ USERNAME = %s AND LEADER = %s
 # Update an already existing entry in the USER table
 UPDATE_USERS = """
 UPDATE USERS
-SET POSTCODE = %s
+SET LATITUDE = %s, LONGITUDE = %s
 WHERE
 USERNAME = %s
 """
@@ -163,9 +164,9 @@ class DBManager:
                                         longitude, username, leader))
         self.close_connection(cnxn, cursor)
 
-    def insert_user(self, username, postcode):
+    def insert_user(self, username, latitude, longitude):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(INSERT_USERS, (username, postcode))
+        cursor.execute(INSERT_USERS, (username, latitude, longitude))
         self.close_connection(cnxn, cursor)
 
     # Update an entry in the Grouvie table if it exists.
@@ -177,9 +178,9 @@ class DBManager:
         self.close_connection(cnxn, cursor)
 
     # Update an entry in the USERS table if it exists.
-    def update_users(self, username, postcode):
+    def update_users(self, username, latitude, longitude):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(UPDATE_USERS, (postcode, username))
+        cursor.execute(UPDATE_USERS, (latitude, longitude, username))
         self.close_connection(cnxn, cursor)
 
     # Delete an entry from the table correlating with a user
@@ -239,8 +240,9 @@ if __name__ == '__main__':
              'LEADER': 0,
              'SHOWTIME': "s"}
     db = DBManager()
-    db.drop_grouvie_table()
-    db.make_grouvie_table()
-    db.insert_grouvie("1", "1", "1", "1", "1", 4, 2)
-    db.update_grouvie("1", "1", "1", "2", "2", 33, 44)
-    print db.select_all_grouvie()
+    db.drop_user_table()
+    db.make_user_table()
+    db.insert_user("1", 2, 2)
+    db.insert_user("2", 2, 2)
+    db.insert_user("3", 2, 2)
+    print db.select_users("1")

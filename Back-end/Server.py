@@ -60,25 +60,30 @@ def make_plan():
         dbManager.insert_grouvie(friend, leader, showtime, None, None, None,
                                  None)
 
-
+# This is used both to add people to a group as well as check the validity of
+# new user names.
 # TODO: UNTESTED
-@app.route("/check_username", methods=['GET', 'POST'])
+@app.route("/get_postcode", methods=['GET', 'POST'])
 def check_username():
-    """Check if a user name already exists."""
     result = dbManager.select_users(request.data)
-    print result
+    print "User:", result
     if not result:
         # Return status code '201' for NOT OK
         return '', 201
     else:
-        return '', 200
+        # Should be only 1 query result
+        result = result[0]
+        # Otherwise return location as JSON
+        return json.dumps({"latitude": result[1],
+                           "longitude": result[2]}), 200
 
 # TODO: UNTESTED
 @app.route("/new_user", methods=['GET', 'POST'])
 def new_user():
     """Add postcode date for a given user."""
     phone_data = json.load(request.data)
-    dbManager.insert_user(phone_data['username'], phone_data['postcode'])
+    latitude, longitude = dParser.get_latlong(phone_data['postcode'])
+    dbManager.insert_user(phone_data['username'], latitude, longitude)
     return "DONE!!!"
 
 # TODO: UNTESTED
