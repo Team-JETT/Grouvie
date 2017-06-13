@@ -15,6 +15,8 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import static jett_apps.grouvie.MainActivity.mAuth;
+
 public class LandingPage extends AppCompatActivity {
 
     public static final String LATITUDE = "LATITUDE";
@@ -118,7 +120,7 @@ public class LandingPage extends AppCompatActivity {
     }
 
     public void signOut(View view) {
-        MainActivity.mAuth.signOut();
+        mAuth.signOut();
         Intent intent = new Intent(LandingPage.this, MainActivity.class);
         startActivity(intent);
     }
