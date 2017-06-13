@@ -19,11 +19,11 @@ F_CINEMA_TO_TIMES = {}
 
 class DataParser:
 
-    """
-    Give this function a longitude and latitude and CINEMAS, CINEMA_IDS and 
-    DISTANCES lists are populated with (up to) 5 results.
-    """
     def get_cinemas_latlong(self, latitude, longitude):
+        """
+        Give this function a longitude and latitude and CINEMAS, CINEMA_IDS and 
+        DISTANCES lists are populated with (up to) 5 results.
+        """
         global CINEMAS, CINEMA_CID, CINEMA_DIST
         film_names = requests.get(
             "https://api.cinelist.co.uk/search/cinemas/coordinates/{}/{}".
@@ -39,6 +39,10 @@ class DataParser:
             CINEMA_DIST[cinema_name] = round(i['distance'] * MILE_TO_KM, 3)
 
     def fast_get_film_poster(self, film_name):
+        """
+        Given FILM_NAME, this will find the corresponding movie poster and
+        return the wikipedia image url for the movie poster
+        """
         error_url = 'https://literalminded.files.wordpress.com' \
                     '/2010/11/image-unavailable1.png'
         if '&' in film_name:
@@ -118,5 +122,5 @@ if __name__ == '__main__':
     dParser = DataParser()
     start_time = time.time()
     pprint.PrettyPrinter(indent=4).pprint(
-        dParser.get_local_data(51.636743, -0.069069, 16, 6, 2017))
+        dParser.get_local_data(51.636743, -0.069069, 22, 6, 2017))
     print time.time() - start_time
