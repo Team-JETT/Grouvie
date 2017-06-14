@@ -1,5 +1,6 @@
 package jett_apps.grouvie;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,13 +18,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static jett_apps.grouvie.LandingPage.CINEMA_DATA;
+import static jett_apps.grouvie.LandingPage.DAY;
 import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
-import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
-import static jett_apps.grouvie.LandingPage.LATITUDE;
-import static jett_apps.grouvie.LandingPage.LONGITUDE;
-import static jett_apps.grouvie.LandingPage.USER_NAME;
 import static jett_apps.grouvie.LandingPage.GROUP_LIST;
+import static jett_apps.grouvie.LandingPage.MONTH;
+import static jett_apps.grouvie.LandingPage.YEAR;
 
 public class SelectGroup extends AppCompatActivity {
 
@@ -188,13 +187,17 @@ public class SelectGroup extends AppCompatActivity {
 
     public void finishGroupSelection(View view) {
         Intent currIntent = getIntent();
-        double latitude = currIntent.getDoubleExtra(LATITUDE, 0);
-        double longitude = currIntent.getDoubleExtra(LONGITUDE, 0);
-        String filmTitle = currIntent.getStringExtra(FILM_MESSAGE);
-        String chosenDay = currIntent.getStringExtra(DAY_MESSAGE);
-        String cinemaData = currIntent.getStringExtra(CINEMA_DATA);
-        String user_name = currIntent.getStringExtra(USER_NAME);
-        Intent intent = new Intent(this, SelectCinema.class);
+//        double latitude = currIntent.getDoubleExtra(LATITUDE, 0);
+//        double longitude = currIntent.getDoubleExtra(LONGITUDE, 0);
+//        String filmTitle = currIntent.getStringExtra(FILM_MESSAGE);
+//        String cinemaData = currIntent.getStringExtra(CINEMA_DATA);
+//        String user_name = currIntent.getStringExtra(USER_NAME);
+        String chosenDate = currIntent.getStringExtra(DAY_MESSAGE);
+        Integer chosenDay = currIntent.getIntExtra(DAY, 0);
+        Integer chosenMonth = currIntent.getIntExtra(MONTH, 0);
+        Integer chosenYear = currIntent.getIntExtra(YEAR, 1990);
+
+        Intent intent = new Intent(this, SelectFilm.class);
         selectedFriends = new String[friends.length];
 
         int j = 0;
@@ -205,13 +208,21 @@ public class SelectGroup extends AppCompatActivity {
             }
         }
 
-        intent.putExtra(LATITUDE, latitude);
-        intent.putExtra(LONGITUDE, longitude);
-        intent.putExtra(FILM_MESSAGE, filmTitle);
-        intent.putExtra(DAY_MESSAGE, chosenDay);
-        intent.putExtra(CINEMA_DATA, cinemaData);
-        intent.putExtra(USER_NAME, user_name);
+//        intent.putExtra(LATITUDE, latitude);
+//        intent.putExtra(LONGITUDE, longitude);
+//        intent.putExtra(FILM_MESSAGE, filmTitle);
+//        intent.putExtra(CINEMA_DATA, cinemaData);
+//        intent.putExtra(USER_NAME, user_name);
+        intent.putExtra(DAY_MESSAGE, chosenDate);
+        intent.putExtra(DAY, chosenDay);
+        intent.putExtra(MONTH, chosenMonth);
+        intent.putExtra(YEAR, chosenYear);
         intent.putExtra(GROUP_LIST, selectedFriends);
+
+        ServerContact.dialog = new ProgressDialog(SelectGroup.this, ProgressDialog.BUTTON_POSITIVE);
+        ServerContact.dialog.setTitle("Please wait");
+        ServerContact.dialog.setMessage("Obtaining listings from server");
+        ServerContact.dialog.show();
 
         startActivity(intent);
     }
