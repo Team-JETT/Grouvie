@@ -70,39 +70,6 @@ public class ProfileManager {
         sp.apply();
     }
 
-//    //Obtain current friends
-//    public static ArrayList<Friend> getFriends(Context context) {
-//
-//        SharedPreferences sp = context.getSharedPreferences(USER_FRIENDS_ID, Context.MODE_PRIVATE);
-//        final Gson gson = new Gson();
-//
-//        String empty_list = gson.toJson(new ArrayList<Friend>());
-//
-//        ArrayList<Friend> friendList = gson.fromJson(sp.getString(USER_FRIENDS_ID, empty_list),
-//                new TypeToken<ArrayList<Friend>>() {}.getType());
-//
-//        if (friendList == null) {
-//            friendList = new ArrayList<>();
-//            String jsonString = gson.toJson(friendList);
-//            sp.edit().putString(USER_FRIENDS_ID, jsonString).apply();
-//        }
-//
-//        //TODO: Remove this debugging section below
-//        if (friendList.isEmpty()) {
-//            friendList = new ArrayList<>();
-//            friendList.add(new Friend("Tarun", "07264006128"));
-//            friendList.add(new Friend("Erkin", "07264006128"));
-//            friendList.add(new Friend("Jay", "07962006128"));
-//            friendList.add(new Friend("Tanmay", "02964006128"));
-//
-//            String jsonString = gson.toJson(friendList);
-//            sp.edit().putString(USER_FRIENDS_ID, jsonString).apply();
-//        }
-//
-//        return friendList;
-//
-//    }
-
     //Add friends to friendList
     public static void addFriends(ArrayList<Friend> contactsToAdd, Context context) {
 
@@ -154,27 +121,6 @@ public class ProfileManager {
         }
 
         return friendList;
-
     }
 
-//    //Add friends to friendList
-//    public static void addFriends(ArrayList<Friend> contactsToAdd, Context context) {
-//
-//        //Obtain current friends
-//        ArrayList<Friend> currentFriends = getFriends(context);
-//
-//        //Create new Gson to represent current friends including new friend
-//        Gson gson = new Gson();
-//
-//        if (currentFriends == null) {
-//            currentFriends = new ArrayList<>();
-//        }
-//        currentFriends.addAll(contactsToAdd);
-//
-//        String jsonString = gson.toJson(currentFriends);
-//        SharedPreferences sp = context.getSharedPreferences(USER_FRIENDS_ID, Context.MODE_PRIVATE);
-//
-//        //Save it through sharedPreferences
-//        sp.edit().putString(USER_FRIENDS_ID, jsonString).apply();
-//    }
 }
