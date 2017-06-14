@@ -1,7 +1,6 @@
 package jett_apps.grouvie;
 
 import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -89,19 +88,12 @@ public class LandingPage extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int month, int day) {
                         String chosenDay = day + "/" + month + "/" + year;
 
-                        Intent intent = new Intent(view.getContext(), SelectFilm.class);
+                        Intent intent = new Intent(view.getContext(), SelectGroup.class);
                         intent.putExtra(DAY_MESSAGE, chosenDay);
                         intent.putExtra(DAY, day);
                         intent.putExtra(MONTH, month + 1);
                         intent.putExtra(YEAR, year);
 
-
-                        intent.putExtra(DAY_MESSAGE, chosenDay);
-
-                        ServerContact.dialog = new ProgressDialog(LandingPage.this, ProgressDialog.BUTTON_POSITIVE);
-                        ServerContact.dialog.setTitle("Please wait");
-                        ServerContact.dialog.setMessage("Obtaining listings from server");
-                        ServerContact.dialog.show();
 
                         startActivity(intent);
                     }
