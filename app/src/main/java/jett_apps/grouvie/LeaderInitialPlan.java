@@ -12,12 +12,9 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
-
 import static jett_apps.grouvie.LandingPage.CINEMA_MESSAGE;
-import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
+import static jett_apps.grouvie.LandingPage.DATE_MESSAGE;
 import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
-import static jett_apps.grouvie.LandingPage.LATITUDE;
-import static jett_apps.grouvie.LandingPage.LONGITUDE;
 import static jett_apps.grouvie.LandingPage.GROUP_LIST;
 import static jett_apps.grouvie.LandingPage.SHOWTIME_MESSAGE;
 import static jett_apps.grouvie.LandingPage.USER_NAME;
@@ -26,7 +23,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
 
     private double latitude, longitude;
     private String chosenFilm, chosenCinema, chosenTime, chosenDay;
-    private String[] chosenFriends;
+    private String[] chosenGroup;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +31,13 @@ public class LeaderInitialPlan extends AppCompatActivity {
         setContentView(R.layout.activity_leader_initial_plan);
 
         Intent intent = getIntent();
-        latitude = intent.getDoubleExtra(LATITUDE, 0);
-        longitude = intent.getDoubleExtra(LONGITUDE, 0);
+//        latitude = intent.getDoubleExtra(LATITUDE, 0);
+//        longitude = intent.getDoubleExtra(LONGITUDE, 0);
         chosenFilm = intent.getStringExtra(FILM_MESSAGE);
         chosenCinema = intent.getStringExtra(CINEMA_MESSAGE);
         chosenTime = intent.getStringExtra(SHOWTIME_MESSAGE);
-        chosenDay = intent.getStringExtra(DAY_MESSAGE);
-        chosenFriends = intent.getStringArrayExtra(GROUP_LIST);
+        chosenDay = intent.getStringExtra(DATE_MESSAGE);
+        chosenGroup = intent.getStringArrayExtra(GROUP_LIST);
 
         ((TextView) findViewById(R.id.SelectedFilm)).setText(chosenFilm);
         ((TextView) findViewById(R.id.SelectedCinema)).setText(chosenCinema);
@@ -67,7 +64,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
         }
         new ServerContact().execute("make_plan", json.toString());
 
-        Plan p = new Plan(chosenFilm, chosenCinema, chosenTime, chosenDay, chosenFriends);
+        Plan p = new Plan(chosenFilm, chosenCinema, chosenTime, chosenDay, chosenGroup);
         CurrentPlans.addPlan(p, LeaderInitialPlan.this);
 
         Toast.makeText(getApplicationContext(), "Plan submitted to group", Toast.LENGTH_LONG).show();

@@ -17,15 +17,12 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-
 import static jett_apps.grouvie.LandingPage.CINEMA_MESSAGE;
-import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
+import static jett_apps.grouvie.LandingPage.DATE_MESSAGE;
 import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
-import static jett_apps.grouvie.LandingPage.LATITUDE;
-import static jett_apps.grouvie.LandingPage.LONGITUDE;
-import static jett_apps.grouvie.LandingPage.SHOWTIME_MESSAGE;
+import static jett_apps.grouvie.LandingPage.GROUP_LIST;
 import static jett_apps.grouvie.LandingPage.SHOWTIME_DISTANCE_DATA;
-import static jett_apps.grouvie.LandingPage.USER_NAME;
+import static jett_apps.grouvie.LandingPage.SHOWTIME_MESSAGE;
 
 public class SelectShowtime extends AppCompatActivity {
 
@@ -35,13 +32,12 @@ public class SelectShowtime extends AppCompatActivity {
         setContentView(R.layout.activity_select_showtime);
 
         Intent intent = getIntent();
-        final double latitude = intent.getDoubleExtra(LATITUDE, 0);
-        final double longitude = intent.getDoubleExtra(LONGITUDE, 0);
         final String chosenFilm  = intent.getStringExtra(FILM_MESSAGE);
         final String chosenCinema = intent.getStringExtra(CINEMA_MESSAGE);
-        final String chosenDay = intent.getStringExtra(DAY_MESSAGE);
+        final String chosenDate = intent.getStringExtra(DATE_MESSAGE);
+        final String[] chosenGroup = intent.getStringArrayExtra(GROUP_LIST);
+//        final String chosenGroup = intent.getStringExtra(GROUP_LIST);
         final String showtimeDistanceData = intent.getStringExtra(SHOWTIME_DISTANCE_DATA);
-        final String user_name = intent.getStringExtra(USER_NAME);
         ((TextView) findViewById(R.id.chosenFilm)).setText(chosenFilm);
         ((TextView) findViewById(R.id.chosenCinema)).setText(chosenCinema);
 
@@ -79,14 +75,15 @@ public class SelectShowtime extends AppCompatActivity {
 
                     //Sending the current plan to the final planning page
                     Intent intent = new Intent(view.getContext(), LeaderInitialPlan.class);
-                    intent.putExtra(LATITUDE, latitude);
-                    intent.putExtra(LONGITUDE, longitude);
+//                    intent.putExtra(LATITUDE, latitude);
+//                    intent.putExtra(LONGITUDE, longitude);
                     intent.putExtra(FILM_MESSAGE, chosenFilm);
                     intent.putExtra(CINEMA_MESSAGE, chosenCinema);
-                    intent.putExtra(DAY_MESSAGE, chosenDay);
+                    intent.putExtra(DATE_MESSAGE, chosenDate);
+                    intent.putExtra(GROUP_LIST, chosenGroup);
                     intent.putExtra(SHOWTIME_MESSAGE, chosenTime);
-                    intent.putExtra(USER_NAME, user_name);
-                    Log.v("STUFF", latitude + " " + longitude + " " + chosenFilm);
+//                    intent.putExtra(USER_NAME, user_name);
+//                    Log.v("STUFF", latitude + " " + longitude + " " + chosenFilm);
                     startActivity(intent);
                     }
                 }

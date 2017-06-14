@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import static jett_apps.grouvie.LandingPage.DAY;
-import static jett_apps.grouvie.LandingPage.DAY_MESSAGE;
+import static jett_apps.grouvie.LandingPage.DATE_MESSAGE;
 import static jett_apps.grouvie.LandingPage.GROUP_LIST;
 import static jett_apps.grouvie.LandingPage.MONTH;
 import static jett_apps.grouvie.LandingPage.YEAR;
@@ -281,7 +281,7 @@ public class SelectGroup extends AppCompatActivity {
 
         Intent currIntent = getIntent();
 
-        String chosenDate = currIntent.getStringExtra(DAY_MESSAGE);
+        String chosenDate = currIntent.getStringExtra(DATE_MESSAGE);
         Integer chosenDay = currIntent.getIntExtra(DAY, 0);
         Integer chosenMonth = currIntent.getIntExtra(MONTH, 0);
         Integer chosenYear = currIntent.getIntExtra(YEAR, 1990);
@@ -298,7 +298,7 @@ public class SelectGroup extends AppCompatActivity {
             }
         }
 
-        intent.putExtra(DAY_MESSAGE, chosenDate);
+        intent.putExtra(DATE_MESSAGE, chosenDate);
         intent.putExtra(DAY, chosenDay);
         intent.putExtra(MONTH, chosenMonth);
         intent.putExtra(YEAR, chosenYear);

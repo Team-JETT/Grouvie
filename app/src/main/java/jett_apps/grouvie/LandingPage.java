@@ -22,7 +22,7 @@ public class LandingPage extends AppCompatActivity {
     public static final String FILM_MESSAGE = "FILMTITLE";
     public static final String CINEMA_MESSAGE = "CINEMATITLE";
     public static final String SHOWTIME_MESSAGE = "SHOWTIME";
-    public static final String DAY_MESSAGE = "EVENTDAY";
+    public static final String DATE_MESSAGE = "EVENTDAY";
     public static final String CINEMA_DATA = "CINEMADATA";
     public static final String USER_NAME = "USERNAME";
     public static final String SHOWTIME_DISTANCE_DATA = "SHOWTIMEDISTANCEDATA";
@@ -89,7 +89,7 @@ public class LandingPage extends AppCompatActivity {
                         String chosenDay = day + "/" + month + "/" + year;
 
                         Intent intent = new Intent(view.getContext(), SelectGroup.class);
-                        intent.putExtra(DAY_MESSAGE, chosenDay);
+                        intent.putExtra(DATE_MESSAGE, chosenDay);
                         intent.putExtra(DAY, day);
                         intent.putExtra(MONTH, month + 1);
                         intent.putExtra(YEAR, year);
