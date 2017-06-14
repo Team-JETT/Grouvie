@@ -117,4 +117,9 @@ public class LandingPage extends AppCompatActivity {
     public void onBackPressed() {
     }
 
+    public void viewProfile(View view) {
+        Intent profileIntent = new Intent(LandingPage.this, ProfilePage.class);
+        startActivity(profileIntent);
+    }
+
 }
