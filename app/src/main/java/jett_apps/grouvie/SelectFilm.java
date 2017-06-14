@@ -93,9 +93,6 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                     intent.putExtra(GROUP_LIST, intent.getStringExtra(GROUP_LIST));
                     intent.putExtra(CINEMA_DATA, cinemaData.toString());
                     intent.putExtra(FILM_MESSAGE, filmTitle);
-//                    intent.putExtra(LATITUDE, latitude);
-//                    intent.putExtra(LONGITUDE, longitude);
-//                    intent.putExtra(USER_NAME, getIntent().getStringExtra(USER_NAME));
                     startActivity(intent);
                 }
             }

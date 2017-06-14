@@ -186,12 +186,9 @@ public class SelectGroup extends AppCompatActivity {
 
 
     public void finishGroupSelection(View view) {
+
         Intent currIntent = getIntent();
-//        double latitude = currIntent.getDoubleExtra(LATITUDE, 0);
-//        double longitude = currIntent.getDoubleExtra(LONGITUDE, 0);
-//        String filmTitle = currIntent.getStringExtra(FILM_MESSAGE);
-//        String cinemaData = currIntent.getStringExtra(CINEMA_DATA);
-//        String user_name = currIntent.getStringExtra(USER_NAME);
+
         String chosenDate = currIntent.getStringExtra(DAY_MESSAGE);
         Integer chosenDay = currIntent.getIntExtra(DAY, 0);
         Integer chosenMonth = currIntent.getIntExtra(MONTH, 0);
@@ -208,11 +205,6 @@ public class SelectGroup extends AppCompatActivity {
             }
         }
 
-//        intent.putExtra(LATITUDE, latitude);
-//        intent.putExtra(LONGITUDE, longitude);
-//        intent.putExtra(FILM_MESSAGE, filmTitle);
-//        intent.putExtra(CINEMA_DATA, cinemaData);
-//        intent.putExtra(USER_NAME, user_name);
         intent.putExtra(DAY_MESSAGE, chosenDate);
         intent.putExtra(DAY, chosenDay);
         intent.putExtra(MONTH, chosenMonth);
