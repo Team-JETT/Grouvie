@@ -5,4 +5,4 @@ psycopg2==2.7.1
 environ==1.0
 bs4==0.0.1
 lxml==3.5.0
-grouper==0.0.1
+futures==3.1.1

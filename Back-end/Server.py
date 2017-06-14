@@ -62,13 +62,13 @@ def get_local_data():
 def make_plan():
     """Make new plan for all users."""
     phone_data = json.loads(request.data)
-    phone_number = phone_data['PHONE_NUMBER']
-    leader = phone_data['LEADER']
-    showtime = phone_data['SHOWTIME']
-    film = phone_data['FILM']
-    cinema = phone_data['CINEMA']
-    latitude = phone_data['LATITUDE']
-    longitude = phone_data['LONGITUDE']
+    phone_number = phone_data['phone_number']
+    leader = phone_data['leader']
+    showtime = phone_data['showtime']
+    film = phone_data['film']
+    cinema = phone_data['cinema']
+    latitude = phone_data['latitude']
+    longitude = phone_data['longitude']
     # Make a new entry for the group leader.
     dbManager.insert_grouvie(phone_number, leader, showtime, film, cinema,
                              latitude, longitude)

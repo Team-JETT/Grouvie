@@ -6,6 +6,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import static jett_apps.grouvie.LandingPage.PLAN_MESSAGE;
 
 public class CurrentPlanView extends AppCompatActivity {
@@ -44,8 +47,14 @@ public class CurrentPlanView extends AppCompatActivity {
 
     public void cantGo(View view) {
         CurrentPlans.deletePlan(p, this);
-        // Delete the plan on the server
-        new ServerContact().execute("delete_plan");
+        JSONObject json_data = new JSONObject();
+        try {
+            json_data.accumulate("phone_number", p.getLeaderPhoneNum());
+            json_data.accumulate("leader", p.getLeaderPhoneNum());
+            json_data.accumulate("showtime", p.getSuggestedShowTime());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         Intent intent = new Intent(view.getContext(), LandingPage.class);
         startActivity(intent);
         //TODO: Show activity with group replies and option to replan.
@@ -53,7 +62,15 @@ public class CurrentPlanView extends AppCompatActivity {
 
     public void cancelPlan(View view) {
         CurrentPlans.deletePlan(p, this);
-        // TODO: Delete the plan on the server - awaiting username in Plan class
+        // Delete the plan on the server
+        JSONObject json_data = new JSONObject();
+        try {
+            json_data.accumulate("leader", p.getLeaderPhoneNum());
+            json_data.accumulate("showtime", p.getSuggestedShowTime());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new ServerContact().execute("delete_plan", json_data.toString());
         Intent intent = new Intent(view.getContext(), LandingPage.class);
         startActivity(intent);
         //TODO: Show activity with group replies and option to replan.
