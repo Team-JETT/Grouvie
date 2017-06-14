@@ -1,6 +1,5 @@
 import grouper as grouper
 from concurrent import futures
-import concurrent
 import requests
 import re
 import pprint
@@ -141,7 +140,7 @@ class DataParser:
         """Get all film data for a given location."""
         self.get_cinemas_latlong(latitude, longitude)
         formatted_date = self.parse_date(day, month, year)
-        return self.get_films_for_cinema(formatted_date)
+        return self.get_films_for_cinemas(formatted_date)
 
 
 if __name__ == '__main__':
