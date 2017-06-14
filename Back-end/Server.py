@@ -22,6 +22,19 @@ def homepage():
     return "Why are you here?"
 
 
+def calculate_avg_location(friends):
+    total_latitude, total_longitude = 0, 0
+    for friend in friends:
+        # There should be only 1 result
+        result = dbManager.select_users(friend)[0]
+        total_latitude += result[3]
+        total_longitude += result[4]
+    members = len(friends)
+    avg_latitude = total_longitude / members
+    avg_longitude = total_longitude / members
+    return avg_latitude, avg_longitude
+
+
 @app.route("/get_local_data", methods=["GET", "POST"])
 def get_local_data():
     """
@@ -33,11 +46,12 @@ def get_local_data():
     -- Distance from provided location to cinema in Km.
     """
     phone_data = json.loads(request.data)
-    return json.dumps(dParser.get_local_data(phone_data['latitude'],
-                                             phone_data['longitude'],
-                                             phone_data['day'],
+    avg_latitude, avg_longitude = calculate_avg_location(phone_data['friends'])
+    return json.dumps(dParser.get_local_data(phone_data['day'],
                                              phone_data['month'],
-                                             phone_data['year']))
+                                             phone_data['year'],
+                                             avg_latitude, avg_longitude))
+
 
 # TODO: UNTESTED
 @app.route("/make_plan", methods=['GET', 'POST'])
@@ -60,6 +74,7 @@ def make_plan():
         dbManager.insert_grouvie(friend, leader, showtime, None, None, None,
                                  None)
 
+
 # TODO: UNTESTED
 @app.route("/new_user", methods=['GET', 'POST'])
 def new_user():
@@ -70,6 +85,28 @@ def new_user():
                           latitude, longitude)
     return "DONE!!!"
 
+@app.route("/verify_user", methods=['GET', 'POST'])
+def verify_user():
+    """Given a phone number, verifies that the user is a Grouvie user."""
+    user = request.data
+    # Convert user to tuple before passing to select_valid_users
+    results = dbManager.select_valid_users(user,)
+    # If the user is in the database, give status code 200, otherwise, 201.
+    return '', 200 if results else '', 201
+
+@app.route("/verify_friends", methods=['GET', 'POST'])
+def verify_friends():
+    """Given a list of phone numbers we verify if the owner of that contact
+    number is a user of Grouvie."""
+    # Convert received data to tuple suitable for placing in DB query.
+    friends = tuple(request.data)
+    valid_users = dbManager.select_valid_users(friends)
+    valid_friends = {}
+    for user in valid_users:
+        valid_friends[user[0]] = user[1]
+    return json.dumps(valid_friends)
+
+
 # TODO: UNTESTED
 @app.route("/update_postcode", methods=['GET', 'POST'])
 def update_postcode():
@@ -79,6 +116,7 @@ def update_postcode():
     dbManager.update_users(phone_data['phone_number'], phone_data['name'],
                            latitude, longitude)
     return "DONE!!!"
+
 
 # TODO: UNTESTED
 app.route("/delete_single", methods=['GET', 'POST'])
@@ -94,8 +132,8 @@ def delete_single():
 # TODO: UNTESTED
 @app.route("/delete_plan", methods=['GET', 'POST'])
 def delete_plan():
-    """Delete a plan from the database, this deletes the plan for all members of
-    the plan."""
+    """Delete a plan from the database, this deletes the plan for all members
+    of the plan."""
     phone_data = json.loads(request.data)
     dbManager.delete_plan_grouvie(phone_data['leader'],
                                   phone_data['showtime'])

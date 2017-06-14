@@ -93,14 +93,22 @@ SELECT * FROM USERS
 
 # Select a single entry from the Grouvie table based on phone_number
 SELECT_GROUVIE = """
-SELECT * FROM GROUVIE WHERE
+SELECT * FROM GROUVIE
+WHERE
 PHONE_NUMBER = %s
 """
 
 # Select a single entry from the Grouvie table based on phone_number
 SELECT_USERS = """
-SELECT * FROM USERS WHERE
+SELECT * FROM USERS
+WHERE
 PHONE_NUMBER = %s
+"""
+
+SELECT_VALID_USERS = """
+SELECT PHONE_NUMBER, NAME FROM USERS
+WHERE
+PHONE_NUMBER IN {}
 """
 
 GROUVIE = "GROUVIE"
@@ -213,6 +221,16 @@ class DBManager:
         self.close_connection(cnxn, cursor)
         return result
 
+    # Select users that actually have a Grouvie account.
+    def select_valid_users(self, friends):
+        # Build the placeholders which we require when it comes to searching.
+        fields = "(" + ','.join(["%s"]*len(friends)) + ")"
+        cnxn, cursor = self.establish_connection()
+        cursor.execute(SELECT_VALID_USERS.format(fields), tuple(friends))
+        results = cursor.fetchall()
+        self.close_connection(cnxn, cursor)
+        return results
+
     # Display everything in the Grouvie table.
     def select_all_grouvie(self):
         cnxn, cursor = self.establish_connection()
@@ -242,8 +260,10 @@ if __name__ == '__main__':
              'LEADER': 0,
              'SHOWTIME': "s"}
     db = DBManager()
-    db.drop_grouvie_table()
-    db.make_grouvie_table()
-    db.insert_grouvie("1", "1", "1", "1", "n", 2, 2)
-    db.update_grouvie("1", "1", "1", "1", "1", 22, 22)
-    print db.select_grouvie("1")
+    # db.drop_user_table()
+    # db.make_user_table()
+    # db.insert_user("1", "1", 0, 0)
+    # db.insert_user("2", "1", 0, 0)
+    # db.insert_user("3", "1", 0, 0)
+    # db.insert_user("4", "1", 0, 0)
+    print db.select_valid_users(("1", "2", "5", "6"))

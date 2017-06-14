@@ -26,7 +26,7 @@ class DataParser:
         global CINEMAS, CINEMA_CID, CINEMA_DIST
         film_names = requests.get(
             "https://api.cinelist.co.uk/search/cinemas/coordinates/{}/{}".
-                format(latitude, longitude))
+            format(latitude, longitude))
         cinemas = film_names.json()["cinemas"][:15]
         for i in cinemas:
             # Runs regex over cinemas to remove the location
@@ -43,8 +43,7 @@ class DataParser:
         longitude.
         """
         location_data = requests.get(
-            "http://api.postcodes.io/postcodes/{}".format(postcode)
-        )
+            "http://api.postcodes.io/postcodes/{}".format(postcode))
         location_data = location_data.json()
         latitude = location_data['result']['latitude']
         longitude = location_data['result']['longitude']
@@ -53,7 +52,7 @@ class DataParser:
     def fast_get_film_poster(self, film_name):
         """
         Given FILM_NAME, this will find the corresponding movie poster and
-        return the wikipedia image url for the movie poster
+        return the wikipedia image url for the movie poster.
         """
         error_url = 'https://literalminded.files.wordpress.com' \
                     '/2010/11/image-unavailable1.png'
@@ -118,6 +117,7 @@ class DataParser:
         return local_data
 
     def parse_date(self, day, month, year):
+        """Convert date into a suitable format for use by the external API."""
         day = str(day)
         month = str(month)
         year = str(year)
@@ -128,8 +128,8 @@ class DataParser:
             month = "0" + month
         return year + "-" + month + "-" + day
 
-    def get_local_data(self, latitude, longitude, day, month, year):
-        """Get all film data for your local area."""
+    def get_local_data(self, day, month, year, latitude, longitude):
+        """Get all film data for a given location."""
         self.get_cinemas_latlong(latitude, longitude)
         formatted_date = self.parse_date(day, month, year)
         return self.get_films_for_cinema(formatted_date)
@@ -140,5 +140,5 @@ if __name__ == '__main__':
     # print dParser.get_latlong("en12lz")
     start_time = time.time()
     pprint.PrettyPrinter(indent=4).pprint(
-        dParser.get_local_data(51.636743, -0.069069, 19, 6, 2017))
+        dParser.get_local_data(19, 6, 2017, 51.636743, -0.069069))
     print time.time() - start_time
