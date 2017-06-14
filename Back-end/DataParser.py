@@ -4,6 +4,7 @@ import requests
 import re
 import pprint
 import time
+import sys
 
 MILE_TO_KM = 1.60934
 CINEMA_MATCH_REGEX = r"(?P<cinema>[^,]*)"
@@ -25,6 +26,8 @@ class DataParser:
         Give this function a longitude and latitude and CINEMAS, CINEMA_IDS and
         DISTANCES lists are populated with (up to) 5 results.
         """
+        print((latitude, longitude))
+        sys.stdout.flush()
         global CINEMAS, CINEMA_CID, CINEMA_DIST
         film_names = requests.get(
             "https://api.cinelist.co.uk/search/cinemas/coordinates/{}/{}".
