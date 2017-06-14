@@ -25,8 +25,7 @@ def homepage():
 def calculate_avg_location(friends):
     total_latitude, total_longitude = 0, 0
     for friend in friends:
-        # There should be only 1 result
-        result = dbManager.select_users(friend)[0]
+        result = dbManager.select_users(friend)
         total_latitude += result[3]
         total_longitude += result[4]
     members = len(friends)
@@ -58,13 +57,13 @@ def get_local_data():
 def make_plan():
     """Make new plan for all users."""
     phone_data = json.loads(request.data)
-    phone_number = phone_data['phone_number']
-    leader = phone_data['leader']
-    showtime = phone_data['showtime']
-    film = phone_data['film']
-    cinema = phone_data['cinema']
-    latitude = phone_data['latitude']
-    longitude = phone_data['longitude']
+    phone_number = phone_data['PHONE_NUMBER']
+    leader = phone_data['LEADER']
+    showtime = phone_data['SHOWTIME']
+    film = phone_data['FILM']
+    cinema = phone_data['CINEMA']
+    latitude = phone_data['LATITUDE']
+    longitude = phone_data['LONGITUDE']
     # Make a new entry for the group leader.
     dbManager.insert_grouvie(phone_number, leader, showtime, film, cinema,
                              latitude, longitude)
@@ -92,7 +91,7 @@ def verify_user():
     # Convert user to tuple before passing to select_valid_users
     results = dbManager.select_valid_users(user,)
     # If the user is in the database, give status code 200, otherwise, 201.
-    return '', 200 if results else '', 201
+    return 1 if results else 0
 
 @app.route("/verify_friends", methods=['GET', 'POST'])
 def verify_friends():
@@ -106,6 +105,16 @@ def verify_friends():
         valid_friends[user[0]] = user[1]
     return json.dumps(valid_friends)
 
+@app.route("/get_user", methods=['GET', 'POST'])
+def get_user():
+    """Given a user phone number, gets the users personal data."""
+    phone_number = request.data
+    user_data = dbManager.select_users(phone_number)
+    json_data = {"phone_number": user_data[0],
+                 "name": user_data[1],
+                 "latitude": user_data[2],
+                 "longitude": user_data[3]}
+    return json.dumps(json_data)
 
 # TODO: UNTESTED
 @app.route("/update_postcode", methods=['GET', 'POST'])

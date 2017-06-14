@@ -8,9 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
-import android.widget.TextView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -117,10 +117,9 @@ public class LandingPage extends AppCompatActivity {
     public void onBackPressed() {
     }
 
-    public void signOut(View view) {
-        MainActivity.mAuth.signOut();
-        Intent intent = new Intent(LandingPage.this, MainActivity.class);
-        startActivity(intent);
+    public void viewProfile(View view) {
+        Intent profileIntent = new Intent(LandingPage.this, ProfilePage.class);
+        startActivity(profileIntent);
     }
 
 }

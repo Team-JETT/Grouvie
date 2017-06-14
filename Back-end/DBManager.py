@@ -219,7 +219,8 @@ class DBManager:
         cursor.execute(SELECT_USERS, phone_number)
         result = cursor.fetchall()
         self.close_connection(cnxn, cursor)
-        return result
+        # There should only be 1 result so we just return that tuple.
+        return result[0] if result else []
 
     # Select users that actually have a Grouvie account.
     def select_valid_users(self, friends):
@@ -266,4 +267,5 @@ if __name__ == '__main__':
     # db.insert_user("2", "1", 0, 0)
     # db.insert_user("3", "1", 0, 0)
     # db.insert_user("4", "1", 0, 0)
-    print db.select_valid_users(("1", "2", "5", "6"))
+    # print db.select_valid_users(("1", "2", "5", "6"))
+    print db.select_all_users()
