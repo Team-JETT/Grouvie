@@ -40,11 +40,7 @@ public class SelectGroup extends AppCompatActivity {
 
     // This will be updated by real values later.
     private ArrayAdapter<Friend> friendsAdapter;
-<<<<<<< Updated upstream
-    private Friend[] friends;
-=======
     private ArrayList<Friend> friends;
->>>>>>> Stashed changes
     private String[] selectedFriends;
 
     @Override
@@ -74,11 +70,7 @@ public class SelectGroup extends AppCompatActivity {
 
         ListView listView = (ListView) findViewById(R.id.listView);
 
-<<<<<<< Updated upstream
-        ArrayList<Friend> friendList = ProfileManager.getFriends(SelectGroup.this);
-=======
         friends = ProfileManager.getFriends(SelectGroup.this);
->>>>>>> Stashed changes
 //        friends = (Friend[]) getLastNonConfigurationInstance();
 //        if (friends == null) {
 //            friends = new Friend[] {
@@ -195,15 +187,9 @@ public class SelectGroup extends AppCompatActivity {
         }
 
     }
-<<<<<<< Updated upstream
 
     private void updateFriends() {
 
-=======
-
-    private void updateFriends() {
-
->>>>>>> Stashed changes
         //Set difference with friendsList to obtain phone nums of users yet to use Grouvie
         ArrayList<String> grouvieContactsPhoneNum = new ArrayList<>();
         ArrayList<Friend> grouvieContacts = ProfileManager.getFriends(SelectGroup.this);
@@ -307,10 +293,7 @@ public class SelectGroup extends AppCompatActivity {
         for (Friend friend : friends) {
             if (friend.isChecked()) {
                 selectedFriends[j] = friend.getPhoneNum();
-<<<<<<< Updated upstream
-=======
                 friend.setChecked(false);
->>>>>>> Stashed changes
                 j++;
             }
         }
