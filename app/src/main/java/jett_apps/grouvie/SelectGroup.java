@@ -1,9 +1,14 @@
 package jett_apps.grouvie;
 
 import android.app.ProgressDialog;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,9 +18,10 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import static jett_apps.grouvie.LandingPage.DAY;
@@ -26,11 +32,19 @@ import static jett_apps.grouvie.LandingPage.YEAR;
 
 public class SelectGroup extends AppCompatActivity {
 
-
+    private static final int PERMISSIONS_REQUEST_READ_CONTACTS = 100;
+    private static final String CONTACT_ID = ContactsContract.Contacts._ID;
+    private static final String HAS_PHONE_NUMBER = ContactsContract.Contacts.HAS_PHONE_NUMBER;
+    private static final String PHONE_NUMBER = ContactsContract.CommonDataKinds.Phone.NUMBER;
+    private static final String PHONE_CONTACT_ID = ContactsContract.CommonDataKinds.Phone.CONTACT_ID;
 
     // This will be updated by real values later.
-    private Friend[] friends;
     private ArrayAdapter<Friend> friendsAdapter;
+<<<<<<< Updated upstream
+    private Friend[] friends;
+=======
+    private ArrayList<Friend> friends;
+>>>>>>> Stashed changes
     private String[] selectedFriends;
 
     @Override
@@ -50,23 +64,38 @@ public class SelectGroup extends AppCompatActivity {
                 viewHolder.getCheckBox().setChecked(friend.isChecked());
             }
         });
+
         // Populates the friends list with friend objects.
-        friends = (Friend[]) getLastNonConfigurationInstance();
-        if (friends == null) {
-            friends = new Friend[] {
-                    new Friend("Steve"),
-                    new Friend("Diana"),
-                    new Friend("Bruce"),
-                    new Friend("Carol")
-            };
-        }
+        updateFriendSelectionList();
 
-        ArrayList<Friend> friendList = new ArrayList<>();
-        friendList.addAll(Arrays.asList(friends));
+    }
+
+    private void updateFriendSelectionList() {
+
+        ListView listView = (ListView) findViewById(R.id.listView);
+
+<<<<<<< Updated upstream
+        ArrayList<Friend> friendList = ProfileManager.getFriends(SelectGroup.this);
+=======
+        friends = ProfileManager.getFriends(SelectGroup.this);
+>>>>>>> Stashed changes
+//        friends = (Friend[]) getLastNonConfigurationInstance();
+//        if (friends == null) {
+//            friends = new Friend[] {
+//                    new Friend("Steve"),
+//                    new Friend("Diana"),
+//                    new Friend("Bruce"),
+//                    new Friend("Carol")
+//            };
+//        }
+//
+//        ArrayList<Friend> friendList = new ArrayList<>();
+//        friendList.addAll(Arrays.asList(friends));
+
+
         // Set our adapter as the ListView's adapter.
-        friendsAdapter = new FriendsAdapter(this, friendList);
+        friendsAdapter = new FriendsAdapter(this, friends);
         listView.setAdapter(friendsAdapter);
-
     }
 
     // Adapter for displaying an array of Friend objects.
@@ -150,39 +179,116 @@ public class SelectGroup extends AppCompatActivity {
         return friends;
     }
 
-    private static class Friend {
-        private String name = "";
-        private boolean checked = false;
 
-        public Friend(String name){
-            this.name = name;
+
+    public void updateFriendsAfterPermission(View view) {
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
+                checkSelfPermission(android.Manifest.permission.READ_CONTACTS)
+                        != PackageManager.PERMISSION_GRANTED) {
+
+            requestPermissions(new String[]{android.Manifest.permission.READ_CONTACTS},
+                    PERMISSIONS_REQUEST_READ_CONTACTS);
+
+        } else {
+            updateFriends();
         }
 
-        public String getName() {
-            return name;
+    }
+<<<<<<< Updated upstream
+
+    private void updateFriends() {
+
+=======
+
+    private void updateFriends() {
+
+>>>>>>> Stashed changes
+        //Set difference with friendsList to obtain phone nums of users yet to use Grouvie
+        ArrayList<String> grouvieContactsPhoneNum = new ArrayList<>();
+        ArrayList<Friend> grouvieContacts = ProfileManager.getFriends(SelectGroup.this);
+        for (Friend grouvieFriend : grouvieContacts) {
+            grouvieContactsPhoneNum.add(grouvieFriend.getPhoneNum());
         }
 
-        public void setName(String name) {
-            this.name = name;
-        }
+        //Obtain all user contacts
+        ArrayList<String> queryIfReg = getContactPhoneNums(SelectGroup.this);
 
+        //Remove friend phone numbers from all user contacts to obtain phone numbers that may
+        // need to be added to grouvieFriendsList
+        queryIfReg.removeAll(grouvieContactsPhoneNum);
 
-        public boolean isChecked() {
-            return checked;
-        }
+        //TODO: Erkin's Job: check which of queryIfReg numbers are registered using web server.
+        //TODO: Gimme a list of Friends that need to be added to user's contacts
+        ArrayList<Friend> regContactsToAdd = new ArrayList<>();
 
-        public void setChecked(boolean checked) {
-            this.checked = checked;
-        }
+        //then add them to the user's contacts list
+        ProfileManager.addFriends(regContactsToAdd, SelectGroup.this);
 
-        public String toString() {
-            return name;
-        }
-        public void toggleChecked() {
-            checked = !checked;
+        updateFriendSelectionList();
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                                           int[] grantResults) {
+        if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
+            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // Permission is granted
+                updateFriends();
+            } else {
+                Toast.makeText(this, "Refreshing contacts requires permission to your contacts"
+                        , Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
+    public ArrayList<String> getContactPhoneNums(Context context) {
+
+        ContentResolver cr = context.getContentResolver();
+
+        Cursor pCur = cr.query(
+                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                new String[]{PHONE_NUMBER, PHONE_CONTACT_ID},
+                null,
+                null,
+                null
+        );
+        if(pCur != null){
+            if(pCur.getCount() > 0) {
+                HashMap<Integer, ArrayList<String>> phones = new HashMap<>();
+                while (pCur.moveToNext()) {
+                    Integer contactId = pCur.getInt(pCur.getColumnIndex(PHONE_CONTACT_ID));
+                    ArrayList<String> curPhones = new ArrayList<>();
+                    if (phones.containsKey(contactId)) {
+                        curPhones = phones.get(contactId);
+                    }
+                    curPhones.add(pCur.getString(pCur.getColumnIndex(PHONE_NUMBER)));
+                    phones.put(contactId, curPhones);
+                }
+                Cursor cur = cr.query(
+                        ContactsContract.Contacts.CONTENT_URI,
+                        new String[]{CONTACT_ID, HAS_PHONE_NUMBER},
+                        HAS_PHONE_NUMBER + " > 0",
+                        null,null);
+                if (cur != null) {
+                    if (cur.getCount() > 0) {
+                        ArrayList<String> contacts = new ArrayList<>();
+                        while (cur.moveToNext()) {
+                            int id = cur.getInt(cur.getColumnIndex(CONTACT_ID));
+                            if(phones.containsKey(id)) {
+                                contacts.addAll(phones.get(id));
+                            }
+                        }
+                        return contacts;
+                    }
+                    cur.close();
+                }
+            }
+            pCur.close();
+        }
+        return null;
+    }
 
 
     public void finishGroupSelection(View view) {
@@ -195,12 +301,16 @@ public class SelectGroup extends AppCompatActivity {
         Integer chosenYear = currIntent.getIntExtra(YEAR, 1990);
 
         Intent intent = new Intent(this, SelectFilm.class);
-        selectedFriends = new String[friends.length];
+        selectedFriends = new String[friends.size()];
 
         int j = 0;
         for (Friend friend : friends) {
             if (friend.isChecked()) {
-                selectedFriends[j] = friend.getName();
+                selectedFriends[j] = friend.getPhoneNum();
+<<<<<<< Updated upstream
+=======
+                friend.setChecked(false);
+>>>>>>> Stashed changes
                 j++;
             }
         }
