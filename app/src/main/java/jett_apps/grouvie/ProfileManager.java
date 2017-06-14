@@ -150,7 +150,7 @@ public class ProfileManager {
             String jsonString = gson.toJson(friendList);
             sp.edit().putString(USER_FRIENDS_ID, jsonString).apply();
         }
-
+        
         return friendList;
     }
 

@@ -20,9 +20,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 import static jett_apps.grouvie.LandingPage.DAY;
 import static jett_apps.grouvie.LandingPage.DATE_MESSAGE;
@@ -183,12 +189,16 @@ public class SelectGroup extends AppCompatActivity {
                     PERMISSIONS_REQUEST_READ_CONTACTS);
 
         } else {
-            updateFriends();
+            try {
+                updateFriends();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
     }
 
-    private void updateFriends() {
+    private void updateFriends() throws JSONException {
 
         //Set difference with friendsList to obtain phone nums of users yet to use Grouvie
         ArrayList<String> grouvieContactsPhoneNum = new ArrayList<>();
@@ -200,15 +210,30 @@ public class SelectGroup extends AppCompatActivity {
         //Obtain all user contacts
         ArrayList<String> queryIfReg = getContactPhoneNums(SelectGroup.this);
 
-        //Remove friend phone numbers from all user contacts to obtain phone numbers that may
+        // Remove friend phone numbers from all user contacts to obtain phone numbers that may
         // need to be added to grouvieFriendsList
         queryIfReg.removeAll(grouvieContactsPhoneNum);
 
-        //TODO: Erkin's Job: check which of queryIfReg numbers are registered using web server.
-        //TODO: Gimme a list of Friends that need to be added to user's contacts
-        ArrayList<Friend> regContactsToAdd = new ArrayList<>();
+        String[] possible_grouvie_contacts = queryIfReg.toArray(new String[queryIfReg.size()]);
+        String result = null;
+        try {
+            result = new ServerContact().execute("verify_friends", Arrays.toString(possible_grouvie_contacts)).get();
+        } catch (InterruptedException | ExecutionException e) {
+            System.out.println("Failed to verify friends");
+            e.printStackTrace();
+        }
+        JSONObject json_data = null;
+        json_data = new JSONObject(result);
 
-        //then add them to the user's contacts list
+        ArrayList<Friend> regContactsToAdd = new ArrayList<>();
+        Iterator<String> keys = json_data.keys();
+        while (keys.hasNext()) {
+            String phone_number = keys.next();
+            regContactsToAdd.add(new Friend(json_data.getString(phone_number),
+                                            phone_number));
+        }
+
+        // then add them to the user's contacts list
         ProfileManager.addFriends(regContactsToAdd, SelectGroup.this);
 
         updateFriendSelectionList();
@@ -221,7 +246,11 @@ public class SelectGroup extends AppCompatActivity {
         if (requestCode == PERMISSIONS_REQUEST_READ_CONTACTS) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // Permission is granted
-                updateFriends();
+                try {
+                    updateFriends();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             } else {
                 Toast.makeText(this, "Refreshing contacts requires permission to your contacts"
                         , Toast.LENGTH_SHORT).show();

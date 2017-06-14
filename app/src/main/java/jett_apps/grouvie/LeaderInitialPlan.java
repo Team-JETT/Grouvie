@@ -49,23 +49,22 @@ public class LeaderInitialPlan extends AppCompatActivity {
     public void sendToGroup(View view) throws IOException {
 
         JSONObject json = new JSONObject();
+        String leaderPhoneNum = ProfileManager.getPhone(LeaderInitialPlan.this);
         try {
-            json.accumulate("PHONE_NUMBER", "1");
-            json.accumulate("LEADER", 0);
-            json.accumulate("SHOWTIME", chosenTime);
-            json.accumulate("FILM", chosenFilm);
-            json.accumulate("CINEMA", chosenCinema);
-            json.accumulate("LATITUDE", latitude);
-            json.accumulate("LONGITUDE", longitude);
+            json.accumulate("phone_number", leaderPhoneNum);
+            json.accumulate("leader", leaderPhoneNum);
+            json.accumulate("showtime", chosenTime);
+            json.accumulate("film", chosenFilm);
+            json.accumulate("cinema", chosenCinema);
+            json.accumulate("latitude", latitude);
+            json.accumulate("longitude", longitude);
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        //TODO: Send initial/draft plan to web server to update the database
-        //TODO: Send current plan to rest of the group
+        // Send initial/draft plan to web server to update the database
         new ServerContact().execute("make_plan", json.toString());
 
 
-        String leaderPhoneNum = ProfileManager.getPhone(LeaderInitialPlan.this);
         Plan p = new Plan(chosenFilm, chosenCinema, chosenTime, chosenDay, chosenGroup,
                             leaderPhoneNum);
         CurrentPlans.addPlan(p, LeaderInitialPlan.this);

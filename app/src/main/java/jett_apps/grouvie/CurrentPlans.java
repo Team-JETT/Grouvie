@@ -47,8 +47,6 @@ public class CurrentPlans {
         }
         currentPlans.add(plan);
 
-        // TODO: Add to web server here
-
         String jsonString = gson.toJson(currentPlans);
         SharedPreferences sp = context.getSharedPreferences(PLANS_KEY, Context.MODE_PRIVATE);
 
