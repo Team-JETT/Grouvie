@@ -64,7 +64,10 @@ public class LeaderInitialPlan extends AppCompatActivity {
         //TODO: Send current plan to rest of the group
         new ServerContact().execute("make_plan", json.toString());
 
-        Plan p = new Plan(chosenFilm, chosenCinema, chosenTime, chosenDay, chosenGroup);
+
+        String leaderPhoneNum = ProfileManager.getPhone(LeaderInitialPlan.this);
+        Plan p = new Plan(chosenFilm, chosenCinema, chosenTime, chosenDay, chosenGroup,
+                            leaderPhoneNum);
         CurrentPlans.addPlan(p, LeaderInitialPlan.this);
 
         Toast.makeText(getApplicationContext(), "Plan submitted to group", Toast.LENGTH_LONG).show();

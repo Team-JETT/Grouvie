@@ -10,15 +10,17 @@ public class Plan implements Serializable {
     private String suggestedCinema;
     private String suggestedShowTime;
     private String suggestedDate;
+    private String leaderPhoneNum;
     private String[] eventMembers;
 
     public Plan(String suggestedFilm, String suggestedCinema, String suggestedShowTime,
-                String suggestedDate, String[] eventMembers) {
+                String suggestedDate, String[] eventMembers, String leaderPhoneNum) {
         this.suggestedFilm = suggestedFilm;
         this.suggestedCinema = suggestedCinema;
         this.suggestedShowTime = suggestedShowTime;
         this.suggestedDate = suggestedDate;
         this.eventMembers = eventMembers;
+        this.leaderPhoneNum = leaderPhoneNum;
     }
 
 
@@ -87,6 +89,14 @@ public class Plan implements Serializable {
         result = 31 * result + suggestedDate.hashCode();
         result = 31 * result + Arrays.hashCode(eventMembers);
         return result;
+    }
+
+    public String getLeaderPhoneNum() {
+        return leaderPhoneNum;
+    }
+
+    public void setLeaderPhoneNum(String leaderPhoneNum) {
+        this.leaderPhoneNum = leaderPhoneNum;
     }
 }
 
