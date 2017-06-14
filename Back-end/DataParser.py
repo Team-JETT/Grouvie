@@ -1,5 +1,4 @@
 import grouper as grouper
-from concurrent import futures
 import requests
 import re
 import pprint
