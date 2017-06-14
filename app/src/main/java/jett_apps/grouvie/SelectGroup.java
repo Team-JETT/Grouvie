@@ -302,7 +302,12 @@ public class SelectGroup extends AppCompatActivity {
         intent.putExtra(DAY, chosenDay);
         intent.putExtra(MONTH, chosenMonth);
         intent.putExtra(YEAR, chosenYear);
-        intent.putExtra(GROUP_LIST, selectedFriends);
+
+        if (selectedFriends.length != 0) {
+            intent.putExtra(GROUP_LIST, selectedFriends);
+        } else {
+            intent.putExtra(GROUP_LIST, "");
+        }
 
         ServerContact.dialog = new ProgressDialog(SelectGroup.this, ProgressDialog.BUTTON_POSITIVE);
         ServerContact.dialog.setTitle("Please wait");
