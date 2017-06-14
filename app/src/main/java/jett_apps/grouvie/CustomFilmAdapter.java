@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -48,7 +49,11 @@ public class CustomFilmAdapter extends ArrayAdapter<Film>{
 
         ImageView filmPoster = (ImageView) customView.findViewById(R.id.filmPoster);
         String imageUrl = f.getImageUrl();
-        Glide.with(context).load(imageUrl).into(filmPoster);
+        RequestOptions options = new RequestOptions();
+        int posterWidth = 300;
+        int posterHeight = 600;
+        options.override(posterWidth, posterHeight).fitCenter();
+        Glide.with(context).load(imageUrl).apply(options).into(filmPoster);
 //        b = downloadBitmap(imageUrl);
 //        filmPoster.setImageBitmap(b);
 
