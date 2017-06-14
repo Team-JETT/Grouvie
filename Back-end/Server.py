@@ -26,8 +26,10 @@ def calculate_avg_location(friends):
     total_latitude, total_longitude = 0, 0
     for friend in friends:
         result = dbManager.select_users(friend)
-        total_latitude += result[3]
-        total_longitude += result[4]
+        # Safety net in case the friend doesn't actually have a Grouvie account
+        if result:
+            total_latitude += result[3]
+            total_longitude += result[4]
     members = len(friends)
     avg_latitude = total_longitude / members
     avg_longitude = total_longitude / members
@@ -45,7 +47,10 @@ def get_local_data():
     -- Distance from provided location to cinema in Km.
     """
     phone_data = json.loads(request.data)
-    avg_latitude, avg_longitude = calculate_avg_location(phone_data['friends'])
+    try:
+        avg_latitude, avg_longitude = calculate_avg_location(phone_data['friends'])
+    except:
+        avg_latitude, avg_longitude = phone_data['latitude'], phone_data['longitude']
     return json.dumps(dParser.get_local_data(phone_data['day'],
                                              phone_data['month'],
                                              phone_data['year'],

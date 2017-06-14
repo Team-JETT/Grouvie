@@ -268,4 +268,5 @@ if __name__ == '__main__':
     # db.insert_user("3", "1", 0, 0)
     # db.insert_user("4", "1", 0, 0)
     # print db.select_valid_users(("1", "2", "5", "6"))
+    print db.select_all_grouvie()
     print db.select_all_users()
