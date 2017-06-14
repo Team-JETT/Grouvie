@@ -9,16 +9,17 @@
         android:layout_width="wrap_content"
         android:padding="10dp"
         android:textSize="16sp">
-    </TextView>  
+    </TextView><![CDATA[  
 
-    <CheckBox android:id="@+id/CheckBox01"
-        android:layout_height="wrap_content"
+    ]]>
+
+    <CheckBox
+        android:id="@+id/CheckBox01"
         android:layout_width="wrap_content"
-        android:padding="10dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="6sp"
-        android:focusable="false">
-    </CheckBox>
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/rowTextView"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true" />
 
 </RelativeLayout>
 
