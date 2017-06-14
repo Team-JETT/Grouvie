@@ -43,7 +43,8 @@ public class CurrentPlanView extends AppCompatActivity {
 
     public void cantGo(View view) {
         CurrentPlans.deletePlan(p, this);
-        // TODO: Delete the plan on the server - awaiting username in Plan class
+        // Delete the plan on the server
+        new ServerContact().execute("delete_plan", )
         Intent intent = new Intent(view.getContext(), LandingPage.class);
         startActivity(intent);
         //TODO: Show activity with group replies and option to replan.

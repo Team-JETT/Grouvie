@@ -26,7 +26,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         userPhoneNo = getIntent().getStringExtra(USER_PHONE_NO);
 
-        //TODO: Check if phoneNo is registered already. If so, skip signup
+        // Check if phoneNo is registered already. If so, skip signup
         int success_code = 0;
         try {
             String result = new ServerContact().execute("verify_user", userPhoneNo).get();
@@ -36,8 +36,6 @@ public class SignUpActivity extends AppCompatActivity {
         }
 
         if (success_code == 1) {
-            // TODO: We lose the postcode data once we send it to the web server as its converted
-            // to latitude and longitude.
             JSONObject json_data = null;
             String name = null, latitude = null, longitude = null;
             try {
@@ -79,7 +77,7 @@ public class SignUpActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        //TODO: Send new user profile data to web server
+        // Send new user profile data to web server
         new ServerContact().execute("new_user", json_data.toString());
 
         //Save user profile in shared pref and goto LandingPage

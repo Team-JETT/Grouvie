@@ -1,4 +1,3 @@
-import grouper as grouper
 from concurrent import futures
 import concurrent
 import requests
@@ -87,7 +86,8 @@ class DataParser:
         """
         global CINEMA_CID, CINEMA_DIST
         local_data = {}
-        for cinema in CINEMA_CID.keys():
+
+        def get_films_for_cinema(cinema):
             # Get the cinema ID for a given cinema,
             # E.g. Cineworld London - Enfield: 10477
             cinema_id = CINEMA_CID[cinema]
@@ -97,11 +97,7 @@ class DataParser:
             films = requests.get(url)
             # Create a JSON object storing film name, cinema, showtimes and
             # distance to the cinema.
-
-            try:
-                films_json = films.json()
-            except ValueError:
-                continue
+            films_json = films.json()
 
             for i in films_json:
                 filmname = i["title"]
@@ -117,13 +113,13 @@ class DataParser:
                     local_data[filmname]["cinema"] = \
                         [{cinema: [{"showtimes": times,
                                     "distance": CINEMA_DIST[cinema]}]}]
+
+        executor = concurrent.futures.ThreadPoolExecutor(NUM_OF_CINEMAS)
+        futures = [executor.submit(get_films_for_cinema, cinema_name)
+                   for cinema_name in CINEMA_CID.keys()]
+        concurrent.futures.wait(futures)
+
         return local_data
-
-        # executor = concurrent.futures.ThreadPoolExecutor(NUM_OF_CINEMAS)
-        # futurez = [executor.submit(self.get_films_for_cinema, group) for
-        #            group in grouper(5, CINEMA_CID.keys())]
-        # concurrent.futures.wait(futures)
-
 
     def parse_date(self, day, month, year):
         """Convert date into a suitable format for use by the external API."""
@@ -141,7 +137,7 @@ class DataParser:
         """Get all film data for a given location."""
         self.get_cinemas_latlong(latitude, longitude)
         formatted_date = self.parse_date(day, month, year)
-        return self.get_films_for_cinema(formatted_date)
+        return self.get_films_for_cinemas(formatted_date)
 
 
 if __name__ == '__main__':

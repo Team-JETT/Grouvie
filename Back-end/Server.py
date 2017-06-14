@@ -95,7 +95,7 @@ def verify_user():
     user = request.data
     # Convert user to tuple before passing to select_valid_users
     results = dbManager.select_valid_users(user,)
-    # If the user is in the database, give status code 200, otherwise, 201.
+    # If the user is in the database, give return code 1, otherwise, 0
     return 1 if results else 0
 
 @app.route("/verify_friends", methods=['GET', 'POST'])

@@ -7,6 +7,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class ProfilePage extends AppCompatActivity {
 
     private EditText postcodeText;
@@ -42,8 +45,17 @@ public class ProfilePage extends AppCompatActivity {
 
         //Send updated profile to web server if settings are changed
         if (!postcodeText.getText().toString().isEmpty()) {
-           //TODO: Send new postcode to web server. Can use phoneNumber field if required
-            new ServerContact().execute("update_postcode", postcode);
+           // Send new postcode to web server.
+            JSONObject json_data = new JSONObject();
+            try {
+                json_data.accumulate("phone_number", phone);
+                json_data.accumulate("name", name);
+                json_data.accumulate("postcode", postcode);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            new ServerContact().execute("update_postcode", json_data.toString());
         }
 
         Intent backIntent = new Intent(ProfilePage.this, LandingPage.class);
