@@ -14,6 +14,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 
 import static jett_apps.grouvie.LandingPage.CINEMA_MESSAGE;
+import static jett_apps.grouvie.LandingPage.DATA;
 import static jett_apps.grouvie.LandingPage.DATE_MESSAGE;
 import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
 import static jett_apps.grouvie.LandingPage.GROUP_LIST;
@@ -26,19 +27,29 @@ public class LeaderInitialPlan extends AppCompatActivity {
     private String chosenFilm, chosenCinema, chosenTime, chosenDay;
     private String[] chosenGroup;
 
+    private PropogationObject data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leader_initial_plan);
 
-        Intent intent = getIntent();
+        data = (PropogationObject) getIntent().getSerializableExtra(DATA);
+
+//        Intent intent = getIntent();
 //        latitude = intent.getDoubleExtra(LATITUDE, 0);
 //        longitude = intent.getDoubleExtra(LONGITUDE, 0);
-        chosenFilm = intent.getStringExtra(FILM_MESSAGE);
-        chosenCinema = intent.getStringExtra(CINEMA_MESSAGE);
-        chosenTime = intent.getStringExtra(SHOWTIME_MESSAGE);
-        chosenDay = intent.getStringExtra(DATE_MESSAGE);
-        chosenGroup = intent.getStringArrayExtra(GROUP_LIST);
+//        chosenFilm = intent.getStringExtra(FILM_MESSAGE);
+//        chosenCinema = intent.getStringExtra(CINEMA_MESSAGE);
+//        chosenTime = intent.getStringExtra(SHOWTIME_MESSAGE);
+//        chosenDay = intent.getStringExtra(DATE_MESSAGE);
+//        chosenGroup = intent.getStringArrayExtra(GROUP_LIST);
+
+        chosenFilm = data.getFilmTitle();
+        chosenCinema = data.getCinemaData();
+        chosenTime = data.getChosenTime();
+        chosenDay = data.getDate();
+        chosenGroup = data.getSelectedFriends();
 
         ((TextView) findViewById(R.id.SelectedFilm)).setText(chosenFilm);
         ((TextView) findViewById(R.id.SelectedCinema)).setText(chosenCinema);

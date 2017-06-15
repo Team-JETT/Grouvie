@@ -25,14 +25,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
-import static jett_apps.grouvie.LandingPage.CINEMA_DATA;
-import static jett_apps.grouvie.LandingPage.DAY;
-import static jett_apps.grouvie.LandingPage.DATE_MESSAGE;
-import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
-import static jett_apps.grouvie.LandingPage.GROUP_LIST;
-import static jett_apps.grouvie.LandingPage.MONTH;
-import static jett_apps.grouvie.LandingPage.YEAR;
-
+import static jett_apps.grouvie.LandingPage.DATA;
 
 public class SelectFilm extends AppCompatActivity implements LocationListener {
 
@@ -40,6 +33,8 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
     Intent intent;
     double latitude = 51.499074;
     double longitude = -0.177070;
+
+    private PropogationObject data;
 
 
     @Override
@@ -49,6 +44,9 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         setContentView(R.layout.activity_select_film);
 
         this.intent = getIntent();
+
+        data = (PropogationObject) intent.getSerializableExtra(DATA);
+
         obtainLocation();
 
         final JSONObject local_data = getLocalData();
@@ -89,11 +87,13 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                     }
                     final JSONArray cinemaData = cinema_data;
 
+                    data.setCinemaData(cinemaData.toString());
+                    data.setFilmTitle(filmTitle);
+
                     Intent cinemaIntent = new Intent(view.getContext(), SelectCinema.class);
-                    cinemaIntent.putExtra(DATE_MESSAGE, intent.getStringExtra(DATE_MESSAGE));
-                    cinemaIntent.putExtra(GROUP_LIST, intent.getStringArrayExtra(GROUP_LIST));
-                    cinemaIntent.putExtra(CINEMA_DATA, cinemaData.toString());
-                    cinemaIntent.putExtra(FILM_MESSAGE, filmTitle);
+
+                    cinemaIntent.putExtra(DATA, data);
+
                     startActivity(cinemaIntent);
                 }
             }
@@ -104,9 +104,9 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
     @Nullable
     private JSONObject getLocalData() {
         // Grab the date from the MainActivity
-        final int day = intent.getIntExtra(DAY, 0);
-        final int month = intent.getIntExtra(MONTH, 0);
-        final int year = intent.getIntExtra(YEAR, 1900);
+        final int day = data.getDay();
+        final int month = data.getMonth();
+        final int year = data.getYear();
 
         JSONObject json = new JSONObject();
         try {

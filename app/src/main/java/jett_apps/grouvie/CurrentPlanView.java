@@ -43,6 +43,9 @@ public class CurrentPlanView extends AppCompatActivity {
 
     public void viewGroupReplies(View view) {
         //TODO: Show activity with group replies and option to replan.
+        Intent intent = new Intent(view.getContext(), GroupView.class);
+        intent.putExtra(PLAN_MESSAGE, p);
+        startActivity(intent);
     }
 
     public void cantGo(View view) {
