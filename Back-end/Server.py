@@ -71,6 +71,8 @@ def make_plan():
     cinema = phone_data['cinema']
     latitude = phone_data['latitude']
     longitude = phone_data['longitude']
+    print phone_data
+    stdout.flush()
     # Make a new entry for the group leader.
     dbManager.insert_grouvie(phone_number, leader, showtime, film, cinema,
                              latitude, longitude)
@@ -80,7 +82,6 @@ def make_plan():
         dbManager.insert_grouvie(friend, leader, showtime, None, None, None,
                                  None)
     print "MADE NEW PLAN"
-    stdout.flush()
     return ''
 
 
