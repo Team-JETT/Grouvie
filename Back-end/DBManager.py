@@ -85,6 +85,14 @@ WHERE
 PHONE_NUMBER = %s and LEADER = %s and SHOWTIME = %s
 """
 
+# Update a users preference of showtime
+CHANGE_SHOWTIME = """
+UPDATE GROUVIE
+SET SHOWTIME = %s
+WHERE
+PHONE_NUMBER = %s and LEADER = %s and SHOWTIME = %s
+"""
+
 # Delete entry from a table given a phone_number, leader and showtime
 DELETE_SINGLE = """
 DELETE FROM GROUVIE
