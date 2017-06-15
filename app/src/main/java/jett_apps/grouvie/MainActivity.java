@@ -44,6 +44,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     // [END declare_auth]
 
     private static String userPhoneNo = "07964006128";
+//    private static String userPhoneNo = "07123123123";
 
     private boolean mVerificationInProgress = false;
     private String mVerificationId;

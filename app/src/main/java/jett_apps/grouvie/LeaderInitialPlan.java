@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static jett_apps.grouvie.LandingPage.DATA;
 
@@ -58,6 +59,8 @@ public class LeaderInitialPlan extends AppCompatActivity {
             json.accumulate("chosenCinema", chosenCinema);
             json.accumulate("latitude", latitude);
             json.accumulate("longitude", longitude);
+            String[] friendsNumbers = getFriendsNumbers(data.getSelectedFriends());
+            json.accumulate("friends", Arrays.toString(friendsNumbers));
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -74,6 +77,14 @@ public class LeaderInitialPlan extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Plan submitted to group", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, LandingPage.class);
         startActivity(intent);
+    }
+
+    public String[] getFriendsNumbers(ArrayList<Friend> friends) {
+        String[] numbers = new String[friends.size()];
+        for (int i = 0; i < friends.size(); ++i) {
+            numbers[i] = friends.get(i).getPhoneNum();
+        }
+        return numbers;
     }
 }
 

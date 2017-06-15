@@ -36,21 +36,24 @@ public class SignUpActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //If already registered
         if (success_code == 1) {
             JSONObject json_data = null;
-            String name = null, latitude = null, longitude = null;
+
+            String name = null;
+            String postcode = null;
+
             try {
                 // Get name, phone, postcode from web server
                 String data = new ServerContact().execute("get_user", userPhoneNo).get();
                 json_data = new JSONObject(data);
                 name = json_data.getString("name");
-                latitude = json_data.getString("latitude");
-                longitude = json_data.getString("longitude");
+                postcode = json_data.getString("postcode");
             } catch (InterruptedException | ExecutionException | JSONException e) {
                 e.printStackTrace();
             }
 
-            updateProfileGotoLanding(name, userPhoneNo, latitude, longitude);
+            updateProfileGotoLanding(name, userPhoneNo, postcode);
         }
 
     }
