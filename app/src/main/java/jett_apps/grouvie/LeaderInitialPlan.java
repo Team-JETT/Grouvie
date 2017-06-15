@@ -13,6 +13,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static jett_apps.grouvie.LandingPage.DATA;
 
@@ -56,7 +57,8 @@ public class LeaderInitialPlan extends AppCompatActivity {
             json.accumulate("cinema", chosenCinema);
             json.accumulate("latitude", latitude);
             json.accumulate("longitude", longitude);
-            json.accumulate("friends", getFriendsNumbers(data.getSelectedFriends()));
+            String[] friendsNumbers = getFriendsNumbers(data.getSelectedFriends());
+            json.accumulate("friends", Arrays.toString(friendsNumbers));
         } catch (JSONException e) {
             e.printStackTrace();
         }
