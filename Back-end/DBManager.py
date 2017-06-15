@@ -317,6 +317,6 @@ if __name__ == '__main__':
     # # print db.select_valid_users(("1", "2", "5", "6"))
     # db.drop_grouvie_table()
     # db.make_grouvie_table()
-    pprint.PrettyPrinter(indent=4).pprint(db.select_all_grouvie())
+    pprint.PrettyPrinter(indent=4).pprint(db.select_all_users())
     # print db.select_all_users()
     # db.select_valid_users(users)

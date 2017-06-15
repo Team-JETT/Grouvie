@@ -92,7 +92,7 @@ def make_plan():
 @app.route("/new_user", methods=['GET', 'POST'])
 def new_user():
     """Add postcode date for a given user."""
-    phone_data = json.load(request.data)
+    phone_data = json.loads(request.data)
     latitude, longitude = dParser.get_latlong(phone_data['postcode'])
     dbManager.insert_user(phone_data['phone_number'], phone_data['name'],
                           phone_data['postcode'], latitude, longitude)
@@ -165,7 +165,7 @@ def delete_single():
                                     phone_data['leader'],
                                     phone_data['showtime'])
     print "SOMEONE CANT GO"
-    return
+    return ''
 
 
 # TODO: UNTESTED
@@ -178,7 +178,7 @@ def delete_plan():
                                   phone_data['showtime'])
     stdout.flush()
     print "DELETED PLAN"
-    return
+    return ''
 
 @app.route("/change_film", methods=['GET', 'POST'])
 def change_film():
@@ -189,7 +189,7 @@ def change_film():
                           phone_data['film'])
     stdout.flush()
     print "CHANGED FILM FOR " + phone_data['phone_number']
-    return
+    return ''
 
 @app.route("/change_cinema", methods=['GET', 'POST'])
 def change_cinema():
@@ -200,7 +200,7 @@ def change_cinema():
                             phone_data['showtime'])
     print "CHANGED CINEMA FOR " + phone_data['phone_number']
     stdout.flush()
-    return
+    return ''
 
 @app.route("/change_showtime", methods=['GET', 'POST'])
 def change_showtime():
@@ -211,7 +211,7 @@ def change_showtime():
                               phone_data['showtime'])
     print "CHANGED SHOWTIME FOR " + phone_data['phone_number']
     stdout.flush()
-    return
+    return ''
 
 
 if __name__ == "__main__":

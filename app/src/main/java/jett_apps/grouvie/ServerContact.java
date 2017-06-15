@@ -17,7 +17,7 @@ class ServerContact extends AsyncTask<String, Integer, String> {
 
     static ProgressDialog dialog;
 //    Debug IP
-//    final static String WebServerAddr = "129.31.230.117";
+//    final static String WebServerAddr = "192.168.1.70";
     final static String WebServerAddr = "https://murmuring-peak-87447.herokuapp.com/";
 
     /*

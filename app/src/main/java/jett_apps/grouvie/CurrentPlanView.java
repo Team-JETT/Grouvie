@@ -60,6 +60,8 @@ public class CurrentPlanView extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        // Delete on web server here
+        new ServerContact().execute("delete_single", json_data.toString());
         Intent intent = new Intent(view.getContext(), LandingPage.class);
         startActivity(intent);
         //TODO: Show activity with group replies and option to replan.
