@@ -2,6 +2,7 @@ package jett_apps.grouvie;
 
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Plan implements Serializable {
@@ -11,10 +12,10 @@ public class Plan implements Serializable {
     private String suggestedShowTime;
     private String suggestedDate;
     private String leaderPhoneNum;
-    private String[] eventMembers;
+    private ArrayList<Friend> eventMembers;
 
     public Plan(String suggestedFilm, String suggestedCinema, String suggestedShowTime,
-                String suggestedDate, String[] eventMembers, String leaderPhoneNum) {
+                String suggestedDate, ArrayList<Friend> eventMembers, String leaderPhoneNum) {
         this.suggestedFilm = suggestedFilm;
         this.suggestedCinema = suggestedCinema;
         this.suggestedShowTime = suggestedShowTime;
@@ -56,11 +57,11 @@ public class Plan implements Serializable {
         this.suggestedFilm = suggestedFilm;
     }
 
-    public String[] getEventMembers() {
+    public ArrayList<Friend> getEventMembers() {
         return eventMembers;
     }
 
-    public void setEventMembers(String[] eventMembers) {
+    public void setEventMembers(ArrayList<Friend> eventMembers) {
         this.eventMembers = eventMembers;
     }
 
@@ -75,7 +76,7 @@ public class Plan implements Serializable {
                  suggestedCinema.equals(plan.suggestedCinema) &&
                  suggestedShowTime.equals(plan.suggestedShowTime) &&
                  suggestedDate.equals(plan.suggestedDate) &&
-                 Arrays.equals(eventMembers, plan.eventMembers));
+                 eventMembers.equals(plan.eventMembers));
         // Probably incorrect - comparing Object[] arrays with Arrays.equals
         // My 2p - I think this is okay. Btw, have rewritten in a more succinct way.
     }
@@ -87,7 +88,7 @@ public class Plan implements Serializable {
         result = 31 * result + suggestedCinema.hashCode();
         result = 31 * result + suggestedShowTime.hashCode();
         result = 31 * result + suggestedDate.hashCode();
-        result = 31 * result + Arrays.hashCode(eventMembers);
+        result = 31 * result + eventMembers.hashCode();
         return result;
     }
 

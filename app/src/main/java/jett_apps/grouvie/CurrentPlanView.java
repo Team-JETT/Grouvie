@@ -9,11 +9,13 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import static jett_apps.grouvie.LandingPage.PLAN_MESSAGE;
 
 public class CurrentPlanView extends AppCompatActivity {
 
-    private String[] chosenFriends;
+    private ArrayList<Friend> chosenFriends;
     private String chosenDay;
     private String chosenTime;
     private String chosenCinema;

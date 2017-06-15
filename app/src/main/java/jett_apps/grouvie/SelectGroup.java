@@ -44,7 +44,7 @@ public class SelectGroup extends AppCompatActivity {
     // This will be updated by real values later.
     private ArrayAdapter<Friend> friendsAdapter;
     private ArrayList<Friend> friends;
-    private String[] selectedFriends;
+    private ArrayList<Friend> selectedFriends;
 
     private PropogationObject data;
 
@@ -288,9 +288,44 @@ public class SelectGroup extends AppCompatActivity {
                             }
                         }
 
-                        //TODO: Remove erroneous phone numbers and all should have same format
+                        ArrayList<String> validContacts = new ArrayList<>();
 
-                        return contacts;
+                        //TODO: Remove erroneous phone numbers and all should have same format
+                        for (String phoneNum : contacts) {
+
+                            //Remove spaces
+                            phoneNum = phoneNum.replaceAll("\\s+","");
+
+                            //Remove dashes
+                            phoneNum.replaceAll("\\D", "");
+
+//                          //Convert international phone numbers to UK local
+                            if (phoneNum.startsWith("00")) {
+                                phoneNum = phoneNum.substring(2);
+                                phoneNum = "+" + phoneNum;
+                            }
+
+//                          //Convert international phone numbers to UK local
+                            if (phoneNum.startsWith("+44")) {
+                                phoneNum = phoneNum.substring(3);
+                                phoneNum = "0" + phoneNum;
+                            }
+//
+//                            //Remove any non-mobile phone numbers
+//                            if (!phoneNum.startsWith("07")) {
+//                                continue;
+//                            }
+//
+//                            //If phone number isn't valid in terms of length
+//                            if (phoneNum.length() != 11) {
+//                                continue;
+//                            }
+
+                            validContacts.add(phoneNum);
+                        }
+
+
+                        return validContacts;
                     }
                     cur.close();
                 }
@@ -312,12 +347,12 @@ public class SelectGroup extends AppCompatActivity {
     public void finishGroupSelection(View view) {
 
         Intent intent = new Intent(this, SelectFilm.class);
-        selectedFriends = new String[friends.size()];
+        selectedFriends = new ArrayList<>();
 
         int j = 0;
         for (Friend friend : friends) {
             if (friend.isChecked()) {
-                selectedFriends[j] = friend.getPhoneNum();
+                selectedFriends.add(friend);
                 friend.setChecked(false);
                 j++;
             }

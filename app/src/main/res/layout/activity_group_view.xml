@@ -8,6 +8,7 @@
 
     <ListView
         android:id="@+id/groupView"
+        style="@style/Widget.AppCompat.Light.ListView.DropDown"
         android:layout_width="368dp"
         android:layout_height="495dp"
         android:layout_marginBottom="8dp"

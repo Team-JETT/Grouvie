@@ -27,10 +27,10 @@ public class GroupView extends AppCompatActivity {
 
         p = (Plan) getIntent().getSerializableExtra(PLAN_MESSAGE);
 
-        final ArrayList<String> chosenFriends = new ArrayList<>(Arrays.asList(p.getEventMembers()));
+        final ArrayList<Friend> chosenFriends = p.getEventMembers();
 
         ListAdapter groupAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, chosenFriends);
+                android.R.layout.simple_list_item_1, extractNames(chosenFriends));
         ListView groupListView = (ListView) findViewById(R.id.groupView);
         groupListView.setAdapter(groupAdapter);
 
@@ -39,15 +39,20 @@ public class GroupView extends AppCompatActivity {
 
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String chosenFriend = chosenFriends.get(position);
 
-                        //Sending the current plan to the final planning page
-
-//                        startActivity(intent);
                     }
                 }
         );
 
 
+    }
+
+
+    public ArrayList<String> extractNames(ArrayList<Friend> list) {
+        ArrayList<String> friends = new ArrayList<>();
+        for (int i=0; i<list.size(); i++) {
+            friends.add(list.get(i).getName());
+        }
+        return friends;
     }
 }

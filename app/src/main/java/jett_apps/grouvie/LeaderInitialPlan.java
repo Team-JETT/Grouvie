@@ -12,20 +12,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
-import static jett_apps.grouvie.LandingPage.CINEMA_MESSAGE;
 import static jett_apps.grouvie.LandingPage.DATA;
-import static jett_apps.grouvie.LandingPage.DATE_MESSAGE;
-import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
-import static jett_apps.grouvie.LandingPage.GROUP_LIST;
-import static jett_apps.grouvie.LandingPage.SHOWTIME_MESSAGE;
-import static jett_apps.grouvie.LandingPage.USER_NAME;
 
 public class LeaderInitialPlan extends AppCompatActivity {
 
     private double latitude, longitude;
     private String chosenFilm, chosenCinema, chosenTime, chosenDay;
-    private String[] chosenGroup;
+    private ArrayList<Friend> chosenGroup;
 
     private PropogationObject data;
 
@@ -35,15 +30,6 @@ public class LeaderInitialPlan extends AppCompatActivity {
         setContentView(R.layout.activity_leader_initial_plan);
 
         data = (PropogationObject) getIntent().getSerializableExtra(DATA);
-
-//        Intent intent = getIntent();
-//        latitude = intent.getDoubleExtra(LATITUDE, 0);
-//        longitude = intent.getDoubleExtra(LONGITUDE, 0);
-//        chosenFilm = intent.getStringExtra(FILM_MESSAGE);
-//        chosenCinema = intent.getStringExtra(CINEMA_MESSAGE);
-//        chosenTime = intent.getStringExtra(SHOWTIME_MESSAGE);
-//        chosenDay = intent.getStringExtra(DATE_MESSAGE);
-//        chosenGroup = intent.getStringArrayExtra(GROUP_LIST);
 
         chosenFilm = data.getFilmTitle();
         chosenCinema = data.getCinemaData();
@@ -83,9 +69,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
         CurrentPlans.addPlan(p, LeaderInitialPlan.this);
 
         Toast.makeText(getApplicationContext(), "Plan submitted to group", Toast.LENGTH_LONG).show();
-        String user_name = getIntent().getStringExtra(USER_NAME);
         Intent intent = new Intent(this, LandingPage.class);
-        intent.putExtra(USER_NAME, user_name);
         startActivity(intent);
     }
 }

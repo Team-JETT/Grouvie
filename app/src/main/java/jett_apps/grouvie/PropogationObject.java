@@ -3,6 +3,7 @@ package jett_apps.grouvie;
 import org.json.JSONArray;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 class PropogationObject implements Serializable {
     
@@ -10,7 +11,7 @@ class PropogationObject implements Serializable {
     int day;
     int month;
     int year;
-    private String[] selectedFriends;
+    private ArrayList<Friend> selectedFriends;
     private String cinemaData;
     private String filmTitle;
     private String showtimeDistance;
@@ -40,7 +41,7 @@ class PropogationObject implements Serializable {
         return date;
     }
 
-    public void setSelectedFriends(String[] selectedFriends) {
+    public void setSelectedFriends(ArrayList<Friend> selectedFriends) {
         this.selectedFriends = selectedFriends;
     }
 
@@ -80,7 +81,7 @@ class PropogationObject implements Serializable {
         return showtimeDistance;
     }
 
-    public String[] getSelectedFriends() {
+    public ArrayList<Friend> getSelectedFriends() {
         return selectedFriends;
     }
 
