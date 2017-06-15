@@ -78,8 +78,9 @@ def make_plan():
     # TODO: What happens if duplicate?
     friends = phone_data['friends']
     friends = friends[1:len(friends) - 1].split(", ")
+    print str(friends)
     for friend in friends:
-        print friend
+        print str(friend)
         dbManager.insert_grouvie(friend, leader, showtime, None, None, None,
                                  None)
     print "MADE NEW PLAN"
