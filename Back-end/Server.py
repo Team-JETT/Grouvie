@@ -114,7 +114,7 @@ def verify_friends():
     """Given a list of phone numbers we verify if the owner of that contact
     number is a user of Grouvie."""
     # Convert received data to tuple suitable for placing in DB query.
-    friends = tuple(request.data)
+    friends = request.data
     valid_users = dbManager.select_valid_users(friends)
     valid_friends = {}
     for user in valid_users:

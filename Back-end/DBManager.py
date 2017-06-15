@@ -1,4 +1,5 @@
 import psycopg2
+import sys
 
 # Make a new Grouvie table to store all the plans
 CREATE_GROUVIE = """
@@ -271,6 +272,8 @@ class DBManager:
         fields = "(" + ','.join(["%s"]*len(friends)) + ")"
         cnxn, cursor = self.establish_connection()
         cursor.execute(SELECT_VALID_USERS.format(fields), tuple(friends))
+        print tuple(friends)
+        sys.stdout.flush()
         results = cursor.fetchall()
         self.close_connection(cnxn, cursor)
         return results
