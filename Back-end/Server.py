@@ -1,8 +1,8 @@
 from sys import stdout
-import json
-
+import simplejson as json
 
 from os import environ
+
 from flask import Flask, request
 from DBManager import DBManager
 from DataParser import DataParser
@@ -71,6 +71,8 @@ def make_plan():
     cinema = phone_data['cinema']
     latitude = phone_data['latitude']
     longitude = phone_data['longitude']
+    print phone_data
+    stdout.flush()
     # Make a new entry for the group leader.
     dbManager.insert_grouvie(phone_number, leader, showtime, film, cinema,
                              latitude, longitude)
@@ -80,7 +82,6 @@ def make_plan():
         dbManager.insert_grouvie(friend, leader, showtime, None, None, None,
                                  None)
     print "MADE NEW PLAN"
-    stdout.flush()
     return ''
 
 
@@ -91,7 +92,7 @@ def new_user():
     phone_data = json.load(request.data)
     latitude, longitude = dParser.get_latlong(phone_data['postcode'])
     dbManager.insert_user(phone_data['phone_number'], phone_data['name'],
-                          latitude, longitude)
+                          phone_data['postcode'], latitude, longitude)
     print "ADDED NEW USER."
     stdout.flush()
     return "DONE!!!"
@@ -104,6 +105,7 @@ def verify_user():
     # Convert user to tuple before passing to select_valid_users
     results = dbManager.select_valid_users([user])
     # If the user is in the database, give return code 1, otherwise, 0
+    print results
     print "VALID USER" if results else "INVALID USER"
     stdout.flush()
     return "1" if results else "0"
@@ -113,7 +115,8 @@ def verify_friends():
     """Given a list of phone numbers we verify if the owner of that contact
     number is a user of Grouvie."""
     # Convert received data to tuple suitable for placing in DB query.
-    friends = tuple(request.data)
+    friends = request.data
+    friends = friends[1:len(friends)-1].split(", ")
     valid_users = dbManager.select_valid_users(friends)
     valid_friends = {}
     for user in valid_users:
@@ -122,19 +125,20 @@ def verify_friends():
     stdout.flush()
     return json.dumps(valid_friends)
 
+
 @app.route("/get_user", methods=['GET', 'POST'])
 def get_user():
     """Given a user phone number, gets the users personal data."""
     phone_number = request.data
     print phone_number
-    user_data = dbManager.select_users(phone_number)
+    user_data = dbManager.select_users([phone_number])
     json_data = {"phone_number": user_data[0],
                  "name": user_data[1],
-                 "latitude": user_data[2],
-                 "longitude": user_data[3]}
-    print "USER:", json_data
+                 "postcode": user_data[2]}
+    print "USER: " + json.dumps(json_data, use_decimal=True)
     stdout.flush()
-    return json.dumps(json_data)
+    return json.dumps(json_data, use_decimal=True)
+
 
 # TODO: UNTESTED
 @app.route("/update_postcode", methods=['GET', 'POST'])
@@ -143,7 +147,7 @@ def update_postcode():
     phone_data = json.load(request.data)
     latitude, longitude = dParser.get_latlong(phone_data['postcode'])
     dbManager.update_users(phone_data['phone_number'], phone_data['name'],
-                           latitude, longitude)
+                           phone_data['postcode'], latitude, longitude)
     print "DONE!!!"
     stdout.flush()
     return

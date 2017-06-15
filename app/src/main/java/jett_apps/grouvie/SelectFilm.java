@@ -46,8 +46,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         this.intent = getIntent();
 
         data = (PropogationObject) intent.getSerializableExtra(DATA);
-
-        obtainLocation();
+//        obtainLocation();
 
         final JSONObject local_data = getLocalData();
         Log.v("LOCAL DATA:", local_data.toString());

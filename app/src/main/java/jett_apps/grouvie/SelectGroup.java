@@ -288,6 +288,7 @@ public class SelectGroup extends AppCompatActivity {
                             }
                         }
 
+
                         ArrayList<String> validContacts = new ArrayList<>();
 
                         //TODO: Remove erroneous phone numbers and all should have same format
@@ -310,16 +311,16 @@ public class SelectGroup extends AppCompatActivity {
                                 phoneNum = phoneNum.substring(3);
                                 phoneNum = "0" + phoneNum;
                             }
-//
-//                            //Remove any non-mobile phone numbers
-//                            if (!phoneNum.startsWith("07")) {
-//                                continue;
-//                            }
-//
-//                            //If phone number isn't valid in terms of length
-//                            if (phoneNum.length() != 11) {
-//                                continue;
-//                            }
+
+                            //Remove any non-mobile phone numbers
+                            if (!phoneNum.startsWith("07")) {
+                                continue;
+                            }
+
+                            //If phone number isn't valid in terms of length
+                            if (phoneNum.length() != 11) {
+                                continue;
+                            }
 
                             validContacts.add(phoneNum);
                         }

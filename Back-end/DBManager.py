@@ -1,10 +1,11 @@
 import psycopg2
+import sys
 
 # Make a new Grouvie table to store all the plans
 CREATE_GROUVIE = """
 CREATE TABLE GROUVIE(
     PHONE_NUMBER    CHAR(11)            NOT NULL,
-    LEADER          CHAR(16)            NOT NULL,
+    LEADER          CHAR(11)            NOT NULL,
     SHOWTIME        CHAR(16)            NOT NULL,
     FILM            TEXT,
     CINEMA          TEXT,
@@ -20,6 +21,7 @@ CREATE_USERS = """
 CREATE TABLE USERS(
     PHONE_NUMBER    CHAR(11)            NOT NULL,
     NAME            CHAR(16)            NOT NULL,
+    POSTCODE        CHAR(8)             NOT NULL,
     LATITUDE        NUMERIC(8, 6)       NOT NULL,
     LONGITUDE       NUMERIC(9, 6)       NOT NULL,
     
@@ -48,7 +50,7 @@ VALUES
 INSERT_USERS = """
 INSERT INTO USERS
 VALUES
-(%s, %s, %s, %s)
+(%s, %s, %s, %s, %s)
 """
 
 
@@ -64,7 +66,7 @@ PHONE_NUMBER = %s AND LEADER = %s
 # Update an already existing entry in the USER table
 UPDATE_USERS = """
 UPDATE USERS
-SET NAME = %s, LATITUDE = %s, LONGITUDE = %s
+SET NAME = %s, POSTCODE = %s, LATITUDE = %s, LONGITUDE = %s
 WHERE
 PHONE_NUMBER = %s
 """
@@ -193,13 +195,14 @@ class DBManager:
     def insert_grouvie(self, phone_number, leader, showtime, film, cinema,
                        latitude, longitude):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(INSERT_GROUVIE, (showtime, film, cinema, latitude,
-                                        longitude, phone_number, leader))
+        cursor.execute(INSERT_GROUVIE, (phone_number, leader, showtime, film,
+                                        cinema, latitude, longitude))
         self.close_connection(cnxn, cursor)
 
-    def insert_user(self, phone_number, name, latitude, longitude):
+    def insert_user(self, phone_number, name, postcode, latitude, longitude):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(INSERT_USERS, (phone_number, name, latitude, longitude))
+        cursor.execute(INSERT_USERS, (phone_number, name, postcode, latitude,
+                                      longitude))
         self.close_connection(cnxn, cursor)
 
     def change_film(self, phone_number, leader, showtime, film):
@@ -228,9 +231,10 @@ class DBManager:
         self.close_connection(cnxn, cursor)
 
     # Update an entry in the USERS table if it exists.
-    def update_users(self, phone_number, name, latitude, longitude):
+    def update_users(self, phone_number, name, postcode, latitude, longitude):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(UPDATE_USERS, (name, latitude, longitude, phone_number))
+        cursor.execute(UPDATE_USERS, (name, postcode, latitude, longitude,
+                                      phone_number))
         self.close_connection(cnxn, cursor)
 
     # Delete an entry from the table correlating with a user
@@ -256,7 +260,7 @@ class DBManager:
     # Select an entry in a table based on phone_number.
     def select_users(self, phone_number):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(SELECT_USERS, phone_number)
+        cursor.execute(SELECT_USERS, tuple(phone_number))
         result = cursor.fetchall()
         self.close_connection(cnxn, cursor)
         # There should only be 1 result so we just return that tuple.
@@ -267,7 +271,10 @@ class DBManager:
         # Build the placeholders which we require when it comes to searching.
         fields = "(" + ','.join(["%s"]*len(friends)) + ")"
         cnxn, cursor = self.establish_connection()
+        # friends_tuple = "(" + ",".join(friends) + ")"
+        # print friends_tuple
         cursor.execute(SELECT_VALID_USERS.format(fields), tuple(friends))
+        print tuple(friends)
         results = cursor.fetchall()
         self.close_connection(cnxn, cursor)
         return results
@@ -303,10 +310,13 @@ if __name__ == '__main__':
     db = DBManager()
     # db.drop_user_table()
     # db.make_user_table()
-    # db.insert_user("07587247113", "Erkin", 0, 0)
-    # db.insert_user("07964006128", "Tarun", 0, 0)
-    # db.insert_user("07942948248", "Jay", 0, 0)
-    # db.insert_user("4", "1", 0, 0)
-    # print db.select_valid_users(("1", "2", "5", "6"))
-    print db.select_all_grouvie()
-    print db.select_all_users()
+    # db.insert_user("07587247113", "Erkin", "EN12LZ", 0, 0)
+    # db.insert_user("07964006128", "Tarun", "RM65DU", 0, 0)
+    # db.insert_user("07942948248", "Jay", "SW100NJ", 0, 0)
+    # # print db.select_valid_users(("1", "2", "5", "6"))
+    # print db.select_all_grouvie()
+    # print db.select_all_users()
+    db.drop_grouvie_table()
+    db.make_grouvie_table()
+    # users = ["07777777", "088888888", "09999999"]
+    # db.select_valid_users(users)
