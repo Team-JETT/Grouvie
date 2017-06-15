@@ -3,9 +3,13 @@ package jett_apps.grouvie;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.RemoteMessage;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -63,6 +67,26 @@ public class LeaderInitialPlan extends AppCompatActivity {
         }
         // Send initial/draft plan to web server to update the database
         new ServerContact().execute("make_plan", json.toString());
+
+        String us = "_";
+        String group = "";
+        for (String member : chosenGroup) {
+//            Log.e("MEMES", ((member != null) ? member : "Dead dude"));
+            if (member != null) {
+                group += (us + member);
+            }
+        }
+        group = group.substring(1);
+
+        String regex = "[/:]";
+//        String regex = "[^a-zA-Z0-9-_.~%]";
+        String sep = "-";
+        String topicName = chosenDay.replaceAll(regex, us) + sep +
+                chosenTime.replaceAll(regex, us) + sep +
+                group;
+//        Log.e("HELLO", topicName);
+        FirebaseMessaging fm = FirebaseMessaging.getInstance();
+        fm.subscribeToTopic(topicName);
 
 
         Plan p = new Plan(chosenFilm, chosenCinema, chosenTime, chosenDay, chosenGroup,
