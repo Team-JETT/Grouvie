@@ -22,14 +22,10 @@ public class LandingPage extends AppCompatActivity {
     public static final String SHOWTIME_MESSAGE = "SHOWTIME";
     public static final String DATE_MESSAGE = "EVENTDAY";
     public static final String CINEMA_DATA = "CINEMADATA";
-    public static final String USER_NAME = "USERNAME";
     public static final String SHOWTIME_DISTANCE_DATA = "SHOWTIMEDISTANCEDATA";
     public static final String GROUP_LIST = "GROUPLIST";
     public static final String PLAN_MESSAGE = "PLAN_MESSAGE";
 
-    public static final String DAY = "DAY";
-    public static final String MONTH = "MONTH";
-    public static final String YEAR = "YEAR";
     public static final String DATA = "DATA";
 
     private TextView name;

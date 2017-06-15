@@ -36,18 +36,8 @@ public class SelectShowtime extends AppCompatActivity {
 
         data = (PropogationObject) getIntent().getSerializableExtra(DATA);
 
-//        Intent intent = getIntent();
-//        final String chosenFilm  = intent.getStringExtra(FILM_MESSAGE);
-//        final String chosenCinema = intent.getStringExtra(CINEMA_MESSAGE);
-//        final String chosenDate = intent.getStringExtra(DATE_MESSAGE);
-//        final String[] chosenGroup = intent.getStringArrayExtra(GROUP_LIST);
-//        final String chosenGroup = intent.getStringExtra(GROUP_LIST);
-//        final String showtimeDistanceData = intent.getStringExtra(SHOWTIME_DISTANCE_DATA);
-
         final String chosenFilm = data.getFilmTitle();
         final String chosenCinema = data.getCinemaData();
-        final String chosenDate = data.getDate();
-        final String[] chosenGroup = data.getSelectedFriends();
         final String showtimeDistanceData = data.getShowtimeDistance();
 
         ((TextView) findViewById(R.id.chosenFilm)).setText(chosenFilm);
@@ -87,18 +77,11 @@ public class SelectShowtime extends AppCompatActivity {
 
                     //Sending the current plan to the final planning page
                     Intent intent = new Intent(view.getContext(), LeaderInitialPlan.class);
-//                    intent.putExtra(LATITUDE, latitude);
-//                    intent.putExtra(LONGITUDE, longitude);
-//                    intent.putExtra(FILM_MESSAGE, chosenFilm);
-//                    intent.putExtra(CINEMA_MESSAGE, chosenCinema);
-//                    intent.putExtra(DATE_MESSAGE, chosenDate);
-//                    intent.putExtra(GROUP_LIST, chosenGroup);
-//                    intent.putExtra(SHOWTIME_MESSAGE, chosenTime);
-//                    intent.putExtra(USER_NAME, user_name);
+
                     data.setChosenTime(chosenTime);
 
                     intent.putExtra(DATA, data);
-//                    Log.v("STUFF", latitude + " " + longitude + " " + chosenFilm);
+
                     startActivity(intent);
                     }
                 }

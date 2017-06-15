@@ -1,9 +1,12 @@
 package jett_apps.grouvie;
 
-public class Friend {
+import java.io.Serializable;
+
+public class Friend implements Serializable {
     private String name;
     private String phoneNum;
     private boolean checked = false;
+    private boolean madeChange = false;
 
     public Friend(String name, String phoneNum){
         this.name = name;
