@@ -32,11 +32,14 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import static jett_apps.grouvie.LandingPage.DATA;
 import static jett_apps.grouvie.LandingPage.DAY;
 import static jett_apps.grouvie.LandingPage.DATE_MESSAGE;
 import static jett_apps.grouvie.LandingPage.GROUP_LIST;
 import static jett_apps.grouvie.LandingPage.MONTH;
 import static jett_apps.grouvie.LandingPage.YEAR;
+import static jett_apps.grouvie.LandingPage.DATA;
+
 
 public class SelectGroup extends AppCompatActivity {
 
@@ -51,10 +54,15 @@ public class SelectGroup extends AppCompatActivity {
     private ArrayList<Friend> friends;
     private String[] selectedFriends;
 
+    private PropogationObject data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_group);
+
+        data = (PropogationObject) getIntent().getSerializableExtra(DATA);
+
         // Finds the listView resource.
         ListView listView = (ListView) findViewById(R.id.listView);
         // When item is tapped, checkBox and Friend object are updated.
@@ -320,12 +328,13 @@ public class SelectGroup extends AppCompatActivity {
 
     public void finishGroupSelection(View view) {
 
-        Intent currIntent = getIntent();
+//        Intent currIntent = getIntent();
+//
+//        String chosenDate = currIntent.getStringExtra(DATE_MESSAGE);
+//        Integer chosenDay = currIntent.getIntExtra(DAY, 0);
+//        Integer chosenMonth = currIntent.getIntExtra(MONTH, 0);
+//        Integer chosenYear = currIntent.getIntExtra(YEAR, 1990);
 
-        String chosenDate = currIntent.getStringExtra(DATE_MESSAGE);
-        Integer chosenDay = currIntent.getIntExtra(DAY, 0);
-        Integer chosenMonth = currIntent.getIntExtra(MONTH, 0);
-        Integer chosenYear = currIntent.getIntExtra(YEAR, 1990);
 
         Intent intent = new Intent(this, SelectFilm.class);
         selectedFriends = new String[friends.size()];
@@ -339,16 +348,21 @@ public class SelectGroup extends AppCompatActivity {
             }
         }
 
-        intent.putExtra(DATE_MESSAGE, chosenDate);
-        intent.putExtra(DAY, chosenDay);
-        intent.putExtra(MONTH, chosenMonth);
-        intent.putExtra(YEAR, chosenYear);
+//        intent.putExtra(DATE_MESSAGE, chosenDate);
+//        intent.putExtra(DAY, chosenDay);
+//        intent.putExtra(MONTH, chosenMonth);
+//        intent.putExtra(YEAR, chosenYear);
+//
+//        if (selectedFriends.length != 0) {
+//            intent.putExtra(GROUP_LIST, selectedFriends);
+//        } else {
+//            intent.putExtra(GROUP_LIST, "");
+//            data.setSelectedFriends("""");
+//        }
 
-        if (selectedFriends.length != 0) {
-            intent.putExtra(GROUP_LIST, selectedFriends);
-        } else {
-            intent.putExtra(GROUP_LIST, "");
-        }
+        data.setSelectedFriends(selectedFriends);
+
+        intent.putExtra(DATA, data);
 
         ServerContact.dialog = new ProgressDialog(SelectGroup.this, ProgressDialog.BUTTON_POSITIVE);
         ServerContact.dialog.setTitle("Please wait");

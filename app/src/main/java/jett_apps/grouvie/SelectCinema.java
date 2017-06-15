@@ -20,6 +20,7 @@ import java.util.Iterator;
 
 import static jett_apps.grouvie.LandingPage.CINEMA_DATA;
 import static jett_apps.grouvie.LandingPage.CINEMA_MESSAGE;
+import static jett_apps.grouvie.LandingPage.DATA;
 import static jett_apps.grouvie.LandingPage.DATE_MESSAGE;
 import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
 import static jett_apps.grouvie.LandingPage.GROUP_LIST;
@@ -27,19 +28,29 @@ import static jett_apps.grouvie.LandingPage.SHOWTIME_DISTANCE_DATA;
 
 public class SelectCinema extends AppCompatActivity {
 
+    private PropogationObject data;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_cinema);
 
-        Intent intent = getIntent();
+        data = (PropogationObject) getIntent().getSerializableExtra(DATA);
+
+//        Intent intent = getIntent();
 //        final double latitude =  intent.getDoubleExtra(LATITUDE, 0);
 //        final double longitude =  intent.getDoubleExtra(LONGITUDE, 0);
-        final String chosenFilm = intent.getStringExtra(FILM_MESSAGE);
-        final String chosenDay = intent.getStringExtra(DATE_MESSAGE);
-        final String cinemaData = intent.getStringExtra(CINEMA_DATA);
-        final String[] chosenGroup = intent.getStringArrayExtra(GROUP_LIST);
+//        final String chosenFilm = intent.getStringExtra(FILM_MESSAGE);
+//        final String chosenDay = intent.getStringExtra(DATE_MESSAGE);
+//        final String cinemaData = intent.getStringExtra(CINEMA_DATA);
+//        final String[] chosenGroup = intent.getStringArrayExtra(GROUP_LIST);
+
+        final String chosenFilm = data.getFilmTitle();
+        final String chosenDay = data.getDate();
+        final String cinemaData = data.getCinemaData();
+        final String[] chosenGroup = data.getSelectedFriends();
+
         ((TextView) findViewById(R.id.chosen_film)).setText(chosenFilm);
 
         JSONArray cinema_data = null;
@@ -93,12 +104,17 @@ public class SelectCinema extends AppCompatActivity {
                     Intent intent = new Intent(view.getContext(), SelectShowtime.class);
 //                    intent.putExtra(LATITUDE, latitude);
 //                    intent.putExtra(LONGITUDE, longitude);
-                    intent.putExtra(FILM_MESSAGE, chosenFilm);
-                    intent.putExtra(DATE_MESSAGE, chosenDay);
-                    intent.putExtra(GROUP_LIST, chosenGroup);
-                    intent.putExtra(CINEMA_MESSAGE, chosenCinema);
+//                    intent.putExtra(FILM_MESSAGE, chosenFilm);
+//                    intent.putExtra(DATE_MESSAGE, chosenDay);
+//                    intent.putExtra(GROUP_LIST, chosenGroup);
+//                    intent.putExtra(CINEMA_MESSAGE, chosenCinema);
 //                    intent.putExtra(USER_NAME, getIntent().getStringExtra(USER_NAME));
-                    intent.putExtra(SHOWTIME_DISTANCE_DATA, showtimeDistanceData.toString());
+//                    intent.putExtra(SHOWTIME_DISTANCE_DATA, showtimeDistanceData.toString());
+
+                    data.setCinemaData(chosenCinema);
+                    data.setShowtimeDistance(showtimeDistanceData.toString());
+
+                    intent.putExtra(DATA, data);
                     startActivity(intent);
 
                 }

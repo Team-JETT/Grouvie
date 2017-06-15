@@ -32,17 +32,17 @@ public class LandingPage extends AppCompatActivity {
     public static final String DAY = "DAY";
     public static final String MONTH = "MONTH";
     public static final String YEAR = "YEAR";
+    public static final String DATA = "DATA";
 
     private TextView name;
+    private PropogationObject data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page);
 
-        name = (TextView) findViewById(R.id.user_name);
-        Intent currIntent = getIntent();
-        name.setText(currIntent.getStringExtra(USER_NAME));
+        data = new PropogationObject();
 
         final ArrayList<Plan> currentPlans = CurrentPlans.getPlans(LandingPage.this);
         ListAdapter planAdapter = new CustomPlanAdapter(this, currentPlans);
@@ -72,7 +72,7 @@ public class LandingPage extends AppCompatActivity {
 
     public void startPlanning(View view) {
         //
-        Intent intent = new Intent(this, SelectFilm.class);
+//        Intent intent = new Intent(this, SelectFilm.class);
 
         final Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_MONTH, 1);
@@ -89,11 +89,17 @@ public class LandingPage extends AppCompatActivity {
                         String chosenDay = day + "/" + month + "/" + year;
 
                         Intent intent = new Intent(view.getContext(), SelectGroup.class);
-                        intent.putExtra(DATE_MESSAGE, chosenDay);
-                        intent.putExtra(DAY, day);
-                        intent.putExtra(MONTH, month + 1);
-                        intent.putExtra(YEAR, year);
+//
+//                        intent.putExtra(DATE_MESSAGE, chosenDay);
+//                        intent.putExtra(DAY, day);
+//                        intent.putExtra(MONTH, month + 1);
+//                        intent.putExtra(YEAR, year);
+                        data.setDate(chosenDay);
+                        data.setDay(day);
+                        data.setMonth(month);
+                        data.setYear(year);
 
+                        intent.putExtra(DATA, data);
 
                         startActivity(intent);
                     }
