@@ -95,7 +95,7 @@ def new_user():
 @app.route("/verify_user", methods=['GET', 'POST'])
 def verify_user():
     """Given a phone number, verifies that the user is a Grouvie user."""
-    user = request.data
+    user = request.data[0]
     # Convert user to tuple before passing to select_valid_users
     results = dbManager.select_valid_users([user])
     # If the user is in the database, give return code 1, otherwise, 0
