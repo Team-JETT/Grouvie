@@ -43,7 +43,7 @@ public class GroupView extends AppCompatActivity {
 
                         //Sending the current plan to the final planning page
 
-                        startActivity(intent);
+//                        startActivity(intent);
                     }
                 }
         );
