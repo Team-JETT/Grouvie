@@ -270,7 +270,7 @@ class DBManager:
         cursor.execute(SELECT_VALID_USERS.format(fields), tuple(friends))
         results = cursor.fetchall()
         self.close_connection(cnxn, cursor)
-        return results
+        return results[0]
 
     # Display everything in the Grouvie table.
     def select_all_grouvie(self):
