@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -36,6 +37,12 @@ public class CurrentPlanView extends AppCompatActivity {
         chosenDay = p.getSuggestedDate();
         chosenFriends = p.getEventMembers();
 
+        Button button = (Button) findViewById(R.id.cancelPlan);
+
+        if(ProfileManager.getPhone(this) != p.getLeaderPhoneNum()) {
+            button.setVisibility(View.INVISIBLE);
+        }
+
         // Tapping on any text view takes you to a page where you can suggest
         // a change.
         final Intent changeIntent = new Intent(this, SuggestChange.class);
@@ -43,39 +50,15 @@ public class CurrentPlanView extends AppCompatActivity {
 
         TextView film = (TextView) findViewById(R.id.SelectedFilm);
         film.setText(chosenFilm);
-        film.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                startActivity(changeIntent);
-            }
-        });
 
         TextView cinema = (TextView) findViewById(R.id.SelectedCinema);
         cinema.setText(chosenCinema);
-        cinema.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                startActivity(changeIntent);
-            }
-        });
 
         TextView time = (TextView) findViewById(R.id.SelectedShowtime);
         time.setText(chosenTime);
-        time.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                startActivity(changeIntent);
-            }
-        });
 
         TextView day = (TextView) findViewById(R.id.SelectedDay);
         day.setText(chosenDay);
-        day.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                startActivity(changeIntent);
-            }
-        });
 
     }
 
@@ -116,5 +99,11 @@ public class CurrentPlanView extends AppCompatActivity {
         startActivity(intent);
         //TODO: Show activity with group replies and option to replan.
 
+    }
+
+    public void change(View view) {
+        Intent intent = new Intent(this, SuggestChange.class);
+        intent.putExtra(PLAN_MESSAGE, p);
+        startActivity(intent);
     }
 }

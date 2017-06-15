@@ -80,7 +80,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                     Log.v("CHOSEN FILM", filmTitle);
                     JSONArray cinema_data = null;
                     try {
-                        cinema_data = local_data.getJSONObject(filmTitle).getJSONArray("cinema");
+                        cinema_data = local_data.getJSONObject(filmTitle).getJSONArray("chosenCinema");
                         Log.v("CINEMA DATA", cinema_data.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -103,7 +103,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
     @Nullable
     private JSONObject getLocalData() {
-        // Grab the date from the MainActivity
+        // Grab the chosenDate from the MainActivity
         final int day = data.getDay();
         final int month = data.getMonth();
         final int year = data.getYear();

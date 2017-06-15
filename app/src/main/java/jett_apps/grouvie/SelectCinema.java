@@ -81,7 +81,7 @@ public class SelectCinema extends AppCompatActivity {
                     Log.v("CHOSEN CINEMA", chosenCinema);
                     JSONArray showtimeDistanceData = null;
                     try {
-                        // For our chosen cinema get the showtimes and distance to the cinema.
+                        // For our chosen chosenCinema get the showtimes and distance to the chosenCinema.
                         showtimeDistanceData = ((JSONObject) finalCinema_data.get(position)).
                                 getJSONArray(chosenCinema);
                         Log.v("CHOSEN CINEMA DATA", cinemaData.toString());

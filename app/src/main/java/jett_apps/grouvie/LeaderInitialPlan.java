@@ -21,6 +21,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
     private double latitude, longitude;
     private String chosenFilm, chosenCinema, chosenTime, chosenDay;
     private ArrayList<Friend> chosenGroup;
+    private String cinemaData;
 
     private PropogationObject data;
 
@@ -36,6 +37,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
         chosenTime = data.getChosenTime();
         chosenDay = data.getDate();
         chosenGroup = data.getSelectedFriends();
+        cinemaData = data.getCinemaData();
 
         ((TextView) findViewById(R.id.SelectedFilm)).setText(chosenFilm);
         ((TextView) findViewById(R.id.SelectedCinema)).setText(chosenCinema);
@@ -52,8 +54,8 @@ public class LeaderInitialPlan extends AppCompatActivity {
             json.accumulate("phone_number", leaderPhoneNum);
             json.accumulate("leader", leaderPhoneNum);
             json.accumulate("showtime", chosenTime);
-            json.accumulate("film", chosenFilm);
-            json.accumulate("cinema", chosenCinema);
+            json.accumulate("chosenFilm", chosenFilm);
+            json.accumulate("chosenCinema", chosenCinema);
             json.accumulate("latitude", latitude);
             json.accumulate("longitude", longitude);
         } catch (JSONException e) {
@@ -66,6 +68,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
 
         Plan p = new Plan(chosenFilm, chosenCinema, chosenTime, chosenDay, chosenGroup,
                             leaderPhoneNum);
+        p.setCinemaData(cinemaData);
         CurrentPlans.addPlan(p, LeaderInitialPlan.this);
 
         Toast.makeText(getApplicationContext(), "Plan submitted to group", Toast.LENGTH_LONG).show();

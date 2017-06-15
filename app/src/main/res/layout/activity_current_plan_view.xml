@@ -114,7 +114,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="27dp"
-        android:layout_marginLeft="54dp"
+        android:layout_marginLeft="16dp"
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/badButton"
         android:backgroundTintMode="src_in"
@@ -122,10 +122,11 @@
         android:text="Can't Go"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewGroupReplies" />
+        app:layout_constraintTop_toBottomOf="@+id/viewGroupReplies"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/cancelPlan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="27dp"
@@ -137,9 +138,26 @@
         android:onClick="cancelPlan"
         android:text="Cancel Plan"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.596"
+        app:layout_constraintHorizontal_bias="0.926"
         app:layout_constraintLeft_toRightOf="@+id/button4"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/viewGroupReplies" />
+        app:layout_constraintTop_toBottomOf="@+id/viewGroupReplies"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/suggestChange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/button4"
+        app:layout_constraintRight_toLeftOf="@+id/cancelPlan"
+        app:layout_constraintTop_toBottomOf="@+id/viewGroupReplies"
+        app:layout_constraintHorizontal_bias="0.878"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

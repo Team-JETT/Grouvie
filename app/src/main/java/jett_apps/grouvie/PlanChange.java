@@ -4,10 +4,10 @@ import java.io.Serializable;
 
 public class PlanChange implements Serializable {
 
-    String filmTitle;
-    String time;
-    String date;
-    String cinema;
+    private String filmTitle;
+    private String time;
+    private String date;
+    private String cinema;
 
     public PlanChange() {
 
