@@ -115,6 +115,7 @@ def verify_friends():
     number is a user of Grouvie."""
     # Convert received data to tuple suitable for placing in DB query.
     friends = request.data
+    friends = friends[1:len(friends)-1].split(", ")
     valid_users = dbManager.select_valid_users(friends)
     valid_friends = {}
     for user in valid_users:

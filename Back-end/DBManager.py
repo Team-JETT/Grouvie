@@ -271,10 +271,10 @@ class DBManager:
         # Build the placeholders which we require when it comes to searching.
         fields = "(" + ','.join(["%s"]*len(friends)) + ")"
         cnxn, cursor = self.establish_connection()
-        friends_tuple = "(" + ",".join(friends) + ")"
-        cursor.execute(SELECT_VALID_USERS.format(fields), friends_tuple)
-        print friends_tuple
-        sys.stdout.flush()
+        # friends_tuple = "(" + ",".join(friends) + ")"
+        # print friends_tuple
+        cursor.execute(SELECT_VALID_USERS.format(fields), tuple(friends))
+        print tuple(friends)
         results = cursor.fetchall()
         self.close_connection(cnxn, cursor)
         return results
@@ -308,11 +308,13 @@ if __name__ == '__main__':
              'LEADER': 0,
              'SHOWTIME': "s"}
     db = DBManager()
-    db.drop_user_table()
-    db.make_user_table()
-    db.insert_user("07587247113", "Erkin", "EN12LZ", 0, 0)
-    db.insert_user("07964006128", "Tarun", "RM65DU", 0, 0)
-    db.insert_user("07942948248", "Jay", "SW100NJ", 0, 0)
-    # print db.select_valid_users(("1", "2", "5", "6"))
-    print db.select_all_grouvie()
-    print db.select_all_users()
+    # db.drop_user_table()
+    # db.make_user_table()
+    # db.insert_user("07587247113", "Erkin", "EN12LZ", 0, 0)
+    # db.insert_user("07964006128", "Tarun", "RM65DU", 0, 0)
+    # db.insert_user("07942948248", "Jay", "SW100NJ", 0, 0)
+    # # print db.select_valid_users(("1", "2", "5", "6"))
+    # print db.select_all_grouvie()
+    # print db.select_all_users()
+    users = ["07777777", "088888888", "09999999"]
+    db.select_valid_users(users)
