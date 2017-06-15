@@ -71,17 +71,19 @@ def make_plan():
     cinema = phone_data['cinema']
     latitude = phone_data['latitude']
     longitude = phone_data['longitude']
-    print phone_data
-    stdout.flush()
     # Make a new entry for the group leader.
     dbManager.insert_grouvie(phone_number, leader, showtime, film, cinema,
                              latitude, longitude)
     # Make a new entry in the table for each friend.
     # TODO: What happens if duplicate?
-    for friend in phone_data['friends']:
+    friends = phone_data['friends']
+    friends = friends[1:len(friends) - 1].split(", ")
+    for friend in friends:
+        print friend
         dbManager.insert_grouvie(friend, leader, showtime, None, None, None,
                                  None)
     print "MADE NEW PLAN"
+    stdout.flush()
     return ''
 
 
