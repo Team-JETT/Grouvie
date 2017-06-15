@@ -3,7 +3,6 @@ import simplejson as json
 
 from os import environ
 
-import decimal
 from flask import Flask, request
 from DBManager import DBManager
 from DataParser import DataParser
@@ -92,7 +91,7 @@ def new_user():
     phone_data = json.load(request.data)
     latitude, longitude = dParser.get_latlong(phone_data['postcode'])
     dbManager.insert_user(phone_data['phone_number'], phone_data['name'],
-                          latitude, longitude)
+                          phone_data['postcode'], latitude, longitude)
     print "ADDED NEW USER."
     stdout.flush()
     return "DONE!!!"
@@ -133,8 +132,7 @@ def get_user():
     user_data = dbManager.select_users([phone_number])
     json_data = {"phone_number": user_data[0],
                  "name": user_data[1],
-                 "latitude": user_data[2],
-                 "longitude": user_data[3]}
+                 "postcode": user_data[2]}
     print "USER: " + json.dumps(json_data, use_decimal=True)
     stdout.flush()
     return json.dumps(json_data, use_decimal=True)
@@ -147,7 +145,7 @@ def update_postcode():
     phone_data = json.load(request.data)
     latitude, longitude = dParser.get_latlong(phone_data['postcode'])
     dbManager.update_users(phone_data['phone_number'], phone_data['name'],
-                           latitude, longitude)
+                           phone_data['postcode'], latitude, longitude)
     print "DONE!!!"
     stdout.flush()
     return
