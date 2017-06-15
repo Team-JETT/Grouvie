@@ -38,18 +38,8 @@ public class SelectCinema extends AppCompatActivity {
 
         data = (PropogationObject) getIntent().getSerializableExtra(DATA);
 
-//        Intent intent = getIntent();
-//        final double latitude =  intent.getDoubleExtra(LATITUDE, 0);
-//        final double longitude =  intent.getDoubleExtra(LONGITUDE, 0);
-//        final String chosenFilm = intent.getStringExtra(FILM_MESSAGE);
-//        final String chosenDay = intent.getStringExtra(DATE_MESSAGE);
-//        final String cinemaData = intent.getStringExtra(CINEMA_DATA);
-//        final String[] chosenGroup = intent.getStringArrayExtra(GROUP_LIST);
-
         final String chosenFilm = data.getFilmTitle();
-        final String chosenDay = data.getDate();
         final String cinemaData = data.getCinemaData();
-        final String[] chosenGroup = data.getSelectedFriends();
 
         ((TextView) findViewById(R.id.chosen_film)).setText(chosenFilm);
 
@@ -102,14 +92,6 @@ public class SelectCinema extends AppCompatActivity {
 
                     //Sending the current plan to the final planning page
                     Intent intent = new Intent(view.getContext(), SelectShowtime.class);
-//                    intent.putExtra(LATITUDE, latitude);
-//                    intent.putExtra(LONGITUDE, longitude);
-//                    intent.putExtra(FILM_MESSAGE, chosenFilm);
-//                    intent.putExtra(DATE_MESSAGE, chosenDay);
-//                    intent.putExtra(GROUP_LIST, chosenGroup);
-//                    intent.putExtra(CINEMA_MESSAGE, chosenCinema);
-//                    intent.putExtra(USER_NAME, getIntent().getStringExtra(USER_NAME));
-//                    intent.putExtra(SHOWTIME_DISTANCE_DATA, showtimeDistanceData.toString());
 
                     data.setCinemaData(chosenCinema);
                     data.setShowtimeDistance(showtimeDistanceData.toString());
