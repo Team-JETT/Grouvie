@@ -272,6 +272,7 @@ class DBManager:
         fields = "(" + ','.join(["%s"]*len(friends)) + ")"
         cnxn, cursor = self.establish_connection()
         cursor.execute(SELECT_VALID_USERS.format(fields), tuple(friends))
+        print friends
         print tuple(friends)
         sys.stdout.flush()
         results = cursor.fetchall()
