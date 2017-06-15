@@ -44,7 +44,7 @@ public class SelectGroup extends AppCompatActivity {
     // This will be updated by real values later.
     private ArrayAdapter<Friend> friendsAdapter;
     private ArrayList<Friend> friends;
-    private String[] selectedFriends;
+    private ArrayList<Friend> selectedFriends;
 
     private PropogationObject data;
 
@@ -312,12 +312,12 @@ public class SelectGroup extends AppCompatActivity {
     public void finishGroupSelection(View view) {
 
         Intent intent = new Intent(this, SelectFilm.class);
-        selectedFriends = new String[friends.size()];
+        selectedFriends = new ArrayList<>();
 
         int j = 0;
         for (Friend friend : friends) {
             if (friend.isChecked()) {
-                selectedFriends[j] = friend.getPhoneNum();
+                selectedFriends.add(friend);
                 friend.setChecked(false);
                 j++;
             }
