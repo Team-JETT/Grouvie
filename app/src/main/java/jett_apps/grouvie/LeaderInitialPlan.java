@@ -76,7 +76,9 @@ public class LeaderInitialPlan extends AppCompatActivity {
                 group += (us + member);
             }
         }
-        group = group.substring(1);
+        if (group.length() > 0) {
+            group = group.substring(1);
+        }
 
         String regex = "[/:]";
 //        String regex = "[^a-zA-Z0-9-_.~%]";
