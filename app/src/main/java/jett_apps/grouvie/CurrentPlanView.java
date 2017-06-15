@@ -36,10 +36,46 @@ public class CurrentPlanView extends AppCompatActivity {
         chosenDay = p.getSuggestedDate();
         chosenFriends = p.getEventMembers();
 
-        ((TextView) findViewById(R.id.SelectedFilm)).setText(chosenFilm);
-        ((TextView) findViewById(R.id.SelectedCinema)).setText(chosenCinema);
-        ((TextView) findViewById(R.id.SelectedShowtime)).setText(chosenTime);
-        ((TextView) findViewById(R.id.SelectedDay)).setText(chosenDay);
+        // Tapping on any text view takes you to a page where you can suggest
+        // a change.
+        final Intent changeIntent = new Intent(this, SuggestChange.class);
+        changeIntent.putExtra(PLAN_MESSAGE, p);
+
+        TextView film = (TextView) findViewById(R.id.SelectedFilm);
+        film.setText(chosenFilm);
+        film.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(changeIntent);
+            }
+        });
+
+        TextView cinema = (TextView) findViewById(R.id.SelectedCinema);
+        cinema.setText(chosenCinema);
+        cinema.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(changeIntent);
+            }
+        });
+
+        TextView time = (TextView) findViewById(R.id.SelectedShowtime);
+        time.setText(chosenTime);
+        time.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(changeIntent);
+            }
+        });
+
+        TextView day = (TextView) findViewById(R.id.SelectedDay);
+        day.setText(chosenDay);
+        day.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                startActivity(changeIntent);
+            }
+        });
 
     }
 
