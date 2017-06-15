@@ -135,7 +135,7 @@ def get_user():
                  "name": user_data[1],
                  "latitude": user_data[2],
                  "longitude": user_data[3]}
-    print "USER: " + json.dumps(json_data)
+    print "USER: " + json.dumps(json_data, cls=DecimalEncoder)
     stdout.flush()
     return json.dumps(json_data, cls=DecimalEncoder)
 
