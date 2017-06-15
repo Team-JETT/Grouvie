@@ -128,12 +128,12 @@ def get_user():
     """Given a user phone number, gets the users personal data."""
     phone_number = request.data
     print phone_number
-    user_data = dbManager.select_users(phone_number)
+    user_data = dbManager.select_users([phone_number])
     json_data = {"phone_number": user_data[0],
                  "name": user_data[1],
                  "latitude": user_data[2],
                  "longitude": user_data[3]}
-    print "USER:", json_data
+    print "USER: " + json_data
     stdout.flush()
     return json.dumps(json_data)
 

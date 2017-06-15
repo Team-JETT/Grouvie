@@ -256,7 +256,7 @@ class DBManager:
     # Select an entry in a table based on phone_number.
     def select_users(self, phone_number):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(SELECT_USERS, phone_number)
+        cursor.execute(SELECT_USERS, tuple(phone_number))
         result = cursor.fetchall()
         self.close_connection(cnxn, cursor)
         # There should only be 1 result so we just return that tuple.
@@ -270,7 +270,7 @@ class DBManager:
         cursor.execute(SELECT_VALID_USERS.format(fields), tuple(friends))
         results = cursor.fetchall()
         self.close_connection(cnxn, cursor)
-        return results[0]
+        return results
 
     # Display everything in the Grouvie table.
     def select_all_grouvie(self):
