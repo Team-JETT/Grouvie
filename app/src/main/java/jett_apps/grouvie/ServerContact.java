@@ -35,11 +35,10 @@ class ServerContact extends AsyncTask<String, Integer, String> {
         StringEntity se = null;
         try {
             // We only ever pass in 1 string so grab the first element in the array.
-            se = new StringEntity(params[1]);
+            httpPost.setEntity(new StringEntity(params[1]));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-        httpPost.setEntity(se);
 
         httpPost.setHeader("Accept", "application/json");
         httpPost.setHeader("Content-type", "application/json");
