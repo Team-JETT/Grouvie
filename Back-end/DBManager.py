@@ -271,8 +271,9 @@ class DBManager:
         # Build the placeholders which we require when it comes to searching.
         fields = "(" + ','.join(["%s"]*len(friends)) + ")"
         cnxn, cursor = self.establish_connection()
-        cursor.execute(SELECT_VALID_USERS.format(fields), friends)
-        print type(friends[0])
+        friends_tuple = "(" + ",".join(friends) + ")"
+        cursor.execute(SELECT_VALID_USERS.format(fields), friends_tuple)
+        print friends_tuple
         sys.stdout.flush()
         results = cursor.fetchall()
         self.close_connection(cnxn, cursor)
