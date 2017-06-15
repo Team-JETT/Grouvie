@@ -16,8 +16,6 @@ import java.util.Calendar;
 
 public class LandingPage extends AppCompatActivity {
 
-    public static final String LATITUDE = "LATITUDE";
-    public static final String LONGITUDE = "LONGITUDE";
 
     public static final String FILM_MESSAGE = "FILMTITLE";
     public static final String CINEMA_MESSAGE = "CINEMATITLE";
@@ -71,8 +69,6 @@ public class LandingPage extends AppCompatActivity {
     }
 
     public void startPlanning(View view) {
-        //
-//        Intent intent = new Intent(this, SelectFilm.class);
 
         final Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_MONTH, 1);
@@ -89,14 +85,10 @@ public class LandingPage extends AppCompatActivity {
                         String chosenDay = day + "/" + month + "/" + year;
 
                         Intent intent = new Intent(view.getContext(), SelectGroup.class);
-//
-//                        intent.putExtra(DATE_MESSAGE, chosenDay);
-//                        intent.putExtra(DAY, day);
-//                        intent.putExtra(MONTH, month + 1);
-//                        intent.putExtra(YEAR, year);
+
                         data.setDate(chosenDay);
                         data.setDay(day);
-                        data.setMonth(month);
+                        data.setMonth(month+1);
                         data.setYear(year);
 
                         intent.putExtra(DATA, data);
