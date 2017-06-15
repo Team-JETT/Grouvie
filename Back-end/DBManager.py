@@ -195,8 +195,8 @@ class DBManager:
     def insert_grouvie(self, phone_number, leader, showtime, film, cinema,
                        latitude, longitude):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(INSERT_GROUVIE, (showtime, film, cinema, latitude,
-                                        longitude, phone_number, leader))
+        cursor.execute(INSERT_GROUVIE, (phone_number, leader, showtime, film,
+                                        cinema, latitude, longitude))
         self.close_connection(cnxn, cursor)
 
     def insert_user(self, phone_number, name, postcode, latitude, longitude):
@@ -316,5 +316,7 @@ if __name__ == '__main__':
     # # print db.select_valid_users(("1", "2", "5", "6"))
     # print db.select_all_grouvie()
     # print db.select_all_users()
-    users = ["07777777", "088888888", "09999999"]
-    db.select_valid_users(users)
+    db.drop_grouvie_table()
+    db.make_grouvie_table()
+    # users = ["07777777", "088888888", "09999999"]
+    # db.select_valid_users(users)
