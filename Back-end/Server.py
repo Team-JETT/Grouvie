@@ -1,6 +1,5 @@
 from sys import stdout
-import json
-
+import simplejson as json
 
 from os import environ
 
@@ -125,6 +124,7 @@ def verify_friends():
     stdout.flush()
     return json.dumps(valid_friends)
 
+
 @app.route("/get_user", methods=['GET', 'POST'])
 def get_user():
     """Given a user phone number, gets the users personal data."""
@@ -135,16 +135,10 @@ def get_user():
                  "name": user_data[1],
                  "latitude": user_data[2],
                  "longitude": user_data[3]}
-    print "USER: " + json.dumps(json_data, cls=DecimalEncoder)
+    print "USER: " + json.dumps(json_data, use_decimal=True)
     stdout.flush()
-    return json.dumps(json_data, cls=DecimalEncoder)
+    return json.dumps(json_data, use_decimal=True)
 
-
-class DecimalEncoder(json.JSONEncoder):
-    def _iterencode(self, o, markers=None):
-        if isinstance(o, decimal.Decimal):
-            return (str(o) for o in [o])
-        return super(DecimalEncoder, self)._iterencode(o, markers)
 
 # TODO: UNTESTED
 @app.route("/update_postcode", methods=['GET', 'POST'])
