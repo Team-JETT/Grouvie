@@ -15,33 +15,31 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
-import static jett_apps.grouvie.LandingPage.CINEMA_MESSAGE;
-import static jett_apps.grouvie.LandingPage.DATE_MESSAGE;
-import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
-import static jett_apps.grouvie.LandingPage.GROUP_LIST;
-import static jett_apps.grouvie.LandingPage.SHOWTIME_MESSAGE;
-import static jett_apps.grouvie.LandingPage.USER_NAME;
+import static jett_apps.grouvie.LandingPage.DATA;
 
 public class LeaderInitialPlan extends AppCompatActivity {
 
     private double latitude, longitude;
     private String chosenFilm, chosenCinema, chosenTime, chosenDay;
-    private String[] chosenGroup;
+    private ArrayList<Friend> chosenGroup;
+
+    private PropogationObject data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leader_initial_plan);
 
-        Intent intent = getIntent();
-//        latitude = intent.getDoubleExtra(LATITUDE, 0);
-//        longitude = intent.getDoubleExtra(LONGITUDE, 0);
-        chosenFilm = intent.getStringExtra(FILM_MESSAGE);
-        chosenCinema = intent.getStringExtra(CINEMA_MESSAGE);
-        chosenTime = intent.getStringExtra(SHOWTIME_MESSAGE);
-        chosenDay = intent.getStringExtra(DATE_MESSAGE);
-        chosenGroup = intent.getStringArrayExtra(GROUP_LIST);
+        data = (PropogationObject) getIntent().getSerializableExtra(DATA);
+
+        chosenFilm = data.getFilmTitle();
+        chosenCinema = data.getCinemaData();
+        chosenTime = data.getChosenTime();
+        chosenDay = data.getDate();
+        chosenGroup = data.getSelectedFriends();
 
         ((TextView) findViewById(R.id.SelectedFilm)).setText(chosenFilm);
         ((TextView) findViewById(R.id.SelectedCinema)).setText(chosenCinema);
@@ -62,9 +60,12 @@ public class LeaderInitialPlan extends AppCompatActivity {
             json.accumulate("cinema", chosenCinema);
             json.accumulate("latitude", latitude);
             json.accumulate("longitude", longitude);
+            String[] friendsNumbers = getFriendsNumbers(data.getSelectedFriends());
+            json.accumulate("friends", Arrays.toString(friendsNumbers));
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.v("MAKE PLAN:", json.toString());
         // Send initial/draft plan to web server to update the database
         new ServerContact().execute("make_plan", json.toString());
 
@@ -96,10 +97,16 @@ public class LeaderInitialPlan extends AppCompatActivity {
         CurrentPlans.addPlan(p, LeaderInitialPlan.this);
 
         Toast.makeText(getApplicationContext(), "Plan submitted to group", Toast.LENGTH_LONG).show();
-        String user_name = getIntent().getStringExtra(USER_NAME);
         Intent intent = new Intent(this, LandingPage.class);
-        intent.putExtra(USER_NAME, user_name);
         startActivity(intent);
+    }
+
+    public String[] getFriendsNumbers(ArrayList<Friend> friends) {
+        String[] numbers = new String[friends.size()];
+        for (int i = 0; i < friends.size(); ++i) {
+            numbers[i] = friends.get(i).getPhoneNum();
+        }
+        return numbers;
     }
 }
 

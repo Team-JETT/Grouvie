@@ -1,6 +1,8 @@
-import json
+from sys import stdout
+import simplejson as json
 
 from os import environ
+
 from flask import Flask, request
 from DBManager import DBManager
 from DataParser import DataParser
@@ -69,6 +71,8 @@ def make_plan():
     cinema = phone_data['cinema']
     latitude = phone_data['latitude']
     longitude = phone_data['longitude']
+    print phone_data
+    stdout.flush()
     # Make a new entry for the group leader.
     dbManager.insert_grouvie(phone_number, leader, showtime, film, cinema,
                              latitude, longitude)
@@ -88,44 +92,53 @@ def new_user():
     phone_data = json.load(request.data)
     latitude, longitude = dParser.get_latlong(phone_data['postcode'])
     dbManager.insert_user(phone_data['phone_number'], phone_data['name'],
-                          latitude, longitude)
+                          phone_data['postcode'], latitude, longitude)
     print "ADDED NEW USER."
+    stdout.flush()
     return "DONE!!!"
 
 @app.route("/verify_user", methods=['GET', 'POST'])
 def verify_user():
     """Given a phone number, verifies that the user is a Grouvie user."""
     user = request.data
+    print user
     # Convert user to tuple before passing to select_valid_users
-    results = dbManager.select_valid_users(user,)
+    results = dbManager.select_valid_users([user])
     # If the user is in the database, give return code 1, otherwise, 0
-    print "VALID USER" if user else "INVALID USER"
-    return 1 if results else 0
+    print results
+    print "VALID USER" if results else "INVALID USER"
+    stdout.flush()
+    return "1" if results else "0"
 
 @app.route("/verify_friends", methods=['GET', 'POST'])
 def verify_friends():
     """Given a list of phone numbers we verify if the owner of that contact
     number is a user of Grouvie."""
     # Convert received data to tuple suitable for placing in DB query.
-    friends = tuple(request.data)
+    friends = request.data
+    friends = friends[1:len(friends)-1].split(", ")
     valid_users = dbManager.select_valid_users(friends)
     valid_friends = {}
     for user in valid_users:
         valid_friends[user[0]] = user[1]
     print "VALID FRIENDS:", valid_friends
+    stdout.flush()
     return json.dumps(valid_friends)
+
 
 @app.route("/get_user", methods=['GET', 'POST'])
 def get_user():
     """Given a user phone number, gets the users personal data."""
     phone_number = request.data
-    user_data = dbManager.select_users(phone_number)
+    print phone_number
+    user_data = dbManager.select_users([phone_number])
     json_data = {"phone_number": user_data[0],
                  "name": user_data[1],
-                 "latitude": user_data[2],
-                 "longitude": user_data[3]}
-    print "USER:", json_data
-    return json.dumps(json_data)
+                 "postcode": user_data[2]}
+    print "USER: " + json.dumps(json_data, use_decimal=True)
+    stdout.flush()
+    return json.dumps(json_data, use_decimal=True)
+
 
 # TODO: UNTESTED
 @app.route("/update_postcode", methods=['GET', 'POST'])
@@ -134,8 +147,10 @@ def update_postcode():
     phone_data = json.load(request.data)
     latitude, longitude = dParser.get_latlong(phone_data['postcode'])
     dbManager.update_users(phone_data['phone_number'], phone_data['name'],
-                           latitude, longitude)
-    return "DONE!!!"
+                           phone_data['postcode'], latitude, longitude)
+    print "DONE!!!"
+    stdout.flush()
+    return
 
 
 # TODO: UNTESTED
@@ -146,7 +161,8 @@ def delete_single():
     dbManager.delete_single_grouvie(phone_data['phone_number'],
                                     phone_data['leader'],
                                     phone_data['showtime'])
-    return "SOMEONE CANT GO"
+    print "SOMEONE CANT GO"
+    return
 
 
 # TODO: UNTESTED
@@ -157,7 +173,42 @@ def delete_plan():
     phone_data = json.loads(request.data)
     dbManager.delete_plan_grouvie(phone_data['leader'],
                                   phone_data['showtime'])
-    return "DELETED PLAN"
+    stdout.flush()
+    print "DELETED PLAN"
+    return
+
+@app.route("/change_film", methods=['GET', 'POST'])
+def change_film():
+    phone_data = json.loads(request.data)
+    dbManager.change_film(phone_data['phone_number'],
+                          phone_data['leader'],
+                          phone_data['showtime'],
+                          phone_data['film'])
+    stdout.flush()
+    print "CHANGED FILM FOR " + phone_data['phone_number']
+    return
+
+@app.route("/change_cinema", methods=['GET', 'POST'])
+def change_cinema():
+    phone_data = json.loads(request.data)
+    dbManager.change_cinema(phone_data['cinema'],
+                            phone_data['phone_number'],
+                            phone_data['leader'],
+                            phone_data['showtime'])
+    print "CHANGED CINEMA FOR " + phone_data['phone_number']
+    stdout.flush()
+    return
+
+@app.route("/change_showtime", methods=['GET', 'POST'])
+def change_showtime():
+    phone_data = json.loads(request.data)
+    dbManager.change_showtime(phone_data['new_showtime'],
+                              phone_data['phone_number'],
+                              phone_data['leader'],
+                              phone_data['showtime'])
+    print "CHANGED SHOWTIME FOR " + phone_data['phone_number']
+    stdout.flush()
+    return
 
 
 if __name__ == "__main__":

@@ -9,11 +9,13 @@ import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 import static jett_apps.grouvie.LandingPage.PLAN_MESSAGE;
 
 public class CurrentPlanView extends AppCompatActivity {
 
-    private String[] chosenFriends;
+    private ArrayList<Friend> chosenFriends;
     private String chosenDay;
     private String chosenTime;
     private String chosenCinema;
@@ -43,6 +45,9 @@ public class CurrentPlanView extends AppCompatActivity {
 
     public void viewGroupReplies(View view) {
         //TODO: Show activity with group replies and option to replan.
+        Intent intent = new Intent(view.getContext(), GroupView.class);
+        intent.putExtra(PLAN_MESSAGE, p);
+        startActivity(intent);
     }
 
     public void cantGo(View view) {

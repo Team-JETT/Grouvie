@@ -16,33 +16,27 @@ import java.util.Calendar;
 
 public class LandingPage extends AppCompatActivity {
 
-    public static final String LATITUDE = "LATITUDE";
-    public static final String LONGITUDE = "LONGITUDE";
 
     public static final String FILM_MESSAGE = "FILMTITLE";
     public static final String CINEMA_MESSAGE = "CINEMATITLE";
     public static final String SHOWTIME_MESSAGE = "SHOWTIME";
     public static final String DATE_MESSAGE = "EVENTDAY";
     public static final String CINEMA_DATA = "CINEMADATA";
-    public static final String USER_NAME = "USERNAME";
     public static final String SHOWTIME_DISTANCE_DATA = "SHOWTIMEDISTANCEDATA";
     public static final String GROUP_LIST = "GROUPLIST";
     public static final String PLAN_MESSAGE = "PLAN_MESSAGE";
 
-    public static final String DAY = "DAY";
-    public static final String MONTH = "MONTH";
-    public static final String YEAR = "YEAR";
+    public static final String DATA = "DATA";
 
     private TextView name;
+    private PropogationObject data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page);
 
-        name = (TextView) findViewById(R.id.user_name);
-        Intent currIntent = getIntent();
-        name.setText(currIntent.getStringExtra(USER_NAME));
+        data = new PropogationObject();
 
         final ArrayList<Plan> currentPlans = CurrentPlans.getPlans(LandingPage.this);
         ListAdapter planAdapter = new CustomPlanAdapter(this, currentPlans);
@@ -71,8 +65,6 @@ public class LandingPage extends AppCompatActivity {
     }
 
     public void startPlanning(View view) {
-        //
-        Intent intent = new Intent(this, SelectFilm.class);
 
         final Calendar c = Calendar.getInstance();
         c.add(Calendar.DAY_OF_MONTH, 1);
@@ -89,11 +81,13 @@ public class LandingPage extends AppCompatActivity {
                         String chosenDay = day + "/" + month + "/" + year;
 
                         Intent intent = new Intent(view.getContext(), SelectGroup.class);
-                        intent.putExtra(DATE_MESSAGE, chosenDay);
-                        intent.putExtra(DAY, day);
-                        intent.putExtra(MONTH, month + 1);
-                        intent.putExtra(YEAR, year);
 
+                        data.setDate(chosenDay);
+                        data.setDay(day);
+                        data.setMonth(month+1);
+                        data.setYear(year);
+
+                        intent.putExtra(DATA, data);
 
                         startActivity(intent);
                     }

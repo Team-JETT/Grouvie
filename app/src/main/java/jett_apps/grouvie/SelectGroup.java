@@ -31,11 +31,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import static jett_apps.grouvie.LandingPage.DATE_MESSAGE;
-import static jett_apps.grouvie.LandingPage.DAY;
-import static jett_apps.grouvie.LandingPage.GROUP_LIST;
-import static jett_apps.grouvie.LandingPage.MONTH;
-import static jett_apps.grouvie.LandingPage.YEAR;
+import static jett_apps.grouvie.LandingPage.DATA;
 
 public class SelectGroup extends AppCompatActivity {
 
@@ -48,12 +44,17 @@ public class SelectGroup extends AppCompatActivity {
     // This will be updated by real values later.
     private ArrayAdapter<Friend> friendsAdapter;
     private ArrayList<Friend> friends;
-    private String[] selectedFriends;
+    private ArrayList<Friend> selectedFriends;
+
+    private PropogationObject data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_group);
+
+        data = (PropogationObject) getIntent().getSerializableExtra(DATA);
+
         // Finds the listView resource.
         ListView listView = (ListView) findViewById(R.id.listView);
         // When item is tapped, checkBox and Friend object are updated.
@@ -78,18 +79,6 @@ public class SelectGroup extends AppCompatActivity {
         ListView listView = (ListView) findViewById(R.id.listView);
 
         friends = ProfileManager.getFriends(SelectGroup.this);
-//        friends = (Friend[]) getLastNonConfigurationInstance();
-//        if (friends == null) {
-//            friends = new Friend[] {
-//                    new Friend("Steve"),
-//                    new Friend("Diana"),
-//                    new Friend("Bruce"),
-//                    new Friend("Carol")
-//            };
-//        }
-//
-//        ArrayList<Friend> friendList = new ArrayList<>();
-//        friendList.addAll(Arrays.asList(friends));
 
 
         // Set our adapter as the ListView's adapter.
@@ -299,9 +288,48 @@ public class SelectGroup extends AppCompatActivity {
                             }
                         }
 
-                        //TODO: Remove erroneous phone numbers and all should have same format
 
-                        return contacts;
+                        ArrayList<String> validContacts = new ArrayList<>();
+
+                        //Remove erroneous phone numbers and all should have same format
+                        for (String phoneNum : contacts) {
+
+                            //Remove spaces
+                            phoneNum = phoneNum.replaceAll("\\s+","");
+
+                            //Remove dashes
+                            phoneNum.replaceAll("\\D", "");
+
+//                          //Convert international phone numbers to UK local
+                            if (phoneNum.startsWith("00")) {
+                                phoneNum = phoneNum.substring(2);
+                                phoneNum = "+" + phoneNum;
+                            }
+
+//                          //Convert international phone numbers to UK local
+                            if (phoneNum.startsWith("+44")) {
+                                phoneNum = phoneNum.substring(3);
+                                phoneNum = "0" + phoneNum;
+                            }
+
+                            //Remove any non-mobile phone numbers
+                            if (!phoneNum.startsWith("07")) {
+                                continue;
+                            }
+
+                            //If phone number isn't valid in terms of length
+                            if (phoneNum.length() != 11) {
+                                continue;
+                            }
+
+                            if (phoneNum.equals(ProfileManager.getPhone(SelectGroup.this))) {
+                                continue;
+                            }
+
+                            validContacts.add(phoneNum);
+                        }
+
+                        return validContacts;
                     }
                     cur.close();
                 }
@@ -322,35 +350,21 @@ public class SelectGroup extends AppCompatActivity {
 
     public void finishGroupSelection(View view) {
 
-        Intent currIntent = getIntent();
-
-        String chosenDate = currIntent.getStringExtra(DATE_MESSAGE);
-        Integer chosenDay = currIntent.getIntExtra(DAY, 0);
-        Integer chosenMonth = currIntent.getIntExtra(MONTH, 0);
-        Integer chosenYear = currIntent.getIntExtra(YEAR, 1990);
-
         Intent intent = new Intent(this, SelectFilm.class);
-        selectedFriends = new String[friends.size()];
+        selectedFriends = new ArrayList<>();
 
         int j = 0;
         for (Friend friend : friends) {
             if (friend.isChecked()) {
-                selectedFriends[j] = friend.getPhoneNum();
+                selectedFriends.add(friend);
                 friend.setChecked(false);
                 j++;
             }
         }
 
-        intent.putExtra(DATE_MESSAGE, chosenDate);
-        intent.putExtra(DAY, chosenDay);
-        intent.putExtra(MONTH, chosenMonth);
-        intent.putExtra(YEAR, chosenYear);
+        data.setSelectedFriends(selectedFriends);
 
-        if (selectedFriends.length != 0) {
-            intent.putExtra(GROUP_LIST, selectedFriends);
-        } else {
-            intent.putExtra(GROUP_LIST, "");
-        }
+        intent.putExtra(DATA, data);
 
         ServerContact.dialog = new ProgressDialog(SelectGroup.this, ProgressDialog.BUTTON_POSITIVE);
         ServerContact.dialog.setTitle("Please wait");
