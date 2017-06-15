@@ -77,6 +77,8 @@ def make_plan():
     for friend in phone_data['friends']:
         dbManager.insert_grouvie(friend, leader, showtime, None, None, None,
                                  None)
+    print "MADE NEW PLAN"
+    return ''
 
 
 # TODO: UNTESTED
@@ -87,6 +89,7 @@ def new_user():
     latitude, longitude = dParser.get_latlong(phone_data['postcode'])
     dbManager.insert_user(phone_data['phone_number'], phone_data['name'],
                           latitude, longitude)
+    print "ADDED NEW USER."
     return "DONE!!!"
 
 @app.route("/verify_user", methods=['GET', 'POST'])
@@ -96,6 +99,7 @@ def verify_user():
     # Convert user to tuple before passing to select_valid_users
     results = dbManager.select_valid_users(user,)
     # If the user is in the database, give return code 1, otherwise, 0
+    print "VALID USER" if user else "INVALID USER"
     return 1 if results else 0
 
 @app.route("/verify_friends", methods=['GET', 'POST'])
@@ -108,6 +112,7 @@ def verify_friends():
     valid_friends = {}
     for user in valid_users:
         valid_friends[user[0]] = user[1]
+    print "VALID FRIENDS:", valid_friends
     return json.dumps(valid_friends)
 
 @app.route("/get_user", methods=['GET', 'POST'])
@@ -119,6 +124,7 @@ def get_user():
                  "name": user_data[1],
                  "latitude": user_data[2],
                  "longitude": user_data[3]}
+    print "USER:", json_data
     return json.dumps(json_data)
 
 # TODO: UNTESTED
@@ -140,7 +146,7 @@ def delete_single():
     dbManager.delete_single_grouvie(phone_data['phone_number'],
                                     phone_data['leader'],
                                     phone_data['showtime'])
-    return "DONE!!!"
+    return "SOMEONE CANT GO"
 
 
 # TODO: UNTESTED
@@ -151,7 +157,7 @@ def delete_plan():
     phone_data = json.loads(request.data)
     dbManager.delete_plan_grouvie(phone_data['leader'],
                                   phone_data['showtime'])
-    return "DONE!!!"
+    return "DELETED PLAN"
 
 
 if __name__ == "__main__":

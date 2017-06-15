@@ -103,7 +103,6 @@ public class ProfileManager {
 
     //Add friends to friendList
     public static void addFriends(ArrayList<Friend> contactsToAdd, Context context) {
-
         //Obtain current friends
         ArrayList<Friend> currentFriends = getFriends(context);
 
@@ -150,7 +149,6 @@ public class ProfileManager {
             String jsonString = gson.toJson(friendList);
             sp.edit().putString(USER_FRIENDS_ID, jsonString).apply();
         }
-        
         return friendList;
     }
 

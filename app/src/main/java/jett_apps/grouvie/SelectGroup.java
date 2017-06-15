@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -206,15 +208,17 @@ public class SelectGroup extends AppCompatActivity {
         for (Friend grouvieFriend : grouvieContacts) {
             grouvieContactsPhoneNum.add(grouvieFriend.getPhoneNum());
         }
+        Log.v("Grouvie contacts:", grouvieContactsPhoneNum.toString());
 
         //Obtain all user contacts
         ArrayList<String> queryIfReg = getContactPhoneNums(SelectGroup.this);
-
+        Log.v("PHONE CONTACTS:", queryIfReg.toString());
         // Remove friend phone numbers from all user contacts to obtain phone numbers that may
         // need to be added to grouvieFriendsList
         queryIfReg.removeAll(grouvieContactsPhoneNum);
 
         String[] possible_grouvie_contacts = queryIfReg.toArray(new String[queryIfReg.size()]);
+        Log.v("POSSIBLE GROUVIES:", Arrays.toString(possible_grouvie_contacts));
         String result = null;
         try {
             result = new ServerContact().execute("verify_friends", Arrays.toString(possible_grouvie_contacts)).get();
@@ -302,6 +306,14 @@ public class SelectGroup extends AppCompatActivity {
             }
             pCur.close();
         }
+//        Friend Jay = new Friend("Jay", "077777777");
+//        Friend Tarun = new Friend("Tarun", "0888888888");
+//        Friend Tanmay = new Friend("Tanmay", "09999999999");
+//        ArrayList<Friend> friends = new ArrayList<>();
+//        friends.add(Jay);
+//        friends.add(Tarun);
+//        friends.add(Tanmay);
+//        return new ArrayList<>(Arrays.asList("07777777777", "08888888888", "09999999999"));
         return null;
     }
 
