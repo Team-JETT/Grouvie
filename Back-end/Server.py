@@ -3,6 +3,8 @@ import json
 
 
 from os import environ
+
+import decimal
 from flask import Flask, request
 from DBManager import DBManager
 from DataParser import DataParser
@@ -135,7 +137,14 @@ def get_user():
                  "longitude": user_data[3]}
     print "USER: " + json.dumps(json_data)
     stdout.flush()
-    return json.dumps(json_data)
+    return json.dumps(json_data, cls=DecimalEncoder)
+
+
+class DecimalEncoder(json.JSONEncoder):
+    def _iterencode(self, o, markers=None):
+        if isinstance(o, decimal.Decimal):
+            return (str(o) for o in [o])
+        return super(DecimalEncoder, self)._iterencode(o, markers)
 
 # TODO: UNTESTED
 @app.route("/update_postcode", methods=['GET', 'POST'])
