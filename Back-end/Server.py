@@ -119,7 +119,7 @@ def verify_friends():
     valid_friends = {}
     for user in valid_users:
         valid_friends[user[0]] = user[1]
-    print friends
+    print request.data
     print "VALID FRIENDS:", valid_friends
     stdout.flush()
     return json.dumps(valid_friends)
