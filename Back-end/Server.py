@@ -1,4 +1,6 @@
+from sys import stdout
 import json
+
 
 from os import environ
 from flask import Flask, request
@@ -78,6 +80,7 @@ def make_plan():
         dbManager.insert_grouvie(friend, leader, showtime, None, None, None,
                                  None)
     print "MADE NEW PLAN"
+    stdout.flush()
     return ''
 
 
@@ -90,16 +93,19 @@ def new_user():
     dbManager.insert_user(phone_data['phone_number'], phone_data['name'],
                           latitude, longitude)
     print "ADDED NEW USER."
+    stdout.flush()
     return "DONE!!!"
 
 @app.route("/verify_user", methods=['GET', 'POST'])
 def verify_user():
     """Given a phone number, verifies that the user is a Grouvie user."""
     user = request.data
+    print user
     # Convert user to tuple before passing to select_valid_users
     results = dbManager.select_valid_users([user])
     # If the user is in the database, give return code 1, otherwise, 0
-    print "VALID USER" if user else "INVALID USER"
+    print "VALID USER" if results else "INVALID USER"
+    stdout.flush()
     return "1" if results else "0"
 
 @app.route("/verify_friends", methods=['GET', 'POST'])
@@ -113,18 +119,21 @@ def verify_friends():
     for user in valid_users:
         valid_friends[user[0]] = user[1]
     print "VALID FRIENDS:", valid_friends
+    stdout.flush()
     return json.dumps(valid_friends)
 
 @app.route("/get_user", methods=['GET', 'POST'])
 def get_user():
     """Given a user phone number, gets the users personal data."""
     phone_number = request.data
+    print phone_number
     user_data = dbManager.select_users(phone_number)
     json_data = {"phone_number": user_data[0],
                  "name": user_data[1],
                  "latitude": user_data[2],
                  "longitude": user_data[3]}
     print "USER:", json_data
+    stdout.flush()
     return json.dumps(json_data)
 
 # TODO: UNTESTED
@@ -135,7 +144,9 @@ def update_postcode():
     latitude, longitude = dParser.get_latlong(phone_data['postcode'])
     dbManager.update_users(phone_data['phone_number'], phone_data['name'],
                            latitude, longitude)
-    return "DONE!!!"
+    print "DONE!!!"
+    stdout.flush()
+    return
 
 
 # TODO: UNTESTED
@@ -146,7 +157,8 @@ def delete_single():
     dbManager.delete_single_grouvie(phone_data['phone_number'],
                                     phone_data['leader'],
                                     phone_data['showtime'])
-    return "SOMEONE CANT GO"
+    print "SOMEONE CANT GO"
+    return
 
 
 # TODO: UNTESTED
@@ -157,7 +169,9 @@ def delete_plan():
     phone_data = json.loads(request.data)
     dbManager.delete_plan_grouvie(phone_data['leader'],
                                   phone_data['showtime'])
-    return "DELETED PLAN"
+    stdout.flush()
+    print "DELETED PLAN"
+    return
 
 @app.route("/change_film", methods=['GET', 'POST'])
 def change_film():
@@ -166,8 +180,9 @@ def change_film():
                           phone_data['leader'],
                           phone_data['showtime'],
                           phone_data['film'])
-    return "CHANGED FILM FOR " + phone_data['phone_number']
-
+    stdout.flush()
+    print "CHANGED FILM FOR " + phone_data['phone_number']
+    return
 
 @app.route("/change_cinema", methods=['GET', 'POST'])
 def change_cinema():
@@ -176,8 +191,9 @@ def change_cinema():
                             phone_data['phone_number'],
                             phone_data['leader'],
                             phone_data['showtime'])
-    return "CHANGED CINEMA FOR " + phone_data['phone_number']
-
+    print "CHANGED CINEMA FOR " + phone_data['phone_number']
+    stdout.flush()
+    return
 
 @app.route("/change_showtime", methods=['GET', 'POST'])
 def change_showtime():
@@ -186,7 +202,9 @@ def change_showtime():
                               phone_data['phone_number'],
                               phone_data['leader'],
                               phone_data['showtime'])
-    return "CHANGED SHOWTIME FOR " + phone_data['phone_number']
+    print "CHANGED SHOWTIME FOR " + phone_data['phone_number']
+    stdout.flush()
+    return
 
 
 if __name__ == "__main__":
