@@ -31,11 +31,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import static jett_apps.grouvie.LandingPage.DATE_MESSAGE;
-import static jett_apps.grouvie.LandingPage.DAY;
-import static jett_apps.grouvie.LandingPage.GROUP_LIST;
-import static jett_apps.grouvie.LandingPage.MONTH;
-import static jett_apps.grouvie.LandingPage.YEAR;
 import static jett_apps.grouvie.LandingPage.DATA;
 
 public class SelectGroup extends AppCompatActivity {
