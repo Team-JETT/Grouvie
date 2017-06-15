@@ -45,7 +45,8 @@
         <activity android:name=".LandingPage" />
         <activity android:name=".CurrentPlanView" />
         <activity android:name=".SignUpActivity" />
-        <activity android:name=".ProfilePage"></activity>
+        <activity android:name=".ProfilePage" />
+        <activity android:name=".GroupView"></activity>
     </application>
 
 </manifest>

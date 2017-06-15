@@ -8,7 +8,7 @@ import sys
 
 MILE_TO_KM = 1.60934
 CINEMA_MATCH_REGEX = r"(?P<cinema>[^,]*)"
-NUM_OF_CINEMAS = 10
+NUM_OF_CINEMAS = 25
 
 # TODO: PLEASE DON'T USE THESE METHODS TOO MUCH. THEY ACTUALLY QUERY THE API.
 # IF YOU'RE GOING TO USE A LOT, SAVE THE DATA YOURSELF FOR TESTING.
@@ -26,7 +26,7 @@ class DataParser:
         Give this function a longitude and latitude and CINEMAS, CINEMA_IDS and
         DISTANCES lists are populated with (up to) 5 results.
         """
-        print((latitude, longitude))
+        print latitude, longitude
         sys.stdout.flush()
         global CINEMAS, CINEMA_CID, CINEMA_DIST
         film_names = requests.get(

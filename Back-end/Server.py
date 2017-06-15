@@ -97,10 +97,10 @@ def verify_user():
     """Given a phone number, verifies that the user is a Grouvie user."""
     user = request.data
     # Convert user to tuple before passing to select_valid_users
-    results = dbManager.select_valid_users(user,)
+    results = dbManager.select_valid_users([user])
     # If the user is in the database, give return code 1, otherwise, 0
     print "VALID USER" if user else "INVALID USER"
-    return 1 if results else 0
+    return "1" if results else "0"
 
 @app.route("/verify_friends", methods=['GET', 'POST'])
 def verify_friends():
@@ -158,6 +158,35 @@ def delete_plan():
     dbManager.delete_plan_grouvie(phone_data['leader'],
                                   phone_data['showtime'])
     return "DELETED PLAN"
+
+@app.route("/change_film", methods=['GET', 'POST'])
+def change_film():
+    phone_data = json.loads(request.data)
+    dbManager.change_film(phone_data['phone_number'],
+                          phone_data['leader'],
+                          phone_data['showtime'],
+                          phone_data['film'])
+    return "CHANGED FILM FOR " + phone_data['phone_number']
+
+
+@app.route("/change_cinema", methods=['GET', 'POST'])
+def change_cinema():
+    phone_data = json.loads(request.data)
+    dbManager.change_cinema(phone_data['cinema'],
+                            phone_data['phone_number'],
+                            phone_data['leader'],
+                            phone_data['showtime'])
+    return "CHANGED CINEMA FOR " + phone_data['phone_number']
+
+
+@app.route("/change_showtime", methods=['GET', 'POST'])
+def change_showtime():
+    phone_data = json.loads(request.data)
+    dbManager.change_showtime(phone_data['new_showtime'],
+                              phone_data['phone_number'],
+                              phone_data['leader'],
+                              phone_data['showtime'])
+    return "CHANGED SHOWTIME FOR " + phone_data['phone_number']
 
 
 if __name__ == "__main__":
