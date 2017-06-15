@@ -34,6 +34,7 @@ public class SuggestChange extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SuggestChange.this, SelectFilm.class);
+                //Small change
 
             }
         });
