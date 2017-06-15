@@ -24,7 +24,6 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,8 +31,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import static jett_apps.grouvie.LandingPage.DAY;
 import static jett_apps.grouvie.LandingPage.DATE_MESSAGE;
+import static jett_apps.grouvie.LandingPage.DAY;
 import static jett_apps.grouvie.LandingPage.GROUP_LIST;
 import static jett_apps.grouvie.LandingPage.MONTH;
 import static jett_apps.grouvie.LandingPage.YEAR;
@@ -299,6 +298,9 @@ public class SelectGroup extends AppCompatActivity {
                                 contacts.addAll(phones.get(id));
                             }
                         }
+
+                        //TODO: Remove erroneous phone numbers and all should have same format
+
                         return contacts;
                     }
                     cur.close();
