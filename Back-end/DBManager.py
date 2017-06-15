@@ -69,6 +69,22 @@ WHERE
 PHONE_NUMBER = %s
 """
 
+# Update a users preference of film
+CHANGE_FILM = """
+UPDATE GROUVIE
+SET FILM = %s
+WHERE
+PHONE_NUMBER = %s and LEADER = %s and SHOWTIME = %s
+"""
+
+# Update a users preference of cinema
+CHANGE_CINEMA = """
+UPDATE GROUVIE
+SET CINEMA = %s
+WHERE
+PHONE_NUMBER = %s and LEADER = %s and SHOWTIME = %s
+"""
+
 # Delete entry from a table given a phone_number, leader and showtime
 DELETE_SINGLE = """
 DELETE FROM GROUVIE
@@ -176,6 +192,11 @@ class DBManager:
     def insert_user(self, phone_number, name, latitude, longitude):
         cnxn, cursor = self.establish_connection()
         cursor.execute(INSERT_USERS, (phone_number, name, latitude, longitude))
+        self.close_connection(cnxn, cursor)
+
+    def change_film(self, phone_number, name, showtime, film):
+        cnxn, cursor = self.establish_connection()
+        cursor.execute()
         self.close_connection(cnxn, cursor)
 
     # Update an entry in the Grouvie table if it exists.

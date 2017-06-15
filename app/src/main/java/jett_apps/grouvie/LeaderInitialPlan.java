@@ -3,6 +3,7 @@ package jett_apps.grouvie;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -61,6 +62,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        Log.v("MAKE PLAN:", json.toString());
         // Send initial/draft plan to web server to update the database
         new ServerContact().execute("make_plan", json.toString());
 

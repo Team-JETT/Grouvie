@@ -97,10 +97,10 @@ def verify_user():
     """Given a phone number, verifies that the user is a Grouvie user."""
     user = request.data
     # Convert user to tuple before passing to select_valid_users
-    results = dbManager.select_valid_users(user,)
+    results = dbManager.select_valid_users([user])
     # If the user is in the database, give return code 1, otherwise, 0
     print "VALID USER" if user else "INVALID USER"
-    return 1 if results else 0
+    return "1" if results else "0"
 
 @app.route("/verify_friends", methods=['GET', 'POST'])
 def verify_friends():
@@ -159,6 +159,19 @@ def delete_plan():
                                   phone_data['showtime'])
     return "DELETED PLAN"
 
+@app.route("/change_film", methods=['GET', 'POST'])
+def change_film():
+    phone_data = json.loads(request.data)
+
+
+
+@app.route("/change_cinema", methods=['GET', 'POST'])
+def change_cinema():
+    pass
+
+@app.route("/change_showtime", methods=['GET', 'POST'])
+def change_showtime():
+    pass
 
 if __name__ == "__main__":
     dbManager = DBManager()

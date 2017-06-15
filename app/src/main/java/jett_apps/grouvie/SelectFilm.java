@@ -52,6 +52,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         obtainLocation();
 
         final JSONObject local_data = getLocalData();
+        Log.v("LOCAL DATA:", local_data.toString());
 
         final ArrayList<Film> films = new ArrayList<>();
         Iterator<String> iter = local_data.keys();

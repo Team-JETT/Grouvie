@@ -26,7 +26,7 @@ class DataParser:
         Give this function a longitude and latitude and CINEMAS, CINEMA_IDS and
         DISTANCES lists are populated with (up to) 5 results.
         """
-        print((latitude, longitude))
+        print latitude, longitude
         sys.stdout.flush()
         global CINEMAS, CINEMA_CID, CINEMA_DIST
         film_names = requests.get(
