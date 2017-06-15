@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
+import static jett_apps.grouvie.LandingPage.CHANGE_MESSAGE;
 import static jett_apps.grouvie.LandingPage.DATA;
 
 public class SelectFilm extends AppCompatActivity implements LocationListener {
@@ -87,11 +88,19 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                     }
                     final JSONArray cinemaData = cinema_data;
 
+                    Intent cinemaIntent = new Intent(view.getContext(), SelectCinema.class);
+                    /* My reasoning here is that if there was a change in plan made by a member of
+                    * the group who is not the leader, a planChange object will exist. This is sort
+                    * of like confirming that a plan change has been made.*/
+                    if(getIntent().getSerializableExtra(CHANGE_MESSAGE) != null) {
+                        PlanChange planChange =
+                                (PlanChange) getIntent().getSerializableExtra(CHANGE_MESSAGE);
+                        planChange.setFilmTitle(filmTitle);
+                        cinemaIntent.putExtra(CHANGE_MESSAGE, planChange);
+                    }
+
                     data.setCinemaData(cinemaData.toString());
                     data.setFilmTitle(filmTitle);
-
-                    Intent cinemaIntent = new Intent(view.getContext(), SelectCinema.class);
-
                     cinemaIntent.putExtra(DATA, data);
 
                     startActivity(cinemaIntent);

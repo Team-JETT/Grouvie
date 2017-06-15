@@ -16,17 +16,11 @@ import java.util.Calendar;
 
 public class LandingPage extends AppCompatActivity {
 
-
-    public static final String FILM_MESSAGE = "FILMTITLE";
-    public static final String CINEMA_MESSAGE = "CINEMATITLE";
-    public static final String SHOWTIME_MESSAGE = "SHOWTIME";
-    public static final String DATE_MESSAGE = "EVENTDAY";
-    public static final String CINEMA_DATA = "CINEMADATA";
-    public static final String SHOWTIME_DISTANCE_DATA = "SHOWTIMEDISTANCEDATA";
-    public static final String GROUP_LIST = "GROUPLIST";
     public static final String PLAN_MESSAGE = "PLAN_MESSAGE";
 
     public static final String DATA = "DATA";
+    public static final String CHANGE_MESSAGE = "CHANGE_MESSAGE";
+
 
     private TextView name;
     private PropagationObject data;

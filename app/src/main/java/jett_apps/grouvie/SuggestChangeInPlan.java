@@ -1,11 +1,13 @@
 package jett_apps.grouvie;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
 
+import static jett_apps.grouvie.LandingPage.CHANGE_MESSAGE;
 import static jett_apps.grouvie.LandingPage.PLAN_MESSAGE;
-import static jett_apps.grouvie.R.id.currentFilm;
 
 public class SuggestChangeInPlan extends AppCompatActivity {
 
@@ -20,9 +22,19 @@ public class SuggestChangeInPlan extends AppCompatActivity {
 
         TextView film = (TextView) findViewById(R.id.currentFilm);
         film.setText(p.getSuggestedFilm());
+        film.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), SelectFilm.class);
+                PlanChange planChange = new PlanChange();
+                intent.putExtra(CHANGE_MESSAGE, planChange);
+                startActivity(intent);
+            }
+        });
 
         TextView date = (TextView) findViewById(R.id.currentDate);
         date.setText(p.getSuggestedDate());
+
 
         TextView time = (TextView) findViewById(R.id.currentShowtime);
         time.setText(p.getSuggestedShowTime());
