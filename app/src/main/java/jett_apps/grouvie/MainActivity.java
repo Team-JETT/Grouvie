@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -204,6 +206,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             }
         };
         // [END phone_auth_callbacks]
+
+        GoogleApiAvailability.getInstance().makeGooglePlayServicesAvailable(MainActivity.this);
     }
 
     // [START on_start_check_user]
