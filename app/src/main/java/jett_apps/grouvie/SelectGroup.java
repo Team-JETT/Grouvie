@@ -291,7 +291,7 @@ public class SelectGroup extends AppCompatActivity {
 
                         ArrayList<String> validContacts = new ArrayList<>();
 
-                        //TODO: Remove erroneous phone numbers and all should have same format
+                        //Remove erroneous phone numbers and all should have same format
                         for (String phoneNum : contacts) {
 
                             //Remove spaces
@@ -322,9 +322,12 @@ public class SelectGroup extends AppCompatActivity {
                                 continue;
                             }
 
+                            if (phoneNum.equals(ProfileManager.getPhone(SelectGroup.this))) {
+                                continue;
+                            }
+
                             validContacts.add(phoneNum);
                         }
-
 
                         return validContacts;
                     }
