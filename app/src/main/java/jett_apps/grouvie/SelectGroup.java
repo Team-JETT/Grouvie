@@ -46,14 +46,14 @@ public class SelectGroup extends AppCompatActivity {
     private ArrayList<Friend> friends;
     private ArrayList<Friend> selectedFriends;
 
-    private PropogationObject data;
+    private PropagationObject data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_group);
 
-        data = (PropogationObject) getIntent().getSerializableExtra(DATA);
+        data = (PropagationObject) getIntent().getSerializableExtra(DATA);
 
         // Finds the listView resource.
         ListView listView = (ListView) findViewById(R.id.listView);

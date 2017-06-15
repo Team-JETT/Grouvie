@@ -23,6 +23,8 @@ public class SuggestChange extends AppCompatActivity {
 
         p = (Plan) getIntent().getSerializableExtra(PLAN_MESSAGE);
 
+
+
         chosenFilm = p.getSuggestedFilm();
         chosenDate = p.getSuggestedDate();
         chosenTime = p.getSuggestedShowTime();
@@ -34,7 +36,7 @@ public class SuggestChange extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SuggestChange.this, SelectFilm.class);
-                //Small change
+
 
             }
         });

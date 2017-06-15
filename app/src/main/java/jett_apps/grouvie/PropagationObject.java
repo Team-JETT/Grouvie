@@ -5,7 +5,7 @@ import org.json.JSONArray;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-class PropogationObject implements Serializable {
+class PropagationObject implements Serializable {
     
     String date;
     int day;
@@ -17,7 +17,7 @@ class PropogationObject implements Serializable {
     private String showtimeDistance;
     private String chosenTime;
 
-    public PropogationObject() {
+    public PropagationObject() {
         
     }
 

@@ -34,7 +34,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
     double latitude = 51.499074;
     double longitude = -0.177070;
 
-    private PropogationObject data;
+    private PropagationObject data;
 
 
     @Override
@@ -45,7 +45,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         this.intent = getIntent();
 
-        data = (PropogationObject) intent.getSerializableExtra(DATA);
+        data = (PropagationObject) intent.getSerializableExtra(DATA);
 
         obtainLocation();
 
@@ -80,7 +80,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                     Log.v("CHOSEN FILM", filmTitle);
                     JSONArray cinema_data = null;
                     try {
-                        cinema_data = local_data.getJSONObject(filmTitle).getJSONArray("chosenCinema");
+                        cinema_data = local_data.getJSONObject(filmTitle).getJSONArray("cinema");
                         Log.v("CINEMA DATA", cinema_data.toString());
                     } catch (JSONException e) {
                         e.printStackTrace();

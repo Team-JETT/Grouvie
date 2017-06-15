@@ -29,14 +29,14 @@ public class LandingPage extends AppCompatActivity {
     public static final String DATA = "DATA";
 
     private TextView name;
-    private PropogationObject data;
+    private PropagationObject data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page);
 
-        data = new PropogationObject();
+        data = new PropagationObject();
 
         final ArrayList<Plan> currentPlans = CurrentPlans.getPlans(LandingPage.this);
         ListAdapter planAdapter = new CustomPlanAdapter(this, currentPlans);

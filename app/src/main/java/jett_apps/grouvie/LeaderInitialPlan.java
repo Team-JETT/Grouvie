@@ -23,14 +23,14 @@ public class LeaderInitialPlan extends AppCompatActivity {
     private ArrayList<Friend> chosenGroup;
     private String cinemaData;
 
-    private PropogationObject data;
+    private PropagationObject data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leader_initial_plan);
 
-        data = (PropogationObject) getIntent().getSerializableExtra(DATA);
+        data = (PropagationObject) getIntent().getSerializableExtra(DATA);
 
         chosenFilm = data.getFilmTitle();
         chosenCinema = data.getCinemaData();
