@@ -43,11 +43,6 @@ public class CurrentPlanView extends AppCompatActivity {
             button.setVisibility(View.INVISIBLE);
         }
 
-        // Tapping on any text view takes you to a page where you can suggest
-        // a change.
-        final Intent changeIntent = new Intent(this, SuggestChange.class);
-        changeIntent.putExtra(PLAN_MESSAGE, p);
-
         TextView film = (TextView) findViewById(R.id.SelectedFilm);
         film.setText(chosenFilm);
 
@@ -65,6 +60,12 @@ public class CurrentPlanView extends AppCompatActivity {
     public void viewGroupReplies(View view) {
         //TODO: Show activity with group replies and option to replan.
         Intent intent = new Intent(view.getContext(), GroupView.class);
+        intent.putExtra(PLAN_MESSAGE, p);
+        startActivity(intent);
+    }
+
+    public void makeChange(View view) {
+        Intent intent = new Intent(view.getContext(), SuggestChangeInPlan.class);
         intent.putExtra(PLAN_MESSAGE, p);
         startActivity(intent);
     }
@@ -99,11 +100,5 @@ public class CurrentPlanView extends AppCompatActivity {
         startActivity(intent);
         //TODO: Show activity with group replies and option to replan.
 
-    }
-
-    public void change(View view) {
-        Intent intent = new Intent(this, SuggestChange.class);
-        intent.putExtra(PLAN_MESSAGE, p);
-        startActivity(intent);
     }
 }

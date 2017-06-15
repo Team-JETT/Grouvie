@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="jett_apps.grouvie.SuggestChange">
+    tools:context="jett_apps.grouvie.SuggestChangeInPlan">
 
     <TextView
         android:id="@+id/currentFilm"
@@ -20,7 +20,7 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintVertical_bias="0.178"
+        app:layout_constraintVertical_bias="0.433"
         app:layout_constraintHorizontal_bias="0.116" />
 
     <TextView
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:textSize="25sp"
         android:text="TextView"
-        android:layout_marginBottom="93dp"
+        android:layout_marginBottom="78dp"
         app:layout_constraintBottom_toTopOf="@+id/currentCinema"
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent"
@@ -64,4 +64,5 @@
         android:layout_marginLeft="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintHorizontal_bias="0.116" />
+
 </android.support.constraint.ConstraintLayout>
