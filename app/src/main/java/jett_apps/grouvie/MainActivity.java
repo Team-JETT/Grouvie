@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     public static FirebaseAuth mAuth;
     // [END declare_auth]
 
-    private String userPhoneNo;
+    private static String userPhoneNo = "07964006128";
 
     private boolean mVerificationInProgress = false;
     private String mVerificationId;
@@ -64,6 +64,24 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private Button mResendButton;
     private Button mSignOutButton;
 
+    public void signUpActivity(View view) {
+
+        Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+        intent.putExtra(USER_PHONE_NO, userPhoneNo);
+        startActivity(intent);
+
+    }
+
+    public void test(View view) {
+    }
+
+    public void signInActivity(View view) {
+        Intent intent = new Intent(MainActivity.this, LandingPage.class);
+        startActivity(intent);
+//            Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
+//            intent.putExtra(USER_PHONE_NO, userPhoneNo);
+//            startActivity(intent);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,31 +89,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         setContentView(R.layout.activity_main);
 
 
-
-
         //TODO: Remove this and the button for release
-        userPhoneNo = "07964006128";
-
         Button signInButton = (Button) findViewById(R.id.signinButton);
+//        Button signUpButton = (Button) findViewById(R.id.signupButton);
         signInButton.setVisibility(View.VISIBLE);
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, LandingPage.class);
-                startActivity(intent);
-            }
-        });
+//        signUpButton.setVisibility(View.VISIBLE);
 
-        Button contButton = (Button) findViewById(R.id.signupButton);
-        contButton.setVisibility(View.VISIBLE);
-        contButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
-                intent.putExtra(USER_PHONE_NO, userPhoneNo);
-                startActivity(intent);
-            }
-        });
         //TODO: Remove above beofore release
 
 

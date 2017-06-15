@@ -25,6 +25,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         userPhoneNo = getIntent().getStringExtra(USER_PHONE_NO);
+        assert userPhoneNo != null;
 
         // Check if phoneNo is registered already. If so, skip signup
         int success_code = 0;

@@ -36,17 +36,26 @@
 
 
     <Button
-        android:id="@+id/signinButton"
+        android:id="@+id/testButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SignIn"
-        android:visibility="invisible" />
+        android:onClick="signUpActivity"
+        android:text="SignUp" />
 
     <Button
         android:id="@+id/signupButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:onClick="signUpButton"
         android:text="SignUp"
+        android:visibility="invisible" />
+
+    <Button
+        android:id="@+id/signinButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="signInActivity"
+        android:text="SignIn"
         android:visibility="invisible" />
 
     <RelativeLayout

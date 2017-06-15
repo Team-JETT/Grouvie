@@ -24,7 +24,6 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -32,8 +31,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import static jett_apps.grouvie.LandingPage.DAY;
 import static jett_apps.grouvie.LandingPage.DATE_MESSAGE;
+import static jett_apps.grouvie.LandingPage.DAY;
 import static jett_apps.grouvie.LandingPage.GROUP_LIST;
 import static jett_apps.grouvie.LandingPage.MONTH;
 import static jett_apps.grouvie.LandingPage.YEAR;
@@ -299,7 +298,45 @@ public class SelectGroup extends AppCompatActivity {
                                 contacts.addAll(phones.get(id));
                             }
                         }
-                        return contacts;
+
+                        ArrayList<String> validContacts = new ArrayList<>();
+
+                        //TODO: Remove erroneous phone numbers and all should have same format
+                        for (String phoneNum : contacts) {
+
+                            //Remove spaces
+                            phoneNum = phoneNum.replaceAll("\\s+","");
+
+                            //Remove dashes
+                            phoneNum.replaceAll("\\D", "");
+
+//                          //Convert international phone numbers to UK local
+                            if (phoneNum.startsWith("00")) {
+                                phoneNum = phoneNum.substring(2);
+                                phoneNum = "+" + phoneNum;
+                            }
+
+//                          //Convert international phone numbers to UK local
+                            if (phoneNum.startsWith("+44")) {
+                                phoneNum = phoneNum.substring(3);
+                                phoneNum = "0" + phoneNum;
+                            }
+//
+//                            //Remove any non-mobile phone numbers
+//                            if (!phoneNum.startsWith("07")) {
+//                                continue;
+//                            }
+//
+//                            //If phone number isn't valid in terms of length
+//                            if (phoneNum.length() != 11) {
+//                                continue;
+//                            }
+
+                            validContacts.add(phoneNum);
+                        }
+
+
+                        return validContacts;
                     }
                     cur.close();
                 }
