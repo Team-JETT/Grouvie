@@ -162,16 +162,32 @@ def delete_plan():
 @app.route("/change_film", methods=['GET', 'POST'])
 def change_film():
     phone_data = json.loads(request.data)
-
+    dbManager.change_film(phone_data['phone_number'],
+                          phone_data['leader'],
+                          phone_data['showtime'],
+                          phone_data['film'])
+    return "CHANGED FILM FOR " + phone_data['phone_number']
 
 
 @app.route("/change_cinema", methods=['GET', 'POST'])
 def change_cinema():
-    pass
+    phone_data = json.loads(request.data)
+    dbManager.change_cinema(phone_data['cinema'],
+                            phone_data['phone_number'],
+                            phone_data['leader'],
+                            phone_data['showtime'])
+    return "CHANGED CINEMA FOR " + phone_data['phone_number']
+
 
 @app.route("/change_showtime", methods=['GET', 'POST'])
 def change_showtime():
-    pass
+    phone_data = json.loads(request.data)
+    dbManager.change_showtime(phone_data['new_showtime'],
+                              phone_data['phone_number'],
+                              phone_data['leader'],
+                              phone_data['showtime'])
+    return "CHANGED SHOWTIME FOR " + phone_data['phone_number']
+
 
 if __name__ == "__main__":
     dbManager = DBManager()

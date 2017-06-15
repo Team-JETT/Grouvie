@@ -202,9 +202,20 @@ class DBManager:
         cursor.execute(INSERT_USERS, (phone_number, name, latitude, longitude))
         self.close_connection(cnxn, cursor)
 
-    def change_film(self, phone_number, name, showtime, film):
+    def change_film(self, phone_number, leader, showtime, film):
         cnxn, cursor = self.establish_connection()
-        cursor.execute()
+        cursor.execute(CHANGE_FILM, (film, phone_number, leader, showtime))
+        self.close_connection(cnxn, cursor)
+
+    def change_cinema(self, phone_number, leader, showtime, cinema):
+        cnxn, cursor = self.establish_connection()
+        cursor.execute(CHANGE_CINEMA, (cinema, phone_number, leader, showtime))
+        self.close_connection(cnxn, cursor)
+
+    def change_showtime(self, phone_number, leader, showtime, new_showtime):
+        cnxn, cursor = self.establish_connection()
+        cursor.execute(CHANGE_SHOWTIME, (new_showtime, phone_number, leader,
+                                         showtime))
         self.close_connection(cnxn, cursor)
 
     # Update an entry in the Grouvie table if it exists.
