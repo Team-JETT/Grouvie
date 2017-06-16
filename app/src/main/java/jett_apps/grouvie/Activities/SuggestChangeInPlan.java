@@ -9,6 +9,7 @@ import android.widget.TextView;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.HelperObjects.PlanChange;
 import jett_apps.grouvie.R;
+import jett_apps.grouvie.Views.CurrentPlanView;
 
 import static jett_apps.grouvie.Views.LandingPage.CHANGE_MESSAGE;
 import static jett_apps.grouvie.Views.LandingPage.PLAN_MESSAGE;
