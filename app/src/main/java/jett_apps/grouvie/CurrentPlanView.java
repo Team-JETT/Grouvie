@@ -39,7 +39,7 @@ public class CurrentPlanView extends AppCompatActivity {
 
         Button button = (Button) findViewById(R.id.cancelPlan);
 
-        if(ProfileManager.getPhone(this) != p.getLeaderPhoneNum()) {
+        if(!ProfileManager.getPhone(this).equals(p.getLeaderPhoneNum())) {
             button.setVisibility(View.INVISIBLE);
         }
 
@@ -54,6 +54,15 @@ public class CurrentPlanView extends AppCompatActivity {
 
         TextView day = (TextView) findViewById(R.id.SelectedDay);
         day.setText(chosenDay);
+
+        Button backButton = (Button) findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CurrentPlanView.this, LandingPage.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -103,4 +112,10 @@ public class CurrentPlanView extends AppCompatActivity {
         //TODO: Show activity with group replies and option to replan.
 
     }
+
+    public void backButton(View view) {
+        Intent intent = new Intent(CurrentPlanView.this, LandingPage.class);
+        startActivity(intent);
+    }
+
 }

@@ -1,21 +1,16 @@
 package jett_apps.grouvie;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.util.ArrayList;
 
 import static jett_apps.grouvie.LandingPage.CHANGE_MESSAGE;
-import static jett_apps.grouvie.LandingPage.DATA;
 import static jett_apps.grouvie.LandingPage.PLAN_MESSAGE;
 
 public class SelectFilmChange extends AppCompatActivity {
@@ -47,6 +42,7 @@ public class SelectFilmChange extends AppCompatActivity {
                         planChange.setFilmTitle(filmTitle);
                         Intent intent = new Intent(view.getContext(), SuggestChangeInPlan.class);
                         intent.putExtra(CHANGE_MESSAGE, planChange);
+                        intent.putExtra(PLAN_MESSAGE, p);
                         startActivity(intent);
                     }
                 }

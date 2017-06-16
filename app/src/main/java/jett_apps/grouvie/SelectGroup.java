@@ -69,6 +69,8 @@ public class SelectGroup extends AppCompatActivity {
             }
         });
 
+        updateFriendsAuto();
+
         // Populates the friends list with friend objects.
         updateFriendSelectionList();
 
@@ -167,9 +169,7 @@ public class SelectGroup extends AppCompatActivity {
         return friends;
     }
 
-
-
-    public void updateFriendsAfterPermission(View view) {
+    public void updateFriendsAuto() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 checkSelfPermission(android.Manifest.permission.READ_CONTACTS)

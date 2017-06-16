@@ -52,9 +52,13 @@ public class SuggestChangeInPlan extends AppCompatActivity {
 
         TextView cinema = (TextView) findViewById(R.id.currentCinema);
         cinema.setText(p.getSuggestedCinema());
+
+
     }
 
-    public void done() {
-
+    public void done(View view) {
+        Intent intent = new Intent(SuggestChangeInPlan.this, CurrentPlanView.class);
+        intent.putExtra(PLAN_MESSAGE, p);
+        startActivity(intent);
     }
 }
