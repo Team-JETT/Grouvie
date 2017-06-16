@@ -1,4 +1,4 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.HelperClasses;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -9,6 +9,8 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
+
+import jett_apps.grouvie.HelperObjects.Plan;
 
 public class CurrentPlans {
 

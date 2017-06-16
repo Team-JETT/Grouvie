@@ -1,4 +1,4 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,7 +15,16 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import static jett_apps.grouvie.LandingPage.DATA;
+import jett_apps.grouvie.HelperClasses.CurrentPlans;
+import jett_apps.grouvie.HelperObjects.Film;
+import jett_apps.grouvie.HelperObjects.Friend;
+import jett_apps.grouvie.HelperObjects.Plan;
+import jett_apps.grouvie.HelperClasses.ProfileManager;
+import jett_apps.grouvie.HelperObjects.PropagationObject;
+import jett_apps.grouvie.R;
+import jett_apps.grouvie.HelperClasses.ServerContact;
+
+import static jett_apps.grouvie.Views.LandingPage.DATA;
 
 public class LeaderInitialPlan extends AppCompatActivity {
 

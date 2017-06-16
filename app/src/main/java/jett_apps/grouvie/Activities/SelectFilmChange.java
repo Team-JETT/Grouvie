@@ -1,4 +1,4 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,8 +10,14 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-import static jett_apps.grouvie.LandingPage.CHANGE_MESSAGE;
-import static jett_apps.grouvie.LandingPage.PLAN_MESSAGE;
+import jett_apps.grouvie.Adapters.CustomFilmAdapter;
+import jett_apps.grouvie.HelperObjects.Film;
+import jett_apps.grouvie.HelperObjects.Plan;
+import jett_apps.grouvie.HelperObjects.PlanChange;
+import jett_apps.grouvie.R;
+
+import static jett_apps.grouvie.Views.LandingPage.CHANGE_MESSAGE;
+import static jett_apps.grouvie.Views.LandingPage.PLAN_MESSAGE;
 
 public class SelectFilmChange extends AppCompatActivity {
 
@@ -41,6 +47,7 @@ public class SelectFilmChange extends AppCompatActivity {
                         String filmTitle = films.get(position).getFilmName();
                         planChange.setFilmTitle(filmTitle);
                         Intent intent = new Intent(view.getContext(), SuggestChangeInPlan.class);
+                        intent.putExtra(CHANGE_MESSAGE, p);
                         intent.putExtra(CHANGE_MESSAGE, planChange);
                         intent.putExtra(PLAN_MESSAGE, p);
                         startActivity(intent);

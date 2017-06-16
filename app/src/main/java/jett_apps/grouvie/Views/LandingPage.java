@@ -1,4 +1,4 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.Views;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -13,6 +13,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import jett_apps.grouvie.HelperClasses.CurrentPlans;
+import jett_apps.grouvie.Adapters.CustomPlanAdapter;
+import jett_apps.grouvie.HelperObjects.Plan;
+import jett_apps.grouvie.HelperObjects.PropagationObject;
+import jett_apps.grouvie.R;
+import jett_apps.grouvie.Activities.SelectGroup;
 
 public class LandingPage extends AppCompatActivity {
 

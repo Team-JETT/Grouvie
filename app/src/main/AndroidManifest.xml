@@ -19,7 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Views.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,29 +27,29 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SelectFilm"
+            android:name=".Activities.SelectFilm"
             android:label="@string/title_activity_select_film"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".SelectShowtime" />
-        <activity android:name=".LeaderInitialPlan" />
+        <activity android:name=".Activities.SelectShowtime" />
+        <activity android:name=".Views.LeaderInitialPlan" />
 
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
 
-        <activity android:name=".SelectCinema" />
+        <activity android:name=".Activities.SelectCinema" />
         <activity
-            android:name=".SelectGroup"
+            android:name=".Activities.SelectGroup"
             android:label="@string/title_activity_group_selection"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LandingPage" />
-        <activity android:name=".CurrentPlanView" />
-        <activity android:name=".SignUpActivity" />
-        <activity android:name=".ProfilePage" />
-        <activity android:name=".GroupView" />
+        <activity android:name=".Views.LandingPage" />
+        <activity android:name=".Views.CurrentPlanView" />
+        <activity android:name=".Activities.SignUpActivity" />
+        <activity android:name=".Views.ProfilePage" />
+        <activity android:name=".Views.GroupView" />
         <activity android:name=".SuggestChange" />
-        <activity android:name=".SuggestChangeInPlan" />
-        <activity android:name=".SelectFilmChange"></activity>
+        <activity android:name=".Activities.SuggestChangeInPlan" />
+        <activity android:name=".Activities.SelectFilmChange"></activity>
     </application>
 
 </manifest>

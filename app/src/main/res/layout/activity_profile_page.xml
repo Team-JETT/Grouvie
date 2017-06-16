@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="jett_apps.grouvie.ProfilePage">
+    tools:context="jett_apps.grouvie.Views.ProfilePage">
 
     <EditText
         android:id="@+id/postcodeText"

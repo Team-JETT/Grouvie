@@ -1,4 +1,4 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,7 +18,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static jett_apps.grouvie.LandingPage.DATA;
+import jett_apps.grouvie.HelperObjects.PropagationObject;
+import jett_apps.grouvie.R;
+
+import static jett_apps.grouvie.Views.LandingPage.DATA;
 
 public class SelectCinema extends AppCompatActivity {
 

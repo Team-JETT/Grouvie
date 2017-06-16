@@ -1,4 +1,4 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.HelperObjects;
 
 import java.io.Serializable;
 

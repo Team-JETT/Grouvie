@@ -1,4 +1,4 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.Activities;
 
 import android.Manifest;
 import android.content.Context;
@@ -25,8 +25,13 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
-import static jett_apps.grouvie.LandingPage.CHANGE_MESSAGE;
-import static jett_apps.grouvie.LandingPage.DATA;
+import jett_apps.grouvie.Adapters.CustomFilmAdapter;
+import jett_apps.grouvie.HelperObjects.Film;
+import jett_apps.grouvie.HelperObjects.PropagationObject;
+import jett_apps.grouvie.R;
+import jett_apps.grouvie.HelperClasses.ServerContact;
+
+import static jett_apps.grouvie.Views.LandingPage.DATA;
 
 public class SelectFilm extends AppCompatActivity implements LocationListener {
 
