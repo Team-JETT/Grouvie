@@ -16,4 +16,8 @@ public class PlanChange implements Serializable {
     public void setFilmTitle(String filmTitle) {
         this.filmTitle = filmTitle;
     }
+
+    public String getFilmTitle() {
+        return filmTitle;
+    }
 }

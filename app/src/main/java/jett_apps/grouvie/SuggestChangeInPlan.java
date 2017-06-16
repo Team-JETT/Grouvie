@@ -28,7 +28,11 @@ public class SuggestChangeInPlan extends AppCompatActivity {
         }
 
         TextView film = (TextView) findViewById(R.id.currentFilm);
-        film.setText(p.getSuggestedFilm());
+        String filmTitle = planChange.getFilmTitle();
+        if(filmTitle == null) {
+            filmTitle = p.getSuggestedFilm();
+        }
+        film.setText(filmTitle);
         film.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
