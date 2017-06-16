@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.concurrent.ExecutionException;
 
 import static jett_apps.grouvie.LandingPage.DATA;
 
@@ -69,28 +70,17 @@ public class LeaderInitialPlan extends AppCompatActivity {
         // Send initial/draft plan to web server to update the database
         new ServerContact().execute("make_plan", json.toString());
 
-        String us = "_";
-        String group = "";
-        for (String member : chosenGroup) {
-//            Log.e("MEMES", ((member != null) ? member : "Dead dude"));
-            if (member != null) {
-                group += (us + member);
+        for (Friend groupMember : chosenGroup) {
+            String topicName = groupMember.getPhoneNum();
+            String result = null;
+            try {
+                result = new FirebaseContact().execute("topics/to/" + topicName, "").get();
+            } catch (InterruptedException | ExecutionException e) {
+                System.out.println("Failed to send plan to: " + topicName);
+                e.printStackTrace();
             }
+            Log.e("FCM_RES", result);
         }
-        if (group.length() > 0) {
-            group = group.substring(1);
-        }
-
-        String regex = "[/:]";
-//        String regex = "[^a-zA-Z0-9-_.~%]";
-        String sep = "-";
-        String topicName = chosenDay.replaceAll(regex, us) + sep +
-                chosenTime.replaceAll(regex, us) + sep +
-                group;
-//        Log.e("HELLO", topicName);
-        FirebaseMessaging fm = FirebaseMessaging.getInstance();
-        fm.subscribeToTopic(topicName);
-
 
         Plan p = new Plan(chosenFilm, chosenCinema, chosenTime, chosenDay, chosenGroup,
                             leaderPhoneNum);

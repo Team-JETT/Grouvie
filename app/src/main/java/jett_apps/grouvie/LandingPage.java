@@ -4,12 +4,15 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,6 +38,13 @@ public class LandingPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page);
+
+        //TODO: Check if this even works
+        String phoneNum = "07434897141";
+//        String phoneNum = ProfileManager.getPhone(this);
+        System.out.println(phoneNum);
+        Log.e("PHONE", phoneNum);
+        FirebaseMessaging.getInstance().subscribeToTopic(phoneNum);
 
         data = new PropogationObject();
 

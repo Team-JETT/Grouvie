@@ -58,6 +58,10 @@ def get_local_data():
                                              phone_data['year'],
                                              avg_latitude, avg_longitude))
 
+@app.route("/send_plan", methods=['GET', 'POST'])
+def send_plan():
+    data = json.loads(request.data)
+    leader = data['leader']
 
 # TODO: UNTESTED
 @app.route("/make_plan", methods=['GET', 'POST'])
