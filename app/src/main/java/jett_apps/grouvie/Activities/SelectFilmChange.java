@@ -47,6 +47,7 @@ public class SelectFilmChange extends AppCompatActivity {
                         String filmTitle = films.get(position).getFilmName();
                         planChange.setFilmTitle(filmTitle);
                         Intent intent = new Intent(view.getContext(), SuggestChangeInPlan.class);
+                        intent.putExtra(CHANGE_MESSAGE, p);
                         intent.putExtra(CHANGE_MESSAGE, planChange);
                         startActivity(intent);
                     }
