@@ -60,10 +60,6 @@ public class CurrentPlans {
         ArrayList<Plan> currentPlans = getPlans(context);
         JSONArray json = new JSONArray(currentPlans);
 
-
-        // Delete on web server here
-        new ServerContact().execute("delete_plan", json.toString());
-
         //Create new Gson to represent current plans without plan specified
         Gson gson = new Gson();
         currentPlans.remove(plan);

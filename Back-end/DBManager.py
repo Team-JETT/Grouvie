@@ -1,5 +1,6 @@
+import pprint
+
 import psycopg2
-import sys
 
 # Make a new Grouvie table to store all the plans
 CREATE_GROUVIE = """
@@ -314,9 +315,8 @@ if __name__ == '__main__':
     # db.insert_user("07964006128", "Tarun", "RM65DU", 0, 0)
     # db.insert_user("07942948248", "Jay", "SW100NJ", 0, 0)
     # # print db.select_valid_users(("1", "2", "5", "6"))
-    # print db.select_all_grouvie()
+    # db.drop_grouvie_table()
+    # db.make_grouvie_table()
+    pprint.PrettyPrinter(indent=4).pprint(db.select_all_users())
     # print db.select_all_users()
-    db.drop_grouvie_table()
-    db.make_grouvie_table()
-    # users = ["07777777", "088888888", "09999999"]
     # db.select_valid_users(users)

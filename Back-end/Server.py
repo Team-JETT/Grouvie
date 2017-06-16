@@ -75,17 +75,20 @@ def make_plan():
     cinema = phone_data['cinema']
     latitude = phone_data['latitude']
     longitude = phone_data['longitude']
-    print phone_data
-    stdout.flush()
     # Make a new entry for the group leader.
     dbManager.insert_grouvie(phone_number, leader, showtime, film, cinema,
                              latitude, longitude)
     # Make a new entry in the table for each friend.
     # TODO: What happens if duplicate?
-    for friend in phone_data['friends']:
+    friends = phone_data['friends']
+    friends = friends[1:len(friends) - 1].split(", ")
+    print str(friends)
+    for friend in friends:
+        print str(friend)
         dbManager.insert_grouvie(friend, leader, showtime, None, None, None,
                                  None)
     print "MADE NEW PLAN"
+    stdout.flush()
     return ''
 
 
@@ -93,7 +96,7 @@ def make_plan():
 @app.route("/new_user", methods=['GET', 'POST'])
 def new_user():
     """Add postcode date for a given user."""
-    phone_data = json.load(request.data)
+    phone_data = json.loads(request.data)
     latitude, longitude = dParser.get_latlong(phone_data['postcode'])
     dbManager.insert_user(phone_data['phone_number'], phone_data['name'],
                           phone_data['postcode'], latitude, longitude)
@@ -166,7 +169,7 @@ def delete_single():
                                     phone_data['leader'],
                                     phone_data['showtime'])
     print "SOMEONE CANT GO"
-    return
+    return ''
 
 
 # TODO: UNTESTED
@@ -179,7 +182,7 @@ def delete_plan():
                                   phone_data['showtime'])
     stdout.flush()
     print "DELETED PLAN"
-    return
+    return ''
 
 @app.route("/change_film", methods=['GET', 'POST'])
 def change_film():
@@ -190,7 +193,7 @@ def change_film():
                           phone_data['film'])
     stdout.flush()
     print "CHANGED FILM FOR " + phone_data['phone_number']
-    return
+    return ''
 
 @app.route("/change_cinema", methods=['GET', 'POST'])
 def change_cinema():
@@ -201,7 +204,7 @@ def change_cinema():
                             phone_data['showtime'])
     print "CHANGED CINEMA FOR " + phone_data['phone_number']
     stdout.flush()
-    return
+    return ''
 
 @app.route("/change_showtime", methods=['GET', 'POST'])
 def change_showtime():
@@ -212,7 +215,7 @@ def change_showtime():
                               phone_data['showtime'])
     print "CHANGED SHOWTIME FOR " + phone_data['phone_number']
     stdout.flush()
-    return
+    return ''
 
 
 if __name__ == "__main__":
