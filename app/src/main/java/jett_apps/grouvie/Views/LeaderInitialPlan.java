@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import jett_apps.grouvie.HelperClasses.CurrentPlans;
+import jett_apps.grouvie.HelperClasses.PlanManager;
 import jett_apps.grouvie.HelperObjects.Film;
 import jett_apps.grouvie.HelperObjects.Friend;
 import jett_apps.grouvie.HelperObjects.Plan;
@@ -85,7 +85,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
         p.setCinemaData(cinemaData);
         ArrayList<Film> listOfFilms = data.getListOfFilms();
         p.setListOfFilms(listOfFilms);
-        CurrentPlans.addPlan(p, LeaderInitialPlan.this);
+        PlanManager.addPlan(p, LeaderInitialPlan.this);
 
         Toast.makeText(getApplicationContext(), "Plan submitted to group", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, LandingPage.class);

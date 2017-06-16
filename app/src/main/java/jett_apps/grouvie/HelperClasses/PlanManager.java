@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import jett_apps.grouvie.HelperObjects.Plan;
 
-public class CurrentPlans {
+public class PlanManager {
 
     public static final String PLANS_KEY = "PLANS_KEY";
 

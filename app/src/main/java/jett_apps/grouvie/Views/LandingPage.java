@@ -14,7 +14,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import jett_apps.grouvie.HelperClasses.CurrentPlans;
+import jett_apps.grouvie.HelperClasses.PlanManager;
 import jett_apps.grouvie.Adapters.CustomPlanAdapter;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.HelperObjects.PropagationObject;
@@ -39,7 +39,7 @@ public class LandingPage extends AppCompatActivity {
 
         data = new PropagationObject();
 
-        final ArrayList<Plan> currentPlans = CurrentPlans.getPlans(LandingPage.this);
+        final ArrayList<Plan> currentPlans = PlanManager.getPlans(LandingPage.this);
         ListAdapter planAdapter = new CustomPlanAdapter(this, currentPlans);
 
         ListView plansListView = (ListView) findViewById(R.id.plansList);

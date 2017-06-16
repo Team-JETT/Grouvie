@@ -13,7 +13,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import jett_apps.grouvie.Activities.SuggestChangeInPlan;
-import jett_apps.grouvie.HelperClasses.CurrentPlans;
+import jett_apps.grouvie.HelperClasses.PlanManager;
 import jett_apps.grouvie.HelperObjects.Friend;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.HelperClasses.ProfileManager;
@@ -88,7 +88,7 @@ public class CurrentPlanView extends AppCompatActivity {
     }
 
     public void cantGo(View view) {
-        CurrentPlans.deletePlan(p, this);
+        PlanManager.deletePlan(p, this);
         JSONObject json_data = new JSONObject();
         try {
             json_data.accumulate("phone_number", p.getLeaderPhoneNum());
@@ -105,7 +105,7 @@ public class CurrentPlanView extends AppCompatActivity {
     }
 
     public void cancelPlan(View view) {
-        CurrentPlans.deletePlan(p, this);
+        PlanManager.deletePlan(p, this);
         // Delete the plan on the server
         JSONObject json_data = new JSONObject();
         try {
