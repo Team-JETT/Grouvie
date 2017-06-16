@@ -1,21 +1,19 @@
 package jett_apps.grouvie;
-
-import org.json.JSONArray;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 
 class PropagationObject implements Serializable {
     
-    String date;
-    int day;
-    int month;
-    int year;
+    private String date;
+    private int day;
+    private int month;
+    private int year;
     private ArrayList<Friend> selectedFriends;
     private String cinemaData;
     private String filmTitle;
     private String showtimeDistance;
     private String chosenTime;
+    private ArrayList<Film> listOfFilms;
 
     public PropagationObject() {
         
@@ -91,5 +89,13 @@ class PropagationObject implements Serializable {
 
     public String getChosenTime() {
         return chosenTime;
+    }
+
+    public void setListOfFilms(ArrayList<Film> listOfFilms) {
+        this.listOfFilms = listOfFilms;
+    }
+
+    public ArrayList<Film> getListOfFilms() {
+        return listOfFilms;
     }
 }

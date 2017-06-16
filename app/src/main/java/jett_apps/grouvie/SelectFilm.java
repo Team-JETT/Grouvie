@@ -72,6 +72,8 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         ServerContact.dialog.dismiss();
 
+        data.setListOfFilms(films);
+
         filmsListView.setOnItemClickListener(
             new AdapterView.OnItemClickListener() {
 
@@ -89,15 +91,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                     final JSONArray cinemaData = cinema_data;
 
                     Intent cinemaIntent = new Intent(view.getContext(), SelectCinema.class);
-                    /* My reasoning here is that if there was a change in plan made by a member of
-                    * the group who is not the leader, a planChange object will exist. This is sort
-                    * of like confirming that a plan change has been made.*/
-                    if(getIntent().getSerializableExtra(CHANGE_MESSAGE) != null) {
-                        PlanChange planChange =
-                                (PlanChange) getIntent().getSerializableExtra(CHANGE_MESSAGE);
-                        planChange.setFilmTitle(filmTitle);
-                        cinemaIntent.putExtra(CHANGE_MESSAGE, planChange);
-                    }
+
 
                     data.setCinemaData(cinemaData.toString());
                     data.setFilmTitle(filmTitle);

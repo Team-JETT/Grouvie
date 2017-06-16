@@ -48,7 +48,8 @@
         <activity android:name=".ProfilePage" />
         <activity android:name=".GroupView" />
         <activity android:name=".SuggestChange" />
-        <activity android:name=".SuggestChangeInPlan"></activity>
+        <activity android:name=".SuggestChangeInPlan" />
+        <activity android:name=".SelectFilmChange"></activity>
     </application>
 
 </manifest>

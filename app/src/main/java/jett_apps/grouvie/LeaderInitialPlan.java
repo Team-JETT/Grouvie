@@ -24,6 +24,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
     private ArrayList<Friend> chosenGroup;
     private String cinemaData;
 
+
     private PropagationObject data;
 
     @Override
@@ -39,6 +40,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
         chosenDay = data.getDate();
         chosenGroup = data.getSelectedFriends();
         cinemaData = data.getCinemaData();
+
 
         ((TextView) findViewById(R.id.SelectedFilm)).setText(chosenFilm);
         ((TextView) findViewById(R.id.SelectedCinema)).setText(chosenCinema);
@@ -72,6 +74,8 @@ public class LeaderInitialPlan extends AppCompatActivity {
         Plan p = new Plan(chosenFilm, chosenCinema, chosenTime, chosenDay, chosenGroup,
                             leaderPhoneNum);
         p.setCinemaData(cinemaData);
+        ArrayList<Film> listOfFilms = data.getListOfFilms();
+        p.setListOfFilms(listOfFilms);
         CurrentPlans.addPlan(p, LeaderInitialPlan.this);
 
         Toast.makeText(getApplicationContext(), "Plan submitted to group", Toast.LENGTH_LONG).show();

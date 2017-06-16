@@ -12,6 +12,7 @@ import static jett_apps.grouvie.LandingPage.PLAN_MESSAGE;
 public class SuggestChangeInPlan extends AppCompatActivity {
 
     private Plan p;
+    private PlanChange planChange;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,13 +21,19 @@ public class SuggestChangeInPlan extends AppCompatActivity {
 
         p = (Plan) getIntent().getSerializableExtra(PLAN_MESSAGE);
 
+        planChange = (PlanChange) getIntent().getSerializableExtra(CHANGE_MESSAGE);
+
+        if(planChange == null) {
+            planChange = new PlanChange();
+        }
+
         TextView film = (TextView) findViewById(R.id.currentFilm);
         film.setText(p.getSuggestedFilm());
         film.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), SelectFilm.class);
-                PlanChange planChange = new PlanChange();
+                Intent intent = new Intent(v.getContext(), SelectFilmChange.class);
+                intent.putExtra(PLAN_MESSAGE, p);
                 intent.putExtra(CHANGE_MESSAGE, planChange);
                 startActivity(intent);
             }
@@ -41,5 +48,9 @@ public class SuggestChangeInPlan extends AppCompatActivity {
 
         TextView cinema = (TextView) findViewById(R.id.currentCinema);
         cinema.setText(p.getSuggestedCinema());
+    }
+
+    public void done() {
+
     }
 }
