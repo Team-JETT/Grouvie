@@ -1,4 +1,4 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,12 @@ import org.json.JSONObject;
 
 import java.util.concurrent.ExecutionException;
 
-import static jett_apps.grouvie.MainActivity.USER_PHONE_NO;
+import jett_apps.grouvie.HelperClasses.ProfileManager;
+import jett_apps.grouvie.R;
+import jett_apps.grouvie.HelperClasses.ServerContact;
+import jett_apps.grouvie.Views.LandingPage;
+
+import static jett_apps.grouvie.Views.MainActivity.USER_PHONE_NO;
 
 public class SignUpActivity extends AppCompatActivity {
 

@@ -1,22 +1,23 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import java.util.ArrayList;
 
-import static jett_apps.grouvie.LandingPage.CHANGE_MESSAGE;
-import static jett_apps.grouvie.LandingPage.DATA;
-import static jett_apps.grouvie.LandingPage.PLAN_MESSAGE;
+import jett_apps.grouvie.Adapters.CustomFilmAdapter;
+import jett_apps.grouvie.HelperObjects.Film;
+import jett_apps.grouvie.HelperObjects.Plan;
+import jett_apps.grouvie.HelperObjects.PlanChange;
+import jett_apps.grouvie.R;
+
+import static jett_apps.grouvie.Views.LandingPage.CHANGE_MESSAGE;
+import static jett_apps.grouvie.Views.LandingPage.PLAN_MESSAGE;
 
 public class SelectFilmChange extends AppCompatActivity {
 

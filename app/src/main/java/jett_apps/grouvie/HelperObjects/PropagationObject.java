@@ -1,8 +1,11 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.HelperObjects;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-class PropagationObject implements Serializable {
+import jett_apps.grouvie.HelperObjects.Film;
+import jett_apps.grouvie.HelperObjects.Friend;
+
+public class PropagationObject implements Serializable {
     
     private String date;
     private int day;

@@ -1,4 +1,4 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.Adapters;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -24,6 +24,9 @@ import org.apache.http.impl.client.DefaultHttpClient;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+
+import jett_apps.grouvie.HelperObjects.Film;
+import jett_apps.grouvie.R;
 
 
 public class CustomFilmAdapter extends ArrayAdapter<Film>{

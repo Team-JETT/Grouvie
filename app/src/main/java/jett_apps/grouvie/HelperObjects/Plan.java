@@ -1,9 +1,8 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.HelperObjects;
 
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Plan implements Serializable {
 

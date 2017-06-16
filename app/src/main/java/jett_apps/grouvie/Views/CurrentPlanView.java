@@ -1,4 +1,4 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,7 +12,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static jett_apps.grouvie.LandingPage.PLAN_MESSAGE;
+import jett_apps.grouvie.Activities.SuggestChangeInPlan;
+import jett_apps.grouvie.HelperClasses.CurrentPlans;
+import jett_apps.grouvie.HelperObjects.Friend;
+import jett_apps.grouvie.HelperObjects.Plan;
+import jett_apps.grouvie.HelperClasses.ProfileManager;
+import jett_apps.grouvie.R;
+import jett_apps.grouvie.HelperClasses.ServerContact;
+
+import static jett_apps.grouvie.Views.LandingPage.PLAN_MESSAGE;
 
 public class CurrentPlanView extends AppCompatActivity {
 
