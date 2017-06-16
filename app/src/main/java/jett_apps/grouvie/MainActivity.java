@@ -43,7 +43,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     public static FirebaseAuth mAuth;
     // [END declare_auth]
 
-    private static String userPhoneNo = "07964006128";
+    private static String userPhoneNo = "07965446352";
 //    private static String userPhoneNo = "07123123123";
 
     private boolean mVerificationInProgress = false;
