@@ -17,24 +17,18 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static jett_apps.grouvie.LandingPage.CINEMA_MESSAGE;
 import static jett_apps.grouvie.LandingPage.DATA;
-import static jett_apps.grouvie.LandingPage.DATE_MESSAGE;
-import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
-import static jett_apps.grouvie.LandingPage.GROUP_LIST;
-import static jett_apps.grouvie.LandingPage.SHOWTIME_DISTANCE_DATA;
-import static jett_apps.grouvie.LandingPage.SHOWTIME_MESSAGE;
 
 public class SelectShowtime extends AppCompatActivity {
 
-    private PropogationObject data;
+    private PropagationObject data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_showtime);
 
-        data = (PropogationObject) getIntent().getSerializableExtra(DATA);
+        data = (PropagationObject) getIntent().getSerializableExtra(DATA);
 
         final String chosenFilm = data.getFilmTitle();
         final String chosenCinema = data.getCinemaData();

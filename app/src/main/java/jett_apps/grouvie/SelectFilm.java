@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
+import static jett_apps.grouvie.LandingPage.CHANGE_MESSAGE;
 import static jett_apps.grouvie.LandingPage.DATA;
 
 public class SelectFilm extends AppCompatActivity implements LocationListener {
@@ -34,7 +35,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
     double latitude = 51.499074;
     double longitude = -0.177070;
 
-    private PropogationObject data;
+    private PropagationObject data;
 
 
     @Override
@@ -45,7 +46,8 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         this.intent = getIntent();
 
-        data = (PropogationObject) intent.getSerializableExtra(DATA);
+        data = (PropagationObject) intent.getSerializableExtra(DATA);
+
 //        obtainLocation();
 
         final JSONObject local_data = getLocalData();
@@ -70,6 +72,8 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         ServerContact.dialog.dismiss();
 
+        data.setListOfFilms(films);
+
         filmsListView.setOnItemClickListener(
             new AdapterView.OnItemClickListener() {
 
@@ -86,11 +90,11 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                     }
                     final JSONArray cinemaData = cinema_data;
 
-                    data.setCinemaData(cinemaData.toString());
-                    data.setFilmTitle(filmTitle);
-
                     Intent cinemaIntent = new Intent(view.getContext(), SelectCinema.class);
 
+
+                    data.setCinemaData(cinemaData.toString());
+                    data.setFilmTitle(filmTitle);
                     cinemaIntent.putExtra(DATA, data);
 
                     startActivity(cinemaIntent);
@@ -102,7 +106,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
     @Nullable
     private JSONObject getLocalData() {
-        // Grab the date from the MainActivity
+        // Grab the chosenDate from the MainActivity
         final int day = data.getDay();
         final int month = data.getMonth();
         final int year = data.getYear();
