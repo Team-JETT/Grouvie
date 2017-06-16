@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -36,16 +37,35 @@ public class CurrentPlanView extends AppCompatActivity {
         chosenDay = p.getSuggestedDate();
         chosenFriends = p.getEventMembers();
 
-        ((TextView) findViewById(R.id.SelectedFilm)).setText(chosenFilm);
-        ((TextView) findViewById(R.id.SelectedCinema)).setText(chosenCinema);
-        ((TextView) findViewById(R.id.SelectedShowtime)).setText(chosenTime);
-        ((TextView) findViewById(R.id.SelectedDay)).setText(chosenDay);
+        Button button = (Button) findViewById(R.id.cancelPlan);
+
+        if(ProfileManager.getPhone(this) != p.getLeaderPhoneNum()) {
+            button.setVisibility(View.INVISIBLE);
+        }
+
+        TextView film = (TextView) findViewById(R.id.SelectedFilm);
+        film.setText(chosenFilm);
+
+        TextView cinema = (TextView) findViewById(R.id.SelectedCinema);
+        cinema.setText(chosenCinema);
+
+        TextView time = (TextView) findViewById(R.id.SelectedShowtime);
+        time.setText(chosenTime);
+
+        TextView day = (TextView) findViewById(R.id.SelectedDay);
+        day.setText(chosenDay);
 
     }
 
     public void viewGroupReplies(View view) {
         //TODO: Show activity with group replies and option to replan.
         Intent intent = new Intent(view.getContext(), GroupView.class);
+        intent.putExtra(PLAN_MESSAGE, p);
+        startActivity(intent);
+    }
+
+    public void makeChange(View view) {
+        Intent intent = new Intent(view.getContext(), SuggestChangeInPlan.class);
         intent.putExtra(PLAN_MESSAGE, p);
         startActivity(intent);
     }
@@ -60,6 +80,8 @@ public class CurrentPlanView extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        // Delete on web server here
+        new ServerContact().execute("delete_single", json_data.toString());
         Intent intent = new Intent(view.getContext(), LandingPage.class);
         startActivity(intent);
         //TODO: Show activity with group replies and option to replan.

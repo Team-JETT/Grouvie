@@ -13,6 +13,8 @@ public class Plan implements Serializable {
     private String suggestedDate;
     private String leaderPhoneNum;
     private ArrayList<Friend> eventMembers;
+    private String cinemaData;
+    private ArrayList<Film> listOfFilms;
 
     public Plan(String suggestedFilm, String suggestedCinema, String suggestedShowTime,
                 String suggestedDate, ArrayList<Friend> eventMembers, String leaderPhoneNum) {
@@ -98,6 +100,22 @@ public class Plan implements Serializable {
 
     public void setLeaderPhoneNum(String leaderPhoneNum) {
         this.leaderPhoneNum = leaderPhoneNum;
+    }
+
+    public String getCinemaData() {
+        return cinemaData;
+    }
+
+    public void setCinemaData(String cinemaData) {
+        this.cinemaData = cinemaData;
+    }
+
+    public void setListOfFilms(ArrayList<Film> listOfFilms) {
+        this.listOfFilms = listOfFilms;
+    }
+
+    public ArrayList<Film> getListOfFilms() {
+        return listOfFilms;
     }
 }
 
