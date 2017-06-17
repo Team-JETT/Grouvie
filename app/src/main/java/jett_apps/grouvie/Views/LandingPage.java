@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -35,6 +37,7 @@ public class LandingPage extends AppCompatActivity {
 
     private TextView name;
     private PropagationObject data;
+    private JSONObject sentPlan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

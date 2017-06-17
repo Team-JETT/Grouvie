@@ -75,7 +75,11 @@ public class LeaderInitialPlan extends AppCompatActivity {
             json.accumulate("chosenCinema", chosenCinema);
             json.accumulate("latitude", latitude);
             json.accumulate("longitude", longitude);
-            String[] friendsNumbers = getFriendsNumbers(data.getSelectedFriends());
+            json.accumulate("date", chosenDay);
+            ArrayList<Friend> friends = data.getSelectedFriends();
+            String[] friendsNames = getFriendsNames(friends);
+            json.accumulate("friend_list", Arrays.toString(friendsNames));
+            String[] friendsNumbers = getFriendsNumbers(friends);
             json.accumulate("friends", Arrays.toString(friendsNumbers));
         } catch (JSONException e) {
             e.printStackTrace();
@@ -88,8 +92,10 @@ public class LeaderInitialPlan extends AppCompatActivity {
             String topicName = groupMember.getPhoneNum();
             String result = null;
             try {
+                json.remove("phone_number");
+                json.accumulate("phone_number", topicName);
                 result = new FirebaseContact().execute(topicName, json.toString()).get();
-            } catch (InterruptedException | ExecutionException e) {
+            } catch (InterruptedException | ExecutionException | JSONException e) {
                 System.out.println("Failed to send plan to: " + topicName);
                 e.printStackTrace();
             }
@@ -106,6 +112,14 @@ public class LeaderInitialPlan extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), "Plan submitted to group", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, LandingPage.class);
         startActivity(intent);
+    }
+
+    public String[] getFriendsNames(ArrayList<Friend> friends) {
+        String[] names = new String[friends.size()];
+        for (int i = 0; i < friends.size(); ++i) {
+            names[i] = friends.get(i).getName();
+        }
+        return names;
     }
 
     public String[] getFriendsNumbers(ArrayList<Friend> friends) {

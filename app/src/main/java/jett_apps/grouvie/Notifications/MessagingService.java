@@ -12,10 +12,16 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
-import jett_apps.grouvie.Views.MainActivity;
+import java.util.ArrayList;
+
+import jett_apps.grouvie.HelperClasses.PlanManager;
+import jett_apps.grouvie.HelperObjects.Friend;
+import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.R;
+import jett_apps.grouvie.Views.MainActivity;
 
 public class MessagingService extends FirebaseMessagingService {
     private static final String TAG = "GrouvieMsgService";
@@ -27,7 +33,34 @@ public class MessagingService extends FirebaseMessagingService {
         Log.d(TAG, "From: " + remoteMessage.getFrom());
         Log.d(TAG, "Notification Message Body: " +
                 remoteMessage.getNotification().getBody());
-        JSONObject plan = new JSONObject(remoteMessage.getData());
+        JSONObject planInJSON = new JSONObject(remoteMessage.getData());
+        try {
+            String film = planInJSON.getString("chosenFilm");
+            String cinema = planInJSON.getString("chosenCinema");
+            String showtime = planInJSON.getString("showtime");
+            String date = planInJSON.getString("date");
+            String[] friendNames = planInJSON.getString("friend_list").split(",");
+            String[] friendNumbers = planInJSON.getString("friends").split(",");
+            ArrayList<Friend> members = new ArrayList<>();
+            int numOfContacts = friendNames.length;
+            for (int i = 0; i < numOfContacts; i++) {
+                String name = friendNames[i];
+                String number = friendNumbers[i];
+                if (i == 0) {
+                    name = name.substring(1);
+                    number = number.substring(1);
+                } else if (i == numOfContacts - 1) {
+                    name = name.substring(0, name.length() - 1);
+                    number = number.substring(0, number.length() - 1);
+                }
+                members.add(new Friend(name, number));
+            }
+            String leaderPhoneNum = planInJSON.getString("leader");
+            PlanManager.addPlan(new Plan(film, cinema, showtime, date, members, leaderPhoneNum), this);
+        } catch (JSONException e) {
+            Log.e("BAD JSON SENT", "JSON sent to user was not an event plan");
+            e.printStackTrace();
+        }
         //Calling method to generate notification
         sendNotification(remoteMessage.getNotification().getBody());
     }
