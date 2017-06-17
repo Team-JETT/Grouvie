@@ -1,4 +1,4 @@
-package jett_apps.grouvie.firebase;
+package jett_apps.grouvie.Notifications;
 
 import android.app.NotificationManager;
 import android.app.PendingIntent;

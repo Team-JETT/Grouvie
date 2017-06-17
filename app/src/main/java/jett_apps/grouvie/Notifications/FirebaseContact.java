@@ -1,4 +1,4 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.Notifications;
 
 import android.os.AsyncTask;
 
