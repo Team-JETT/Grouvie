@@ -35,7 +35,6 @@ public class LeaderInitialPlan extends AppCompatActivity {
     private ArrayList<Friend> chosenGroup;
     private String cinemaData;
 
-
     private PropagationObject data;
 
     @Override
@@ -46,11 +45,11 @@ public class LeaderInitialPlan extends AppCompatActivity {
         data = (PropagationObject) getIntent().getSerializableExtra(DATA);
 
         chosenFilm = data.getFilmTitle();
-        chosenCinema = data.getCinemaData();
+        chosenCinema = data.getCinema();
         chosenTime = data.getChosenTime();
         chosenDay = data.getDate();
         chosenGroup = data.getSelectedFriends();
-        cinemaData = data.getCinemaData();
+//        cinemaData = data.getCinema();
 
 
         ((TextView) findViewById(R.id.SelectedFilm)).setText(chosenFilm);
@@ -102,6 +101,10 @@ public class LeaderInitialPlan extends AppCompatActivity {
         Plan p = new Plan(chosenFilm, chosenCinema, chosenTime, chosenDay, chosenGroup,
                             leaderPhoneNum);
         p.setCinemaData(cinemaData);
+        p.setSuggestedDay(data.getDay());
+        p.setSuggestedMonth(data.getMonth());
+        p.setSuggestedYear(data.getYear());
+
         ArrayList<Film> listOfFilms = data.getListOfFilms();
         p.setListOfFilms(listOfFilms);
         PlanManager.addPlan(p, LeaderInitialPlan.this);

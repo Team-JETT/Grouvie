@@ -1,6 +1,7 @@
 package jett_apps.grouvie.HelperClasses;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.AsyncTask;
 
 import org.apache.http.HttpResponse;
@@ -59,6 +60,19 @@ public class ServerContact extends AsyncTask<String, Integer, String> {
     private static String convertStreamToString(java.io.InputStream is) {
         java.util.Scanner s = new java.util.Scanner(is).useDelimiter("\\A");
         return s.hasNext() ? s.next() : "";
+    }
+
+    //Start Progress Bar
+    public static void startProgressBar(Context context) {
+        dialog = new ProgressDialog(context, ProgressDialog.BUTTON_POSITIVE);
+        dialog.setTitle("Please wait");
+        dialog.setMessage("Obtaining listings from server");
+        dialog.show();
+    }
+
+    //Dismiss Progress Bar
+    public static void dismissProgressBar() {
+        dialog.dismiss();
     }
 
 }

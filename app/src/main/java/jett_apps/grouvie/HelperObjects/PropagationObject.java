@@ -2,9 +2,6 @@ package jett_apps.grouvie.HelperObjects;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import jett_apps.grouvie.HelperObjects.Film;
-import jett_apps.grouvie.HelperObjects.Friend;
-
 public class PropagationObject implements Serializable {
 
     private String leaderPhoneNumber;
@@ -79,7 +76,7 @@ public class PropagationObject implements Serializable {
         return filmTitle;
     }
 
-    public String getCinemaData() {
+    public String getCinema() {
         return cinemaData;
     }
 

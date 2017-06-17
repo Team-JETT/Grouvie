@@ -75,7 +75,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
         ListView filmsListView = (ListView) findViewById(R.id.filmList);
         filmsListView.setAdapter(filmAdapter);
 
-        ServerContact.dialog.dismiss();
+        ServerContact.dismissProgressBar();
 
         data.setListOfFilms(films);
 

@@ -101,7 +101,6 @@ public class CurrentPlanView extends AppCompatActivity {
         new ServerContact().execute("delete_single", json_data.toString());
         Intent intent = new Intent(view.getContext(), LandingPage.class);
         startActivity(intent);
-        //TODO: Show activity with group replies and option to replan.
     }
 
     public void cancelPlan(View view) {
@@ -117,7 +116,6 @@ public class CurrentPlanView extends AppCompatActivity {
         new ServerContact().execute("delete_plan", json_data.toString());
         Intent intent = new Intent(view.getContext(), LandingPage.class);
         startActivity(intent);
-        //TODO: Show activity with group replies and option to replan.
 
     }
 

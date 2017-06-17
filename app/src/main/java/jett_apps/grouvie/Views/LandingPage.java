@@ -35,6 +35,7 @@ public class LandingPage extends AppCompatActivity {
     public static final String DATA = "DATA";
     public static final String CHANGE_MESSAGE = "CHANGE_MESSAGE";
     public static final String SENT_PLAN = "SENT_PLAN";
+    public static final String CHANGED_PLAN_MESSAGE = "CHANGED_PLAN_MESSAGE";
 
     private TextView name;
     private PropagationObject leaderData;
@@ -55,7 +56,7 @@ public class LandingPage extends AppCompatActivity {
         sentPlan = (PropagationObject) getIntent().getSerializableExtra(SENT_PLAN);
         if (sentPlan != null) {
             String film = sentPlan.getFilmTitle();
-            String cinema = sentPlan.getCinemaData();
+            String cinema = sentPlan.getCinema();
             String showtime = sentPlan.getChosenTime();
             String date = sentPlan.getDate();
             ArrayList<Friend> members = sentPlan.getSelectedFriends();
