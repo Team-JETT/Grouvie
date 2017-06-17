@@ -47,23 +47,24 @@
         <activity android:name=".Activities.SignUpActivity" />
         <activity android:name=".Views.ProfilePage" />
         <activity android:name=".Views.GroupView" />
-        <activity android:name=".SuggestChange" />
+        <!--<activity android:name=".SuggestChange" />-->
         <activity android:name=".Activities.SuggestChangeInPlan" />
         <activity android:name=".Activities.SelectFilmChange"></activity>
+
+        <service
+            android:name=".Notifications.IIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+
+        <service
+            android:name=".Notifications.MessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+
     </application>
-
-    <service
-        android:name=".firebase.MyFirebaseMessagingService">
-        <intent-filter>
-            <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-        </intent-filter>
-    </service>
-
-    <service
-        android:name=".firebase.MyFirebaseInstanceIDService">
-        <intent-filter>
-            <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
-        </intent-filter>
-    </service>
 
 </manifest>

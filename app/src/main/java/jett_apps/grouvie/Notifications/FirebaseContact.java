@@ -1,12 +1,15 @@
 package jett_apps.grouvie.Notifications;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,22 +17,45 @@ import java.io.UnsupportedEncodingException;
 
 public class FirebaseContact extends AsyncTask<String, Integer, String> {
 
-    final static String WebServerAddr = "https://fcm.googleapis.com/fcm/send/";
+    final static String WebServerAddr = "https://fcm.googleapis.com/fcm/send";
 
     /*
      * HOW TO USE PARAMS:
-     * params[0] = URL to send data to.
-     * params[1] = String data to POST to that URL.
+     * params[0] = Topic (Phone number) to send data to.
+     * params[1] = Plan in JSON format being sent to the user.
      */
     @Override
     protected String doInBackground(String... params) {
 
         HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost(WebServerAddr + params[0]);
+        HttpPost httpPost = new HttpPost(WebServerAddr);
+
+        String topicName = params[0];
+        String planInJSON = params[1];
+        JSONObject plan = null;
+
+        try {
+            plan = new JSONObject(planInJSON);
+        } catch (JSONException e) {
+            Log.e("BAD JSON", "params[1] was not a JSON Object!");
+            e.printStackTrace();
+        }
+
+        JSONObject notification = new JSONObject();
+
+        try {
+            notification.accumulate("to", "/topics/" + topicName);
+            notification.accumulate("data", plan);
+            notification.accumulate("notification", createNotificationBody(plan));
+        } catch (JSONException e) {
+            Log.e("UNLUCKY", "Could not create/accumulate JSON Object!");
+            e.printStackTrace();
+        }
+        Log.v("SEND PLAN:", notification.toString());
 
         try {
             // We only ever pass in 1 string so grab the first element in the array.
-            httpPost.setEntity(new StringEntity(params[1]));
+            httpPost.setEntity(new StringEntity(notification.toString()));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -51,6 +77,19 @@ public class FirebaseContact extends AsyncTask<String, Integer, String> {
 
         return (inputStream != null) ?
                 convertStreamToString(inputStream) : "Did not work!";
+    }
+
+    private JSONObject createNotificationBody(JSONObject plan) {
+        JSONObject json = new JSONObject();
+        try {
+            json.accumulate("title", "New Grouvie Plan added");
+            //TODO: Add constructive text message
+            json.accumulate("text", "Banter");
+        } catch (JSONException e) {
+            Log.e("UNLUCKY", "Could not create/accumulate notification JSON Object");
+            e.printStackTrace();
+        }
+        return json;
     }
 
     private static String convertStreamToString(java.io.InputStream is) {

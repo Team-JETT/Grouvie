@@ -12,11 +12,13 @@ import android.util.Log;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
-import jett_apps.grouvie.MainActivity;
+import org.json.JSONObject;
+
+import jett_apps.grouvie.Views.MainActivity;
 import jett_apps.grouvie.R;
 
-public class MyFirebaseMessagingService extends FirebaseMessagingService {
-    private static final String TAG = "MyFirebaseMsgService";
+public class MessagingService extends FirebaseMessagingService {
+    private static final String TAG = "GrouvieMsgService";
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
@@ -25,6 +27,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         Log.d(TAG, "From: " + remoteMessage.getFrom());
         Log.d(TAG, "Notification Message Body: " +
                 remoteMessage.getNotification().getBody());
+        JSONObject plan = new JSONObject(remoteMessage.getData());
         //Calling method to generate notification
         sendNotification(remoteMessage.getNotification().getBody());
     }

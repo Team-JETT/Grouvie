@@ -19,6 +19,7 @@ import java.util.Calendar;
 
 import jett_apps.grouvie.HelperClasses.CurrentPlans;
 import jett_apps.grouvie.Adapters.CustomPlanAdapter;
+import jett_apps.grouvie.HelperClasses.ProfileManager;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.HelperObjects.PropagationObject;
 import jett_apps.grouvie.R;
@@ -41,8 +42,8 @@ public class LandingPage extends AppCompatActivity {
         setContentView(R.layout.activity_landing_page);
 
         //TODO: Check if this even works
-        String phoneNum = "07434897141";
-//        String phoneNum = ProfileManager.getPhone(this);
+//        String phoneNum = "07434897141";
+        String phoneNum = ProfileManager.getPhone(this);
         System.out.println(phoneNum);
         Log.e("PHONE", phoneNum);
         FirebaseMessaging.getInstance().subscribeToTopic(phoneNum);

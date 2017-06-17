@@ -25,6 +25,7 @@ import jett_apps.grouvie.HelperObjects.Friend;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.HelperClasses.ProfileManager;
 import jett_apps.grouvie.HelperObjects.PropagationObject;
+import jett_apps.grouvie.Notifications.FirebaseContact;
 import jett_apps.grouvie.R;
 import jett_apps.grouvie.HelperClasses.ServerContact;
 
@@ -87,7 +88,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
             String topicName = groupMember.getPhoneNum();
             String result = null;
             try {
-                result = new FirebaseContact().execute("topics/to/" + topicName, "").get();
+                result = new FirebaseContact().execute(topicName, json.toString()).get();
             } catch (InterruptedException | ExecutionException e) {
                 System.out.println("Failed to send plan to: " + topicName);
                 e.printStackTrace();
