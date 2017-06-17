@@ -36,7 +36,7 @@ public class SelectCinema extends AppCompatActivity {
         data = (PropagationObject) getIntent().getSerializableExtra(DATA);
 
         final String chosenFilm = data.getFilmTitle();
-        final String cinemaData = data.getCinemaData();
+        final String cinemaData = data.getCinema();
 
         ((TextView) findViewById(R.id.chosen_film)).setText(chosenFilm);
 

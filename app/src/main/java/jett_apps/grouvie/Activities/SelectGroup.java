@@ -1,6 +1,5 @@
 package jett_apps.grouvie.Activities;
 
-import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,14 +10,10 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
@@ -28,16 +23,15 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import jett_apps.grouvie.Adapters.CustomFriendAdapter;
-import jett_apps.grouvie.HelperObjects.Friend;
 import jett_apps.grouvie.HelperClasses.ProfileManager;
+import jett_apps.grouvie.HelperClasses.ServerContact;
+import jett_apps.grouvie.HelperObjects.Friend;
 import jett_apps.grouvie.HelperObjects.FriendView;
 import jett_apps.grouvie.HelperObjects.PropagationObject;
 import jett_apps.grouvie.R;
-import jett_apps.grouvie.HelperClasses.ServerContact;
 
 import static jett_apps.grouvie.Views.LandingPage.DATA;
 
@@ -299,10 +293,7 @@ public class SelectGroup extends AppCompatActivity {
 
         intent.putExtra(DATA, data);
 
-        ServerContact.dialog = new ProgressDialog(SelectGroup.this, ProgressDialog.BUTTON_POSITIVE);
-        ServerContact.dialog.setTitle("Please wait");
-        ServerContact.dialog.setMessage("Obtaining listings from server");
-        ServerContact.dialog.show();
+        ServerContact.startProgressBar(SelectGroup.this);
 
         startActivity(intent);
     }

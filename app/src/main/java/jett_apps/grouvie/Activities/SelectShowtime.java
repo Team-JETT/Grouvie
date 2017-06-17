@@ -35,7 +35,7 @@ public class SelectShowtime extends AppCompatActivity {
         data = (PropagationObject) getIntent().getSerializableExtra(DATA);
 
         final String chosenFilm = data.getFilmTitle();
-        final String chosenCinema = data.getCinemaData();
+        final String chosenCinema = data.getCinema();
         final String showtimeDistanceData = data.getShowtimeDistance();
 
         ((TextView) findViewById(R.id.chosenFilm)).setText(chosenFilm);

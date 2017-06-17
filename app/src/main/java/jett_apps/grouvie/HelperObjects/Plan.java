@@ -9,10 +9,15 @@ public class Plan implements Serializable {
     private String suggestedFilm;
     private String suggestedCinema;
     private String suggestedShowTime;
-    private String suggestedDate;
     private String leaderPhoneNum;
     private ArrayList<Friend> eventMembers;
     private String cinemaData;
+
+    private String suggestedDate;
+    private int suggestedDay;
+    private int suggestedMonth;
+    private int suggestedYear;
+
     private ArrayList<Film> listOfFilms;
 
     public Plan(String suggestedFilm, String suggestedCinema, String suggestedShowTime,
@@ -23,6 +28,10 @@ public class Plan implements Serializable {
         this.suggestedDate = suggestedDate;
         this.eventMembers = eventMembers;
         this.leaderPhoneNum = leaderPhoneNum;
+    }
+
+    public Plan() {
+
     }
 
 
@@ -115,6 +124,30 @@ public class Plan implements Serializable {
 
     public ArrayList<Film> getListOfFilms() {
         return listOfFilms;
+    }
+
+    public int getSuggestedDay() {
+        return suggestedDay;
+    }
+
+    public void setSuggestedDay(int suggestedDay) {
+        this.suggestedDay = suggestedDay;
+    }
+
+    public int getSuggestedMonth() {
+        return suggestedMonth;
+    }
+
+    public void setSuggestedMonth(int suggestedMonth) {
+        this.suggestedMonth = suggestedMonth;
+    }
+
+    public int getSuggestedYear() {
+        return suggestedYear;
+    }
+
+    public void setSuggestedYear(int suggestedYear) {
+        this.suggestedYear = suggestedYear;
     }
 }
 

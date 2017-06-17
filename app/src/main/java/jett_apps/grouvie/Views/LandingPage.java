@@ -26,7 +26,7 @@ public class LandingPage extends AppCompatActivity {
     public static final String PLAN_MESSAGE = "PLAN_MESSAGE";
 
     public static final String DATA = "DATA";
-    public static final String CHANGE_MESSAGE = "CHANGE_MESSAGE";
+    public static final String CHANGED_PLAN_MESSAGE = "CHANGED_PLAN_MESSAGE";
 
 
     private TextView name;
