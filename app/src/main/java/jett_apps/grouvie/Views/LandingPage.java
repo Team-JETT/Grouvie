@@ -22,6 +22,7 @@ import java.util.Calendar;
 import jett_apps.grouvie.HelperClasses.PlanManager;
 import jett_apps.grouvie.Adapters.CustomPlanAdapter;
 import jett_apps.grouvie.HelperClasses.ProfileManager;
+import jett_apps.grouvie.HelperObjects.Friend;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.HelperObjects.PropagationObject;
 import jett_apps.grouvie.R;
@@ -33,11 +34,11 @@ public class LandingPage extends AppCompatActivity {
 
     public static final String DATA = "DATA";
     public static final String CHANGE_MESSAGE = "CHANGE_MESSAGE";
-
+    public static final String SENT_PLAN = "SENT_PLAN";
 
     private TextView name;
-    private PropagationObject data;
-    private JSONObject sentPlan;
+    private PropagationObject leaderData;
+    private PropagationObject sentPlan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +46,25 @@ public class LandingPage extends AppCompatActivity {
         setContentView(R.layout.activity_landing_page);
 
         //TODO: Check if this even works
-//        String phoneNum = "07434897141";
-        String phoneNum = ProfileManager.getPhone(this);
-        System.out.println(phoneNum);
+        String phoneNum = "07434897141";
+//        String phoneNum = ProfileManager.getPhone(this);
+//        System.out.println(phoneNum);
         Log.e("PHONE", phoneNum);
         FirebaseMessaging.getInstance().subscribeToTopic(phoneNum);
 
-        data = new PropagationObject();
+        sentPlan = (PropagationObject) getIntent().getSerializableExtra(SENT_PLAN);
+        if (sentPlan != null) {
+            String film = sentPlan.getFilmTitle();
+            String cinema = sentPlan.getCinemaData();
+            String showtime = sentPlan.getChosenTime();
+            String date = sentPlan.getDate();
+            ArrayList<Friend> members = sentPlan.getSelectedFriends();
+            String leaderPhoneNum = sentPlan.getLeaderPhoneNumber();
+            Plan plan = new Plan(film, cinema, showtime, date, members, leaderPhoneNum);
+            PlanManager.addPlan(plan, LandingPage.this);
+        }
+
+        leaderData = new PropagationObject();
 
         final ArrayList<Plan> currentPlans = PlanManager.getPlans(LandingPage.this);
         ListAdapter planAdapter = new CustomPlanAdapter(this, currentPlans);
@@ -97,12 +110,12 @@ public class LandingPage extends AppCompatActivity {
 
                         Intent intent = new Intent(view.getContext(), SelectGroup.class);
 
-                        data.setDate(chosenDay);
-                        data.setDay(day);
-                        data.setMonth(month+1);
-                        data.setYear(year);
+                        leaderData.setDate(chosenDay);
+                        leaderData.setDay(day);
+                        leaderData.setMonth(month+1);
+                        leaderData.setYear(year);
 
-                        intent.putExtra(DATA, data);
+                        intent.putExtra(DATA, leaderData);
 
                         startActivity(intent);
                     }

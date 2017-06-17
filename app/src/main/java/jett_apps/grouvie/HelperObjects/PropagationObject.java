@@ -6,7 +6,8 @@ import jett_apps.grouvie.HelperObjects.Film;
 import jett_apps.grouvie.HelperObjects.Friend;
 
 public class PropagationObject implements Serializable {
-    
+
+    private String leaderPhoneNumber;
     private String date;
     private int day;
     private int month;
@@ -20,6 +21,14 @@ public class PropagationObject implements Serializable {
 
     public PropagationObject() {
         
+    }
+
+    public String getLeaderPhoneNumber() {
+        return leaderPhoneNumber;
+    }
+
+    public void setLeaderPhoneNumber(String leaderPhoneNumber) {
+        this.leaderPhoneNumber = leaderPhoneNumber;
     }
 
     public void setDate(String date) {

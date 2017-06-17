@@ -8,9 +8,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.messaging.FirebaseMessaging;
-import com.google.firebase.messaging.RemoteMessage;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -20,14 +17,14 @@ import java.util.Arrays;
 import java.util.concurrent.ExecutionException;
 
 import jett_apps.grouvie.HelperClasses.PlanManager;
+import jett_apps.grouvie.HelperClasses.ProfileManager;
+import jett_apps.grouvie.HelperClasses.ServerContact;
 import jett_apps.grouvie.HelperObjects.Film;
 import jett_apps.grouvie.HelperObjects.Friend;
 import jett_apps.grouvie.HelperObjects.Plan;
-import jett_apps.grouvie.HelperClasses.ProfileManager;
 import jett_apps.grouvie.HelperObjects.PropagationObject;
 import jett_apps.grouvie.Notifications.FirebaseContact;
 import jett_apps.grouvie.R;
-import jett_apps.grouvie.HelperClasses.ServerContact;
 
 import static jett_apps.grouvie.Views.LandingPage.DATA;
 

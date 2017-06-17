@@ -17,22 +17,22 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import jett_apps.grouvie.HelperClasses.PlanManager;
 import jett_apps.grouvie.HelperObjects.Friend;
-import jett_apps.grouvie.HelperObjects.Plan;
+import jett_apps.grouvie.HelperObjects.PropagationObject;
 import jett_apps.grouvie.R;
-import jett_apps.grouvie.Views.MainActivity;
+import jett_apps.grouvie.Views.LandingPage;
+
+import static jett_apps.grouvie.Views.LandingPage.SENT_PLAN;
 
 public class MessagingService extends FirebaseMessagingService {
     private static final String TAG = "GrouvieMsgService";
+    private PropagationObject plan = new PropagationObject();
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         //Displaying data in log
         //It is optional
         Log.d(TAG, "From: " + remoteMessage.getFrom());
-        Log.d(TAG, "Notification Message Body: " +
-                remoteMessage.getNotification().getBody());
         JSONObject planInJSON = new JSONObject(remoteMessage.getData());
         try {
             String film = planInJSON.getString("chosenFilm");
@@ -56,29 +56,37 @@ public class MessagingService extends FirebaseMessagingService {
                 members.add(new Friend(name, number));
             }
             String leaderPhoneNum = planInJSON.getString("leader");
-            PlanManager.addPlan(new Plan(film, cinema, showtime, date, members, leaderPhoneNum), this);
+            plan.setFilmTitle(film);
+            plan.setCinemaData(cinema);
+            plan.setChosenTime(showtime);
+            plan.setDate(date);
+            plan.setSelectedFriends(members);
+            plan.setLeaderPhoneNumber(leaderPhoneNum);
         } catch (JSONException e) {
             Log.e("BAD JSON SENT", "JSON sent to user was not an event plan");
             e.printStackTrace();
         }
         //Calling method to generate notification
-        sendNotification(remoteMessage.getNotification().getBody());
+        String messageBody = "Your friend has created a new plan!";
+        sendNotification(messageBody);
     }
 
     //This method to generate push notification
     private void sendNotification(String messageBody) {
         //MainActivity Intent Registration
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, LandingPage.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        intent.putExtra(SENT_PLAN, plan);
+
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
-                PendingIntent.FLAG_ONE_SHOT);
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT);
         //Take Notification Sound
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         //Generate the Notification
         NotificationCompat.Builder notificationBuilder = new
                 NotificationCompat.Builder(this)
                 .setSmallIcon(R.mipmap.ic_launcher)
-                .setContentTitle("Firebase Push Notification")
+                .setContentTitle("Grouvie Time")
                 .setContentText(messageBody)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)

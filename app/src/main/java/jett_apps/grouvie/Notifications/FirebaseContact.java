@@ -46,7 +46,6 @@ public class FirebaseContact extends AsyncTask<String, Integer, String> {
         try {
             notification.accumulate("to", "/topics/" + topicName);
             notification.accumulate("data", plan);
-            notification.accumulate("notification", createNotificationBody(plan));
         } catch (JSONException e) {
             Log.e("UNLUCKY", "Could not create/accumulate JSON Object!");
             e.printStackTrace();
@@ -77,19 +76,6 @@ public class FirebaseContact extends AsyncTask<String, Integer, String> {
 
         return (inputStream != null) ?
                 convertStreamToString(inputStream) : "Did not work!";
-    }
-
-    private JSONObject createNotificationBody(JSONObject plan) {
-        JSONObject json = new JSONObject();
-        try {
-            json.accumulate("title", "New Grouvie Plan added");
-            //TODO: Add constructive text message
-            json.accumulate("text", "Banter");
-        } catch (JSONException e) {
-            Log.e("UNLUCKY", "Could not create/accumulate notification JSON Object");
-            e.printStackTrace();
-        }
-        return json;
     }
 
     private static String convertStreamToString(java.io.InputStream is) {
