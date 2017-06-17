@@ -1,8 +1,10 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.HelperClasses;
 
 import android.app.ProgressDialog;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
+
+import jett_apps.grouvie.R;
 
 public class BaseActivity extends AppCompatActivity {
 

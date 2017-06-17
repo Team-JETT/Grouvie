@@ -1,4 +1,4 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.Activities;
 
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
@@ -31,7 +31,15 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-import static jett_apps.grouvie.LandingPage.DATA;
+import jett_apps.grouvie.Adapters.CustomFriendAdapter;
+import jett_apps.grouvie.HelperObjects.Friend;
+import jett_apps.grouvie.HelperClasses.ProfileManager;
+import jett_apps.grouvie.HelperObjects.FriendView;
+import jett_apps.grouvie.HelperObjects.PropagationObject;
+import jett_apps.grouvie.R;
+import jett_apps.grouvie.HelperClasses.ServerContact;
+
+import static jett_apps.grouvie.Views.LandingPage.DATA;
 
 public class SelectGroup extends AppCompatActivity {
 
@@ -46,14 +54,14 @@ public class SelectGroup extends AppCompatActivity {
     private ArrayList<Friend> friends;
     private ArrayList<Friend> selectedFriends;
 
-    private PropogationObject data;
+    private PropagationObject data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_group);
 
-        data = (PropogationObject) getIntent().getSerializableExtra(DATA);
+        data = (PropagationObject) getIntent().getSerializableExtra(DATA);
 
         // Finds the listView resource.
         ListView listView = (ListView) findViewById(R.id.listView);
@@ -64,10 +72,12 @@ public class SelectGroup extends AppCompatActivity {
                 Friend friend = friendsAdapter.getItem(position);
                 friend.toggleChecked();
                 // To display friend that is checked.
-                FriendViewHolder viewHolder = (FriendViewHolder) view.getTag();
+                FriendView viewHolder = (FriendView) view.getTag();
                 viewHolder.getCheckBox().setChecked(friend.isChecked());
             }
         });
+
+        updateFriendsAuto();
 
         // Populates the friends list with friend objects.
         updateFriendSelectionList();
@@ -82,94 +92,17 @@ public class SelectGroup extends AppCompatActivity {
 
 
         // Set our adapter as the ListView's adapter.
-        friendsAdapter = new FriendsAdapter(this, friends);
+        friendsAdapter = new CustomFriendAdapter(this, friends);
         listView.setAdapter(friendsAdapter);
     }
 
-    // Adapter for displaying an array of Friend objects.
-    private static class FriendsAdapter extends ArrayAdapter<Friend> {
 
-        private LayoutInflater inflater;
-
-        public FriendsAdapter(Context context, List<Friend> friendList) {
-            super(context, R.layout.simplerow, R.id.rowTextView, friendList);
-            inflater = LayoutInflater.from(context);
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-            Friend friend = this.getItem(position);
-
-            CheckBox checkBox;
-            TextView textView;
-            // Creates a new row view.
-            if(convertView == null) {
-                convertView = inflater.inflate(R.layout.simplerow, null);
-
-                textView = (TextView) convertView.findViewById(R.id.rowTextView);
-                checkBox = (CheckBox) convertView.findViewById(R.id.CheckBox01);
-                // Tagging the row with the child view means that it's easier
-                // to access later on.
-                convertView.setTag(new FriendViewHolder(textView, checkBox));
-
-                checkBox.setOnClickListener(new View.OnClickListener(){
-
-                    @Override
-                    public void onClick(View v) {
-                        CheckBox cb = (CheckBox) v;
-                        Friend friend = (Friend) cb.getTag();
-                        friend.setChecked(cb.isChecked());
-                    }
-                });
-            } else {
-                FriendViewHolder viewHolder = (FriendViewHolder) convertView.getTag();
-                checkBox = viewHolder.getCheckBox();
-                textView = viewHolder.getTextView();
-            }
-
-            checkBox.setTag(friend);
-
-            checkBox.setChecked(friend.isChecked());
-            textView.setText(friend.getName());
-
-            return convertView;
-        }
-
-    }
-
-    // Object holding the child views of the rows.
-    private static class FriendViewHolder {
-        private CheckBox checkBox;
-        private TextView textView;
-
-        public FriendViewHolder(TextView textView, CheckBox checkBox) {
-            this.checkBox = checkBox;
-            this.textView = textView;
-        }
-
-        public TextView getTextView() {
-            return textView;
-        }
-
-        public void setTextView(TextView textView) {
-            this.textView = textView;
-        }
-
-        public CheckBox getCheckBox() {
-            return checkBox;
-        }
-
-        public void setCheckBox(CheckBox checkBox) {
-            this.checkBox = checkBox;
-        }
-    }
 
     public Object onRetainCustomNonConfigurationInstance() {
         return friends;
     }
 
-
-
-    public void updateFriendsAfterPermission(View view) {
+    public void updateFriendsAuto() {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M &&
                 checkSelfPermission(android.Manifest.permission.READ_CONTACTS)

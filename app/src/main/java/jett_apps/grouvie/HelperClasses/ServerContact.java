@@ -1,4 +1,4 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.HelperClasses;
 
 import android.app.ProgressDialog;
 import android.os.AsyncTask;
@@ -13,9 +13,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 
-class ServerContact extends AsyncTask<String, Integer, String> {
+public class ServerContact extends AsyncTask<String, Integer, String> {
 
-    static ProgressDialog dialog;
+    public static ProgressDialog dialog;
 //    Debug IP
 //    final static String WebServerAddr = "192.168.1.70";
     final static String WebServerAddr = "https://murmuring-peak-87447.herokuapp.com/";

@@ -1,4 +1,4 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.Adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -10,6 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import jett_apps.grouvie.HelperObjects.Plan;
+import jett_apps.grouvie.R;
 
 
 public class CustomPlanAdapter extends ArrayAdapter<Plan>{

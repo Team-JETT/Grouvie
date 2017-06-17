@@ -1,6 +1,8 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.HelperObjects;
 
-public class Film {
+import java.io.Serializable;
+
+public class Film implements Serializable {
 
     private final String filmName, imageUrl;
 

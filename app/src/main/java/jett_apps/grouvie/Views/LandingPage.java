@@ -1,4 +1,4 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.Views;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -17,22 +17,23 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import jett_apps.grouvie.HelperClasses.CurrentPlans;
+import jett_apps.grouvie.Adapters.CustomPlanAdapter;
+import jett_apps.grouvie.HelperObjects.Plan;
+import jett_apps.grouvie.HelperObjects.PropagationObject;
+import jett_apps.grouvie.R;
+import jett_apps.grouvie.Activities.SelectGroup;
+
 public class LandingPage extends AppCompatActivity {
 
-
-    public static final String FILM_MESSAGE = "FILMTITLE";
-    public static final String CINEMA_MESSAGE = "CINEMATITLE";
-    public static final String SHOWTIME_MESSAGE = "SHOWTIME";
-    public static final String DATE_MESSAGE = "EVENTDAY";
-    public static final String CINEMA_DATA = "CINEMADATA";
-    public static final String SHOWTIME_DISTANCE_DATA = "SHOWTIMEDISTANCEDATA";
-    public static final String GROUP_LIST = "GROUPLIST";
     public static final String PLAN_MESSAGE = "PLAN_MESSAGE";
 
     public static final String DATA = "DATA";
+    public static final String CHANGE_MESSAGE = "CHANGE_MESSAGE";
+
 
     private TextView name;
-    private PropogationObject data;
+    private PropagationObject data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,7 +47,7 @@ public class LandingPage extends AppCompatActivity {
         Log.e("PHONE", phoneNum);
         FirebaseMessaging.getInstance().subscribeToTopic(phoneNum);
 
-        data = new PropogationObject();
+        data = new PropagationObject();
 
         final ArrayList<Plan> currentPlans = CurrentPlans.getPlans(LandingPage.this);
         ListAdapter planAdapter = new CustomPlanAdapter(this, currentPlans);

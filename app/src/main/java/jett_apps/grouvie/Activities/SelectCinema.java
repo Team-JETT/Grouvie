@@ -1,4 +1,4 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,17 +18,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static jett_apps.grouvie.LandingPage.CINEMA_DATA;
-import static jett_apps.grouvie.LandingPage.CINEMA_MESSAGE;
-import static jett_apps.grouvie.LandingPage.DATA;
-import static jett_apps.grouvie.LandingPage.DATE_MESSAGE;
-import static jett_apps.grouvie.LandingPage.FILM_MESSAGE;
-import static jett_apps.grouvie.LandingPage.GROUP_LIST;
-import static jett_apps.grouvie.LandingPage.SHOWTIME_DISTANCE_DATA;
+import jett_apps.grouvie.HelperObjects.PropagationObject;
+import jett_apps.grouvie.R;
+
+import static jett_apps.grouvie.Views.LandingPage.DATA;
 
 public class SelectCinema extends AppCompatActivity {
 
-    private PropogationObject data;
+    private PropagationObject data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +33,7 @@ public class SelectCinema extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_cinema);
 
-        data = (PropogationObject) getIntent().getSerializableExtra(DATA);
+        data = (PropagationObject) getIntent().getSerializableExtra(DATA);
 
         final String chosenFilm = data.getFilmTitle();
         final String cinemaData = data.getCinemaData();
@@ -81,7 +78,7 @@ public class SelectCinema extends AppCompatActivity {
                     Log.v("CHOSEN CINEMA", chosenCinema);
                     JSONArray showtimeDistanceData = null;
                     try {
-                        // For our chosen cinema get the showtimes and distance to the cinema.
+                        // For our chosen chosenCinema get the showtimes and distance to the chosenCinema.
                         showtimeDistanceData = ((JSONObject) finalCinema_data.get(position)).
                                 getJSONArray(chosenCinema);
                         Log.v("CHOSEN CINEMA DATA", cinemaData.toString());

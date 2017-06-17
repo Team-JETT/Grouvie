@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="jett_apps.grouvie.SelectFilm">
+    tools:context="jett_apps.grouvie.Activities.SelectFilm">
 
     <ListView
         android:id="@+id/filmList"
@@ -18,8 +18,9 @@
         android:id="@+id/showingCinemasList"
         layout="@layout/content_select_film"
         android:layout_width="match_parent"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true" />
+        android:layout_below="@+id/appBarLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:id="@+id/textView3"
@@ -43,5 +44,16 @@
 
 
     </android.support.design.widget.AppBarLayout>
+
+    <Button
+        android:id="@+id/button8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/textView3"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textView3"
+        android:background="@android:color/holo_green_light"
+        android:text="SURPISE ME" />
 
 </RelativeLayout>

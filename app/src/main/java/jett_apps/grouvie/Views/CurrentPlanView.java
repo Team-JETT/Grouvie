@@ -1,9 +1,10 @@
-package jett_apps.grouvie;
+package jett_apps.grouvie.Views;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import org.json.JSONException;
@@ -11,7 +12,15 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import static jett_apps.grouvie.LandingPage.PLAN_MESSAGE;
+import jett_apps.grouvie.Activities.SuggestChangeInPlan;
+import jett_apps.grouvie.HelperClasses.CurrentPlans;
+import jett_apps.grouvie.HelperObjects.Friend;
+import jett_apps.grouvie.HelperObjects.Plan;
+import jett_apps.grouvie.HelperClasses.ProfileManager;
+import jett_apps.grouvie.R;
+import jett_apps.grouvie.HelperClasses.ServerContact;
+
+import static jett_apps.grouvie.Views.LandingPage.PLAN_MESSAGE;
 
 public class CurrentPlanView extends AppCompatActivity {
 
@@ -36,16 +45,44 @@ public class CurrentPlanView extends AppCompatActivity {
         chosenDay = p.getSuggestedDate();
         chosenFriends = p.getEventMembers();
 
-        ((TextView) findViewById(R.id.SelectedFilm)).setText(chosenFilm);
-        ((TextView) findViewById(R.id.SelectedCinema)).setText(chosenCinema);
-        ((TextView) findViewById(R.id.SelectedShowtime)).setText(chosenTime);
-        ((TextView) findViewById(R.id.SelectedDay)).setText(chosenDay);
+        Button button = (Button) findViewById(R.id.cancelPlan);
+
+        if(!ProfileManager.getPhone(this).equals(p.getLeaderPhoneNum())) {
+            button.setVisibility(View.INVISIBLE);
+        }
+
+        TextView film = (TextView) findViewById(R.id.SelectedFilm);
+        film.setText(chosenFilm);
+
+        TextView cinema = (TextView) findViewById(R.id.SelectedCinema);
+        cinema.setText(chosenCinema);
+
+        TextView time = (TextView) findViewById(R.id.SelectedShowtime);
+        time.setText(chosenTime);
+
+        TextView day = (TextView) findViewById(R.id.SelectedDay);
+        day.setText(chosenDay);
+
+        Button backButton = (Button) findViewById(R.id.backButton);
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CurrentPlanView.this, LandingPage.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
     public void viewGroupReplies(View view) {
         //TODO: Show activity with group replies and option to replan.
         Intent intent = new Intent(view.getContext(), GroupView.class);
+        intent.putExtra(PLAN_MESSAGE, p);
+        startActivity(intent);
+    }
+
+    public void makeChange(View view) {
+        Intent intent = new Intent(view.getContext(), SuggestChangeInPlan.class);
         intent.putExtra(PLAN_MESSAGE, p);
         startActivity(intent);
     }
@@ -83,4 +120,10 @@ public class CurrentPlanView extends AppCompatActivity {
         //TODO: Show activity with group replies and option to replan.
 
     }
+
+    public void backButton(View view) {
+        Intent intent = new Intent(CurrentPlanView.this, LandingPage.class);
+        startActivity(intent);
+    }
+
 }
