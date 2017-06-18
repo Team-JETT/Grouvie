@@ -8,11 +8,12 @@
         android:id="@+id/filmOverview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:layout_below="@+id/filmTitle"
+        android:layout_alignBottom="@+id/filmPoster"
         android:layout_alignLeft="@+id/filmTitle"
         android:layout_alignStart="@+id/filmTitle"
-        android:layout_alignBottom="@+id/filmPoster" />
+        android:layout_below="@+id/filmTitle"
+        android:text="TextView"
+        android:textColor="@color/grey_300" />
 
     <TextView
         android:id="@+id/filmTitle"
