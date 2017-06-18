@@ -10,6 +10,7 @@ public class PropagationObject implements Serializable {
     private int year;
     private ArrayList<Friend> selectedFriends;
     private String cinemaData;
+    private String cinema;
     private String filmTitle;
     private String showtimeDistance;
     private String chosenTime;
@@ -67,10 +68,6 @@ public class PropagationObject implements Serializable {
         return filmTitle;
     }
 
-    public String getCinema() {
-        return cinemaData;
-    }
-
     public void setShowtimeDistance(String showtimeDistance) {
         this.showtimeDistance = showtimeDistance;
     }
@@ -97,5 +94,17 @@ public class PropagationObject implements Serializable {
 
     public ArrayList<Film> getListOfFilms() {
         return listOfFilms;
+    }
+
+    public String getCinema() {
+        return cinema;
+    }
+
+    public void setCinema(String cinema) {
+        this.cinema = cinema;
+    }
+
+    public String getCinemaData() {
+        return cinemaData;
     }
 }
