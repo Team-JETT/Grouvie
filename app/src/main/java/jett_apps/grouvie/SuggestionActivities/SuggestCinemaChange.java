@@ -88,7 +88,7 @@ public class SuggestCinemaChange extends AppCompatActivity {
 
 
                         //Sending the current plan to the final planning page
-                        Intent intent = new Intent(view.getContext(), SuggestChangeInPlan.class);
+                        Intent intent = new Intent(view.getContext(), SuggestShowtimeChange.class);
 
                         data.setCinema(chosenCinema);
                         data.setShowtimeDistance(showtimeDistanceData.toString());
