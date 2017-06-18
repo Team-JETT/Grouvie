@@ -1,4 +1,4 @@
-package jett_apps.grouvie.Activities;
+package jett_apps.grouvie.SuggestionActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,7 @@ import android.widget.AdapterView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -24,9 +25,8 @@ import jett_apps.grouvie.HelperObjects.PropagationObject;
 import jett_apps.grouvie.R;
 
 import static jett_apps.grouvie.Views.LandingPage.CHANGED_PLAN_MESSAGE;
-import static jett_apps.grouvie.Views.LandingPage.PLAN_MESSAGE;
 
-public class SelectFilmChange extends AppCompatActivity {
+public class SuggestFilmChange extends AppCompatActivity {
 
     private Plan p;
     private PropagationObject suggestedPlanData;
@@ -60,7 +60,7 @@ public class SelectFilmChange extends AppCompatActivity {
             films.add(new Film(filmName, imageUrl));
         }
 
-        ListAdapter filmAdapter = new CustomFilmAdapter(SelectFilmChange.this, films);
+        ListAdapter filmAdapter = new CustomFilmAdapter(SuggestFilmChange.this, films);
         ListView filmsListView = (ListView) findViewById(R.id.storedFilmList);
         filmsListView.setAdapter(filmAdapter);
 
@@ -72,11 +72,21 @@ public class SelectFilmChange extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         String filmTitle = films.get(position).getFilmName();
+
+                        Log.v("CHOSEN FILM", filmTitle);
+                        JSONArray cinema_data = null;
+                        try {
+                            cinema_data = local_data.getJSONObject(filmTitle).getJSONArray("cinema");
+                            Log.v("CINEMA DATA", cinema_data.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        final JSONArray cinemaData = cinema_data;
+
+                        Intent intent = new Intent(view.getContext(), SuggestCinemaChange.class);
                         suggestedPlanData.setFilmTitle(filmTitle);
-                        Intent intent = new Intent(view.getContext(), SuggestChangeInPlan.class);
-                        intent.putExtra(CHANGED_PLAN_MESSAGE, p);
+                        suggestedPlanData.setCinemaData(cinemaData.toString());
                         intent.putExtra(CHANGED_PLAN_MESSAGE, suggestedPlanData);
-                        intent.putExtra(PLAN_MESSAGE, p);
                         startActivity(intent);
                     }
                 }

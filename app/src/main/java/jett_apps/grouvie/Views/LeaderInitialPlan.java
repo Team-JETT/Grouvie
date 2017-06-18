@@ -49,7 +49,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
         chosenTime = data.getChosenTime();
         chosenDay = data.getDate();
         chosenGroup = data.getSelectedFriends();
-//        cinemaData = data.getCinema();
+        cinemaData = data.getCinemaData();
 
 
         ((TextView) findViewById(R.id.SelectedFilm)).setText(chosenFilm);
@@ -104,6 +104,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
         p.setSuggestedDay(data.getDay());
         p.setSuggestedMonth(data.getMonth());
         p.setSuggestedYear(data.getYear());
+        p.setShowtimeDistance(data.getShowtimeDistance());
 
         ArrayList<Film> listOfFilms = data.getListOfFilms();
         p.setListOfFilms(listOfFilms);

@@ -1,4 +1,4 @@
-package jett_apps.grouvie.Activities;
+package jett_apps.grouvie.SuggestionActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,19 +21,19 @@ import java.util.Iterator;
 import jett_apps.grouvie.HelperObjects.PropagationObject;
 import jett_apps.grouvie.R;
 
-import static jett_apps.grouvie.Views.LandingPage.DATA;
+import static jett_apps.grouvie.Views.LandingPage.CHANGED_PLAN_MESSAGE;
 
-public class SelectCinema extends AppCompatActivity {
+public class SuggestCinemaChange extends AppCompatActivity {
 
     private PropagationObject data;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_select_cinema);
+        setContentView(R.layout.activity_suggest_cinema_change);
 
-        data = (PropagationObject) getIntent().getSerializableExtra(DATA);
+        data = (PropagationObject) getIntent().getSerializableExtra(CHANGED_PLAN_MESSAGE);
 
         final String chosenFilm = data.getFilmTitle();
         final String cinemaData = data.getCinemaData();
@@ -70,35 +70,38 @@ public class SelectCinema extends AppCompatActivity {
 
         final JSONArray finalCinema_data = cinema_data;
         showtimeListView.setOnItemClickListener(
-            new AdapterView.OnItemClickListener() {
+                new AdapterView.OnItemClickListener() {
 
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String chosenCinema = cinemas.get(position);
-                    Log.v("CHOSEN CINEMA", chosenCinema);
-                    JSONArray showtimeDistanceData = null;
-                    try {
-                        // For our chosen chosenCinema get the showtimes and distance to the chosenCinema.
-                        showtimeDistanceData = ((JSONObject) finalCinema_data.get(position)).
-                                getJSONArray(chosenCinema);
-                        Log.v("CHOSEN CINEMA DATA", cinemaData.toString());
-                    } catch (JSONException e) {
-                        e.printStackTrace();
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        String chosenCinema = cinemas.get(position);
+                        Log.v("CHOSEN CINEMA", chosenCinema);
+                        JSONArray showtimeDistanceData = null;
+                        try {
+                            // For our chosen chosenCinema get the showtimes and distance to the chosenCinema.
+                            showtimeDistanceData = ((JSONObject) finalCinema_data.get(position)).
+                                    getJSONArray(chosenCinema);
+                            Log.v("CHOSEN CINEMA DATA", cinemaData.toString());
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        //Sending the current plan to the final planning page
+                        Intent intent = new Intent(view.getContext(), SuggestShowtimeChange.class);
+
+                        data.setCinema(chosenCinema);
+                        data.setShowtimeDistance(showtimeDistanceData.toString());
+
+                        intent.putExtra(CHANGED_PLAN_MESSAGE, data);
+                        startActivity(intent);
+
                     }
-
-
-                    //Sending the current plan to the final planning page
-                    Intent intent = new Intent(view.getContext(), SelectShowtime.class);
-
-                    data.setCinema(chosenCinema);
-                    data.setShowtimeDistance(showtimeDistanceData.toString());
-
-                    intent.putExtra(DATA, data);
-                    startActivity(intent);
-
                 }
-            }
         );
 
     }
+
+
+
 }

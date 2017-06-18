@@ -12,6 +12,7 @@ public class Plan implements Serializable {
     private String leaderPhoneNum;
     private ArrayList<Friend> eventMembers;
     private String cinemaData;
+    private String showtimeDistance;
 
     private String suggestedDate;
     private int suggestedDay;
@@ -148,6 +149,14 @@ public class Plan implements Serializable {
 
     public void setSuggestedYear(int suggestedYear) {
         this.suggestedYear = suggestedYear;
+    }
+
+    public void setShowtimeDistance(String showtimeDistance) {
+        this.showtimeDistance = showtimeDistance;
+    }
+
+    public String getShowtimeDistance() {
+        return showtimeDistance;
     }
 }
 
