@@ -5,6 +5,16 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:id="@+id/filmOverview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:layout_below="@+id/filmTitle"
+        android:layout_alignLeft="@+id/filmTitle"
+        android:layout_alignStart="@+id/filmTitle"
+        android:layout_alignBottom="@+id/filmPoster" />
+
+    <TextView
         android:id="@+id/filmTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

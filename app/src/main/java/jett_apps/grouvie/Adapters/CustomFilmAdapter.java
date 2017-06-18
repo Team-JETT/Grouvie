@@ -50,6 +50,9 @@ public class CustomFilmAdapter extends ArrayAdapter<Film>{
         TextView filmTitle = (TextView) customView.findViewById(R.id.filmTitle);
         filmTitle.setText(f.getFilmName());
 
+        TextView filmOverview = (TextView) customView.findViewById(R.id.filmOverview);
+        filmOverview.setText(f.getOverview());
+
         ImageView filmPoster = (ImageView) customView.findViewById(R.id.filmPoster);
         String imageUrl = f.getImageUrl();
         RequestOptions options = new RequestOptions();
