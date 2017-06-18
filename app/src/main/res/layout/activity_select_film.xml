@@ -54,12 +54,14 @@
         android:id="@+id/button8"
         android:layout_width="60dp"
         android:layout_height="40dp"
-        android:background="@android:color/holo_green_light"
-        android:text="SURPISE ME"
-        android:layout_alignTop="@+id/textView3"
-        android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_marginEnd="21dp"
         android:layout_marginRight="21dp"
-        android:layout_marginEnd="21dp" />
+        android:background="@drawable/rounded_button"
+        android:backgroundTint="@android:color/holo_green_light"
+        android:text="SURPISE ME"
+        android:textSize="10sp" />
 
 </RelativeLayout>

@@ -132,14 +132,14 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewGroupReplies"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/cancelPlan"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_marginBottom="85dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="16dp"
         android:layout_marginTop="8dp"
         android:background="@drawable/rounded_button"
         android:backgroundTint="@android:color/holo_red_light"
@@ -149,7 +149,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/viewGroupReplies"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/suggestChange"
@@ -164,12 +164,10 @@
         android:text="Change"
         android:textColor="@color/grey_300"
         app:layout_constraintBottom_toTopOf="@+id/backButton"
-        app:layout_constraintHorizontal_bias="0.444"
         app:layout_constraintLeft_toRightOf="@+id/button4"
         app:layout_constraintRight_toLeftOf="@+id/cancelPlan"
         app:layout_constraintTop_toBottomOf="@+id/viewGroupReplies"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteY="373dp" />
+        app:layout_constraintVertical_bias="0.823" />
 
     <Button
         android:id="@+id/backButton"
