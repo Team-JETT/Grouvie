@@ -1,10 +1,12 @@
 package jett_apps.grouvie.PlanningActivities;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
@@ -61,8 +63,17 @@ public class SelectShowtime extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        ListAdapter showtimeAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1, showtimes);
+        ListAdapter showtimeAdapter = new ArrayAdapter<String>(getApplicationContext(),
+                android.R.layout.simple_list_item_1, showtimes) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView text = (TextView) view.findViewById(android.R.id.text1);
+                text.setTextColor(Color.WHITE);
+                return view;
+            }
+        };
+
         ListView showtimeListView = (ListView) findViewById(R.id.timeList);
         showtimeListView.setAdapter(showtimeAdapter);
 
