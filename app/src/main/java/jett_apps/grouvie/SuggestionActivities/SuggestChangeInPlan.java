@@ -14,7 +14,7 @@ import jett_apps.grouvie.HelperClasses.ServerContact;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.HelperObjects.PropagationObject;
 import jett_apps.grouvie.R;
-import jett_apps.grouvie.Views.CurrentPlanView;
+import jett_apps.grouvie.Views.LandingPage;
 
 import static jett_apps.grouvie.Views.LandingPage.CHANGED_PLAN_MESSAGE;
 import static jett_apps.grouvie.Views.LandingPage.PLAN_MESSAGE;
@@ -155,13 +155,9 @@ public class SuggestChangeInPlan extends AppCompatActivity {
     }
 
     public void done(View view) {
-        //TODO: Send the suggested plan to the group leader
-        //TODO: Don't really need to keep track of suggestions yet
-        Intent intent = new Intent(SuggestChangeInPlan.this, CurrentPlanView.class);
-
         //TODO: Convert propogation object to plan
-//        Plan suggestedPlan = suggestedPlanData.toPlan();
-//        intent.putExtra(PLAN_MESSAGE, suggestedPlan);
+        //TODO: Send the suggested plan to the group leader
+        Intent intent = new Intent(SuggestChangeInPlan.this, LandingPage.class);
         startActivity(intent);
     }
 }

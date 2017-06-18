@@ -38,12 +38,16 @@ public class CurrentPlanView extends AppCompatActivity {
         setContentView(R.layout.activity_current_plan_view);
 
         Intent intent = getIntent();
-        p = (Plan) intent.getSerializableExtra(PLAN_MESSAGE);
-        chosenFilm = p.getSuggestedFilm();
-        chosenCinema = p.getSuggestedCinema();
-        chosenTime = p.getSuggestedShowTime();
-        chosenDay = p.getSuggestedDate();
-        chosenFriends = p.getEventMembers();
+
+        Plan updatedPlan = (Plan) intent.getSerializableExtra(PLAN_MESSAGE);
+        if (updatedPlan != null) {
+            p = updatedPlan;
+            chosenFilm = p.getSuggestedFilm();
+            chosenCinema = p.getSuggestedCinema();
+            chosenTime = p.getSuggestedShowTime();
+            chosenDay = p.getSuggestedDate();
+            chosenFriends = p.getEventMembers();
+        }
 
         Button button = (Button) findViewById(R.id.cancelPlan);
 
