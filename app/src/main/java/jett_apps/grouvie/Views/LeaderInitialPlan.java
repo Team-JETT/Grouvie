@@ -58,10 +58,12 @@ public class LeaderInitialPlan extends AppCompatActivity {
     }
 
     public void sendToGroup(View view) throws IOException {
-
+        /* Create JSON file to hold information about the plan. */
         JSONObject json = new JSONObject();
         String leaderPhoneNum = ProfileManager.getPhone(LeaderInitialPlan.this);
+        String leaderName = ProfileManager.getName(this);
         try {
+            json.accumulate("leader_name", leaderName);
             json.accumulate("phone_number", leaderPhoneNum);
             json.accumulate("leader", leaderPhoneNum);
             json.accumulate("showtime", chosenTime);
@@ -78,22 +80,20 @@ public class LeaderInitialPlan extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        Log.v("MAKE PLAN:", json.toString());
-        // Send initial/draft plan to web server to update the database
+        /* Send initial/draft plan to web server to update the database. */
         new ServerContact().execute("make_plan", json.toString());
 
+        /* Send initial/draft plan to other group members. */
         for (Friend groupMember : chosenGroup) {
             String topicName = groupMember.getPhoneNum();
-            String result = null;
             try {
                 json.remove("phone_number");
                 json.accumulate("phone_number", topicName);
-                result = new FirebaseContact().execute(topicName, json.toString()).get();
-            } catch (InterruptedException | ExecutionException | JSONException e) {
-                System.out.println("Failed to send plan to: " + topicName);
+                new FirebaseContact().execute("07434897141"/*topicName*/, json.toString());
+            } catch (JSONException e) {
+                Log.e("CHANGE PHONE_NUMBER", "Failed to change phone number in JSON");
                 e.printStackTrace();
             }
-            Log.e("FCM_RES", result);
         }
 
         data.setLeaderPhoneNum(leaderPhoneNum);

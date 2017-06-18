@@ -17,6 +17,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import jett_apps.grouvie.HelperClasses.ProfileManager;
 import jett_apps.grouvie.PlanningActivities.SelectGroup;
 import jett_apps.grouvie.Adapters.CustomPlanAdapter;
 import jett_apps.grouvie.HelperClasses.PlanManager;
@@ -36,30 +37,23 @@ public class LandingPage extends AppCompatActivity {
 
     private TextView name;
     private Plan leaderData;
-    private PropagationObject sentPlan;
+    private Plan sentPlan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page);
 
-        //TODO: Check if this even works
-        String phoneNum = "07434897141";
-//        String phoneNum = ProfileManager.getPhone(this);
-//        System.out.println(phoneNum);
-        Log.e("PHONE", phoneNum);
+        /* Subscribe user to their own phone number as a topic in order to send
+           notifications to their phone. */
+        String phoneNum = ProfileManager.getPhone(this);
         FirebaseMessaging.getInstance().subscribeToTopic(phoneNum);
 
-        sentPlan = (PropagationObject) getIntent().getSerializableExtra(SENT_PLAN);
+        /* Retrieve the value in SENT_PLAN. If this value is non-null, then the app is being run
+           by a group member who needs to see the plan sent by the leader. */
+        sentPlan = (Plan) getIntent().getSerializableExtra(SENT_PLAN);
         if (sentPlan != null) {
-            String film = sentPlan.getFilmTitle();
-            String cinema = sentPlan.getCinema();
-            String showtime = sentPlan.getChosenTime();
-            String date = sentPlan.getDate();
-            ArrayList<Friend> members = sentPlan.getSelectedFriends();
-            String leaderPhoneNum = sentPlan.getLeaderPhoneNumber();
-            Plan plan = new Plan(film, cinema, showtime, date, members, leaderPhoneNum);
-            PlanManager.addPlan(plan, LandingPage.this);
+            PlanManager.addPlan(sentPlan, LandingPage.this);
         }
 
         leaderData = new Plan();
