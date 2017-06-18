@@ -57,7 +57,7 @@ class DataParser:
     def fast_get_film_info(self, film_name):
         """
         Given FILM_NAME, this will find the corresponding movie poster and
-        return the wikipedia image url for the movie poster.
+        return the image url for the movie poster.
         """
         error_url = 'https://literalminded.files.wordpress.com' \
                     '/2010/11/image-unavailable1.png'
