@@ -1,8 +1,6 @@
 package jett_apps.grouvie.Adapters;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +10,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import jett_apps.grouvie.Activities.SelectGroup;
 import jett_apps.grouvie.HelperObjects.Friend;
 import jett_apps.grouvie.HelperObjects.FriendView;
 import jett_apps.grouvie.R;

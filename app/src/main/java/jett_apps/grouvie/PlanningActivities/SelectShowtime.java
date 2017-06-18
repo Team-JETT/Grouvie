@@ -1,4 +1,4 @@
-package jett_apps.grouvie.Activities;
+package jett_apps.grouvie.PlanningActivities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,7 +19,6 @@ import java.util.ArrayList;
 
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.R;
-import jett_apps.grouvie.SuggestionActivities.SuggestChangeInPlan;
 import jett_apps.grouvie.Views.LeaderInitialPlan;
 
 import static jett_apps.grouvie.Views.LandingPage.DATA;

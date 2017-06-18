@@ -1,4 +1,4 @@
-package jett_apps.grouvie.Activities;
+package jett_apps.grouvie.PlanningActivities;
 
 import android.Manifest;
 import android.content.Context;

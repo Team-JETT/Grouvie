@@ -12,7 +12,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import jett_apps.grouvie.SuggestionActivities.SuggestChangeInPlan;
+import jett_apps.grouvie.PlanningActivities.SuggestChangeInPlan;
 import jett_apps.grouvie.HelperClasses.PlanManager;
 import jett_apps.grouvie.HelperObjects.Friend;
 import jett_apps.grouvie.HelperObjects.Plan;

@@ -1,4 +1,4 @@
-package jett_apps.grouvie.SuggestionActivities;
+package jett_apps.grouvie.PlanningActivities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -10,9 +10,6 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
-import jett_apps.grouvie.Activities.SelectCinema;
-import jett_apps.grouvie.Activities.SelectFilm;
-import jett_apps.grouvie.Activities.SelectShowtime;
 import jett_apps.grouvie.HelperClasses.ServerContact;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.R;

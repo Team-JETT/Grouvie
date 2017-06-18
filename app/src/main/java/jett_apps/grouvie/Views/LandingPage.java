@@ -17,7 +17,7 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import jett_apps.grouvie.Activities.SelectGroup;
+import jett_apps.grouvie.PlanningActivities.SelectGroup;
 import jett_apps.grouvie.Adapters.CustomPlanAdapter;
 import jett_apps.grouvie.HelperClasses.PlanManager;
 import jett_apps.grouvie.HelperObjects.Friend;

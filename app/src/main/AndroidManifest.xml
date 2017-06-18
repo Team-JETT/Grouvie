@@ -27,28 +27,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activities.SelectFilm"
+            android:name=".PlanningActivities.SelectFilm"
             android:label="@string/title_activity_select_film"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.SelectShowtime" />
+        <activity android:name=".PlanningActivities.SelectShowtime" />
         <activity android:name=".Views.LeaderInitialPlan" />
 
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
 
-        <activity android:name=".Activities.SelectCinema" />
+        <activity android:name=".PlanningActivities.SelectCinema" />
         <activity
-            android:name=".Activities.SelectGroup"
+            android:name=".PlanningActivities.SelectGroup"
             android:label="@string/title_activity_group_selection"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Views.LandingPage" />
         <activity android:name=".Views.CurrentPlanView" />
-        <activity android:name=".Activities.SignUpActivity" />
+        <activity android:name=".PlanningActivities.SignUpActivity" />
         <activity android:name=".Views.ProfilePage" />
         <activity android:name=".Views.GroupView" />
         <!-- <activity android:name=".SuggestChange" /> -->
-        <activity android:name=".SuggestionActivities.SuggestChangeInPlan" />
+        <activity android:name=".PlanningActivities.SuggestChangeInPlan" />
 
         <service android:name=".Notifications.IIDService">
             <intent-filter>

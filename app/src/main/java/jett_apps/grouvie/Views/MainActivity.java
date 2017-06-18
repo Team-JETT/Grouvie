@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.api.GoogleApiActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -30,7 +29,7 @@ import java.util.concurrent.TimeUnit;
 
 import jett_apps.grouvie.HelperClasses.BaseActivity;
 import jett_apps.grouvie.R;
-import jett_apps.grouvie.Activities.SignUpActivity;
+import jett_apps.grouvie.PlanningActivities.SignUpActivity;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
 
