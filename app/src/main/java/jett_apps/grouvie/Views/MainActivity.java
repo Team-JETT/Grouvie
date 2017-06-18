@@ -83,12 +83,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     }
 
     public void signInActivity(View view) {
-
-
-        Intent intent = new Intent(view.getContext(), CinemaLocations.class);
-
-
-//        Intent intent = new Intent(MainActivity.this, LandingPage.class);
+        Intent intent = new Intent(MainActivity.this, LandingPage.class);
         startActivity(intent);
 //            Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
 //            intent.putExtra(USER_PHONE_NO, userPhoneNo);

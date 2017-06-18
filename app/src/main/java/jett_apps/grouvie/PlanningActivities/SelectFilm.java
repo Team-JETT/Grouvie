@@ -30,6 +30,7 @@ import jett_apps.grouvie.HelperClasses.ServerContact;
 import jett_apps.grouvie.HelperObjects.Film;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.R;
+import jett_apps.grouvie.Views.CinemaLocations;
 
 import static jett_apps.grouvie.Views.LandingPage.DATA;
 
@@ -95,14 +96,18 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                     }
                     final JSONArray cinemaData = cinema_data;
 
-                    Intent cinemaIntent = new Intent(view.getContext(), SelectCinema.class);
+                    //TODO: Take a look here.
+
+//                    Intent cinemaIntent = new Intent(view.getContext(), SelectCinema.class);
+
+                    Intent intent = new Intent(view.getContext(), CinemaLocations.class);
 
 
                     data.setCinemaData(cinemaData.toString());
                     data.setSuggestedFilm(filmTitle);
-                    cinemaIntent.putExtra(DATA, data);
+                    intent.putExtra(DATA, data);
 
-                    startActivity(cinemaIntent);
+                    startActivity(intent);
                 }
             }
         );
