@@ -120,7 +120,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         mSignedInViews = (ViewGroup) findViewById(R.id.signed_in_buttons);
 
         mStatusText = (TextView) findViewById(R.id.status);
-        mDetailText = (TextView) findViewById(R.id.detail);
 
         mPhoneNumberField = (EditText) findViewById(R.id.field_phone_number);
         mVerificationField = (EditText) findViewById(R.id.field_verification_code);
