@@ -19,6 +19,7 @@ public class PlanManager {
 
     //Obtain current plans
     public static ArrayList<Plan> getPlans(Context context) {
+//        clearPlans(context);
 
         SharedPreferences sp = context.getSharedPreferences(PLANS_KEY, Context.MODE_PRIVATE);
         final Gson gson = new Gson();
