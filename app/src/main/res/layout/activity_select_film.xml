@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context="jett_apps.grouvie.PlanningActivities.SelectFilm">
 
     <ListView
@@ -11,7 +12,9 @@
         style="@style/Widget.AppCompat.Light.ListView.DropDown"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:headerDividersEnabled="false"
+        android:divider="?attr/colorControlHighlight"
+        android:dividerHeight="2dp"
+        android:headerDividersEnabled="true"
         android:paddingTop="70dp" />
 
     <include
@@ -20,20 +23,22 @@
         android:layout_width="match_parent"
         android:layout_below="@+id/appBarLayout"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_height="match_parent" />
 
     <TextView
         android:id="@+id/textView3"
-        android:textSize="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|center_horizontal"
-        android:text="Select A Film"
-        app:layout_anchor="@+id/showingCinemasList"
-        app:layout_anchorGravity="top|center_horizontal"
         android:layout_below="@+id/appBarLayout"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp" />
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginTop="15dp"
+        android:text="Select A Film"
+        android:textColor="@color/grey_100"
+        android:textSize="30dp"
+        app:layout_anchor="@+id/showingCinemasList"
+        app:layout_anchorGravity="top|center_horizontal" />
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -47,13 +52,14 @@
 
     <Button
         android:id="@+id/button8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/textView3"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/textView3"
+        android:layout_width="60dp"
+        android:layout_height="40dp"
         android:background="@android:color/holo_green_light"
-        android:text="SURPISE ME" />
+        android:text="SURPISE ME"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="21dp"
+        android:layout_marginEnd="21dp" />
 
 </RelativeLayout>
