@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
+    android:divider="@null"
+    android:dividerHeight="0dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -13,7 +15,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginTop="8dp"
-        android:textColor="@color/grey_100"
+        android:textColor="@color/grey_300"
         android:textSize="16sp"
         app:layout_constraintHorizontal_bias="0.064"
         app:layout_constraintLeft_toLeftOf="parent"
