@@ -49,7 +49,6 @@
         <activity android:name=".Views.GroupView" />
         <!-- <activity android:name=".SuggestChange" /> -->
         <activity android:name=".SuggestionActivities.SuggestChangeInPlan" />
-        <activity android:name=".SuggestionActivities.SuggestFilmChange" />
 
         <service android:name=".Notifications.IIDService">
             <intent-filter>
@@ -62,8 +61,6 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".SuggestionActivities.SuggestCinemaChange" />
-        <activity android:name=".SuggestionActivities.SuggestShowtimeChange"></activity>
     </application>
 
 </manifest>

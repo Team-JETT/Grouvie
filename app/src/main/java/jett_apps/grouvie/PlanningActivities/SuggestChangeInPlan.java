@@ -10,74 +10,48 @@ import android.widget.TextView;
 
 import java.util.Calendar;
 
+import jett_apps.grouvie.Activities.SelectCinema;
+import jett_apps.grouvie.Activities.SelectFilm;
+import jett_apps.grouvie.Activities.SelectShowtime;
 import jett_apps.grouvie.HelperClasses.ServerContact;
 import jett_apps.grouvie.HelperObjects.Plan;
-import jett_apps.grouvie.HelperObjects.PropagationObject;
 import jett_apps.grouvie.R;
 import jett_apps.grouvie.Views.LandingPage;
 
-import static jett_apps.grouvie.Views.LandingPage.CHANGED_PLAN_MESSAGE;
+import static jett_apps.grouvie.Views.LandingPage.DATA;
 import static jett_apps.grouvie.Views.LandingPage.PLAN_MESSAGE;
 
 public class SuggestChangeInPlan extends AppCompatActivity {
 
-    private Plan currentPlan;
-    private PropagationObject suggestedPlanData;
+    private Plan leaderPlan;
+    private Plan suggestedPlan;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggest_change_in_plan);
 
-        //Obtain current plan suggested by the leader if it hasn't been obtaned already
-        if (currentPlan == null) {
-            currentPlan = (Plan) getIntent().getSerializableExtra(PLAN_MESSAGE);
-        }
-
         //Update suggested plan so far
-        suggestedPlanData = (PropagationObject) getIntent().getSerializableExtra(CHANGED_PLAN_MESSAGE);
+        suggestedPlan = (Plan) getIntent().getSerializableExtra(DATA);
 
-        //Suggested plan for user is initially the same as their current plan
-        if (suggestedPlanData == null) {
+        if (suggestedPlan == null) {
 
-            suggestedPlanData = new PropagationObject();
+            //Get current leader plan
+            leaderPlan = (Plan) getIntent().getSerializableExtra(PLAN_MESSAGE);
 
-            suggestedPlanData.setFilmTitle(currentPlan.getSuggestedFilm());
-            suggestedPlanData.setCinema(currentPlan.getSuggestedCinema());
-            suggestedPlanData.setChosenTime(currentPlan.getSuggestedShowTime());
-            suggestedPlanData.setDate(currentPlan.getSuggestedDate());
-            suggestedPlanData.setSelectedFriends(currentPlan.getEventMembers());
+            //Obtain current plan suggested by the leader if it hasn't been obtaned already
+            suggestedPlan = new Plan(leaderPlan);
 
-            suggestedPlanData.setCinemaData(currentPlan.getCinemaData());
-            suggestedPlanData.setShowtimeDistance(currentPlan.getShowtimeDistance());
-
-            suggestedPlanData.setDay(currentPlan.getSuggestedDay());
-            suggestedPlanData.setMonth(currentPlan.getSuggestedMonth());
-            suggestedPlanData.setYear(currentPlan.getSuggestedYear());
-//            suggestedPlanData.setLeaderPhone
         }
-
-//        if(suggestedPlan == null) {
-//            suggestedPlan = new Plan(currentPlan.getSuggestedFilm(),
-//                                        currentPlan.getSuggestedCinema(),
-//                                        currentPlan.getSuggestedShowTime(),
-//                                        currentPlan.getSuggestedDate(),
-//                                        currentPlan.getEventMembers(),
-//                                        currentPlan.getLeaderPhoneNum());
-//
-//            suggestedPlan.setSuggestedDay(currentPlan.getSuggestedDay());
-//            suggestedPlan.setSuggestedMonth(currentPlan.getSuggestedMonth());
-//            suggestedPlan.setSuggestedYear(currentPlan.getSuggestedYear());
-//        }
 
         //Changing the film
         TextView film = (TextView) findViewById(R.id.currentFilm);
-        film.setText(suggestedPlanData.getFilmTitle());
+        film.setText(suggestedPlan.getSuggestedFilm());
         film.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), SuggestFilmChange.class);
-                intent.putExtra(CHANGED_PLAN_MESSAGE, suggestedPlanData);
+                Intent intent = new Intent(v.getContext(), SelectFilm.class);
+                intent.putExtra(DATA, suggestedPlan);
                 ServerContact.startProgressBar(SuggestChangeInPlan.this);
                 startActivity(intent);
             }
@@ -85,7 +59,7 @@ public class SuggestChangeInPlan extends AppCompatActivity {
 
         //Changing the date
         final TextView date = (TextView) findViewById(R.id.currentDate);
-        date.setText(suggestedPlanData.getDate());
+        date.setText(suggestedPlan.getSuggestedDate());
         date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -107,14 +81,14 @@ public class SuggestChangeInPlan extends AppCompatActivity {
                             public void onDateSet(DatePicker view, int year, int month, int day) {
                                 String chosenDay = day + "/" + month + "/" + year;
 
-                                Intent intent = new Intent(view.getContext(), SuggestFilmChange.class);
+                                Intent intent = new Intent(view.getContext(), SelectFilm.class);
 
-                                suggestedPlanData.setDate(chosenDay);
-                                suggestedPlanData.setDay(day);
-                                suggestedPlanData.setMonth(month + 1);
-                                suggestedPlanData.setYear(year);
+                                suggestedPlan.setSuggestedDate(chosenDay);
+                                suggestedPlan.setSuggestedDay(day);
+                                suggestedPlan.setSuggestedMonth(month + 1);
+                                suggestedPlan.setSuggestedYear(year);
 
-                                intent.putExtra(CHANGED_PLAN_MESSAGE, suggestedPlanData);
+                                intent.putExtra(DATA, suggestedPlan);
                                 ServerContact.startProgressBar(SuggestChangeInPlan.this);
                                 startActivity(intent);
                             }
@@ -128,24 +102,24 @@ public class SuggestChangeInPlan extends AppCompatActivity {
 
         //Changing the cinema
         TextView cinema = (TextView) findViewById(R.id.currentCinema);
-        cinema.setText(suggestedPlanData.getCinema());
+        cinema.setText(suggestedPlan.getSuggestedCinema());
         cinema.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), SuggestCinemaChange.class);
-                intent.putExtra(CHANGED_PLAN_MESSAGE, suggestedPlanData);
+                Intent intent = new Intent(v.getContext(), SelectCinema.class);
+                intent.putExtra(DATA, suggestedPlan);
                 startActivity(intent);
             }
         });
 
         //Changing the showtime
         TextView time = (TextView) findViewById(R.id.currentShowtime);
-        time.setText(suggestedPlanData.getChosenTime());
+        time.setText(suggestedPlan.getSuggestedShowTime());
         time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), SuggestShowtimeChange.class);
-                intent.putExtra(CHANGED_PLAN_MESSAGE, suggestedPlanData);
+                Intent intent = new Intent(v.getContext(), SelectShowtime.class);
+                intent.putExtra(DATA, suggestedPlan);
                 startActivity(intent);
             }
         });
@@ -155,7 +129,6 @@ public class SuggestChangeInPlan extends AppCompatActivity {
     }
 
     public void done(View view) {
-        //TODO: Convert propogation object to plan
         //TODO: Send the suggested plan to the group leader
         Intent intent = new Intent(SuggestChangeInPlan.this, LandingPage.class);
         startActivity(intent);

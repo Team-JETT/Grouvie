@@ -97,6 +97,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
         }
 
         data.setLeaderPhoneNum(leaderPhoneNum);
+        data.setInitialPlan(false);
 
         PlanManager.addPlan(data, LeaderInitialPlan.this);
 

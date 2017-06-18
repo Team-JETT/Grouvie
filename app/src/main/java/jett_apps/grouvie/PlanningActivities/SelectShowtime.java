@@ -1,4 +1,4 @@
-package jett_apps.grouvie.SuggestionActivities;
+package jett_apps.grouvie.Activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,24 +17,26 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-import jett_apps.grouvie.HelperObjects.PropagationObject;
+import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.R;
+import jett_apps.grouvie.SuggestionActivities.SuggestChangeInPlan;
+import jett_apps.grouvie.Views.LeaderInitialPlan;
 
-import static jett_apps.grouvie.Views.LandingPage.CHANGED_PLAN_MESSAGE;
+import static jett_apps.grouvie.Views.LandingPage.DATA;
 
-public class SuggestShowtimeChange extends AppCompatActivity {
+public class SelectShowtime extends AppCompatActivity {
 
-    private PropagationObject data;
+    private Plan data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_suggest_showtime_change);
+        setContentView(R.layout.activity_select_showtime);
 
-        data = (PropagationObject) getIntent().getSerializableExtra(CHANGED_PLAN_MESSAGE);
+        data = (Plan) getIntent().getSerializableExtra(DATA);
 
-        final String chosenFilm = data.getFilmTitle();
-        final String chosenCinema = data.getCinema();
+        final String chosenFilm = data.getSuggestedFilm();
+        final String chosenCinema = data.getSuggestedCinema();
         final String showtimeDistanceData = data.getShowtimeDistance();
 
         ((TextView) findViewById(R.id.chosenFilm)).setText(chosenFilm);
@@ -66,24 +68,35 @@ public class SuggestShowtimeChange extends AppCompatActivity {
         showtimeListView.setAdapter(showtimeAdapter);
 
         showtimeListView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
+            new AdapterView.OnItemClickListener() {
 
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        String chosenTime = showtimes.get(position);
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    String chosenTime = showtimes.get(position);
+
+                    Intent intent;
+
+                    //Decide if this plan is leader's initial plan or a response
+                    if (data.isInitialPlan()) {
 
                         //Sending the current plan to the final planning page
-                        Intent intent = new Intent(view.getContext(), SuggestChangeInPlan.class);
+                        intent = new Intent(view.getContext(), LeaderInitialPlan.class);
 
-                        data.setChosenTime(chosenTime);
+                    } else {
 
-                        intent.putExtra(CHANGED_PLAN_MESSAGE, data);
+                        //Go back to suggest change in plan activity
+                        intent = new Intent(view.getContext(), SuggestChangeInPlan.class);
 
-                        startActivity(intent);
                     }
-                }
-        );
 
+                    data.setSuggestedShowTime(chosenTime);
+
+                    intent.putExtra(DATA, data);
+                    startActivity(intent);
+
+                }
+            }
+        );
 
     }
 }

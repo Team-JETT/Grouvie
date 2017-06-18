@@ -63,6 +63,7 @@ public class LandingPage extends AppCompatActivity {
         }
 
         leaderData = new Plan();
+        leaderData.setInitialPlan(true);
 
         final ArrayList<Plan> currentPlans = PlanManager.getPlans(LandingPage.this);
         ListAdapter planAdapter = new CustomPlanAdapter(this, currentPlans);

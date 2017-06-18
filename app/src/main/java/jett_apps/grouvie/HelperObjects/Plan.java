@@ -13,6 +13,7 @@ public class Plan implements Serializable {
     private ArrayList<Friend> eventMembers;
     private String cinemaData;
     private String showtimeDistance;
+    private boolean isInitialPlan;
 
     private String suggestedDate;
     private int suggestedDay;
@@ -20,6 +21,10 @@ public class Plan implements Serializable {
     private int suggestedYear;
 
     private ArrayList<Film> listOfFilms;
+
+    public Plan() {
+
+    }
 
     public Plan(String suggestedFilm, String suggestedCinema, String suggestedShowTime,
                 String suggestedDate, ArrayList<Friend> eventMembers, String leaderPhoneNum) {
@@ -31,10 +36,21 @@ public class Plan implements Serializable {
         this.leaderPhoneNum = leaderPhoneNum;
     }
 
-    public Plan() {
-
+    public Plan(Plan oldPlan) {
+        this.suggestedFilm = oldPlan.getSuggestedFilm();
+        this.suggestedCinema = oldPlan.getSuggestedCinema();
+        this.suggestedShowTime = oldPlan.getSuggestedShowTime();
+        this.leaderPhoneNum = oldPlan.getLeaderPhoneNum();
+        this.eventMembers = oldPlan.getEventMembers();
+        this.cinemaData = oldPlan.getCinemaData();
+        this.showtimeDistance = oldPlan.getShowtimeDistance();
+        this.isInitialPlan = oldPlan.isInitialPlan();
+        this.suggestedDate = oldPlan.getSuggestedDate();
+        this.suggestedDay = oldPlan.getSuggestedDay();
+        this.suggestedMonth = oldPlan.getSuggestedMonth();
+        this.suggestedYear = oldPlan.getSuggestedYear();
+        this.listOfFilms = oldPlan.getListOfFilms();
     }
-
 
     public String getSuggestedDate() {
         return suggestedDate;
@@ -157,6 +173,14 @@ public class Plan implements Serializable {
 
     public String getShowtimeDistance() {
         return showtimeDistance;
+    }
+
+    public boolean isInitialPlan() {
+        return isInitialPlan;
+    }
+
+    public void setInitialPlan(boolean initialPlan) {
+        isInitialPlan = initialPlan;
     }
 }
 
