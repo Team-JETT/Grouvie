@@ -61,6 +61,7 @@
             </intent-filter>
         </service>
 
+        <activity android:name=".Views.ConfirmPlanView"></activity>
     </application>
 
 </manifest>

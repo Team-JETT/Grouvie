@@ -1,5 +1,6 @@
 package jett_apps.grouvie.Views;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -45,6 +46,11 @@ public class GroupView extends AppCompatActivity {
         );
 
 
+    }
+
+    public void confirmPlan(View view) {
+        Intent intent = new Intent(view.getContext(), ConfirmPlanView.class);
+        startActivity(intent);
     }
 
 
