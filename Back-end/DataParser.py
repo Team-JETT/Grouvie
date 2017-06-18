@@ -54,13 +54,14 @@ class DataParser:
         longitude = location_data['result']['longitude']
         return round(latitude, 6), round(longitude, 6)
 
-    def fast_get_film_poster(self, film_name):
+    def fast_get_film_info(self, film_name):
         """
         Given FILM_NAME, this will find the corresponding movie poster and
         return the wikipedia image url for the movie poster.
         """
         error_url = 'https://literalminded.files.wordpress.com' \
                     '/2010/11/image-unavailable1.png'
+        error_overview = ''
         if '&' in film_name:
             film_name = 'and'.join(film_name.split('&'))
 
@@ -71,14 +72,16 @@ class DataParser:
         res = requests.get(api_url).json()
 
         if not res['total_results']:
-            return error_url
+            return (error_url, error_overview)
 
-        poster_path = res['results'][0]['poster_path']
+        first_result = res['results'][0]
+        poster_path = first_result['poster_path']
+        overview = first_result['overview']
+        if not (poster_path and overview):
+            return (error_url, error_overview)
 
-        if not poster_path:
-            return error_url
-
-        return 'http://image.tmdb.org/t/p/w154' + poster_path
+        img_url = 'http://image.tmdb.org/t/p/w154' + poster_path
+        return (img_url, overview)
 
     def get_films_for_cinemas(self, date):
         """
@@ -111,8 +114,9 @@ class DataParser:
                                    "distance": CINEMA_DIST[cinema]}]})
                 else:
                     local_data[filmname] = {}
-                    local_data[filmname]["image"] = \
-                        self.fast_get_film_poster(filmname)
+                    poster, overview = self.fast_get_film_info(filmname)
+                    local_data[filmname]["image"] = poster
+                    local_data[filmname]["overview"] = overview
                     local_data[filmname]["cinema"] = \
                         [{cinema: [{"showtimes": times,
                                     "distance": CINEMA_DIST[cinema]}]}]
