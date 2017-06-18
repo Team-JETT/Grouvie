@@ -19,10 +19,8 @@ import java.util.concurrent.ExecutionException;
 import jett_apps.grouvie.HelperClasses.PlanManager;
 import jett_apps.grouvie.HelperClasses.ProfileManager;
 import jett_apps.grouvie.HelperClasses.ServerContact;
-import jett_apps.grouvie.HelperObjects.Film;
 import jett_apps.grouvie.HelperObjects.Friend;
 import jett_apps.grouvie.HelperObjects.Plan;
-import jett_apps.grouvie.HelperObjects.PropagationObject;
 import jett_apps.grouvie.Notifications.FirebaseContact;
 import jett_apps.grouvie.R;
 
@@ -31,31 +29,31 @@ import static jett_apps.grouvie.Views.LandingPage.DATA;
 public class LeaderInitialPlan extends AppCompatActivity {
 
     private double latitude, longitude;
-    private String chosenFilm, chosenCinema, chosenTime, chosenDay;
+    private String chosenFilm, chosenCinema, chosenTime, chosenDate;
     private ArrayList<Friend> chosenGroup;
     private String cinemaData;
 
-    private PropagationObject data;
+    private Plan data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_leader_initial_plan);
 
-        data = (PropagationObject) getIntent().getSerializableExtra(DATA);
+        data = (Plan) getIntent().getSerializableExtra(DATA);
 
-        chosenFilm = data.getFilmTitle();
-        chosenCinema = data.getCinema();
-        chosenTime = data.getChosenTime();
-        chosenDay = data.getDate();
-        chosenGroup = data.getSelectedFriends();
+        chosenFilm = data.getSuggestedFilm();
+        chosenCinema = data.getSuggestedCinema();
+        chosenTime = data.getSuggestedShowTime();
+        chosenDate = data.getSuggestedDate();
+        chosenGroup = data.getEventMembers();
         cinemaData = data.getCinemaData();
 
 
         ((TextView) findViewById(R.id.SelectedFilm)).setText(chosenFilm);
         ((TextView) findViewById(R.id.SelectedCinema)).setText(chosenCinema);
         ((TextView) findViewById(R.id.SelectedShowtime)).setText(chosenTime);
-        ((TextView) findViewById(R.id.SelectedDay)).setText(chosenDay);
+        ((TextView) findViewById(R.id.SelectedDay)).setText(chosenDate);
 
     }
 
@@ -71,8 +69,8 @@ public class LeaderInitialPlan extends AppCompatActivity {
             json.accumulate("chosenCinema", chosenCinema);
             json.accumulate("latitude", latitude);
             json.accumulate("longitude", longitude);
-            json.accumulate("date", chosenDay);
-            ArrayList<Friend> friends = data.getSelectedFriends();
+            json.accumulate("date", chosenDate);
+            ArrayList<Friend> friends = chosenGroup;
             String[] friendsNames = getFriendsNames(friends);
             json.accumulate("friend_list", Arrays.toString(friendsNames));
             String[] friendsNumbers = getFriendsNumbers(friends);
@@ -98,17 +96,9 @@ public class LeaderInitialPlan extends AppCompatActivity {
             Log.e("FCM_RES", result);
         }
 
-        Plan p = new Plan(chosenFilm, chosenCinema, chosenTime, chosenDay, chosenGroup,
-                            leaderPhoneNum);
-        p.setCinemaData(cinemaData);
-        p.setSuggestedDay(data.getDay());
-        p.setSuggestedMonth(data.getMonth());
-        p.setSuggestedYear(data.getYear());
-        p.setShowtimeDistance(data.getShowtimeDistance());
+        data.setLeaderPhoneNum(leaderPhoneNum);
 
-        ArrayList<Film> listOfFilms = data.getListOfFilms();
-        p.setListOfFilms(listOfFilms);
-        PlanManager.addPlan(p, LeaderInitialPlan.this);
+        PlanManager.addPlan(data, LeaderInitialPlan.this);
 
         Toast.makeText(getApplicationContext(), "Plan submitted to group", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(this, LandingPage.class);

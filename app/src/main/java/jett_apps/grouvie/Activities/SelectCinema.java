@@ -18,14 +18,14 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import jett_apps.grouvie.HelperObjects.PropagationObject;
+import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.R;
 
 import static jett_apps.grouvie.Views.LandingPage.DATA;
 
 public class SelectCinema extends AppCompatActivity {
 
-    private PropagationObject data;
+    private Plan data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,9 +33,9 @@ public class SelectCinema extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_cinema);
 
-        data = (PropagationObject) getIntent().getSerializableExtra(DATA);
+        data = (Plan) getIntent().getSerializableExtra(DATA);
 
-        final String chosenFilm = data.getFilmTitle();
+        final String chosenFilm = data.getSuggestedFilm();
         final String cinemaData = data.getCinemaData();
 
         ((TextView) findViewById(R.id.chosen_film)).setText(chosenFilm);
@@ -90,7 +90,7 @@ public class SelectCinema extends AppCompatActivity {
                     //Sending the current plan to the final planning page
                     Intent intent = new Intent(view.getContext(), SelectShowtime.class);
 
-                    data.setCinema(chosenCinema);
+                    data.setSuggestedCinema(chosenCinema);
                     data.setShowtimeDistance(showtimeDistanceData.toString());
 
                     intent.putExtra(DATA, data);

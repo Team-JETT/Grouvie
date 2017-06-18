@@ -14,19 +14,16 @@ import android.widget.TextView;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 
-import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import jett_apps.grouvie.HelperClasses.PlanManager;
+import jett_apps.grouvie.Activities.SelectGroup;
 import jett_apps.grouvie.Adapters.CustomPlanAdapter;
-import jett_apps.grouvie.HelperClasses.ProfileManager;
+import jett_apps.grouvie.HelperClasses.PlanManager;
 import jett_apps.grouvie.HelperObjects.Friend;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.HelperObjects.PropagationObject;
 import jett_apps.grouvie.R;
-import jett_apps.grouvie.Activities.SelectGroup;
 
 public class LandingPage extends AppCompatActivity {
 
@@ -38,7 +35,7 @@ public class LandingPage extends AppCompatActivity {
     public static final String CHANGED_PLAN_MESSAGE = "CHANGED_PLAN_MESSAGE";
 
     private TextView name;
-    private PropagationObject leaderData;
+    private Plan leaderData;
     private PropagationObject sentPlan;
 
     @Override
@@ -65,7 +62,7 @@ public class LandingPage extends AppCompatActivity {
             PlanManager.addPlan(plan, LandingPage.this);
         }
 
-        leaderData = new PropagationObject();
+        leaderData = new Plan();
 
         final ArrayList<Plan> currentPlans = PlanManager.getPlans(LandingPage.this);
         ListAdapter planAdapter = new CustomPlanAdapter(this, currentPlans);
@@ -107,14 +104,14 @@ public class LandingPage extends AppCompatActivity {
                 new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-                        String chosenDay = day + "/" + month + "/" + year;
+                        String chosenDate = day + "/" + month + "/" + year;
 
                         Intent intent = new Intent(view.getContext(), SelectGroup.class);
 
-                        leaderData.setDate(chosenDay);
-                        leaderData.setDay(day);
-                        leaderData.setMonth(month+1);
-                        leaderData.setYear(year);
+                        leaderData.setSuggestedDate(chosenDate);
+                        leaderData.setSuggestedDay(day);
+                        leaderData.setSuggestedMonth(month+1);
+                        leaderData.setSuggestedYear(year);
 
                         intent.putExtra(DATA, leaderData);
 

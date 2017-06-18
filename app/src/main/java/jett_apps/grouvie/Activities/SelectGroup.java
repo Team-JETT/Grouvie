@@ -30,7 +30,7 @@ import jett_apps.grouvie.HelperClasses.ProfileManager;
 import jett_apps.grouvie.HelperClasses.ServerContact;
 import jett_apps.grouvie.HelperObjects.Friend;
 import jett_apps.grouvie.HelperObjects.FriendView;
-import jett_apps.grouvie.HelperObjects.PropagationObject;
+import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.R;
 
 import static jett_apps.grouvie.Views.LandingPage.DATA;
@@ -48,14 +48,14 @@ public class SelectGroup extends AppCompatActivity {
     private ArrayList<Friend> friends;
     private ArrayList<Friend> selectedFriends;
 
-    private PropagationObject data;
+    private Plan data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_group);
 
-        data = (PropagationObject) getIntent().getSerializableExtra(DATA);
+        data = (Plan) getIntent().getSerializableExtra(DATA);
 
         // Finds the listView resource.
         ListView listView = (ListView) findViewById(R.id.listView);
@@ -289,7 +289,7 @@ public class SelectGroup extends AppCompatActivity {
             }
         }
 
-        data.setSelectedFriends(selectedFriends);
+        data.setEventMembers(selectedFriends);
 
         intent.putExtra(DATA, data);
 

@@ -26,10 +26,10 @@ import java.util.Iterator;
 import java.util.concurrent.ExecutionException;
 
 import jett_apps.grouvie.Adapters.CustomFilmAdapter;
-import jett_apps.grouvie.HelperObjects.Film;
-import jett_apps.grouvie.HelperObjects.PropagationObject;
-import jett_apps.grouvie.R;
 import jett_apps.grouvie.HelperClasses.ServerContact;
+import jett_apps.grouvie.HelperObjects.Film;
+import jett_apps.grouvie.HelperObjects.Plan;
+import jett_apps.grouvie.R;
 
 import static jett_apps.grouvie.Views.LandingPage.DATA;
 
@@ -40,7 +40,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
     double latitude = 51.499074;
     double longitude = -0.177070;
 
-    private PropagationObject data;
+    private Plan data;
 
 
     @Override
@@ -51,7 +51,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         this.intent = getIntent();
 
-        data = (PropagationObject) intent.getSerializableExtra(DATA);
+        data = (Plan) intent.getSerializableExtra(DATA);
 
 //        obtainLocation();
 
@@ -99,7 +99,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
 
                     data.setCinemaData(cinemaData.toString());
-                    data.setFilmTitle(filmTitle);
+                    data.setSuggestedFilm(filmTitle);
                     cinemaIntent.putExtra(DATA, data);
 
                     startActivity(cinemaIntent);
@@ -112,9 +112,9 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
     @Nullable
     private JSONObject getLocalData() {
         // Grab the chosenDate from the MainActivity
-        final int day = data.getDay();
-        final int month = data.getMonth();
-        final int year = data.getYear();
+        final int day = data.getSuggestedDay();
+        final int month = data.getSuggestedMonth();
+        final int year = data.getSuggestedYear();
 
         JSONObject json = new JSONObject();
         try {
