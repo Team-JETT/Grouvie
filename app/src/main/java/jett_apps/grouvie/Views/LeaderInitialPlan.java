@@ -90,14 +90,24 @@ public class LeaderInitialPlan extends AppCompatActivity {
         /* Send initial/draft plan to web server to update the database. */
         new ServerContact().execute("make_plan", json.toString());
 
+        /* Add names of friends to JSON plan. This is needed to create an ArrayList<Friend> from
+           the JSON values in "friends" and "friend_list". This is needed for the Plan object in
+           MessagingService, else friends will not display correctly in "View Group Replies". */
+        String[] friendsNames = getFriendsNames(chosenGroup);
+        try {
+            json.put("friend_list", Arrays.toString(friendsNames));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         /* Send initial/draft plan to other group members. */
         for (Friend groupMember : chosenGroup) {
+            /* Get the recipient member's phone number. */
             String topicName = groupMember.getPhoneNum();
             try {
-                String[] friendsNames = getFriendsNames(chosenGroup);
-                json.accumulate("friend_list", Arrays.toString(friendsNames));
-                json.remove("phone_number");
-                json.accumulate("phone_number", topicName);
+                /* Update phone_number field in JSON and send it to the user. */
+                json.put("phone_number", topicName);
+                /* TODO: Replace with topicName once you've finished debugging this section. */
                 new FirebaseContact().execute("07434897141"/*topicName*/, json.toString());
             } catch (JSONException e) {
                 Log.e("CHANGE PHONE_NUMBER", "Failed to change phone number in JSON");

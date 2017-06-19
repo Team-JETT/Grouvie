@@ -28,29 +28,38 @@ public class MessagingService extends FirebaseMessagingService {
 
     private Plan plan;
 
-    /* Parse the data in the JSON file sent and create a plan from it to send to
-       the LandingPage. */
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         JSONObject planInJSON = new JSONObject(remoteMessage.getData());
         String leaderName = null;
+        /* Parse the data in the JSON file sent and create a plan from it to send to
+           the LandingPage. */
         try {
             leaderName = planInJSON.getString("leader");
             String film = planInJSON.getString("film");
             String cinema = planInJSON.getString("cinema");
             String showtime = planInJSON.getString("showtime");
             String date = planInJSON.getString("date");
-            String[] friendNames = planInJSON.getString("friend_list").split(",");
-            String[] friendNumbers = planInJSON.getString("friends").split(",");
+            /* Sending a Friend object is difficult/not possible in JSON, so we will need to
+               get the arrays of the friend's names and phoneNumbers and recreate the
+               ArrayList<Friend> object here.*/
             ArrayList<Friend> members = new ArrayList<>();
+            String[] friendNumbers = planInJSON.getString("friends").split(",");
+            String[] friendNames = planInJSON.getString("friend_list").split(",");
             int numOfContacts = friendNames.length;
             for (int i = 0; i < numOfContacts; i++) {
                 String name = friendNames[i];
                 String number = friendNumbers[i];
+                /* Because we called Arrays.toString for the friend's names and phone numbers in
+                   LeaderInitialPlan, we need to account for the leading "[" in the first friend
+                   name and phone number and the trailing "]" in the last friend name and phone
+                   number. */
                 if (i == 0) {
+                    /* Remove the leading "[" in both the name and phone number. */
                     name = name.substring(1);
                     number = number.substring(1);
                 } else if (i == numOfContacts - 1) {
+                    /* Remove the trailing "]" in both the name and phone number. */
                     name = name.substring(0, name.length() - 1);
                     number = number.substring(0, number.length() - 1);
                 }
@@ -70,9 +79,11 @@ public class MessagingService extends FirebaseMessagingService {
 
     /* Generate push notification. */
     private void sendNotification(String messageBody) {
-        /* LandingPage intent registration. */
+        /* Create an intent to store in the notification. */
         Intent intent = new Intent(this, LandingPage.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        /* Send plan through intent. This should be retrieved in LandingPage. */
         intent.putExtra(SENT_PLAN, plan);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT);
@@ -96,6 +107,7 @@ public class MessagingService extends FirebaseMessagingService {
                 .bigText(messageBody));
         NotificationManager notificationManager =
                 (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+
         /* Create push notification at the top of the notifications bar */
         notificationManager.notify(0, notificationBuilder.build());
     }
