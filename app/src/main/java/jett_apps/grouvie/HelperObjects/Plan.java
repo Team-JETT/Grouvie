@@ -26,6 +26,7 @@ public class Plan implements Serializable {
     private ArrayList<Film> listOfFilms;
     private ArrayList<String> cinemaList;
     private JSONArray cinemaDataJson;
+    private String moviePoster;
 
     public Plan() {
 
@@ -208,6 +209,14 @@ public class Plan implements Serializable {
 
     public JSONArray getCinemaDataJson() {
         return cinemaDataJson;
+    }
+
+    public String getMoviePoster() {
+        return moviePoster;
+    }
+
+    public void setMoviePoster(String moviePoster) {
+        this.moviePoster = moviePoster;
     }
 }
 
