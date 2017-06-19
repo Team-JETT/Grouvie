@@ -12,8 +12,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 import jett_apps.grouvie.HelperClasses.PlanManager;
@@ -42,6 +45,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
 
         data = (Plan) getIntent().getSerializableExtra(DATA);
 
+        chosenDate = data.getSuggestedDate();
         chosenFilm = data.getSuggestedFilm();
         chosenCinema = data.getSuggestedCinema();
         chosenTime = data.getSuggestedShowTime();
@@ -62,20 +66,27 @@ public class LeaderInitialPlan extends AppCompatActivity {
         JSONObject json = new JSONObject();
         String leaderPhoneNum = ProfileManager.getPhone(LeaderInitialPlan.this);
         String leaderName = ProfileManager.getName(this);
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        data.setCreationDateTime(dateFormat.format(date));
+
         try {
-            json.accumulate("leader_name", leaderName);
             json.accumulate("phone_number", leaderPhoneNum);
+            json.accumulate("leader_name", leaderName);
             json.accumulate("leader", leaderPhoneNum);
+            json.accumulate("date", chosenDate);
+            json.accumulate("creation_datetime", dateFormat.format(date));
             json.accumulate("showtime", chosenTime);
-            json.accumulate("chosenFilm", chosenFilm);
-            json.accumulate("chosenCinema", chosenCinema);
+            json.accumulate("film", chosenFilm);
+            json.accumulate("cinema", chosenCinema);
             json.accumulate("latitude", latitude);
             json.accumulate("longitude", longitude);
-            json.accumulate("date", chosenDate);
             ArrayList<Friend> friends = chosenGroup;
-            String[] friendsNames = getFriendsNames(friends);
-            json.accumulate("friend_list", Arrays.toString(friendsNames));
-            String[] friendsNumbers = getFriendsNumbers(friends);
+//            TODO: Someone explain to erkin why this is here.
+//            String[] friendsNames = getFriendsNames(friends);
+//            json.accumulate("friend_list", Arrays.toString(friendsNames));
+            String[] friendsNumbers = getFriendsNumbers(chosenGroup);
             json.accumulate("friends", Arrays.toString(friendsNumbers));
         } catch (JSONException e) {
             e.printStackTrace();

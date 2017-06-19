@@ -8,6 +8,9 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Calendar;
 
 import jett_apps.grouvie.HelperClasses.ServerContact;
@@ -33,10 +36,10 @@ public class SuggestChangeInPlan extends AppCompatActivity {
 
         if (suggestedPlan == null) {
 
-            //Get current leader plan
+            // Get current leader plan
             leaderPlan = (Plan) getIntent().getSerializableExtra(PLAN_MESSAGE);
 
-            //Obtain current plan suggested by the leader if it hasn't been obtaned already
+            // Obtain current plan suggested by the leader if it hasn't been obtained already
             suggestedPlan = new Plan(leaderPlan);
 
         }
@@ -126,7 +129,31 @@ public class SuggestChangeInPlan extends AppCompatActivity {
     }
 
     public void done(View view) {
-        //TODO: Send the suggested plan to the group leader
+        // We do all these checks to avoid inserting duplicate data into the database.
+        String date = null, film = null, cinema = null, showtime = null;
+        if (suggestedPlan.getSuggestedDate().equals(leaderPlan.getSuggestedDate()))
+            date = suggestedPlan.getSuggestedDate();
+        if (suggestedPlan.getSuggestedFilm().equals(leaderPlan.getSuggestedFilm()))
+            film = suggestedPlan.getSuggestedFilm();
+        if (suggestedPlan.getSuggestedCinema().equals(leaderPlan.getCinemaData()))
+            cinema = suggestedPlan.getSuggestedCinema();
+        if (suggestedPlan.getShowtimeDistance().equals(leaderPlan.getShowtimeDistance()))
+            showtime = suggestedPlan.getShowtimeDistance();
+
+        JSONObject json = new JSONObject();
+        try {
+            // TODO: Someone confirm with Erkin these are the right variables to use.
+            json.accumulate("phone_number", suggestedPlan.getLeaderPhoneNum());
+            json.accumulate("leader", leaderPlan.getLeaderPhoneNum());
+            json.accumulate("creation_datetime", suggestedPlan.getCreationDateTime());
+            json.accumulate("date", (date == null) ? JSONObject.NULL : date);
+            json.accumulate("film", (film == null) ? JSONObject.NULL : film);
+            json.accumulate("cinema", (cinema == null) ? JSONObject.NULL : cinema);
+            json.accumulate("showtime", (showtime == null) ? JSONObject.NULL : showtime);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new ServerContact().execute("suggest_plan");
         Intent intent = new Intent(SuggestChangeInPlan.this, LandingPage.class);
         startActivity(intent);
     }

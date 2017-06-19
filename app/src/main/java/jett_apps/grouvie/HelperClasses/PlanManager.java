@@ -45,7 +45,7 @@ public class PlanManager {
         Gson gson = new Gson();
 
         if (currentPlans == null) {
-            currentPlans = new ArrayList<Plan>();
+            currentPlans = new ArrayList<>();
         }
         currentPlans.add(plan);
 

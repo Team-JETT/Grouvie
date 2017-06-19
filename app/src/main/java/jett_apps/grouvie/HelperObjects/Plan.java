@@ -6,10 +6,11 @@ import java.util.ArrayList;
 
 public class Plan implements Serializable {
 
+    private String leaderPhoneNum;
+    private String creationDateTime;
     private String suggestedFilm;
     private String suggestedCinema;
     private String suggestedShowTime;
-    private String leaderPhoneNum;
     private ArrayList<Friend> eventMembers;
     private String cinemaData;
     private String showtimeDistance;
@@ -36,6 +37,7 @@ public class Plan implements Serializable {
         this.leaderPhoneNum = leaderPhoneNum;
     }
 
+    // TODO: Someone explain to Erkin why this is here???????
     public Plan(Plan oldPlan) {
         this.suggestedFilm = oldPlan.getSuggestedFilm();
         this.suggestedCinema = oldPlan.getSuggestedCinema();
@@ -104,13 +106,10 @@ public class Plan implements Serializable {
                  suggestedShowTime.equals(plan.suggestedShowTime) &&
                  suggestedDate.equals(plan.suggestedDate) &&
                  eventMembers.equals(plan.eventMembers));
-        // Probably incorrect - comparing Object[] arrays with Arrays.equals
-        // My 2p - I think this is okay. Btw, have rewritten in a more succinct way.
     }
 
     @Override
     public int hashCode() {
-        // TODO: Someone explain to Erkin why 31?
         int result = suggestedFilm.hashCode();
         result = 31 * result + suggestedCinema.hashCode();
         result = 31 * result + suggestedShowTime.hashCode();
@@ -125,6 +124,14 @@ public class Plan implements Serializable {
 
     public void setLeaderPhoneNum(String leaderPhoneNum) {
         this.leaderPhoneNum = leaderPhoneNum;
+    }
+
+    public String getCreationDateTime() {
+        return creationDateTime;
+    }
+
+    public void setCreationDateTime(String creationDateTime) {
+        this.creationDateTime = creationDateTime;
     }
 
     public String getCinemaData() {
@@ -182,5 +189,6 @@ public class Plan implements Serializable {
     public void setInitialPlan(boolean initialPlan) {
         isInitialPlan = initialPlan;
     }
+
 }
 

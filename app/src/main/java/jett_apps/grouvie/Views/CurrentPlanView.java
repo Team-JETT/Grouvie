@@ -97,7 +97,7 @@ public class CurrentPlanView extends AppCompatActivity {
         try {
             json_data.accumulate("phone_number", p.getLeaderPhoneNum());
             json_data.accumulate("leader", p.getLeaderPhoneNum());
-            json_data.accumulate("showtime", p.getSuggestedShowTime());
+            json_data.accumulate("creation_datetimte", p.getCreationDateTime());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -113,11 +113,11 @@ public class CurrentPlanView extends AppCompatActivity {
         JSONObject json_data = new JSONObject();
         try {
             json_data.accumulate("leader", p.getLeaderPhoneNum());
-            json_data.accumulate("showtime", p.getSuggestedShowTime());
+            json_data.accumulate("creation_datetime", p.getCreationDateTime());
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new ServerContact().execute("delete_plan", json_data.toString());
+        new ServerContact().execute("cancel_plan", json_data.toString());
         Intent intent = new Intent(view.getContext(), LandingPage.class);
         startActivity(intent);
 
