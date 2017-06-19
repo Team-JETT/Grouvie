@@ -64,8 +64,6 @@ class DataParser:
         error_overview = ''
         if '&' in film_name:
             film_name = 'and'.join(film_name.split('&'))
-        if ':' in film_name:
-            film_name = ' '.join(film_name.split(':'))
 
         film_name = film_name.encode('utf-8')
         api_url = 'https://api.themoviedb.org/3/search/movie?api_key=' \
@@ -73,24 +71,26 @@ class DataParser:
                   '&language=en-US&query={}'.format(film_name)
         res = requests.get(api_url).json()
 
-        if not res['total_results']:
+        if res['total_results'] == 0:
             return (error_url, error_overview)
 
         first_result = res['results'][0]
 
         poster_path = first_result['poster_path']
+        if poster_path == None:
+            img_url = error_url
+        else:
+            img_url = 'http://image.tmdb.org/t/p/w154' + poster_path
 
         overview = first_result['overview']
-        groups = overview.split('.')
-        overview = '.'.join(groups[:2])
-        if overview[-1] != '.':
-            overview.append('.')
+        if overview == None:
+            overview = error_overview
+        else:
+            groups = overview.split('.')
+            overview = '.'.join(groups[:2])
+            if overview[-1] != '.':
+                overview += '.'
 
-        img_url = 'http://image.tmdb.org/t/p/w154' + poster_path
-        print('FILM NAME IS: ' + film_name)
-        print('IMAGE URL IS: ' + img_url)
-        print('OVERVIEW IS: ' + overview)
-        sys.stdout.flush()
         return (img_url, overview)
 
     def get_films_for_cinemas(self, date):
@@ -162,5 +162,5 @@ if __name__ == '__main__':
     # print dParser.get_latlong("en12lz")
     start_time = time.time()
     pprint.PrettyPrinter(indent=4).pprint(
-        dParser.get_local_data(19, 6, 2017, 51.636743, -0.069069))
+        dParser.get_local_data(25, 6, 2017, 51.636743, -0.069069))
     print time.time() - start_time
