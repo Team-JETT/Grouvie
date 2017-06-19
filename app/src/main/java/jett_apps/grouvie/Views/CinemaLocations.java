@@ -4,9 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.View;
+import android.widget.FrameLayout;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -95,6 +99,17 @@ public class CinemaLocations extends FragmentActivity implements OnMapReadyCallb
 
             cinemaList.add(cinema);
         }
+
+
+
+        Snackbar snack = Snackbar.make(findViewById(android.R.id.content),
+                                       "Tap on a marker then on cinema name to select a film.",
+                                        Snackbar.LENGTH_LONG);
+        View view = snack.getView();
+        FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view.getLayoutParams();
+        params.gravity = Gravity.TOP;
+        view.setLayoutParams(params);
+        snack.show();
     }
 
     public LatLng getLatLngFromLocationName(Context context, String address) {
@@ -138,35 +153,6 @@ public class CinemaLocations extends FragmentActivity implements OnMapReadyCallb
 
         mMap = googleMap;
 
-//        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
-//            @Override
-//            public void onInfoWindowClick(Marker marker) {
-//                Intent intent = new Intent(CinemaLocations.this, SelectShowtime.class);
-//                startActivity(intent);
-//
-//                String chosenCinema = marker.getTitle();
-//                Log.v("CHOSEN CINEMA", chosenCinema);
-//                JSONArray showtimeDistanceData = null;
-//                try {
-//                    // For our chosen chosenCinema get the showtimes and distance to the chosenCinema.
-//                    showtimeDistanceData = ((JSONObject) data.getCinemaDataJson()
-//                            .get((int) marker.getZIndex()))
-//                            .getJSONArray(chosenCinema);
-//                    Log.v("CHOSEN CINEMA DATA", data.getCinemaData().toString());
-//                } catch (JSONException e) {
-//                    e.printStackTrace();
-//                }
-//
-//                data.setSuggestedCinema(chosenCinema);
-//                data.setShowtimeDistance(showtimeDistanceData.toString());
-//                data.setCinemaList(cinemas);
-//
-//                intent.putExtra(DATA, data);
-//
-//                startActivity(intent);
-//            }
-//        });
-
         // Add a marker in Sydney and move the camera
         for (int i = 0; i < cinemaList.size(); i++) {
 
@@ -179,7 +165,7 @@ public class CinemaLocations extends FragmentActivity implements OnMapReadyCallb
                                .title(cinemaName)
                                .zIndex(cinema.getIndex())
                                .icon(BitmapDescriptorFactory
-                               .defaultMarker(BitmapDescriptorFactory.HUE_BLUE))).showInfoWindow();
+                               .defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
             builder.include(position);
         }
 
@@ -190,7 +176,7 @@ public class CinemaLocations extends FragmentActivity implements OnMapReadyCallb
         int padding = (int) (width * 0.20); // offset from edges of the map 10% of screen
 
         mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding));
-        mMap.addMarker(new MarkerOptions().position(currentLocation).title("You"));
+        mMap.addMarker(new MarkerOptions().position(currentLocation).title("You")).showInfoWindow();
 
 
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
