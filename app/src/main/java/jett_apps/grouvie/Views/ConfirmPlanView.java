@@ -47,6 +47,11 @@ public class ConfirmPlanView extends AppCompatActivity {
         int month = p.getSuggestedMonth();
         int year = p.getSuggestedYear();
 
+        String time = p.getSuggestedShowTime();
+        String[] hourAndMinute = time.split(":");
+        int hour = Integer.parseInt(hourAndMinute[0]);
+        int minute = Integer.parseInt(hourAndMinute[1]);
+
         Intent intent = new Intent(Intent.ACTION_INSERT);
         intent.setData(CalendarContract.Events.CONTENT_URI);
 
@@ -55,7 +60,7 @@ public class ConfirmPlanView extends AppCompatActivity {
         intent.putExtra(CalendarContract.Events.EVENT_LOCATION, p.getSuggestedCinema());
         intent.putExtra(CalendarContract.Events.DESCRIPTION, p.getSuggestedFilm());
 
-        GregorianCalendar calDate = new GregorianCalendar(year, month, day);
+        GregorianCalendar calDate = new GregorianCalendar(year, month, day, hour, minute);
         intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
                 calDate.getTimeInMillis());
         intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
