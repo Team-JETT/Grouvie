@@ -108,7 +108,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
                 /* Update phone_number field in JSON and send it to the user. */
                 json.put("phone_number", topicName);
                 /* TODO: Replace with topicName once you've finished debugging this section. */
-                new FirebaseContact().execute("07434897141"/*topicName*/, json.toString());
+                new FirebaseContact().execute("07587247113"/*topicName*/, json.toString());
             } catch (JSONException e) {
                 Log.e("CHANGE PHONE_NUMBER", "Failed to change phone number in JSON");
                 e.printStackTrace();

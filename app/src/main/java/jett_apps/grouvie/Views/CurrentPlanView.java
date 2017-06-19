@@ -97,7 +97,7 @@ public class CurrentPlanView extends AppCompatActivity {
         try {
             json_data.accumulate("phone_number", p.getLeaderPhoneNum());
             json_data.accumulate("leader", p.getLeaderPhoneNum());
-            json_data.accumulate("creation_datetimte", p.getCreationDateTime());
+            json_data.accumulate("creation_datetime", p.getCreationDateTime());
         } catch (JSONException e) {
             e.printStackTrace();
         }
