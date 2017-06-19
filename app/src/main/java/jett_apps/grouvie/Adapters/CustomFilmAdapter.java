@@ -50,11 +50,14 @@ public class CustomFilmAdapter extends ArrayAdapter<Film>{
         TextView filmTitle = (TextView) customView.findViewById(R.id.filmTitle);
         filmTitle.setText(f.getFilmName());
 
+        TextView filmOverview = (TextView) customView.findViewById(R.id.filmOverview);
+        filmOverview.setText(f.getOverview());
+
         ImageView filmPoster = (ImageView) customView.findViewById(R.id.filmPoster);
         String imageUrl = f.getImageUrl();
         RequestOptions options = new RequestOptions();
-        int posterWidth = 300;
-        int posterHeight = 600;
+        int posterWidth = 200;
+        int posterHeight = 400;
         options.override(posterWidth, posterHeight).fitCenter();
         Glide.with(context).load(imageUrl).apply(options).into(filmPoster);
 //        b = downloadBitmap(imageUrl);

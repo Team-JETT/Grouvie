@@ -4,11 +4,12 @@ import java.io.Serializable;
 
 public class Film implements Serializable {
 
-    private final String filmName, imageUrl;
+    private final String filmName, imageUrl, overview;
 
-    public Film(String filmName, String imageUrl) {
+    public Film(String filmName, String imageUrl, String overview) {
         this.filmName = filmName;
         this.imageUrl = imageUrl;
+        this.overview = overview;
     }
 
     public String getFilmName() {
@@ -18,4 +19,9 @@ public class Film implements Serializable {
     public String getImageUrl() {
         return imageUrl;
     }
+
+    public String getOverview() {
+        return overview;
+    }
+    
 }

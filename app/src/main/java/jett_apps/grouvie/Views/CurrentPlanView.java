@@ -123,7 +123,8 @@ public class CurrentPlanView extends AppCompatActivity {
 
     }
 
-    public void backButton(View view) {
+    @Override
+    public void onBackPressed() {
         Intent intent = new Intent(CurrentPlanView.this, LandingPage.class);
         startActivity(intent);
     }
