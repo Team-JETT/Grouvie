@@ -128,6 +128,11 @@ public class CurrentPlanView extends AppCompatActivity {
 
     }
 
+    public void acceptPlan(View view) {
+        Intent intent = new Intent(CurrentPlanView.this, LandingPage.class);
+        startActivity(intent);
+    }
+
     public void backButton(View view) {
         Intent intent = new Intent(CurrentPlanView.this, LandingPage.class);
         startActivity(intent);
