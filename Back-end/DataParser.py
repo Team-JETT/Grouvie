@@ -84,9 +84,6 @@ class DataParser:
         if overview[-1] != '.':
             overview.append('.')
 
-        if not (poster_path and overview):
-            return (error_url, error_overview)
-
         img_url = 'http://image.tmdb.org/t/p/w154' + poster_path
         return (img_url, overview)
 
