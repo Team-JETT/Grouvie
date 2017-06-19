@@ -87,6 +87,9 @@ class DataParser:
             overview.append('.')
 
         img_url = 'http://image.tmdb.org/t/p/w154' + poster_path
+        print('FILM NAME IS: ' + film_name)
+        print('IMAGE URL IS: ' + img_url)
+        print('OVERVIEW IS: ' + overview)
         return (img_url, overview)
 
     def get_films_for_cinemas(self, date):
