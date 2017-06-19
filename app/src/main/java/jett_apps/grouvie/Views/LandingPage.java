@@ -4,7 +4,6 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.DatePicker;
@@ -17,13 +16,11 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import jett_apps.grouvie.HelperClasses.ProfileManager;
-import jett_apps.grouvie.PlanningActivities.SelectGroup;
 import jett_apps.grouvie.Adapters.CustomPlanAdapter;
 import jett_apps.grouvie.HelperClasses.PlanManager;
-import jett_apps.grouvie.HelperObjects.Friend;
+import jett_apps.grouvie.HelperClasses.ProfileManager;
 import jett_apps.grouvie.HelperObjects.Plan;
-import jett_apps.grouvie.HelperObjects.PropagationObject;
+import jett_apps.grouvie.PlanningActivities.SelectGroup;
 import jett_apps.grouvie.R;
 
 public class LandingPage extends AppCompatActivity {
@@ -109,6 +106,9 @@ public class LandingPage extends AppCompatActivity {
                         leaderData.setSuggestedYear(year);
 
                         intent.putExtra(DATA, leaderData);
+
+
+                        SelectGroup.startProgressBar(LandingPage.this);
 
                         startActivity(intent);
                     }

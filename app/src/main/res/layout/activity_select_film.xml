@@ -51,7 +51,7 @@
     </android.support.design.widget.AppBarLayout>
 
     <Button
-        android:id="@+id/button8"
+        android:id="@+id/surpriseButton"
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_alignParentEnd="true"
