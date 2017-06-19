@@ -41,9 +41,6 @@ public class ServerContact extends AsyncTask<String, Integer, String> {
             e.printStackTrace();
         }
 
-//        httpPost.setHeader("Accept", "application/json");
-//        httpPost.setHeader("Content-type", "application/json");
-
         HttpResponse httpResponse;
         InputStream inputStream = null;
         try {

@@ -54,13 +54,14 @@ class DataParser:
         longitude = location_data['result']['longitude']
         return round(latitude, 6), round(longitude, 6)
 
-    def fast_get_film_poster(self, film_name):
+    def fast_get_film_info(self, film_name):
         """
         Given FILM_NAME, this will find the corresponding movie poster and
-        return the wikipedia image url for the movie poster.
+        return the image url for the movie poster.
         """
         error_url = 'https://literalminded.files.wordpress.com' \
                     '/2010/11/image-unavailable1.png'
+        error_overview = ''
         if '&' in film_name:
             film_name = 'and'.join(film_name.split('&'))
 
@@ -70,15 +71,27 @@ class DataParser:
                   '&language=en-US&query={}'.format(film_name)
         res = requests.get(api_url).json()
 
-        if not res['total_results']:
-            return error_url
+        if res['total_results'] == 0:
+            return (error_url, error_overview)
 
-        poster_path = res['results'][0]['poster_path']
+        first_result = res['results'][0]
 
-        if not poster_path:
-            return error_url
+        poster_path = first_result['poster_path']
+        if poster_path == None:
+            img_url = error_url
+        else:
+            img_url = 'http://image.tmdb.org/t/p/w154' + poster_path
 
-        return 'http://image.tmdb.org/t/p/w154' + poster_path
+        overview = first_result['overview']
+        if overview == None:
+            overview = error_overview
+        else:
+            groups = overview.split('.')
+            overview = '.'.join(groups[:2])
+            if overview[-1] != '.':
+                overview += '.'
+
+        return (img_url, overview)
 
     def get_films_for_cinemas(self, date):
         """
@@ -111,8 +124,9 @@ class DataParser:
                                    "distance": CINEMA_DIST[cinema]}]})
                 else:
                     local_data[filmname] = {}
-                    local_data[filmname]["image"] = \
-                        self.fast_get_film_poster(filmname)
+                    poster, overview = self.fast_get_film_info(filmname)
+                    local_data[filmname]["image"] = poster
+                    local_data[filmname]["overview"] = overview
                     local_data[filmname]["cinema"] = \
                         [{cinema: [{"showtimes": times,
                                     "distance": CINEMA_DIST[cinema]}]}]
@@ -148,5 +162,5 @@ if __name__ == '__main__':
     # print dParser.get_latlong("en12lz")
     start_time = time.time()
     pprint.PrettyPrinter(indent=4).pprint(
-        dParser.get_local_data(19, 6, 2017, 51.636743, -0.069069))
+        dParser.get_local_data(25, 6, 2017, 51.636743, -0.069069))
     print time.time() - start_time

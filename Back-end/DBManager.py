@@ -5,15 +5,17 @@ import psycopg2
 # Make a new Grouvie table to store all the plans
 CREATE_GROUVIE = """
 CREATE TABLE GROUVIE(
-    PHONE_NUMBER    CHAR(11)            NOT NULL,
-    LEADER          CHAR(11)            NOT NULL,
-    SHOWTIME        CHAR(16)            NOT NULL,
-    FILM            TEXT,
-    CINEMA          TEXT,
-    LATITUDE        NUMERIC(8, 6),
-    LONGITUDE       NUMERIC(9, 6),
+    PHONE_NUMBER        CHAR(11)            NOT NULL,
+    LEADER              CHAR(11)            NOT NULL,
+    CREATION_DATETIME   CHAR(19)            NOT NULL,
+    DATE                CHAR(10),
+    SHOWTIME            CHAR(5),
+    FILM                TEXT,
+    CINEMA              TEXT,
+    LATITUDE            NUMERIC(8, 6),
+    LONGITUDE           NUMERIC(9, 6),
     
-    PRIMARY KEY (PHONE_NUMBER, LEADER, SHOWTIME)
+    PRIMARY KEY (PHONE_NUMBER, LEADER, CREATION_DATETIME)
 )
 """
 
@@ -44,7 +46,7 @@ DROP TABLE USERS
 INSERT_GROUVIE = """
 INSERT INTO GROUVIE
 VALUES
-(%s, %s, %s, %s, %s, %s, %s)
+(%s, %s, %s, %s, %s, %s, %s, %s, %s)
 """
 
 # Insert a new entry into the a table
@@ -54,14 +56,12 @@ VALUES
 (%s, %s, %s, %s, %s)
 """
 
-
 # Update an already existing entry in the Grouvie table
 UPDATE_GROUVIE = """
 UPDATE GROUVIE
-SET SHOWTIME = %s, FILM = %s, CINEMA = %s, LATITUDE = %s, 
-LONGITUDE = %s
+SET DATE = %s, SHOWTIME = %s, FILM = %s, CINEMA = %s
 WHERE
-PHONE_NUMBER = %s AND LEADER = %s
+PHONE_NUMBER = %s AND LEADER = %s AND CREATION_DATETIME = %s
 """
 
 # Update an already existing entry in the USER table
@@ -72,39 +72,16 @@ WHERE
 PHONE_NUMBER = %s
 """
 
-# Update a users preference of film
-CHANGE_FILM = """
-UPDATE GROUVIE
-SET FILM = %s
-WHERE
-PHONE_NUMBER = %s and LEADER = %s and SHOWTIME = %s
-"""
-
-# Update a users preference of cinema
-CHANGE_CINEMA = """
-UPDATE GROUVIE
-SET CINEMA = %s
-WHERE
-PHONE_NUMBER = %s and LEADER = %s and SHOWTIME = %s
-"""
-
-# Update a users preference of showtime
-CHANGE_SHOWTIME = """
-UPDATE GROUVIE
-SET SHOWTIME = %s
-WHERE
-PHONE_NUMBER = %s and LEADER = %s and SHOWTIME = %s
-"""
-
 # Delete entry from a table given a phone_number, leader and showtime
 DELETE_SINGLE = """
 DELETE FROM GROUVIE
-WHERE PHONE_NUMBER = %s and LEADER = %s and SHOWTIME = %s
+WHERE PHONE_NUMBER = %s and LEADER = %s and CREATION_DATETIME = %s
 """
+
 # Delete entries from a table given a leader and showtime
 DELETE_PLAN = """
 DELETE FROM GROUVIE
-WHERE LEADER = %s and SHOWTIME = %s
+WHERE LEADER = %s and CREATION_DATETIME = %s
 """
 
 # Display everything in the Grouvie table
@@ -193,11 +170,12 @@ class DBManager:
         self.close_connection(cnxn, cursor)
 
     # Insert a new entry into the Grouvie table.
-    def insert_grouvie(self, phone_number, leader, showtime, film, cinema,
-                       latitude, longitude):
+    def insert_grouvie(self, phone_number, leader, creation_datetime,
+                       date, showtime, film, cinema, latitude, longitude):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(INSERT_GROUVIE, (phone_number, leader, showtime, film,
-                                        cinema, latitude, longitude))
+        cursor.execute(INSERT_GROUVIE, (phone_number, leader, creation_datetime,
+                                        date, showtime, film, cinema, latitude,
+                                        longitude))
         self.close_connection(cnxn, cursor)
 
     def insert_user(self, phone_number, name, postcode, latitude, longitude):
@@ -206,29 +184,13 @@ class DBManager:
                                       longitude))
         self.close_connection(cnxn, cursor)
 
-    def change_film(self, phone_number, leader, showtime, film):
-        cnxn, cursor = self.establish_connection()
-        cursor.execute(CHANGE_FILM, (film, phone_number, leader, showtime))
-        self.close_connection(cnxn, cursor)
-
-    def change_cinema(self, phone_number, leader, showtime, cinema):
-        cnxn, cursor = self.establish_connection()
-        cursor.execute(CHANGE_CINEMA, (cinema, phone_number, leader, showtime))
-        self.close_connection(cnxn, cursor)
-
-    def change_showtime(self, phone_number, leader, showtime, new_showtime):
-        cnxn, cursor = self.establish_connection()
-        cursor.execute(CHANGE_SHOWTIME, (new_showtime, phone_number, leader,
-                                         showtime))
-        self.close_connection(cnxn, cursor)
-
     # Update an entry in the Grouvie table if it exists.
-    def update_grouvie(self, phone_number, leader, showtime, film, cinema,
-                       latitude,
-                       longitude):
+    def update_grouvie(self, phone_number, leader, creation_datetime, date,
+                       showtime, film, cinema):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(UPDATE_GROUVIE, (showtime, film, cinema, latitude,
-                                        longitude, phone_number, leader))
+        cursor.execute(UPDATE_GROUVIE, (date, showtime, film, cinema,
+                                        phone_number, leader,
+                                        creation_datetime))
         self.close_connection(cnxn, cursor)
 
     # Update an entry in the USERS table if it exists.
@@ -239,15 +201,15 @@ class DBManager:
         self.close_connection(cnxn, cursor)
 
     # Delete an entry from the table correlating with a user
-    def delete_single_grouvie(self, phone_number, leader, showtime):
+    def delete_single_grouvie(self, phone_number, leader, creation_datetime):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(DELETE_SINGLE, (phone_number, leader, showtime))
+        cursor.execute(DELETE_SINGLE, (phone_number, leader, creation_datetime))
         self.close_connection(cnxn, cursor)
 
     # Delete entries from the table correlating with a plan
-    def delete_plan_grouvie(self, leader, showtime):
+    def delete_plan_grouvie(self, leader, creation_datetime):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(DELETE_PLAN, (leader, showtime))
+        cursor.execute(DELETE_PLAN, (leader, creation_datetime))
         self.close_connection(cnxn, cursor)
 
     # Select an entry in a table based on phone_number.
@@ -315,8 +277,8 @@ if __name__ == '__main__':
     # db.insert_user("07964006128", "Tarun", "RM65DU", 0, 0)
     # db.insert_user("07942948248", "Jay", "SW100NJ", 0, 0)
     # # print db.select_valid_users(("1", "2", "5", "6"))
-    # db.drop_grouvie_table()
-    # db.make_grouvie_table()
-    pprint.PrettyPrinter(indent=4).pprint(db.select_all_users())
+    db.drop_grouvie_table()
+    db.make_grouvie_table()
+    pprint.PrettyPrinter(indent=4).pprint(db.select_all_grouvie())
     # print db.select_all_users()
     # db.select_valid_users(users)

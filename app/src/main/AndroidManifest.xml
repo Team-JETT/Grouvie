@@ -82,7 +82,9 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".Views.ConfirmPlanView"></activity>
+        <activity android:name=".Views.ConfirmPlanView"
+            android:theme="@style/AppTheme.NoActionBar" />
+
     </application>
 
 </manifest>

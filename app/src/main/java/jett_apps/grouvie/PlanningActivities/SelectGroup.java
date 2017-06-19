@@ -1,5 +1,6 @@
 package jett_apps.grouvie.PlanningActivities;
 
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -50,10 +51,13 @@ public class SelectGroup extends AppCompatActivity {
 
     private Plan data;
 
+    public static ProgressDialog dialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_select_group);
+
 
         data = (Plan) getIntent().getSerializableExtra(DATA);
 
@@ -75,6 +79,8 @@ public class SelectGroup extends AppCompatActivity {
 
         // Populates the friends list with friend objects.
         updateFriendSelectionList();
+
+        dismissProgressBar();
 
     }
 
@@ -297,4 +303,19 @@ public class SelectGroup extends AppCompatActivity {
 
         startActivity(intent);
     }
+
+    //Start Progress Bar
+    public static void startProgressBar(Context context) {
+        dialog = new ProgressDialog(context, ProgressDialog.BUTTON_POSITIVE);
+        dialog.setTitle("Please wait");
+        dialog.setMessage("Refreshing Friends List");
+        dialog.show();
+    }
+
+    //Dismiss Progress Bar
+    public static void dismissProgressBar() {
+        dialog.dismiss();
+    }
+
+
 }
