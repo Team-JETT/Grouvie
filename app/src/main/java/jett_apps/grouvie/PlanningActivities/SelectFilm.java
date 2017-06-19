@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
@@ -22,7 +23,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
+import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import jett_apps.grouvie.Adapters.CustomFilmAdapter;
@@ -73,13 +76,51 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
             films.add(new Film(filmName, imageUrl, filmOverview));
         }
 
-        ListAdapter filmAdapter = new CustomFilmAdapter(SelectFilm.this, films);
+        films.sort(new Comparator<Film>() {
+            @Override
+            public int compare(Film o1, Film o2) {
+                return o1.getFilmName().compareTo(o2.getFilmName());
+            }
+        });
+
+        final ListAdapter filmAdapter = new CustomFilmAdapter(SelectFilm.this, films);
         ListView filmsListView = (ListView) findViewById(R.id.filmList);
         filmsListView.setAdapter(filmAdapter);
 
         ServerContact.dismissProgressBar();
 
         data.setListOfFilms(films);
+
+        Button surpriseButton = (Button) findViewById(R.id.surpriseButton);
+        surpriseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Random random = new Random();
+                int randomIndex = random.nextInt(films.size());
+//                int randomIndex = 9;
+                String filmTitle = films.get(randomIndex).getFilmName();
+
+                Log.v("CHOSEN FILM", filmTitle);
+                JSONArray cinema_data = null;
+                try {
+                    cinema_data = local_data.getJSONObject(filmTitle).getJSONArray("cinema");
+                    Log.v("CINEMA DATA", cinema_data.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                final JSONArray cinemaData = cinema_data;
+
+                Intent cinemaIntent = new Intent(SelectFilm.this, SelectCinema.class);
+
+
+                data.setCinemaData(cinemaData.toString());
+                data.setSuggestedFilm(filmTitle);
+                cinemaIntent.putExtra(DATA, data);
+
+                startActivity(cinemaIntent);
+            }
+        });
 
         filmsListView.setOnItemClickListener(
             new AdapterView.OnItemClickListener() {
