@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,10 +54,22 @@ public class CurrentPlanView extends AppCompatActivity {
         }
 
         Button button = (Button) findViewById(R.id.cancelPlan);
+        Button acceptButton = (Button) findViewById(R.id.acceptPlan);
 
         if(!ProfileManager.getPhone(this).equals(p.getLeaderPhoneNum())) {
             button.setVisibility(View.INVISIBLE);
+            acceptButton.setVisibility(View.VISIBLE);
+        } else {
+            button.setVisibility(View.VISIBLE);
+            acceptButton.setVisibility(View.INVISIBLE);
         }
+
+        ImageView moviePoster = (ImageView) findViewById(R.id.moviePoster);
+        RequestOptions options = new RequestOptions();
+        int posterWidth = 200;
+        int posterHeight = 400;
+        options.override(posterWidth, posterHeight).fitCenter();
+        Glide.with(this).load(p.getMoviePoster()).apply(options).into(moviePoster);
 
         TextView film = (TextView) findViewById(R.id.SelectedFilm);
         film.setText(chosenFilm);
@@ -123,8 +139,13 @@ public class CurrentPlanView extends AppCompatActivity {
 
     }
 
-    @Override
-    public void onBackPressed() {
+    public void acceptPlan(View view) {
+        Intent intent = new Intent(CurrentPlanView.this, LandingPage.class);
+        startActivity(intent);
+    }
+
+
+    public void onBackPressed(View view) {
         Intent intent = new Intent(CurrentPlanView.this, LandingPage.class);
         startActivity(intent);
     }

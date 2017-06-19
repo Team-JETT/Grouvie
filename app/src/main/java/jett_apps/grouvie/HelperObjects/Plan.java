@@ -22,6 +22,7 @@ public class Plan implements Serializable {
     private int suggestedYear;
 
     private ArrayList<Film> listOfFilms;
+    private String moviePoster;
 
     public Plan() {
 
@@ -190,5 +191,12 @@ public class Plan implements Serializable {
         isInitialPlan = initialPlan;
     }
 
+    public String getMoviePoster() {
+        return moviePoster;
+    }
+
+    public void setMoviePoster(String moviePoster) {
+        this.moviePoster = moviePoster;
+    }
 }
 

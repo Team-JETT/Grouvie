@@ -63,7 +63,7 @@ public class ServerContact extends AsyncTask<String, Integer, String> {
     public static void startProgressBar(Context context) {
         dialog = new ProgressDialog(context, ProgressDialog.BUTTON_POSITIVE);
         dialog.setTitle("Please wait");
-        dialog.setMessage("Obtaining listings from server");
+        dialog.setMessage("Obtaining listings from server from cinemas close to event members");
         dialog.show();
     }
 
