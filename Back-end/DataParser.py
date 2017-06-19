@@ -75,8 +75,15 @@ class DataParser:
             return (error_url, error_overview)
 
         first_result = res['results'][0]
+
         poster_path = first_result['poster_path']
+
         overview = first_result['overview']
+        groups = overview.split('.')
+        overview = '.'.join(groups[:2])
+        if overview[-1] != '.':
+            overview.append('.')
+
         if not (poster_path and overview):
             return (error_url, error_overview)
 
