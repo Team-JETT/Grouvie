@@ -103,7 +103,7 @@ public class SelectCinema extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    Intent intent = new Intent(view.getContext(), CinemaLocations.class);
+                    Intent intent = new Intent(view.getContext(), SelectShowtime.class);
 
                     data.setSuggestedCinema(chosenCinema);
                     data.setShowtimeDistance(showtimeDistanceData.toString());

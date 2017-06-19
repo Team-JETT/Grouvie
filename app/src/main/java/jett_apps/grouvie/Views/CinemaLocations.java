@@ -32,6 +32,7 @@ import jett_apps.grouvie.HelperClasses.ProfileManager;
 import jett_apps.grouvie.HelperObjects.Cinema;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.PlanningActivities.SelectShowtime;
+import jett_apps.grouvie.PlanningActivities.SuggestChangeInPlan;
 import jett_apps.grouvie.R;
 
 import static jett_apps.grouvie.Views.LandingPage.DATA;
@@ -195,7 +196,28 @@ public class CinemaLocations extends FragmentActivity implements OnMapReadyCallb
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick(Marker marker) {
-                Intent intent = new Intent(CinemaLocations.this, LandingPage.class);
+                Intent intent = new Intent(CinemaLocations.this, SelectShowtime.class);
+
+                String chosenCinema = marker.getTitle();
+                Log.v("CHOSEN CINEMA", chosenCinema);
+                JSONArray showtimeDistanceData = null;
+                try {
+                    // For our chosen chosenCinema get the showtimes and distance to the chosenCinema.
+                    showtimeDistanceData = ((JSONObject) data.getCinemaDataJson()
+                            .get((int) marker.getZIndex()))
+                            .getJSONArray(chosenCinema);
+                    Log.v("CHOSEN CINEMA DATA", data.getCinemaData().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                data.setCinemaDataJson(null);
+
+                data.setSuggestedCinema(chosenCinema);
+                data.setShowtimeDistance(showtimeDistanceData.toString());
+                data.setCinemaList(cinemas);
+
+                intent.putExtra(DATA, data);
                 startActivity(intent);
             }
         });

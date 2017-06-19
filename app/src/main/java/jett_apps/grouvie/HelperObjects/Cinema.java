@@ -2,7 +2,9 @@ package jett_apps.grouvie.HelperObjects;
 
 import com.google.android.gms.maps.model.LatLng;
 
-public class Cinema {
+import java.io.Serializable;
+
+public class Cinema implements Serializable {
 
     private String name;
     private LatLng location;
