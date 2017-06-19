@@ -50,9 +50,14 @@ public class CurrentPlanView extends AppCompatActivity {
         }
 
         Button button = (Button) findViewById(R.id.cancelPlan);
+        Button acceptButton = (Button) findViewById(R.id.acceptPlan);
 
         if(!ProfileManager.getPhone(this).equals(p.getLeaderPhoneNum())) {
             button.setVisibility(View.INVISIBLE);
+            acceptButton.setVisibility(View.VISIBLE);
+        } else {
+            button.setVisibility(View.VISIBLE);
+            acceptButton.setVisibility(View.INVISIBLE);
         }
 
         TextView film = (TextView) findViewById(R.id.SelectedFilm);
