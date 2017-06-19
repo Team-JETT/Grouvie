@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -45,6 +46,24 @@ public class ConfirmPlanView extends AppCompatActivity {
         int day = p.getSuggestedDay();
         int month = p.getSuggestedMonth();
         int year = p.getSuggestedYear();
+
+        Intent intent = new Intent(Intent.ACTION_INSERT);
+        intent.setData(CalendarContract.Events.CONTENT_URI);
+
+        intent.setType("vnd.android.cursor.item/event");
+        intent.putExtra(CalendarContract.Events.TITLE, "Grouvie Event: "+p.getSuggestedFilm());
+        intent.putExtra(CalendarContract.Events.EVENT_LOCATION, p.getSuggestedCinema());
+        intent.putExtra(CalendarContract.Events.DESCRIPTION, p.getSuggestedFilm());
+
+        GregorianCalendar calDate = new GregorianCalendar(year, month, day);
+        intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
+                calDate.getTimeInMillis());
+        intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
+                calDate.getTimeInMillis());
+
+        Toast.makeText(getApplicationContext(), "ADDED TO CALENDAR", Toast.LENGTH_LONG).show();
+        startActivity(intent);
+
 
     }
 
