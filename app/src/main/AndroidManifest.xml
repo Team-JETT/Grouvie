@@ -6,6 +6,8 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
 
     <!-- To auto-complete the email text field in the login form with the user's emails -->
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
@@ -14,41 +16,60 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/popcorn"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Views.MainActivity">
+
+        <activity android:name=".Views.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".PlanningActivities.SelectFilm"
             android:label="@string/title_activity_select_film"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".PlanningActivities.SelectShowtime" />
-        <activity android:name=".Views.LeaderInitialPlan" />
+
+        <activity android:name=".PlanningActivities.SelectShowtime"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".Views.LeaderInitialPlan"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".PlanningActivities.SignUpActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".Views.LandingPage"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
 
-        <activity android:name=".PlanningActivities.SelectCinema" />
+        <activity android:name=".PlanningActivities.SelectCinema"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PlanningActivities.SelectGroup"
             android:label="@string/title_activity_group_selection"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Views.LandingPage" />
-        <activity android:name=".Views.CurrentPlanView" />
-        <activity android:name=".PlanningActivities.SignUpActivity" />
-        <activity android:name=".Views.ProfilePage" />
-        <activity android:name=".Views.GroupView" />
+
+        <activity android:name=".Views.CurrentPlanView"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".Views.ProfilePage"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <activity android:name=".Views.GroupView"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <!-- <activity android:name=".SuggestChange" /> -->
-        <activity android:name=".PlanningActivities.SuggestChangeInPlan" />
+        <activity android:name=".PlanningActivities.SuggestChangeInPlan"
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <service android:name=".Notifications.IIDService">
             <intent-filter>
@@ -75,7 +96,10 @@
 
         <activity
             android:name=".Views.CinemaLocations"
-            android:label="@string/title_activity_cinema_locations"></activity>
+            android:label="@string/title_activity_cinema_locations"/>
+        <activity
+            android:name=".Views.ConfirmPlanView"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

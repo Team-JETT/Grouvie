@@ -1,29 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context="jett_apps.grouvie.PlanningActivities.SelectShowtime">
 
     <ListView
         android:id="@+id/cinemaList"
         style="@style/Widget.AppCompat.Light.ListView.DropDown"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:headerDividersEnabled="false"
-        android:paddingTop="70dp"
-        android:layout_below="@+id/appBarLayout"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:divider="?attr/colorControlHighlight"
+        android:dividerHeight="2dp"
+        android:headerDividersEnabled="true"
+        android:paddingBottom="90dp"
+        android:paddingTop="90dp"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp" />
 
     <include
         android:id="@+id/showingCinemas"
         layout="@layout/content_select_film"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_below="@+id/appBarLayout"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        tools:layout_editor_absoluteY="8dp"
+        tools:layout_editor_absoluteX="8dp" />
+
+    <Button
+        android:id="@+id/surpriseCinema"
+        android:layout_width="240dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/textView3"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/rounded_button"
+        android:text="@string/im_feelin_grouvie"
+        android:textColor="@color/grey_300"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/textView3"
@@ -34,28 +58,47 @@
         android:layout_gravity="bottom|center_horizontal"
         android:text="Select a Cinema"
         android:textAlignment="center"
+        android:textColor="@color/grey_100"
         android:textSize="30sp"
-        app:layout_anchorGravity="top|center_horizontal" />
+        app:layout_anchorGravity="top|center_horizontal"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <TextView
         android:id="@+id/chosen_film"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/textView3"
+        android:layout_centerHorizontal="true"
         android:layout_gravity="bottom|center_horizontal"
         android:text="@string/filmtitle"
+        android:textAlignment="center"
+        android:textColor="@color/grey_300"
         android:textSize="20sp"
         app:layout_anchorGravity="top|center_horizontal"
-        android:textAlignment="center"
-        android:layout_below="@+id/textView3"
-        android:layout_centerHorizontal="true" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp" />
 
     <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay"
-        android:id="@+id/appBarLayout">
+        android:id="@+id/appBarLayout"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
 
 
     </android.support.design.widget.AppBarLayout>
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

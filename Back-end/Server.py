@@ -15,6 +15,7 @@ dParser = None
 GROUVIE = "GROUVIE"
 USER = "USER"
 
+
 @app.route("/")
 def homepage():
     """
@@ -50,13 +51,18 @@ def get_local_data():
     """
     phone_data = json.loads(request.data)
     try:
-        avg_latitude, avg_longitude = calculate_avg_location(phone_data['friends'])
+        avg_latitude, avg_longitude = \
+            calculate_avg_location(phone_data['friends'])
     except:
-        avg_latitude, avg_longitude = phone_data['latitude'], phone_data['longitude']
+        avg_latitude, avg_longitude = \
+            phone_data['latitude'], phone_data['longitude']
+    print phone_data
+    stdout.flush()
     return json.dumps(dParser.get_local_data(phone_data['day'],
                                              phone_data['month'],
                                              phone_data['year'],
                                              avg_latitude, avg_longitude))
+
 
 # TODO: UNTESTED
 @app.route("/make_plan", methods=['GET', 'POST'])
@@ -65,14 +71,16 @@ def make_plan():
     phone_data = json.loads(request.data)
     phone_number = phone_data['phone_number']
     leader = phone_data['leader']
+    creation_datetime = phone_data['creation_datetime']
+    date = phone_data['date']
     showtime = phone_data['showtime']
     film = phone_data['film']
     cinema = phone_data['cinema']
     latitude = phone_data['latitude']
     longitude = phone_data['longitude']
     # Make a new entry for the group leader.
-    dbManager.insert_grouvie(phone_number, leader, showtime, film, cinema,
-                             latitude, longitude)
+    dbManager.insert_grouvie(phone_number, leader, creation_datetime,
+                             date, showtime, film, cinema, latitude, longitude)
     # Make a new entry in the table for each friend.
     # TODO: What happens if duplicate?
     friends = phone_data['friends']
@@ -80,8 +88,8 @@ def make_plan():
     print str(friends)
     for friend in friends:
         print str(friend)
-        dbManager.insert_grouvie(friend, leader, showtime, None, None, None,
-                                 None)
+        dbManager.insert_grouvie(friend, leader, creation_datetime, date,
+                                 showtime, None, None, None, None)
     print "MADE NEW PLAN"
     stdout.flush()
     return ''
@@ -99,6 +107,7 @@ def new_user():
     stdout.flush()
     return "DONE!!!"
 
+
 @app.route("/verify_user", methods=['GET', 'POST'])
 def verify_user():
     """Given a phone number, verifies that the user is a Grouvie user."""
@@ -107,10 +116,10 @@ def verify_user():
     # Convert user to tuple before passing to select_valid_users
     results = dbManager.select_valid_users([user])
     # If the user is in the database, give return code 1, otherwise, 0
-    print results
     print "VALID USER" if results else "INVALID USER"
     stdout.flush()
     return "1" if results else "0"
+
 
 @app.route("/verify_friends", methods=['GET', 'POST'])
 def verify_friends():
@@ -123,8 +132,8 @@ def verify_friends():
     valid_friends = {}
     for user in valid_users:
         valid_friends[user[0]] = user[1]
-    print "VALID FRIENDS:", valid_friends
     stdout.flush()
+    print "VALID FRIENDS:", valid_friends
     return json.dumps(valid_friends)
 
 
@@ -146,7 +155,7 @@ def get_user():
 @app.route("/update_postcode", methods=['GET', 'POST'])
 def update_postcode():
     """Update postcode data for a given user."""
-    phone_data = json.load(request.data)
+    phone_data = json.loads(request.data)
     latitude, longitude = dParser.get_latlong(phone_data['postcode'])
     dbManager.update_users(phone_data['phone_number'], phone_data['name'],
                            phone_data['postcode'], latitude, longitude)
@@ -156,13 +165,28 @@ def update_postcode():
 
 
 # TODO: UNTESTED
-app.route("/delete_single", methods=['GET', 'POST'])
+@app.route("/suggest_plan", methods=['GET', 'POST'])
+def suggest_plan():
+    phone_data = json.loads(request.data)
+    dbManager.update_grouvie(phone_data['phone_number'],
+                             phone_data['leader'],
+                             phone_data['creation_datetime'],
+                             phone_data['date'],
+                             phone_data['showtime'],
+                             phone_data['film'],
+                             phone_data['cinema'])
+
+
+# TODO: UNTESTED
+@app.route("/delete_single", methods=['GET', 'POST'])
 def delete_single():
     """Delete an entry from the database - someone can't make it to the plan."""
     phone_data = json.loads(request.data)
+    print phone_data
+    stdout.flush()
     dbManager.delete_single_grouvie(phone_data['phone_number'],
                                     phone_data['leader'],
-                                    phone_data['showtime'])
+                                    phone_data['creation_datetime'])
     print "SOMEONE CANT GO"
     return ''
 
@@ -174,41 +198,9 @@ def delete_plan():
     of the plan."""
     phone_data = json.loads(request.data)
     dbManager.delete_plan_grouvie(phone_data['leader'],
-                                  phone_data['showtime'])
+                                  phone_data['creation_datetime'])
     stdout.flush()
     print "DELETED PLAN"
-    return ''
-
-@app.route("/change_film", methods=['GET', 'POST'])
-def change_film():
-    phone_data = json.loads(request.data)
-    dbManager.change_film(phone_data['phone_number'],
-                          phone_data['leader'],
-                          phone_data['showtime'],
-                          phone_data['film'])
-    stdout.flush()
-    print "CHANGED FILM FOR " + phone_data['phone_number']
-    return ''
-
-@app.route("/change_cinema", methods=['GET', 'POST'])
-def change_cinema():
-    phone_data = json.loads(request.data)
-    dbManager.change_cinema(phone_data['cinema'],
-                            phone_data['phone_number'],
-                            phone_data['leader'],
-                            phone_data['showtime'])
-    print "CHANGED CINEMA FOR " + phone_data['phone_number']
-    stdout.flush()
-    return ''
-
-@app.route("/change_showtime", methods=['GET', 'POST'])
-def change_showtime():
-    phone_data = json.loads(request.data)
-    dbManager.change_showtime(phone_data['new_showtime'],
-                              phone_data['phone_number'],
-                              phone_data['leader'],
-                              phone_data['showtime'])
-    print "CHANGED SHOWTIME FOR " + phone_data['phone_number']
     stdout.flush()
     return ''
 

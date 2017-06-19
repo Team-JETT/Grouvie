@@ -12,8 +12,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.concurrent.ExecutionException;
 
 import jett_apps.grouvie.HelperClasses.PlanManager;
@@ -42,6 +45,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
 
         data = (Plan) getIntent().getSerializableExtra(DATA);
 
+        chosenDate = data.getSuggestedDate();
         chosenFilm = data.getSuggestedFilm();
         chosenCinema = data.getSuggestedCinema();
         chosenTime = data.getSuggestedShowTime();
@@ -62,20 +66,23 @@ public class LeaderInitialPlan extends AppCompatActivity {
         JSONObject json = new JSONObject();
         String leaderPhoneNum = ProfileManager.getPhone(LeaderInitialPlan.this);
         String leaderName = ProfileManager.getName(this);
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date = new Date();
+        data.setCreationDateTime(dateFormat.format(date));
+
         try {
-            json.accumulate("leader_name", leaderName);
             json.accumulate("phone_number", leaderPhoneNum);
+            json.accumulate("leader_name", leaderName);
             json.accumulate("leader", leaderPhoneNum);
+            json.accumulate("date", chosenDate);
+            json.accumulate("creation_datetime", dateFormat.format(date));
             json.accumulate("showtime", chosenTime);
-            json.accumulate("chosenFilm", chosenFilm);
-            json.accumulate("chosenCinema", chosenCinema);
+            json.accumulate("film", chosenFilm);
+            json.accumulate("cinema", chosenCinema);
             json.accumulate("latitude", latitude);
             json.accumulate("longitude", longitude);
-            json.accumulate("date", chosenDate);
-            ArrayList<Friend> friends = chosenGroup;
-            String[] friendsNames = getFriendsNames(friends);
-            json.accumulate("friend_list", Arrays.toString(friendsNames));
-            String[] friendsNumbers = getFriendsNumbers(friends);
+            String[] friendsNumbers = getFriendsNumbers(chosenGroup);
             json.accumulate("friends", Arrays.toString(friendsNumbers));
         } catch (JSONException e) {
             e.printStackTrace();
@@ -83,12 +90,24 @@ public class LeaderInitialPlan extends AppCompatActivity {
         /* Send initial/draft plan to web server to update the database. */
         new ServerContact().execute("make_plan", json.toString());
 
+        /* Add names of friends to JSON plan. This is needed to create an ArrayList<Friend> from
+           the JSON values in "friends" and "friend_list". This is needed for the Plan object in
+           MessagingService, else friends will not display correctly in "View Group Replies". */
+        String[] friendsNames = getFriendsNames(chosenGroup);
+        try {
+            json.put("friend_list", Arrays.toString(friendsNames));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         /* Send initial/draft plan to other group members. */
         for (Friend groupMember : chosenGroup) {
+            /* Get the recipient member's phone number. */
             String topicName = groupMember.getPhoneNum();
             try {
-                json.remove("phone_number");
-                json.accumulate("phone_number", topicName);
+                /* Update phone_number field in JSON and send it to the user. */
+                json.put("phone_number", topicName);
+                /* TODO: Replace with topicName once you've finished debugging this section. */
                 new FirebaseContact().execute("07434897141"/*topicName*/, json.toString());
             } catch (JSONException e) {
                 Log.e("CHANGE PHONE_NUMBER", "Failed to change phone number in JSON");

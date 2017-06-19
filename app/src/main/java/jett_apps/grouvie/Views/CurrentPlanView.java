@@ -50,9 +50,14 @@ public class CurrentPlanView extends AppCompatActivity {
         }
 
         Button button = (Button) findViewById(R.id.cancelPlan);
+        Button acceptButton = (Button) findViewById(R.id.acceptPlan);
 
         if(!ProfileManager.getPhone(this).equals(p.getLeaderPhoneNum())) {
             button.setVisibility(View.INVISIBLE);
+            acceptButton.setVisibility(View.VISIBLE);
+        } else {
+            button.setVisibility(View.VISIBLE);
+            acceptButton.setVisibility(View.INVISIBLE);
         }
 
         TextView film = (TextView) findViewById(R.id.SelectedFilm);
@@ -97,7 +102,7 @@ public class CurrentPlanView extends AppCompatActivity {
         try {
             json_data.accumulate("phone_number", p.getLeaderPhoneNum());
             json_data.accumulate("leader", p.getLeaderPhoneNum());
-            json_data.accumulate("showtime", p.getSuggestedShowTime());
+            json_data.accumulate("creation_datetimte", p.getCreationDateTime());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -113,17 +118,23 @@ public class CurrentPlanView extends AppCompatActivity {
         JSONObject json_data = new JSONObject();
         try {
             json_data.accumulate("leader", p.getLeaderPhoneNum());
-            json_data.accumulate("showtime", p.getSuggestedShowTime());
+            json_data.accumulate("creation_datetime", p.getCreationDateTime());
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new ServerContact().execute("delete_plan", json_data.toString());
+        new ServerContact().execute("cancel_plan", json_data.toString());
         Intent intent = new Intent(view.getContext(), LandingPage.class);
         startActivity(intent);
 
     }
 
-    public void backButton(View view) {
+    public void acceptPlan(View view) {
+        Intent intent = new Intent(CurrentPlanView.this, LandingPage.class);
+        startActivity(intent);
+    }
+
+
+    public void onBackPressed(View view) {
         Intent intent = new Intent(CurrentPlanView.this, LandingPage.class);
         startActivity(intent);
     }

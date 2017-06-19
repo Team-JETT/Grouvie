@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
     tools:context="jett_apps.grouvie.Views.ProfilePage">
 
     <EditText
@@ -17,6 +18,10 @@
         android:contentDescription="Post Code"
         android:inputType="phone"
         android:textSize="20sp"
+        android:textColor="@color/grey_300"
+        android:shadowColor="@color/hockeyapp_text_white"
+        android:textColorHighlight="@color/hockeyapp_text_white"
+        android:textColorHint="@color/hockeyapp_text_white"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/phoneText" />
@@ -32,6 +37,7 @@
         android:textSize="20sp"
         android:text="Phone Number"
         android:inputType="phone"
+        android:textColor="@color/grey_300"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/nameText" />
@@ -47,6 +53,7 @@
         android:textSize="20sp"
         android:text="Name"
         android:inputType="phone"
+        android:textColor="@color/grey_300"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tutorialText" />
@@ -63,6 +70,7 @@
         android:onClick="updateProfile"
         android:text="Done"
         android:theme="@style/ThemeOverlay.MyDarkButton"
+        android:background="@drawable/rounded_button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -76,6 +84,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="28dp"
         android:text="@string/my_profile"
+        android:textColor="@color/grey_100"
         android:textSize="30sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

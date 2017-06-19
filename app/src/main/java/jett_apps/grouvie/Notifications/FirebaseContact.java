@@ -30,10 +30,12 @@ public class FirebaseContact extends AsyncTask<String, Integer, String> {
         HttpClient httpClient = new DefaultHttpClient();
         HttpPost httpPost = new HttpPost(WebServerAddr);
 
+        /* Retrieve and initialise variables. */
         String topicName = params[0];
         String planInJSON = params[1];
         JSONObject plan = null;
 
+        /* Initialise plan with the JSON string planInJSON. */
         try {
             plan = new JSONObject(planInJSON);
         } catch (JSONException e) {
@@ -41,10 +43,14 @@ public class FirebaseContact extends AsyncTask<String, Integer, String> {
             e.printStackTrace();
         }
 
+        /* Create JSON to send to the user. */
         JSONObject notification = new JSONObject();
 
         try {
+            /* This sends the notification to the user's phone number, which they will be
+               subscribed to once they've gone through the LandingPage. */
             notification.accumulate("to", "/topics/" + topicName);
+            /* This sends the plan to the user. */
             notification.accumulate("data", plan);
         } catch (JSONException e) {
             Log.e("UNLUCKY", "Could not create/accumulate JSON Object!");
@@ -53,18 +59,21 @@ public class FirebaseContact extends AsyncTask<String, Integer, String> {
         Log.v("SEND PLAN:", notification.toString());
 
         try {
-            // We only ever pass in 1 string so grab the first element in the array.
+            /* We only need to pass the notification JSON in the body of the httpPost. */
             httpPost.setEntity(new StringEntity(notification.toString()));
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 
+        /* Set headers for httpPost. Authorization key is necessary to send a message through
+           the WebServerAddr above. */
         httpPost.setHeader("Content-type", "application/json");
         String auth_key = "AAAA6_Kxqhk:APA91bHRmBQFRxZt2Y93FV8MRYG92EOz3E4bEvmOTU49YM" +
                 "vkgLUd0ddufcoRiFv_IbGPqPgjSitRgF8dZD1nQPb48zhC0gedcfQ-YUtPUJh" +
                 "7z9CWcsF58VueXZmKU7MDhDX5nsW867Gg";
         httpPost.setHeader("Authorization", "key=" + auth_key);
 
+        /* Send the httpPost to the user and retrieve the response body. */
         HttpResponse httpResponse;
         InputStream inputStream = null;
         try {
@@ -74,6 +83,7 @@ public class FirebaseContact extends AsyncTask<String, Integer, String> {
             e.printStackTrace();
         }
 
+        /* Return the result of the http request. */
         return (inputStream != null) ?
                 convertStreamToString(inputStream) : "Did not work!";
     }

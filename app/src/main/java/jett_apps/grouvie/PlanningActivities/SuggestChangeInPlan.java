@@ -2,11 +2,18 @@ package jett_apps.grouvie.PlanningActivities;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Calendar;
 
@@ -20,6 +27,8 @@ import static jett_apps.grouvie.Views.LandingPage.PLAN_MESSAGE;
 
 public class SuggestChangeInPlan extends AppCompatActivity {
 
+    public static String LEADER_PLAN_KEY  = "leader_plan_key";
+
     private Plan leaderPlan;
     private Plan suggestedPlan;
 
@@ -31,12 +40,14 @@ public class SuggestChangeInPlan extends AppCompatActivity {
         //Update suggested plan so far
         suggestedPlan = (Plan) getIntent().getSerializableExtra(DATA);
 
-        if (suggestedPlan == null) {
+        //If this is initial run of this activity
+        if (suggestedPlan == null ) {
 
-            //Get current leader plan
+            // Get current leader plan and save it to obtaining changes later on
             leaderPlan = (Plan) getIntent().getSerializableExtra(PLAN_MESSAGE);
+            saveLeaderPlan();
 
-            //Obtain current plan suggested by the leader if it hasn't been obtaned already
+            // Obtain current plan suggested by the leader (leaderPlan)
             suggestedPlan = new Plan(leaderPlan);
 
         }
@@ -125,8 +136,75 @@ public class SuggestChangeInPlan extends AppCompatActivity {
 
     }
 
+    private void saveLeaderPlan() {
+        //Saving leader plan in shraed prefs
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor prefsEditor = sp.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(leaderPlan);
+        prefsEditor.putString(LEADER_PLAN_KEY, json);
+        prefsEditor.apply();
+    }
+
+    private void restoreLeaderPlan() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor spEditor = sp.edit();
+        Gson gson = new Gson();
+        String json = sp.getString(LEADER_PLAN_KEY, "");
+        leaderPlan = gson.fromJson(json, Plan.class);
+        spEditor.remove(LEADER_PLAN_KEY);
+        spEditor.apply();
+    }
+
     public void done(View view) {
-        //TODO: Send the suggested plan to the group leader
+
+        // We do all these checks to avoid inserting duplicate data into the database.
+        String date = null;
+        String film = null;
+        String cinema = null;
+        String showtime = null;
+
+        //Restoring original leader's plan
+        restoreLeaderPlan();
+
+        //If a new date has been suggested, send to database
+        String suggestedDate = suggestedPlan.getSuggestedDate();
+        if (!suggestedDate.equals(leaderPlan.getSuggestedDate())) {
+            date = suggestedDate;
+        }
+
+        //If a new film has been suggested, send to database
+        String suggestedFilm = suggestedPlan.getSuggestedFilm();
+        if (!suggestedFilm.equals(leaderPlan.getSuggestedFilm())) {
+            film = suggestedFilm;
+        }
+
+        //If a new cinema has been suggested, send to database
+        String suggestedCinema = suggestedPlan.getSuggestedCinema();
+        if (!suggestedCinema.equals(leaderPlan.getSuggestedCinema())) {
+            cinema = suggestedCinema;
+        }
+
+        //If a new showtime has been suggested, send to database
+        String suggestedShowtime = suggestedPlan.getSuggestedShowTime();
+        if (!suggestedShowtime.equals(leaderPlan.getSuggestedShowTime())) {
+            showtime = suggestedShowtime;
+        }
+
+        JSONObject json = new JSONObject();
+        try {
+            // TODO: Someone confirm with Erkin these are the right variables to use.
+            json.accumulate("phone_number", suggestedPlan.getLeaderPhoneNum());
+            json.accumulate("leader", leaderPlan.getLeaderPhoneNum());
+            json.accumulate("creation_datetime", suggestedPlan.getCreationDateTime());
+            json.accumulate("date", (date == null) ? JSONObject.NULL : date);
+            json.accumulate("film", (film == null) ? JSONObject.NULL : film);
+            json.accumulate("cinema", (cinema == null) ? JSONObject.NULL : cinema);
+            json.accumulate("showtime", (showtime == null) ? JSONObject.NULL : showtime);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new ServerContact().execute("suggest_plan", json.toString());
         Intent intent = new Intent(SuggestChangeInPlan.this, LandingPage.class);
         startActivity(intent);
     }
