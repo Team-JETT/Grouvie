@@ -104,6 +104,7 @@ public class SuggestChangeInPlan extends AppCompatActivity {
 
                 datePickerDialog.getDatePicker().setMinDate(c.getTimeInMillis());
                 datePickerDialog.getDatePicker().setMaxDate(cMax.getTimeInMillis());
+                datePickerDialog.updateDate(mYear, mMonth - 1, mDay);
                 datePickerDialog.show();
             }
         });
