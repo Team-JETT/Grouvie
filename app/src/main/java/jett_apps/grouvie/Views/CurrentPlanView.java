@@ -127,13 +127,13 @@ public class CurrentPlanView extends AppCompatActivity {
         startActivity(intent);
 
     }
-    
+
     public void acceptPlan(View view) {
         Intent intent = new Intent(CurrentPlanView.this, LandingPage.class);
         startActivity(intent);
     }
 
-    @Override
+
     public void onBackPressed(View view) {
         Intent intent = new Intent(CurrentPlanView.this, LandingPage.class);
         startActivity(intent);
