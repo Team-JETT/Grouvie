@@ -1,5 +1,7 @@
 package jett_apps.grouvie.HelperObjects;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.Serializable;
 
 public class Film implements Serializable {

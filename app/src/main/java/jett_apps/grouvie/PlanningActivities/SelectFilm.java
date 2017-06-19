@@ -139,18 +139,13 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                     }
                     final JSONArray cinemaData = cinema_data;
 
-                    //TODO: Take a look here.
-
-//                    Intent cinemaIntent = new Intent(view.getContext(), SelectCinema.class);
-
-                    Intent intent = new Intent(view.getContext(), CinemaLocations.class);
-
+                    Intent cinemaIntent = new Intent(view.getContext(), SelectCinema.class);
 
                     data.setCinemaData(cinemaData.toString());
                     data.setSuggestedFilm(filmTitle);
-                    intent.putExtra(DATA, data);
+                    cinemaIntent.putExtra(DATA, data);
 
-                    startActivity(intent);
+                    startActivity(cinemaIntent);
                 }
             }
         );
