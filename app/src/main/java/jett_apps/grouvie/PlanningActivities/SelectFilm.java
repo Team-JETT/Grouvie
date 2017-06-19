@@ -91,7 +91,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         data.setListOfFilms(films);
 
-        Button surpriseButton = (Button) findViewById(R.id.surpriseButton);
+        Button surpriseButton = (Button) findViewById(R.id.surpriseFilm);
         surpriseButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

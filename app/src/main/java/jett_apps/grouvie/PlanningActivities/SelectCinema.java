@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Random;
 
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.R;
@@ -41,6 +43,7 @@ public class SelectCinema extends AppCompatActivity {
         final String cinemaData = data.getCinemaData();
 
         ((TextView) findViewById(R.id.chosen_film)).setText(chosenFilm);
+
 
         JSONArray cinema_data = null;
         try {
@@ -65,8 +68,7 @@ public class SelectCinema extends AppCompatActivity {
             }
         }
 
-//        ListAdapter showtimeAdapter = new ArrayAdapter<String>(this,
-//                android.R.layout.simple_list_item_1, cinemas);
+
 
         ListAdapter showtimeAdapter = new ArrayAdapter<String>(getApplicationContext(),
                 android.R.layout.simple_list_item_1, cinemas) {
@@ -113,6 +115,38 @@ public class SelectCinema extends AppCompatActivity {
                 }
             }
         );
+
+        Button surpriseButton = (Button) findViewById(R.id.surpriseCinema);
+        surpriseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Random random = new Random();
+                int randomIndex = random.nextInt(cinemas.size());
+                String chosenCinema = cinemas.get(randomIndex);
+                Log.v("CHOSEN CINEMA", chosenCinema);
+
+                JSONArray showtimeDistanceData = null;
+                try {
+                    // For our chosen chosenCinema get the showtimes and distance to the chosenCinema.
+                    showtimeDistanceData = ((JSONObject) finalCinema_data.get(randomIndex)).
+                            getJSONArray(chosenCinema);
+                    Log.v("CHOSEN CINEMA DATA", cinemaData.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+
+                //Sending the current plan to the final planning page
+                Intent intent = new Intent(SelectCinema.this, SelectShowtime.class);
+
+                data.setSuggestedCinema(chosenCinema);
+                data.setShowtimeDistance(showtimeDistanceData.toString());
+
+                intent.putExtra(DATA, data);
+                startActivity(intent);
+            }
+        });
 
     }
 }
