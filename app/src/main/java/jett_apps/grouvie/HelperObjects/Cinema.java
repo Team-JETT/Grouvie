@@ -6,6 +6,7 @@ public class Cinema {
 
     private String name;
     private LatLng location;
+    private int index;
 
     public Cinema() {
 
@@ -25,5 +26,13 @@ public class Cinema {
 
     public LatLng getLocation() {
         return location;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 }

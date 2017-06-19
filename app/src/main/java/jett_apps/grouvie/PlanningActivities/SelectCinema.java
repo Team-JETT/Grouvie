@@ -103,14 +103,6 @@ public class SelectCinema extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-
-                    //Sending the current plan to the final planning page
-//                    Intent intent = new Intent(view.getContext(), SelectShowtime.class);
-
-
-
-
-
                     Intent intent = new Intent(view.getContext(), CinemaLocations.class);
 
                     data.setSuggestedCinema(chosenCinema);
