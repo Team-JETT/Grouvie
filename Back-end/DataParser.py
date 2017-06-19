@@ -90,6 +90,7 @@ class DataParser:
         print('FILM NAME IS: ' + film_name)
         print('IMAGE URL IS: ' + img_url)
         print('OVERVIEW IS: ' + overview)
+        sys.stdout.flush()
         return (img_url, overview)
 
     def get_films_for_cinemas(self, date):
