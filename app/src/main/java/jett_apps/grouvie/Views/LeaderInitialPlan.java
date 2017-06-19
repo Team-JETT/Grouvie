@@ -82,10 +82,6 @@ public class LeaderInitialPlan extends AppCompatActivity {
             json.accumulate("cinema", chosenCinema);
             json.accumulate("latitude", latitude);
             json.accumulate("longitude", longitude);
-            ArrayList<Friend> friends = chosenGroup;
-//            TODO: Someone explain to erkin why this is here.
-//            String[] friendsNames = getFriendsNames(friends);
-//            json.accumulate("friend_list", Arrays.toString(friendsNames));
             String[] friendsNumbers = getFriendsNumbers(chosenGroup);
             json.accumulate("friends", Arrays.toString(friendsNumbers));
         } catch (JSONException e) {
@@ -98,6 +94,8 @@ public class LeaderInitialPlan extends AppCompatActivity {
         for (Friend groupMember : chosenGroup) {
             String topicName = groupMember.getPhoneNum();
             try {
+                String[] friendsNames = getFriendsNames(chosenGroup);
+                json.accumulate("friend_list", Arrays.toString(friendsNames));
                 json.remove("phone_number");
                 json.accumulate("phone_number", topicName);
                 new FirebaseContact().execute("07434897141"/*topicName*/, json.toString());

@@ -35,9 +35,9 @@ public class MessagingService extends FirebaseMessagingService {
         JSONObject planInJSON = new JSONObject(remoteMessage.getData());
         String leaderName = null;
         try {
-            leaderName = planInJSON.getString("leader_name");
-            String film = planInJSON.getString("chosenFilm");
-            String cinema = planInJSON.getString("chosenCinema");
+            leaderName = planInJSON.getString("leader");
+            String film = planInJSON.getString("film");
+            String cinema = planInJSON.getString("cinema");
             String showtime = planInJSON.getString("showtime");
             String date = planInJSON.getString("date");
             String[] friendNames = planInJSON.getString("friend_list").split(",");

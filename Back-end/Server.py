@@ -51,12 +51,12 @@ def get_local_data():
     """
     phone_data = json.loads(request.data)
     try:
-        print "Calculating avg lat/long..."
         avg_latitude, avg_longitude = \
             calculate_avg_location(phone_data['friends'])
     except:
         avg_latitude, avg_longitude = \
             phone_data['latitude'], phone_data['longitude']
+    print phone_data
     stdout.flush()
     return json.dumps(dParser.get_local_data(phone_data['day'],
                                              phone_data['month'],

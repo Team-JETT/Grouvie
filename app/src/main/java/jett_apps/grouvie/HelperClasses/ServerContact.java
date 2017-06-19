@@ -18,8 +18,8 @@ public class ServerContact extends AsyncTask<String, Integer, String> {
 
     public static ProgressDialog dialog;
 //    Debug IP
-//    final static String WebServerAddr = "192.168.1.70";
-    final static String WebServerAddr = "https://murmuring-peak-87447.herokuapp.com/";
+    final static String WebServerAddr = "192.168.1.70";
+//    final static String WebServerAddr = "https://murmuring-peak-87447.herokuapp.com/";
 
     /*
      * HOW TO USE PARAMS:
@@ -30,8 +30,8 @@ public class ServerContact extends AsyncTask<String, Integer, String> {
     protected String doInBackground(String... params) {
 
         HttpClient httpClient = new DefaultHttpClient();
-        HttpPost httpPost = new HttpPost(WebServerAddr + params[0]);
-//        HttpPost httpPost = new HttpPost("http://" + WebServerAddr + ":5000/" + params[0]);
+//        HttpPost httpPost = new HttpPost(WebServerAddr + params[0]);
+        HttpPost httpPost = new HttpPost("http://" + WebServerAddr + ":5000/" + params[0]);
 
         StringEntity se = null;
         try {
@@ -40,9 +40,6 @@ public class ServerContact extends AsyncTask<String, Integer, String> {
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
-
-//        httpPost.setHeader("Accept", "application/json");
-//        httpPost.setHeader("Content-type", "application/json");
 
         HttpResponse httpResponse;
         InputStream inputStream = null;
