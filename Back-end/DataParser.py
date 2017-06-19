@@ -64,6 +64,8 @@ class DataParser:
         error_overview = ''
         if '&' in film_name:
             film_name = 'and'.join(film_name.split('&'))
+        if ':' in film_name:
+            film_name = ' '.join(film_name.split(':'))
 
         film_name = film_name.encode('utf-8')
         api_url = 'https://api.themoviedb.org/3/search/movie?api_key=' \
