@@ -129,16 +129,36 @@ public class SuggestChangeInPlan extends AppCompatActivity {
     }
 
     public void done(View view) {
+
         // We do all these checks to avoid inserting duplicate data into the database.
-        String date = null, film = null, cinema = null, showtime = null;
-        if (suggestedPlan.getSuggestedDate().equals(leaderPlan.getSuggestedDate()))
-            date = suggestedPlan.getSuggestedDate();
-        if (suggestedPlan.getSuggestedFilm().equals(leaderPlan.getSuggestedFilm()))
-            film = suggestedPlan.getSuggestedFilm();
-        if (suggestedPlan.getSuggestedCinema().equals(leaderPlan.getCinemaData()))
-            cinema = suggestedPlan.getSuggestedCinema();
-        if (suggestedPlan.getShowtimeDistance().equals(leaderPlan.getShowtimeDistance()))
-            showtime = suggestedPlan.getShowtimeDistance();
+        String date = null;
+        String film = null;
+        String cinema = null;
+        String showtime = null;
+
+        //If a new date has been suggested, send to database
+        String suggestedDate = suggestedPlan.getSuggestedDate();
+        if (!suggestedDate.equals(leaderPlan.getSuggestedDate())) {
+            date = suggestedDate;
+        }
+
+        //If a new film has been suggested, send to database
+        String suggestedFilm = suggestedPlan.getSuggestedFilm();
+        if (!suggestedFilm.equals(leaderPlan.getSuggestedFilm())) {
+            film = suggestedFilm;
+        }
+
+        //If a new cinema has been suggested, send to database
+        String suggestedCinema = suggestedPlan.getSuggestedCinema();
+        if (!suggestedCinema.equals(leaderPlan.getSuggestedCinema())) {
+            cinema = suggestedCinema;
+        }
+
+        //If a new showtime has been suggested, send to database
+        String suggestedShowtime = suggestedPlan.getSuggestedShowTime();
+        if (!suggestedShowtime.equals(leaderPlan.getSuggestedShowTime())) {
+            showtime = suggestedShowtime;
+        }
 
         JSONObject json = new JSONObject();
         try {
@@ -153,7 +173,7 @@ public class SuggestChangeInPlan extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        new ServerContact().execute("suggest_plan");
+        new ServerContact().execute("suggest_plan", json.toString());
         Intent intent = new Intent(SuggestChangeInPlan.this, LandingPage.class);
         startActivity(intent);
     }
