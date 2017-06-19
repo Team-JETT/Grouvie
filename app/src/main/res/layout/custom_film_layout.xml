@@ -13,7 +13,7 @@
         android:layout_alignStart="@+id/filmTitle"
         android:layout_below="@+id/filmTitle"
         android:text="TextView"
-        android:textColor="@color/grey_300" />
+        android:textColor="@color/grey_mild" />
 
     <TextView
         android:id="@+id/filmTitle"
