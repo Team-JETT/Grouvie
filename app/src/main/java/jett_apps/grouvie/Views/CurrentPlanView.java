@@ -5,7 +5,11 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,6 +63,13 @@ public class CurrentPlanView extends AppCompatActivity {
             button.setVisibility(View.VISIBLE);
             acceptButton.setVisibility(View.INVISIBLE);
         }
+
+        ImageView moviePoster = (ImageView) findViewById(R.id.moviePoster);
+        RequestOptions options = new RequestOptions();
+        int posterWidth = 200;
+        int posterHeight = 400;
+        options.override(posterWidth, posterHeight).fitCenter();
+        Glide.with(this).load(p.getMoviePoster()).apply(options).into(moviePoster);
 
         TextView film = (TextView) findViewById(R.id.SelectedFilm);
         film.setText(chosenFilm);

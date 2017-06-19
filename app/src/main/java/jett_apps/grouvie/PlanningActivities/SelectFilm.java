@@ -127,7 +127,8 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    String filmTitle = films.get(position).getFilmName();
+                    Film film = films.get(position);
+                    String filmTitle = film.getFilmName();
                     Log.v("CHOSEN FILM", filmTitle);
                     JSONArray cinema_data = null;
                     try {
@@ -143,6 +144,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
                     data.setCinemaData(cinemaData.toString());
                     data.setSuggestedFilm(filmTitle);
+                    data.setMoviePoster(film.getImageUrl());
                     cinemaIntent.putExtra(DATA, data);
 
                     startActivity(cinemaIntent);
