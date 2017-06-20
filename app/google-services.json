@@ -1,21 +1,21 @@
 {
   "project_info": {
-    "project_number": "1013389044249",
-    "firebase_url": "https://webapps-40bcb.firebaseio.com",
-    "project_id": "webapps-40bcb",
-    "storage_bucket": "webapps-40bcb.appspot.com"
+    "project_number": "450713567232",
+    "firebase_url": "https://webapps-c814e.firebaseio.com",
+    "project_id": "webapps-c814e",
+    "storage_bucket": "webapps-c814e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1013389044249:android:7029ba96bd1ffa2d",
+        "mobilesdk_app_id": "1:450713567232:android:7029ba96bd1ffa2d",
         "android_client_info": {
           "package_name": "jett_apps.grouvie"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1013389044249-u17qc0du3hm7n5iks4u34p3h0p5ep4ma.apps.googleusercontent.com",
+          "client_id": "450713567232-lgdjectc4900qfr0jumntei1o1aj6o85.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "jett_apps.grouvie",
@@ -23,13 +23,13 @@
           }
         },
         {
-          "client_id": "1013389044249-sq1153ak3k7nl1jmfhkqkc40cm5o3bml.apps.googleusercontent.com",
+          "client_id": "450713567232-t3dq1pe4vnv4thmqk7fni7r1g81v4c3p.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCA5ZRPwR4lay9DuUIjUsHtw1PXOc0DWiM"
+          "current_key": "AIzaSyB6ZX8sKwszOcN45ne6p5FvGztLjdUx9hk"
         }
       ],
       "services": {
@@ -40,7 +40,7 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "1013389044249-sq1153ak3k7nl1jmfhkqkc40cm5o3bml.apps.googleusercontent.com",
+              "client_id": "450713567232-t3dq1pe4vnv4thmqk7fni7r1g81v4c3p.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

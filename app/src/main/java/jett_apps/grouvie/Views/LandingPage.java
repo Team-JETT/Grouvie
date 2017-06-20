@@ -44,7 +44,8 @@ public class LandingPage extends AppCompatActivity {
         /* Subscribe user to their own phone number as a topic in order to send
            notifications to their phone. */
         String phoneNum = ProfileManager.getPhone(this);
-        FirebaseMessaging.getInstance().subscribeToTopic("07587247113");
+//        String phoneNum = "07942948248";
+        FirebaseMessaging.getInstance().subscribeToTopic(phoneNum);
 
         /* Retrieve the value in SENT_PLAN. If this value is non-null, then the app is being run
            by a group member who needs to see the plan sent by the leader. */

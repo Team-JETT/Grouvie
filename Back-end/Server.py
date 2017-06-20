@@ -213,6 +213,10 @@ def delete_plan():
     stdout.flush()
     return ''
 
+@app.route("/get_cinema_url", methods=['GET', 'POST'])
+def get_cinema_url():
+    cinema_name = request.data
+    return dParser.get_cinema_url(cinema_name)
 
 if __name__ == "__main__":
     dbManager = DBManager()
