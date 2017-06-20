@@ -300,7 +300,7 @@ public class SelectGroup extends AppCompatActivity {
     public static void startProgressBar(Context context) {
         dialog = new ProgressDialog(context, ProgressDialog.BUTTON_POSITIVE);
         dialog.setTitle("Please wait");
-        dialog.setMessage("Refreshing Grouvie friends List from your phone contacts");
+        dialog.setMessage("Refreshing friends from contacts");
         dialog.show();
     }
 
