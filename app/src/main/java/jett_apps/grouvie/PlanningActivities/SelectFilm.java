@@ -169,7 +169,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         JSONObject json = new JSONObject();
         try {
-            json.accumulate("postcode", ProfileManager.getPhone(SelectFilm.this));
+            json.accumulate("postcode", ProfileManager.getPostcode(SelectFilm.this));
             json.accumulate("friends", Arrays.toString(
                                            LeaderInitialPlan.getFriendsNumbers(
                                                    data.getEventMembers())));

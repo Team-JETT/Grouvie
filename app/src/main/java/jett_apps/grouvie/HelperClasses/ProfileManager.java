@@ -19,6 +19,10 @@ public class ProfileManager {
     private static final String USER_FRIENDS_ID = "userfriends_id";
 
     public static void updateAll(Context c, String name, String phone, String postcode) {
+
+        //Remove spaces
+        postcode = postcode.replaceAll("\\s+","");
+
         SharedPreferences.Editor sp = c
                 .getSharedPreferences(USER_PROFILE_ID, Context.MODE_PRIVATE)
                 .edit();
