@@ -30,6 +30,7 @@ import java.util.Random;
 import java.util.concurrent.ExecutionException;
 
 import jett_apps.grouvie.Adapters.CustomFilmAdapter;
+import jett_apps.grouvie.HelperClasses.ProfileManager;
 import jett_apps.grouvie.HelperClasses.ServerContact;
 import jett_apps.grouvie.HelperObjects.Film;
 import jett_apps.grouvie.HelperObjects.Plan;
@@ -168,6 +169,7 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         JSONObject json = new JSONObject();
         try {
+            json.accumulate("postcode", ProfileManager.getPhone(SelectFilm.this));
             json.accumulate("friends", Arrays.toString(
                                            LeaderInitialPlan.getFriendsNumbers(
                                                    data.getEventMembers())));
