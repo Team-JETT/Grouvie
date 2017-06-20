@@ -95,7 +95,7 @@ def make_plan():
     for friend in friends:
         print str(friend)
         dbManager.insert_grouvie(friend, leader, creation_datetime, date,
-                                 showtime, None, None, None, None)
+                                 showtime, None, None, None, None, False)
     print "MADE NEW PLAN"
     stdout.flush()
     return ''
@@ -181,6 +181,17 @@ def suggest_plan():
                              phone_data['showtime'],
                              phone_data['film'],
                              phone_data['cinema'])
+
+
+# TODO: UNTESTED
+@app.route("/accept_plan", methods=['GET', 'POST'])
+def accept_plan():
+    phone_data = json.loads(request.data)
+    dbManager.accept_plan(phone_data['phone_number'],
+                          phone_data['leader'],
+                          phone_data['creation_datetime'])
+    return ''
+
 
 # TODO: UNTESTED
 @app.route("/group_replies", methods=['GET', 'POST'])

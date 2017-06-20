@@ -14,6 +14,7 @@ CREATE TABLE GROUVIE(
     CINEMA              TEXT,
     LATITUDE            NUMERIC(8, 6),
     LONGITUDE           NUMERIC(9, 6),
+    ACCEPTED            BOOLEAN,
     
     PRIMARY KEY (PHONE_NUMBER, LEADER, CREATION_DATETIME)
 )
@@ -46,7 +47,7 @@ DROP TABLE USERS
 INSERT_GROUVIE = """
 INSERT INTO GROUVIE
 VALUES
-(%s, %s, %s, %s, %s, %s, %s, %s, %s)
+(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
 """
 
 # Insert a new entry into the a table
@@ -54,6 +55,13 @@ INSERT_USERS = """
 INSERT INTO USERS
 VALUES
 (%s, %s, %s, %s, %s)
+"""
+
+ACCEPT_PLAN = """
+UPDATE GROUVIE
+SET ACCEPTED = true
+WHERE
+PHONE_NUMBER = %s AND LEADER = %s AND CREATION_DATETIMEE = %s
 """
 
 # Update an already existing entry in the Grouvie table
@@ -178,17 +186,23 @@ class DBManager:
 
     # Insert a new entry into the Grouvie table.
     def insert_grouvie(self, phone_number, leader, creation_datetime,
-                       date, showtime, film, cinema, latitude, longitude):
+                       date, showtime, film, cinema, latitude, longitude,
+                       accepted):
         cnxn, cursor = self.establish_connection()
         cursor.execute(INSERT_GROUVIE, (phone_number, leader, creation_datetime,
                                         date, showtime, film, cinema, latitude,
-                                        longitude))
+                                        longitude, accepted))
         self.close_connection(cnxn, cursor)
 
     def insert_user(self, phone_number, name, postcode, latitude, longitude):
         cnxn, cursor = self.establish_connection()
         cursor.execute(INSERT_USERS, (phone_number, name, postcode, latitude,
                                       longitude))
+        self.close_connection(cnxn, cursor)
+
+    def accept_plan(self, phone_number, leader, creation_datetime):
+        cnxn, cursor = self.establish_connection()
+        cursor.execute(ACCEPT_PLAN, (phone_number, leader, creation_datetime))
         self.close_connection(cnxn, cursor)
 
     # Update an entry in the Grouvie table if it exists.
@@ -217,7 +231,7 @@ class DBManager:
         all_changes = {}
         for i in range(len(results)):
             user = results[i]
-            changes_made = {}
+            changes_made = {"accepted": user[7]}
             if user[3] is not None:
                 changes_made["date"] = user[3]
             if user[4] is not None:
