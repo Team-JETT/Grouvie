@@ -58,7 +58,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private ViewGroup mSignedInViews;
 
     private TextView mStatusText;
-    private TextView mDetailText;
+//    private TextView mDetailText;
 
     private EditText mPhoneNumberField;
     private EditText mVerificationField;
@@ -312,25 +312,25 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 // Initialized state, show only the phone number field and start button
                 enableViews(mStartButton, mPhoneNumberField);
                 disableViews(mVerifyButton, mResendButton, mVerificationField);
-                mDetailText.setText(null);
+//                mDetailText.setText(null);
                 break;
             case STATE_CODE_SENT:
                 // Code sent state, show the verification field, the
                 enableViews(mVerifyButton, mResendButton, mPhoneNumberField, mVerificationField);
                 disableViews(mStartButton);
-                mDetailText.setText(R.string.status_code_sent);
+//                mDetailText.setText(R.string.status_code_sent);
                 break;
             case STATE_VERIFY_FAILED:
                 // Verification has failed, show all options
                 enableViews(mStartButton, mVerifyButton, mResendButton, mPhoneNumberField,
                         mVerificationField);
-                mDetailText.setText(R.string.status_verification_failed);
+//                mDetailText.setText(R.string.status_verification_failed);
                 break;
             case STATE_VERIFY_SUCCESS:
                 // Verification has succeeded, proceed to firebase sign in
                 disableViews(mStartButton, mVerifyButton, mResendButton, mPhoneNumberField,
                         mVerificationField);
-                mDetailText.setText(R.string.status_verification_succeeded);
+//                mDetailText.setText(R.string.status_verification_succeeded);
 
                 // Set the verification text based on the credential
                 if (cred != null) {
@@ -344,7 +344,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 break;
             case STATE_SIGNIN_FAILED:
                 // No-op, handled by sign-in check
-                mDetailText.setText(R.string.status_sign_in_failed);
+//                mDetailText.setText(R.string.status_sign_in_failed);
                 break;
             case STATE_SIGNIN_SUCCESS:
                 // Np-op, handled by sign-in check
@@ -367,7 +367,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             mVerificationField.setText(null);
 
             mStatusText.setText(R.string.signed_in);
-            mDetailText.setText(getString(R.string.firebase_status_fmt, user.getUid()));
+//            mDetailText.setText(getString(R.string.firebase_status_fmt, user.getUid()));
         }
     }
 
