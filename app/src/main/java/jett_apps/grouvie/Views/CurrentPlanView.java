@@ -21,6 +21,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
+import jett_apps.grouvie.Notifications.FirebaseContact;
 import jett_apps.grouvie.PlanningActivities.SuggestChangeInPlan;
 import jett_apps.grouvie.HelperClasses.PlanManager;
 import jett_apps.grouvie.HelperObjects.Friend;
@@ -202,6 +203,8 @@ public class CurrentPlanView extends AppCompatActivity {
 
     public void acceptPlan(View view) {
         Intent intent = new Intent(CurrentPlanView.this, LandingPage.class);
+        String leaderPhoneNum = p.getLeaderPhoneNum();
+        new FirebaseContact();
         startActivity(intent);
     }
 

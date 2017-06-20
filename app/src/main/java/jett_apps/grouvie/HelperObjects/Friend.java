@@ -8,7 +8,7 @@ public class Friend implements Serializable, Comparable<Friend> {
     private String name;
     private String phoneNum;
     private boolean checked = false;
-    private boolean madeChange = false;
+    private boolean hasAccepted = false;
 
     private String filmChange;
     private String timeChange;
@@ -104,5 +104,9 @@ public class Friend implements Serializable, Comparable<Friend> {
 
     public void setCinemaChange(String cinemaChange) {
         this.cinemaChange = cinemaChange;
+    }
+
+    public boolean hasAccepted() {
+        return hasAccepted;
     }
 }
