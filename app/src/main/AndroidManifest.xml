@@ -21,52 +21,52 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".Views.MainActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+        <activity
+            android:name=".Views.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".PlanningActivities.SelectFilm"
             android:label="@string/title_activity_select_film"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".PlanningActivities.SelectShowtime"
+        <activity
+            android:name=".PlanningActivities.SelectShowtime"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".Views.LeaderInitialPlan"
+        <activity
+            android:name=".Views.LeaderInitialPlan"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".PlanningActivities.SignUpActivity"
+        <activity
+            android:name=".PlanningActivities.SignUpActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".Views.LandingPage"
+        <activity
+            android:name=".Views.LandingPage"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <meta-data
             android:name="net.hockeyapp.android.appIdentifier"
             android:value="${HOCKEYAPP_APP_ID}" />
 
-        <activity android:name=".PlanningActivities.SelectCinema"
+        <activity
+            android:name=".PlanningActivities.SelectCinema"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PlanningActivities.SelectGroup"
             android:label="@string/title_activity_group_selection"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".Views.CurrentPlanView"
+        <activity
+            android:name=".Views.CurrentPlanView"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".Views.ProfilePage"
+        <activity
+            android:name=".Views.ProfilePage"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".Views.GroupView"
+        <activity
+            android:name=".Views.GroupView"
             android:theme="@style/AppTheme.NoActionBar" />
-
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -79,10 +79,10 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
-        
 
         <!-- <activity android:name=".SuggestChange" /> -->
-        <activity android:name=".PlanningActivities.SuggestChangeInPlan"
+        <activity
+            android:name=".PlanningActivities.SuggestChangeInPlan"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <service android:name=".Notifications.IIDService">
@@ -110,7 +110,7 @@
 
         <activity
             android:name=".Views.CinemaLocations"
-            android:label="@string/title_activity_cinema_locations"/>
+            android:label="@string/title_activity_cinema_locations" />
         <activity
             android:name=".Views.ConfirmPlanView"
             android:theme="@style/AppTheme.NoActionBar" />

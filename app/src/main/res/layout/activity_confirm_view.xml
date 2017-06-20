@@ -15,6 +15,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginTop="63dp"
         android:background="@drawable/rounded_button"
+        android:onClick="bookTickets"
         android:text="Book Ticket"
         android:textColor="@color/grey_300"
         app:layout_constraintHorizontal_bias="0.501"
