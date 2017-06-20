@@ -20,6 +20,7 @@ import java.util.Calendar;
 import jett_apps.grouvie.HelperClasses.ServerContact;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.R;
+import jett_apps.grouvie.Views.CinemaLocations;
 import jett_apps.grouvie.Views.LandingPage;
 
 import static jett_apps.grouvie.Views.LandingPage.DATA;
@@ -115,7 +116,7 @@ public class SuggestChangeInPlan extends AppCompatActivity {
         cinema.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), SelectCinema.class);
+                Intent intent = new Intent(v.getContext(), CinemaLocations.class);
                 intent.putExtra(DATA, suggestedPlan);
                 startActivity(intent);
             }

@@ -7,29 +7,11 @@
     android:background="@drawable/background"
     tools:context="jett_apps.grouvie.Views.GroupView">
 
-    <Button
-        android:id="@+id/confirmButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/rounded_button"
-        android:onClick="confirmPlan"
-        android:text="Confirm Plan"
-        android:textColor="@color/grey_300"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.98" />
-
     <ListView
         android:id="@+id/groupView"
         style="@style/Widget.AppCompat.Light.ListView.DropDown"
-        android:layout_width="364dp"
-        android:layout_height="412dp"
+        android:layout_width="372dp"
+        android:layout_height="554dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"

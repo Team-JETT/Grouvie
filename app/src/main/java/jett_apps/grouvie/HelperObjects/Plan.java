@@ -1,6 +1,8 @@
 package jett_apps.grouvie.HelperObjects;
 
 
+import org.json.JSONArray;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -22,6 +24,9 @@ public class Plan implements Serializable {
     private int suggestedYear;
 
     private ArrayList<Film> listOfFilms;
+    private ArrayList<String> cinemaList;
+    private JSONArray cinemaDataJson;
+    private String moviePoster;
 
     public Plan() {
 
@@ -190,5 +195,28 @@ public class Plan implements Serializable {
         isInitialPlan = initialPlan;
     }
 
+    public void setCinemaList(ArrayList<String> cinemaList) {
+        this.cinemaList = cinemaList;
+    }
+
+    public ArrayList<String> getCinemaList() {
+        return cinemaList;
+    }
+
+    public void setCinemaDataJson(JSONArray cinemaDataJson) {
+        this.cinemaDataJson = cinemaDataJson;
+    }
+
+    public JSONArray getCinemaDataJson() {
+        return cinemaDataJson;
+    }
+
+    public String getMoviePoster() {
+        return moviePoster;
+    }
+
+    public void setMoviePoster(String moviePoster) {
+        this.moviePoster = moviePoster;
+    }
 }
 
