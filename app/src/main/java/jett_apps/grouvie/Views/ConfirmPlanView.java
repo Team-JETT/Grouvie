@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.Locale;
 
 import jett_apps.grouvie.HelperClasses.ProfileManager;
 import jett_apps.grouvie.HelperObjects.Plan;
@@ -43,27 +44,21 @@ public class ConfirmPlanView extends AppCompatActivity {
     }
 
     public void getDirections(View view) {
-        Geocoder geocoder = new Geocoder(view.getContext());
         String postcode = ProfileManager.getPostcode(view.getContext());
-
-        int destinationLatitude = 0;
-        int destinationLongitude = 0;
-        int sourceLatitude = 0;
-        int sourceLongitude = 0;
 
         LatLng cinema = getLatLngFromLocationName(view.getContext(), p.getSuggestedCinema());
         LatLng home = getLatLngFromLocationName(view.getContext(), postcode);
 
 
-        String uri = "http://maps.google.com/maps?saddr="
-                     + sourceLatitude
+        String uri = String.format(Locale.ENGLISH,"http://maps.google.com/maps?saddr="
+                     + (int) home.latitude
                      + ","
-                     + sourceLongitude
-                     + "(" + "Home" + ")&daddr="
-                     + destinationLatitude
+                     + (int) home.longitude
+                     + "(" + postcode + ")&daddr="
+                     + (int) cinema.latitude
                      + ","
-                     + destinationLongitude
-                     + " (" + p.getSuggestedCinema() + ")";
+                     + (int) cinema.longitude
+                     + " (" + p.getSuggestedCinema() + ")");
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
         intent.setPackage("com.google.android.apps.maps");
         startActivity(intent);
