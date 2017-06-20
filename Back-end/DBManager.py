@@ -23,8 +23,8 @@ CREATE TABLE GROUVIE(
 CREATE_USERS = """
 CREATE TABLE USERS(
     PHONE_NUMBER    CHAR(11)            NOT NULL,
-    NAME            CHAR(16)            NOT NULL,
-    POSTCODE        CHAR(8)             NOT NULL,
+    NAME            TEXT                NOT NULL,
+    POSTCODE        TEXT                NOT NULL,
     LATITUDE        NUMERIC(8, 6)       NOT NULL,
     LONGITUDE       NUMERIC(9, 6)       NOT NULL,
     
@@ -82,6 +82,13 @@ WHERE PHONE_NUMBER = %s and LEADER = %s and CREATION_DATETIME = %s
 DELETE_PLAN = """
 DELETE FROM GROUVIE
 WHERE LEADER = %s and CREATION_DATETIME = %s
+"""
+
+# Get group replies
+GROUP_REPLIES = """
+SELECT * FROM GROUVIE
+WHERE
+LEADER = %s AND CREATION_DATETIME = %s
 """
 
 # Display everything in the Grouvie table
@@ -200,6 +207,29 @@ class DBManager:
                                       phone_number))
         self.close_connection(cnxn, cursor)
 
+    # Get group replies for a plan
+    def group_replies(self, leader, creation_datetime):
+        cnxn, cursor = self.establish_connection()
+        cursor.execute(GROUP_REPLIES, (leader, creation_datetime))
+        results = cursor.fetchall()
+        self.close_connection(cnxn, cursor)
+
+        all_changes = {}
+        for i in range(results):
+            user = results[i]
+            changes_made = {}
+            if user[3] is not None:
+                changes_made["date"] = user[3]
+            if user[4] is not None:
+                changes_made["showtime"] = user[4]
+            if user[5] is not None:
+                changes_made["film"] = user[5]
+            if user[6] is not None:
+                changes_made["cinema"] = user[6]
+            all_changes[user[0]] = changes_made
+
+        return all_changes
+
     # Delete an entry from the table correlating with a user
     def delete_single_grouvie(self, phone_number, leader, creation_datetime):
         cnxn, cursor = self.establish_connection()
@@ -254,9 +284,9 @@ class DBManager:
     def select_all_users(self):
         cnxn, cursor = self.establish_connection()
         cursor.execute(SELECT_ALL_USERS)
-        result = cursor.fetchall()
+        results = cursor.fetchall()
         self.close_connection(cnxn, cursor)
-        return result
+        return results
 
 
 if __name__ == '__main__':
@@ -273,12 +303,13 @@ if __name__ == '__main__':
     db = DBManager()
     # db.drop_user_table()
     # db.make_user_table()
-    # db.insert_user("07587247113", "Erkin", "EN12LZ", 0, 0)
-    # db.insert_user("07964006128", "Tarun", "RM65DU", 0, 0)
-    # db.insert_user("07942948248", "Jay", "SW100NJ", 0, 0)
+    # db.insert_user("07587247113", "Erkin", "EN12LZ", 51.636495, -0.069549)
+    # db.insert_user("07964006128", "Tarun", "RM65DU", 51.579983, 0.124262)
+    # db.insert_user("07942948248", "Jay", "SW100NJ", 51.482079, -0.182265)
     # # print db.select_valid_users(("1", "2", "5", "6"))
-    db.drop_grouvie_table()
-    db.make_grouvie_table()
+    # db.drop_grouvie_table()
+    # db.make_grouvie_table()
     pprint.PrettyPrinter(indent=4).pprint(db.select_all_grouvie())
+    pprint.PrettyPrinter(indent=4).pprint(db.select_all_users())
     # print db.select_all_users()
     # db.select_valid_users(users)

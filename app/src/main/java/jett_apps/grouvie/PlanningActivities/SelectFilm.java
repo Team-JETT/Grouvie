@@ -23,6 +23,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.Random;
@@ -33,6 +34,7 @@ import jett_apps.grouvie.HelperClasses.ServerContact;
 import jett_apps.grouvie.HelperObjects.Film;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.R;
+import jett_apps.grouvie.Views.LeaderInitialPlan;
 
 import static jett_apps.grouvie.Views.LandingPage.DATA;
 
@@ -163,8 +165,9 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
 
         JSONObject json = new JSONObject();
         try {
-            json.accumulate("latitude", latitude);
-            json.accumulate("longitude", longitude);
+            json.accumulate("friends", Arrays.toString(
+                                           LeaderInitialPlan.getFriendsNumbers(
+                                                   data.getEventMembers())));
             json.accumulate("day", day);
             json.accumulate("month", month);
             json.accumulate("year", year);

@@ -15,6 +15,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
 
 import jett_apps.grouvie.PlanningActivities.SuggestChangeInPlan;
 import jett_apps.grouvie.HelperClasses.PlanManager;
@@ -96,6 +97,19 @@ public class CurrentPlanView extends AppCompatActivity {
 
     public void viewGroupReplies(View view) {
         //TODO: Show activity with group replies and option to replan.
+        JSONObject json = new JSONObject();
+        String result = null;
+        JSONObject group_replies;
+        try {
+            json.accumulate("leader", p.getLeaderPhoneNum());
+            json.accumulate("creation_datetime", p.getCreationDateTime());
+            result = new ServerContact().execute("group_replies", json.toString()).get();
+            group_replies = new JSONObject(result);
+        } catch (JSONException | ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+
         Intent intent = new Intent(view.getContext(), GroupView.class);
         intent.putExtra(PLAN_MESSAGE, p);
         startActivity(intent);
