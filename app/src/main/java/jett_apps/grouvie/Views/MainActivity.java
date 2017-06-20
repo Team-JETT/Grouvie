@@ -28,8 +28,8 @@ import com.google.firebase.iid.FirebaseInstanceId;
 import java.util.concurrent.TimeUnit;
 
 import jett_apps.grouvie.HelperClasses.BaseActivity;
-import jett_apps.grouvie.R;
 import jett_apps.grouvie.PlanningActivities.SignUpActivity;
+import jett_apps.grouvie.R;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
 
