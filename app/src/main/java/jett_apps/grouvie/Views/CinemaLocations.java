@@ -2,6 +2,8 @@ package jett_apps.grouvie.Views;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.support.design.widget.Snackbar;
@@ -11,6 +13,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.TextView;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -22,6 +25,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.ui.IconGenerator;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -115,7 +119,6 @@ public class CinemaLocations extends FragmentActivity implements OnMapReadyCallb
 
     public LatLng getLatLngFromLocationName(Context context, String address) {
         Geocoder geocoder = new Geocoder(context, Locale.UK);
-//        Geocoder geocoder = new Geocoder(context);
         List<Address> addressList;
         LatLng position = null;
 
@@ -162,12 +165,19 @@ public class CinemaLocations extends FragmentActivity implements OnMapReadyCallb
             LatLng position = cinema.getLocation();
             String cinemaName = cinema.getName();
 
+            TextView textView = new TextView(CinemaLocations.this);
+            textView.setText(cinemaName);
+            IconGenerator generator = new IconGenerator(CinemaLocations.this);
+            generator.setContentView(textView);
+//            generator.setStyle(IconGenerator.STYLE_ORANGE);
+            Bitmap icon = generator.makeIcon();
+
             mMap.addMarker(new MarkerOptions()
                                .position(position)
                                .title(cinemaName)
                                .zIndex(cinema.getIndex())
                                .icon(BitmapDescriptorFactory
-                               .defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                               .fromBitmap(icon)));
             builder.include(position);
         }
 
@@ -178,12 +188,20 @@ public class CinemaLocations extends FragmentActivity implements OnMapReadyCallb
         int padding = (int) (width * 0.20); // offset from edges of the map 10% of screen
 
         mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, width, height, padding));
-        mMap.addMarker(new MarkerOptions().position(currentLocation).title("You")).showInfoWindow();
+
+        TextView textView = new TextView(CinemaLocations.this);
+        textView.setText("You");
+        IconGenerator generator = new IconGenerator(CinemaLocations.this);
+        generator.setContentView(textView);
+//        generator.setStyle(IconGenerator.STYLE_BLUE);
+        Bitmap icon = generator.makeIcon();
+
+        mMap.addMarker(new MarkerOptions().position(currentLocation).icon(BitmapDescriptorFactory.fromBitmap(icon)));
 
 
-        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
+        mMap.setOnMarkerClickListener(new GoogleMap.OnMarkerClickListener() {
             @Override
-            public void onInfoWindowClick(Marker marker) {
+            public boolean onMarkerClick(Marker marker) {
                 Intent intent = new Intent(CinemaLocations.this, SelectShowtime.class);
 
                 String chosenCinema = marker.getTitle();
@@ -207,6 +225,7 @@ public class CinemaLocations extends FragmentActivity implements OnMapReadyCallb
 
                 intent.putExtra(DATA, data);
                 startActivity(intent);
+                return false;
             }
         });
     }
