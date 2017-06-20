@@ -157,7 +157,7 @@ public class CurrentPlanView extends AppCompatActivity {
 
     public void addToCalendar(View view) {
         int day = p.getSuggestedDay();
-        int month = p.getSuggestedMonth();
+        int month = p.getSuggestedMonth() - 1;
         int year = p.getSuggestedYear();
 
         String time = p.getSuggestedShowTime();
