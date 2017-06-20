@@ -51,10 +51,14 @@ def get_local_data():
     """
     phone_data = json.loads(request.data)
     friends = phone_data['friends']
+    leader_latitude, leader_longitude = \
+        dParser.get_latlong(phone_data['postcode'])
     try:
         friends = friends[1:len(friends) - 1].split(", ")
         avg_latitude, avg_longitude = \
             calculate_avg_location(friends)
+        avg_latitude += leader_latitude
+        avg_longitude += leader_longitude
     except:
         avg_latitude, avg_longitude = \
             phone_data['latitude'], phone_data['longitude']

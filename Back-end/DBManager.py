@@ -215,7 +215,7 @@ class DBManager:
         self.close_connection(cnxn, cursor)
 
         all_changes = {}
-        for i in range(results):
+        for i in range(len(results)):
             user = results[i]
             changes_made = {}
             if user[3] is not None:
