@@ -65,6 +65,7 @@ public class GroupView extends AppCompatActivity {
                 String time = null;
                 String date = null;
                 String cinema = null;
+                boolean hasAccepted = false;
 
                 JSONObject changes = null;
                 try {
@@ -73,6 +74,7 @@ public class GroupView extends AppCompatActivity {
                     time = changes.getString("showtime");
                     date = changes.getString("date");
                     cinema = changes.getString("cinema");
+                    hasAccepted = changes.getBoolean("accepted");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -81,6 +83,7 @@ public class GroupView extends AppCompatActivity {
                 friend.setTimeChange(time);
                 friend.setDateChange(date);
                 friend.setCinemaChange(cinema);
+                friend.setHasAccepted(hasAccepted);
             }
 
             p.setEventMembers(chosenFriends);

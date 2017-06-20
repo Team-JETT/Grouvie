@@ -7,6 +7,7 @@ import android.provider.CalendarContract;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -72,6 +73,21 @@ public class CurrentPlanView extends AppCompatActivity {
             button.setVisibility(View.VISIBLE);
             acceptButton.setVisibility(View.INVISIBLE);
         }
+
+        ImageButton getDirections = (ImageButton) findViewById(R.id.imageButton);
+        ImageButton bookTickets = (ImageButton) findViewById(R.id.imageButton4);
+        ImageButton addEvent = (ImageButton) findViewById(R.id.addToCalendar);
+
+        if (p.isConfirmed()) {
+            getDirections.setVisibility(View.VISIBLE);
+            bookTickets.setVisibility(View.VISIBLE);
+            addEvent.setVisibility(View.VISIBLE);
+        } else {
+            getDirections.setVisibility(View.INVISIBLE);
+            bookTickets.setVisibility(View.INVISIBLE);
+            addEvent.setVisibility(View.INVISIBLE);
+        }
+
 
         ImageView moviePoster = (ImageView) findViewById(R.id.moviePoster);
         RequestOptions options = new RequestOptions();
@@ -202,9 +218,16 @@ public class CurrentPlanView extends AppCompatActivity {
     }
 
     public void acceptPlan(View view) {
+        JSONObject json = new JSONObject();
+        try {
+            json.accumulate("phone_number", ProfileManager.getPhone(CurrentPlanView.this));
+            json.accumulate("leader", p.getLeaderPhoneNum());
+            json.accumulate("creaton_datetime", p.getCreationDateTime());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new ServerContact().execute("accept_plan", json.toString());
         Intent intent = new Intent(CurrentPlanView.this, LandingPage.class);
-        String leaderPhoneNum = p.getLeaderPhoneNum();
-        new FirebaseContact();
         startActivity(intent);
     }
 
