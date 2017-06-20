@@ -1,4 +1,5 @@
 from sys import stdout
+from decimal import *
 import simplejson as json
 
 from os import environ
@@ -27,16 +28,14 @@ def homepage():
 
 def calculate_avg_location(friends):
     total_latitude, total_longitude = 0, 0
+    getcontext().prec = 6
     for friend in friends:
         result = dbManager.select_users([friend])
         # Safety net in case the friend doesn't actually have a Grouvie account
         if result:
             total_latitude += result[3]
             total_longitude += result[4]
-    members = len(friends)
-    avg_latitude = total_latitude / members
-    avg_longitude = total_longitude / members
-    return avg_latitude, avg_longitude
+    return total_latitude, total_longitude
 
 
 @app.route("/get_local_data", methods=["GET", "POST"])
@@ -51,17 +50,17 @@ def get_local_data():
     """
     phone_data = json.loads(request.data)
     friends = phone_data['friends']
+    print phone_data
     leader_latitude, leader_longitude = \
         dParser.get_latlong(phone_data['postcode'])
-    try:
-        friends = friends[1:len(friends) - 1].split(", ")
-        avg_latitude, avg_longitude = \
-            calculate_avg_location(friends)
-        avg_latitude += leader_latitude
-        avg_longitude += leader_longitude
-    except:
-        avg_latitude, avg_longitude = \
-            phone_data['latitude'], phone_data['longitude']
+
+    friends = friends[1:len(friends) - 1].split(", ")
+    total_latitude, total_longitude = \
+        calculate_avg_location(friends)
+    total_members = len(friends) + 1
+    avg_latitude = (total_latitude + Decimal(leader_latitude)) / total_members
+    avg_longitude = (total_longitude + Decimal(leader_longitude)) / \
+                    total_members
     print phone_data
     stdout.flush()
     return json.dumps(dParser.get_local_data(phone_data['day'],
