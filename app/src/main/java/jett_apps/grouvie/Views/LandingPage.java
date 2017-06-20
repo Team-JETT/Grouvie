@@ -69,7 +69,6 @@ public class LandingPage extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Plan p = currentPlans.get(position);
-
                         //Sending the current plan to the final planning page
                         Intent intent = new Intent(view.getContext(), CurrentPlanView.class);
                         intent.putExtra(PLAN_MESSAGE, p);
