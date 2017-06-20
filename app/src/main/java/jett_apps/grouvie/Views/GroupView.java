@@ -54,34 +54,37 @@ public class GroupView extends AppCompatActivity {
         }
 
         final ArrayList<Friend> chosenFriends = p.getEventMembers();
+        if (group_replies != null) {
 
-        for(int i = 0; i<chosenFriends.size(); i++) {
-            Friend friend = chosenFriends.get(i);
-            String phoneNum = friend.getPhoneNum();
 
-            String film = null;
-            String time = null;
-            String date = null;
-            String cinema = null;
+            for (int i = 0; i < chosenFriends.size(); i++) {
+                Friend friend = chosenFriends.get(i);
+                String phoneNum = friend.getPhoneNum();
 
-            JSONObject changes = null;
-            try {
-                changes = group_replies.getJSONObject(phoneNum);
-                film = changes.getString("film");
-                time = changes.getString("showtime");
-                date = changes.getString("date");
-                cinema = changes.getString("cinema");
-            } catch (JSONException e) {
-                e.printStackTrace();
+                String film = null;
+                String time = null;
+                String date = null;
+                String cinema = null;
+
+                JSONObject changes = null;
+                try {
+                    changes = group_replies.getJSONObject(phoneNum);
+                    film = changes.getString("film");
+                    time = changes.getString("showtime");
+                    date = changes.getString("date");
+                    cinema = changes.getString("cinema");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                friend.setFilmChange(film);
+                friend.setTimeChange(time);
+                friend.setDateChange(date);
+                friend.setCinemaChange(cinema);
             }
 
-            friend.setFilmChange(film);
-            friend.setTimeChange(time);
-            friend.setDateChange(date);
-            friend.setCinemaChange(cinema);
+            p.setEventMembers(chosenFriends);
         }
-
-        p.setEventMembers(chosenFriends);
 
         ListAdapter groupAdapter = new CustomGroupAdapter(GroupView.this, chosenFriends);
 
