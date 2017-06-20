@@ -136,11 +136,11 @@ public class ProfileManager {
         ArrayList<Friend> friendList = gson.fromJson(sp.getString(USER_FRIENDS_ID, empty_list),
                 new TypeToken<ArrayList<Friend>>() {}.getType());
 
-        if (friendList == null) {
-            friendList = new ArrayList<>();
-            String jsonString = gson.toJson(friendList);
-            sp.edit().putString(USER_FRIENDS_ID, jsonString).apply();
-        }
+//        if (friendList == null) {
+//            friendList = new ArrayList<>();
+//            String jsonString = gson.toJson(friendList);
+//            sp.edit().putString(USER_FRIENDS_ID, jsonString).apply();
+//        }
 
         //TODO: Remove this debugging section below
 //        if (friendList.isEmpty()) {

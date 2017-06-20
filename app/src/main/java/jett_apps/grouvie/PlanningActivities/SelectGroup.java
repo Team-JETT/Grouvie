@@ -269,14 +269,6 @@ public class SelectGroup extends AppCompatActivity {
             }
             pCur.close();
         }
-//        Friend Jay = new Friend("Jay", "077777777");
-//        Friend Tarun = new Friend("Tarun", "0888888888");
-//        Friend Tanmay = new Friend("Tanmay", "09999999999");
-//        ArrayList<Friend> friends = new ArrayList<>();
-//        friends.add(Jay);
-//        friends.add(Tarun);
-//        friends.add(Tanmay);
-//        return new ArrayList<>(Arrays.asList("07777777777", "08888888888", "09999999999"));
         return null;
     }
 

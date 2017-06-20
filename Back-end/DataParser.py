@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 import concurrent
 import requests
 import re
-import pprint
 import time
 import sys
 
@@ -67,14 +66,14 @@ class DataParser:
         if not g_search_res:
             print 'VERY BAD: No google search results could be obtained'
             sys.stdout.flush()
-            return error_url
+            return ''
 
         fst_ref_url = g_search_res[0].get('href')
 
         if not fst_ref_url:
             print 'RED ALERT: First google search result has no href tag'
             sys.stdout.flush()
-            return error_url
+            return ''
 
         cinema_url = fst_ref_url.split('=')[1].split('&')[0]
         print(cinema_url)
@@ -99,18 +98,18 @@ class DataParser:
         res = requests.get(api_url).json()
 
         if res['total_results'] == 0:
-            return (error_url, error_overview)
+            return error_url, error_overview
 
         first_result = res['results'][0]
 
         poster_path = first_result['poster_path']
-        if poster_path == None:
+        if poster_path is None:
             img_url = error_url
         else:
             img_url = 'http://image.tmdb.org/t/p/w154' + poster_path
 
         overview = first_result['overview']
-        if overview == None:
+        if overview is None:
             overview = error_overview
         else:
             groups = overview.split('.')
@@ -118,7 +117,7 @@ class DataParser:
             if overview[-1] != '.':
                 overview += '.'
 
-        return (img_url, overview)
+        return img_url, overview
 
     def get_films_for_cinemas(self, date):
         """

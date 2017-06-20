@@ -28,13 +28,13 @@ def homepage():
 def calculate_avg_location(friends):
     total_latitude, total_longitude = 0, 0
     for friend in friends:
-        result = dbManager.select_users(friend)
+        result = dbManager.select_users([friend])
         # Safety net in case the friend doesn't actually have a Grouvie account
         if result:
             total_latitude += result[3]
             total_longitude += result[4]
     members = len(friends)
-    avg_latitude = total_longitude / members
+    avg_latitude = total_latitude / members
     avg_longitude = total_longitude / members
     return avg_latitude, avg_longitude
 
@@ -50,9 +50,11 @@ def get_local_data():
     -- Distance from provided location to cinema in Km.
     """
     phone_data = json.loads(request.data)
+    friends = phone_data['friends']
     try:
+        friends = friends[1:len(friends) - 1].split(", ")
         avg_latitude, avg_longitude = \
-            calculate_avg_location(phone_data['friends'])
+            calculate_avg_location(friends)
     except:
         avg_latitude, avg_longitude = \
             phone_data['latitude'], phone_data['longitude']
@@ -175,6 +177,13 @@ def suggest_plan():
                              phone_data['showtime'],
                              phone_data['film'],
                              phone_data['cinema'])
+
+# TODO: UNTESTED
+@app.route("/group_replies", methods=['GET', 'POST'])
+def group_replies():
+    phone_data = json.loads(request.data)
+    return json.dumps(dbManager.group_replies(phone_data['leader'],
+                                              phone_data['creation_datetime']))
 
 
 # TODO: UNTESTED
