@@ -218,9 +218,16 @@ public class CurrentPlanView extends AppCompatActivity {
     }
 
     public void acceptPlan(View view) {
+        JSONObject json = new JSONObject();
+        try {
+            json.accumulate("phone_number", ProfileManager.getPhone(CurrentPlanView.this));
+            json.accumulate("leader", p.getLeaderPhoneNum());
+            json.accumulate("creaton_datetime", p.getCreationDateTime());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new ServerContact().execute("accept_plan", json.toString());
         Intent intent = new Intent(CurrentPlanView.this, LandingPage.class);
-        String leaderPhoneNum = p.getLeaderPhoneNum();
-        new FirebaseContact();
         startActivity(intent);
     }
 
