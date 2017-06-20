@@ -50,7 +50,7 @@ public class FirebaseContact extends AsyncTask<String, Integer, String> {
                 notification = sendPlan(id, topicName, notifyMsg, params[3]);
                 break;
             case SUGGEST_CHANGE_TO_LEADER:
-                notification = pingLeader(id, topicName, notifyMsg);
+                notification = createNotification(id, topicName, notifyMsg, new JSONObject());
                 break;
             default:
                 Log.v("WE HAVE PROBLEMS", "Unknown id " + id + " passed");
@@ -84,10 +84,6 @@ public class FirebaseContact extends AsyncTask<String, Integer, String> {
         /* Return the result of the http request. */
         return (inputStream != null) ?
                 convertStreamToString(inputStream) : "Did not work!";
-    }
-
-    private JSONObject pingLeader(int type, String topicName, String notifyMsg) {
-        return createNotification(type, topicName, notifyMsg, new JSONObject());
     }
 
     private JSONObject sendPlan(int type, String topicName, String notifyMsg, String data) {
