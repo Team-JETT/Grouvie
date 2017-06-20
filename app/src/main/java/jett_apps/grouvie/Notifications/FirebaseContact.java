@@ -87,16 +87,10 @@ public class FirebaseContact extends AsyncTask<String, Integer, String> {
     }
 
     private JSONObject pingLeader(int type, String topicName, String notifyMsg) {
-        JSONObject notification = new JSONObject();
-
-        createNotification(type, topicName, notifyMsg, notification, new JSONObject());
-
-        return notification;
+        return createNotification(type, topicName, notifyMsg, new JSONObject());
     }
 
     private JSONObject sendPlan(int type, String topicName, String notifyMsg, String data) {
-        JSONObject notification = new JSONObject();
-
         JSONObject plan = null;
         /* Initialise plan with the JSON string planInJSON. */
         try {
@@ -106,15 +100,15 @@ public class FirebaseContact extends AsyncTask<String, Integer, String> {
             e.printStackTrace();
         }
 
-        createNotification(type, topicName, notifyMsg, notification, plan);
+        JSONObject notification = createNotification(type, topicName, notifyMsg, plan);
 
         Log.v("SEND PLAN:", notification.toString());
 
         return notification;
     }
 
-    private void createNotification(int type, String topicName, String notifyMsg,
-                                    JSONObject notification, JSONObject plan) {
+    private JSONObject createNotification(int type, String topicName, String notifyMsg, JSONObject plan) {
+        JSONObject notification = new JSONObject();
         try {
             /* This sends the notification to the user's phone number, which they will be
                subscribed to once they've gone through the LandingPage. */
@@ -129,6 +123,7 @@ public class FirebaseContact extends AsyncTask<String, Integer, String> {
             Log.e("UNLUCKY", "Could not create/accumulate JSON Object!");
             e.printStackTrace();
         }
+        return notification;
     }
 
     private static String convertStreamToString(java.io.InputStream is) {
