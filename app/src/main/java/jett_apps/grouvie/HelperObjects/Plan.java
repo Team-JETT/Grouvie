@@ -1,12 +1,14 @@
 package jett_apps.grouvie.HelperObjects;
 
 
+import android.support.annotation.NonNull;
+
 import org.json.JSONArray;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Plan implements Serializable {
+public class Plan implements Serializable, Comparable<Plan> {
 
     private String leaderPhoneNum;
     private String creationDateTime;
@@ -217,6 +219,14 @@ public class Plan implements Serializable {
 
     public void setMoviePoster(String moviePoster) {
         this.moviePoster = moviePoster;
+    }
+
+    @Override
+    public int compareTo(@NonNull Plan o) {
+        int earlierMonth = getSuggestedMonth() - o.getSuggestedMonth();
+        int earlierDay = getSuggestedDay() - o.getSuggestedDay();
+
+        return earlierMonth + earlierDay;
     }
 }
 

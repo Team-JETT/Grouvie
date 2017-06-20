@@ -7,7 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 
 import jett_apps.grouvie.HelperObjects.Friend;
 
@@ -154,12 +154,14 @@ public class ProfileManager {
 //        }
 //        friendList.remove(2);
 
-        friendList.sort(new Comparator<Friend>() {
-            @Override
-            public int compare(Friend o1, Friend o2) {
-                return o1.getName().compareTo(o2.getName());
-            }
-        });
+        Collections.sort(friendList);
+
+//        friendList.sort(new Comparator<Friend>() {
+//            @Override
+//            public int compare(Friend o1, Friend o2) {
+//                return o1.getName().compareTo(o2.getName());
+//            }
+//        });
 
         return friendList;
     }

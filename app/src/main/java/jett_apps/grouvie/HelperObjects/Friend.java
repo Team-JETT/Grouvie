@@ -1,8 +1,10 @@
 package jett_apps.grouvie.HelperObjects;
 
+import android.support.annotation.NonNull;
+
 import java.io.Serializable;
 
-public class Friend implements Serializable {
+public class Friend implements Serializable, Comparable<Friend> {
     private String name;
     private String phoneNum;
     private boolean checked = false;
@@ -59,5 +61,10 @@ public class Friend implements Serializable {
 
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
+    }
+
+    @Override
+    public int compareTo(@NonNull Friend o) {
+        return getName().compareTo(o.getName());
     }
 }

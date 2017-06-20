@@ -24,7 +24,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Comparator;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.concurrent.ExecutionException;
@@ -34,8 +34,8 @@ import jett_apps.grouvie.HelperClasses.ServerContact;
 import jett_apps.grouvie.HelperObjects.Film;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.R;
-import jett_apps.grouvie.Views.LeaderInitialPlan;
 import jett_apps.grouvie.Views.CinemaLocations;
+import jett_apps.grouvie.Views.LeaderInitialPlan;
 
 import static jett_apps.grouvie.Views.LandingPage.DATA;
 
@@ -79,12 +79,14 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
             films.add(new Film(filmName, imageUrl, filmOverview));
         }
 
-        films.sort(new Comparator<Film>() {
-            @Override
-            public int compare(Film o1, Film o2) {
-                return o1.getFilmName().compareTo(o2.getFilmName());
-            }
-        });
+        Collections.sort(films);
+
+//        films.sort(new Comparator<Film>() {
+//            @Override
+//            public int compare(Film o1, Film o2) {
+//                return o1.getFilmName().compareTo(o2.getFilmName());
+//            }
+//        });
 
         final ListAdapter filmAdapter = new CustomFilmAdapter(SelectFilm.this, films);
         ListView filmsListView = (ListView) findViewById(R.id.filmList);

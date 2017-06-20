@@ -9,7 +9,7 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONArray;
 
 import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.Collections;
 
 import jett_apps.grouvie.HelperObjects.Plan;
 
@@ -34,18 +34,20 @@ public class PlanManager {
             mSelectedList = new ArrayList<>();
         }
 
-        mSelectedList.sort(new Comparator<Plan>() {
-            @Override
-            public int compare(Plan o1, Plan o2) {
+        Collections.sort(mSelectedList);
+
+//        mSelectedList.sort(new Comparator<Plan>() {
+//            @Override
+//            public int compare(Plan o1, Plan o2) {
 //                boolean earlierMonth = o1.getSuggestedMonth() <= o2.getSuggestedMonth();
 //                boolean earlierDay = o1.getSuggestedDay() <= o2.getSuggestedDay();
-
-                int earlierMonth = o1.getSuggestedMonth() - o2.getSuggestedMonth();
-                int earlierDay = o1.getSuggestedDay() - o2.getSuggestedDay();
-
-                return earlierMonth + earlierDay;
-            }
-        });
+//
+//                int earlierMonth = o1.getSuggestedMonth() - o2.getSuggestedMonth();
+//                int earlierDay = o1.getSuggestedDay() - o2.getSuggestedDay();
+//
+//                return earlierMonth + earlierDay;
+//            }
+//        });
 
         return mSelectedList;
 

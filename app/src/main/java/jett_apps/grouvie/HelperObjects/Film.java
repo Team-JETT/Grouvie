@@ -1,10 +1,10 @@
 package jett_apps.grouvie.HelperObjects;
 
-import com.google.android.gms.maps.model.LatLng;
+import android.support.annotation.NonNull;
 
 import java.io.Serializable;
 
-public class Film implements Serializable {
+public class Film implements Serializable, Comparable<Film> {
 
     private final String filmName, imageUrl, overview;
 
@@ -25,5 +25,9 @@ public class Film implements Serializable {
     public String getOverview() {
         return overview;
     }
-    
+
+    @Override
+    public int compareTo(@NonNull Film o) {
+        return getFilmName().compareTo(o.getFilmName());
+    }
 }

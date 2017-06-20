@@ -89,6 +89,19 @@ public class SignUpActivity extends AppCompatActivity {
         // Send new user profile data to web server
         new ServerContact().execute("new_user", json_data.toString());
 
+
+        //Convert international phone numbers to UK local
+        if (userPhoneNo.startsWith("00")) {
+            userPhoneNo = userPhoneNo.substring(2);
+            userPhoneNo = "+" + userPhoneNo;
+        }
+
+        //Convert international phone numbers to UK local
+        if (userPhoneNo.startsWith("+44")) {
+            userPhoneNo = userPhoneNo.substring(3);
+            userPhoneNo = "0" + userPhoneNo;
+        }
+
         //Save user profile in shared pref and goto LandingPage
         updateProfileGotoLanding(name, userPhoneNo, postCode);
 
