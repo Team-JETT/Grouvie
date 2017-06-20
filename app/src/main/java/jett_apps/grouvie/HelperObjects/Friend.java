@@ -109,4 +109,8 @@ public class Friend implements Serializable, Comparable<Friend> {
     public boolean hasAccepted() {
         return hasAccepted;
     }
+
+    public void setHasAccepted(boolean b) {
+        this.hasAccepted = b;
+    }
 }
