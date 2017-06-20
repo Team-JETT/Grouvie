@@ -31,6 +31,9 @@ public class Plan implements Serializable, Comparable<Plan> {
     private JSONArray cinemaDataJson;
     private String moviePoster;
 
+    private boolean planConfirmed = false;
+    private boolean confirmed;
+
     public Plan() {
 
     }
@@ -60,6 +63,14 @@ public class Plan implements Serializable, Comparable<Plan> {
         this.suggestedMonth = oldPlan.getSuggestedMonth();
         this.suggestedYear = oldPlan.getSuggestedYear();
         this.listOfFilms = oldPlan.getListOfFilms();
+    }
+
+    public void confirmPlan() {
+        this.planConfirmed = true;
+    }
+
+    public boolean isConfirmed() {
+        return planConfirmed;
     }
 
     public String getSuggestedDate() {
