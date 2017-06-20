@@ -54,11 +54,14 @@ public class ConfirmPlanView extends AppCompatActivity {
 //                     + (int) home.latitude
 //                     + ","
 //                     + (int) home.longitude
-                     + "(" + postcode + ")&destination="
+//                     + "(" + postcode + ")
+                       + postcode
 //                     + (int) cinema.latitude
 //                     + ","
 //                     + (int) cinema.longitude
-                     + " (" + p.getSuggestedCinema() + ")");
+//                     + " (" + p.getSuggestedCinema() + ")");
+                       + "&destination="
+                       + p.getSuggestedCinema());
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
         intent.setPackage("com.google.android.apps.maps");
         startActivity(intent);
@@ -82,15 +85,17 @@ public class ConfirmPlanView extends AppCompatActivity {
         intent.setData(CalendarContract.Events.CONTENT_URI);
 
         intent.setType("vnd.android.cursor.item/event");
-        intent.putExtra(CalendarContract.Events.TITLE, "Grouvie Event: "+p.getSuggestedFilm());
+        intent.putExtra(CalendarContract.Events.TITLE, "Grouvie Event: "+ p.getSuggestedFilm());
         intent.putExtra(CalendarContract.Events.EVENT_LOCATION, p.getSuggestedCinema());
         intent.putExtra(CalendarContract.Events.DESCRIPTION, p.getSuggestedFilm());
 
-        GregorianCalendar calDate = new GregorianCalendar(year, month, day, hour, minute);
+        GregorianCalendar calDateStart = new GregorianCalendar(year, month, day, hour, minute);
+        GregorianCalendar calDateEnd = new GregorianCalendar(year, month, day, hour+3, minute);
+
         intent.putExtra(CalendarContract.EXTRA_EVENT_BEGIN_TIME,
-                calDate.getTimeInMillis());
+                calDateStart.getTimeInMillis());
         intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
-                calDate.getTimeInMillis());
+                calDateEnd.getTimeInMillis());
 
         startActivity(intent);
     }
