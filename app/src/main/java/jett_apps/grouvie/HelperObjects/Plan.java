@@ -4,6 +4,7 @@ package jett_apps.grouvie.HelperObjects;
 import android.support.annotation.NonNull;
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -10,6 +10,12 @@ public class Friend implements Serializable, Comparable<Friend> {
     private boolean checked = false;
     private boolean madeChange = false;
 
+    private String filmChange;
+    private String timeChange;
+    private String cinemaChange;
+    private String dateChange;
+
+
     public Friend(String name, String phoneNum){
         this.name = name;
         this.phoneNum = phoneNum;
@@ -66,5 +72,37 @@ public class Friend implements Serializable, Comparable<Friend> {
     @Override
     public int compareTo(@NonNull Friend o) {
         return getName().compareTo(o.getName());
+    }
+
+    public String getFilmChange() {
+        return filmChange;
+    }
+
+    public String getTimeChange() {
+        return timeChange;
+    }
+
+    public String getDateChange() {
+        return dateChange;
+    }
+
+    public String getCinemaChange() {
+        return cinemaChange;
+    }
+
+    public void setFilmChange(String filmChange) {
+        this.filmChange = filmChange;
+    }
+
+    public void setTimeChange(String timeChange) {
+        this.timeChange = timeChange;
+    }
+
+    public void setDateChange(String dateChange) {
+        this.dateChange = dateChange;
+    }
+
+    public void setCinemaChange(String cinemaChange) {
+        this.cinemaChange = cinemaChange;
     }
 }
