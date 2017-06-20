@@ -20,8 +20,10 @@ import java.util.ArrayList;
 import jett_apps.grouvie.HelperObjects.Friend;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.R;
+import jett_apps.grouvie.Views.GroupView;
 import jett_apps.grouvie.Views.LandingPage;
 
+import static jett_apps.grouvie.Notifications.FirebaseContact.*;
 import static jett_apps.grouvie.Views.LandingPage.SENT_PLAN;
 
 public class MessagingService extends FirebaseMessagingService {
@@ -30,12 +32,35 @@ public class MessagingService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        JSONObject planInJSON = new JSONObject(remoteMessage.getData());
-        String leaderName = null;
+        JSONObject data = new JSONObject(remoteMessage.getData());
+        JSONObject planInJSON = null;
+        String notifyMsg = "Hello World!";
+        int id = 0;
+        try {
+            planInJSON = data.getJSONObject("plan");
+            notifyMsg = data.getString("message");
+            id = data.getInt("id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        switch (id) {
+            case SEND_PLAN_TO_GROUP:
+                sendPlan(notifyMsg, planInJSON);
+                break;
+            case SUGGEST_CHANGE_TO_LEADER:
+                sendNotification(notifyMsg, GroupView.class);
+                break;
+            default:
+                Log.v("BAD ID", "Id " + id + " is unused in firebase notifications");
+        }
+
+    }
+
+    private void sendPlan(String notifyMsg, JSONObject planInJSON) {
         /* Parse the data in the JSON file sent and create a plan from it to send to
            the LandingPage. */
         try {
-            leaderName = planInJSON.getString("leader");
             String film = planInJSON.getString("film");
             String cinema = planInJSON.getString("cinema");
             String showtime = planInJSON.getString("showtime");
@@ -71,16 +96,14 @@ public class MessagingService extends FirebaseMessagingService {
             Log.e("BAD JSON SENT", "JSON sent to user was not an event plan");
             e.printStackTrace();
         }
-        /* Calling method to generate notification. */
-        String messageBody = ((leaderName == null) ? "Someone" : leaderName.trim()) +
-                " has created a new plan. Click here to accept it!";
-        sendNotification(messageBody);
+
+        sendNotification(notifyMsg, LandingPage.class);
     }
 
     /* Generate push notification. */
-    private void sendNotification(String messageBody) {
+    private void sendNotification(String messageBody, Class<?> cls) {
         /* Create an intent to store in the notification. */
-        Intent intent = new Intent(this, LandingPage.class);
+        Intent intent = new Intent(this, cls);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
         /* Send plan through intent. This should be retrieved in LandingPage. */

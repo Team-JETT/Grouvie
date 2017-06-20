@@ -17,14 +17,17 @@ import org.json.JSONObject;
 
 import java.util.Calendar;
 
+import jett_apps.grouvie.HelperClasses.ProfileManager;
 import jett_apps.grouvie.HelperClasses.ServerContact;
 import jett_apps.grouvie.HelperObjects.Plan;
+import jett_apps.grouvie.Notifications.FirebaseContact;
 import jett_apps.grouvie.R;
 import jett_apps.grouvie.Views.CinemaLocations;
 import jett_apps.grouvie.Views.LandingPage;
 
 import static jett_apps.grouvie.Views.LandingPage.DATA;
 import static jett_apps.grouvie.Views.LandingPage.PLAN_MESSAGE;
+import static jett_apps.grouvie.Notifications.FirebaseContact.SUGGEST_CHANGE_TO_LEADER;
 
 public class SuggestChangeInPlan extends AppCompatActivity {
 
@@ -194,10 +197,12 @@ public class SuggestChangeInPlan extends AppCompatActivity {
         }
 
         JSONObject json = new JSONObject();
+        String leaderPhoneNum = null;
         try {
             // TODO: Someone confirm with Erkin these are the right variables to use.
             json.accumulate("phone_number", suggestedPlan.getLeaderPhoneNum());
-            json.accumulate("leader", leaderPlan.getLeaderPhoneNum());
+            leaderPhoneNum = leaderPlan.getLeaderPhoneNum();
+            json.accumulate("leader", leaderPhoneNum);
             json.accumulate("creation_datetime", suggestedPlan.getCreationDateTime());
             json.accumulate("date", (date == null) ? JSONObject.NULL : date);
             json.accumulate("film", (film == null) ? JSONObject.NULL : film);
@@ -207,6 +212,10 @@ public class SuggestChangeInPlan extends AppCompatActivity {
             e.printStackTrace();
         }
         new ServerContact().execute("suggest_plan", json.toString());
+        String type = "" + SUGGEST_CHANGE_TO_LEADER;
+        String suggesterName = ProfileManager.getName(this);
+        String messageBody =  suggesterName + " has suggested a change. Click here to view it!";
+        new FirebaseContact().execute(type, leaderPhoneNum, messageBody);
         Intent intent = new Intent(SuggestChangeInPlan.this, LandingPage.class);
         startActivity(intent);
     }
