@@ -1,4 +1,5 @@
 from concurrent import futures
+from bs4 import BeautifulSoup
 import concurrent
 import requests
 import re
@@ -53,6 +54,32 @@ class DataParser:
         latitude = location_data['result']['latitude']
         longitude = location_data['result']['longitude']
         return round(latitude, 6), round(longitude, 6)
+
+    def get_cinema_url(self, cinema):
+        search_url = 'https://www.google.co.uk/search?q=' + cinema
+        res = requests.get(search_url)
+        soup = BeautifulSoup(res.text, "lxml")
+
+        # Parsing the html page to get the first url link in the google search
+        # results, which will be the wikipedia page link
+        g_search_res = soup.select('.r a')
+
+        if not g_search_res:
+            print 'VERY BAD: No google search results could be obtained'
+            sys.stdout.flush()
+            return error_url
+
+        fst_ref_url = g_search_res[0].get('href')
+
+        if not fst_ref_url:
+            print 'RED ALERT: First google search result has no href tag'
+            sys.stdout.flush()
+            return error_url
+
+        cinema_url = fst_ref_url.split('=')[1].split('&')[0]
+        print(cinema_url)
+        sys.stdout.flush()
+        return cinema_url
 
     def fast_get_film_info(self, film_name):
         """
@@ -161,6 +188,7 @@ if __name__ == '__main__':
     dParser = DataParser()
     # print dParser.get_latlong("en12lz")
     start_time = time.time()
-    pprint.PrettyPrinter(indent=4).pprint(
-        dParser.get_local_data(25, 6, 2017, 51.636743, -0.069069))
+    #pprint.PrettyPrinter(indent=4).pprint(
+    #    dParser.get_local_data(25, 6, 2017, 51.636743, -0.069069))
+    print dParser.get_cinema_url('Cineworld fullham road')
     print time.time() - start_time

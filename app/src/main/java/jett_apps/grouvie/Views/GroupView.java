@@ -57,14 +57,6 @@ public class GroupView extends AppCompatActivity {
                     }
                 }
         );
-
-
-    }
-
-    public void confirmPlan(View view) {
-        Intent intent = new Intent(view.getContext(), ConfirmPlanView.class);
-        intent.putExtra(PLAN_MESSAGE, p);
-        startActivity(intent);
     }
 
 

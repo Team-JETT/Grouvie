@@ -24,6 +24,7 @@ import java.util.Random;
 
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.R;
+import jett_apps.grouvie.Views.CinemaLocations;
 
 import static jett_apps.grouvie.Views.LandingPage.DATA;
 
@@ -102,12 +103,11 @@ public class SelectCinema extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-
-                    //Sending the current plan to the final planning page
                     Intent intent = new Intent(view.getContext(), SelectShowtime.class);
 
                     data.setSuggestedCinema(chosenCinema);
                     data.setShowtimeDistance(showtimeDistanceData.toString());
+                    data.setCinemaList(cinemas);
 
                     intent.putExtra(DATA, data);
                     startActivity(intent);
