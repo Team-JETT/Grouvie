@@ -47,7 +47,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     public static FirebaseAuth mAuth;
 
-    private static String userPhoneNo = "07965446352";
+    private static String userPhoneNo = "07964006128";
 
     private boolean mVerificationInProgress = false;
     private String mVerificationId;
@@ -95,9 +95,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
 
         //TODO: Remove this and the button for release
-        Button signInButton = (Button) findViewById(R.id.signinButton);
+//        Button signInButton = (Button) findViewById(R.id.signinButton);
 //        Button signUpButton = (Button) findViewById(R.id.signupButton);
-        signInButton.setVisibility(View.VISIBLE);
+//        signInButton.setVisibility(View.VISIBLE);
 //        signUpButton.setVisibility(View.VISIBLE);
 
         //TODO: Remove above beofore release
