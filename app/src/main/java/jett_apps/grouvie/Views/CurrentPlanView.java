@@ -40,11 +40,14 @@ public class CurrentPlanView extends AppCompatActivity {
     private String chosenFilm;
     private Plan p;
 
+    private boolean isAccepted;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_plan_view);
+        isAccepted = false;
 
         Intent intent = getIntent();
 

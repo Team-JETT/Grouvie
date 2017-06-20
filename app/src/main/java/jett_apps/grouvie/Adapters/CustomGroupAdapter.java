@@ -26,10 +26,11 @@ public class CustomGroupAdapter extends ArrayAdapter<Friend> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        Friend friend = getItem(position);
         View view = super.getView(position, convertView, parent);
         TextView text = (TextView) view.findViewById(android.R.id.text1);
+        text.setText(friend.getName());
         text.setTextColor(Color.WHITE);
-
         return view;
     }
 }
