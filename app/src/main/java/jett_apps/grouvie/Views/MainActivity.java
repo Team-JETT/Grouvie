@@ -269,18 +269,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                             Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
                             String phoneNumber = user.getPhoneNumber();
 
-                            //Convert international phone numbers to UK local
-                            if (phoneNumber.startsWith("00")) {
-                                phoneNumber = phoneNumber.substring(2);
-                                phoneNumber = "+" + phoneNumber;
-                            }
-
-                            //Convert international phone numbers to UK local
-                            if (phoneNumber.startsWith("+44")) {
-                                phoneNumber = phoneNumber.substring(3);
-                                phoneNumber = "0" + phoneNumber;
-                            }
-
                             intent.putExtra(USER_PHONE_NO, phoneNumber);
                             startActivity(intent);
 

@@ -32,6 +32,18 @@ public class SignUpActivity extends AppCompatActivity {
         userPhoneNo = getIntent().getStringExtra(USER_PHONE_NO);
         assert userPhoneNo != null;
 
+        //Convert international phone numbers to UK local
+        if (userPhoneNo.startsWith("00")) {
+            userPhoneNo = userPhoneNo.substring(2);
+            userPhoneNo = "+" + userPhoneNo;
+        }
+
+        //Convert international phone numbers to UK local
+        if (userPhoneNo.startsWith("+44")) {
+            userPhoneNo = userPhoneNo.substring(3);
+            userPhoneNo = "0" + userPhoneNo;
+        }
+
         // Check if phoneNo is registered already. If so, skip signup
         int success_code = 0;
         try {
@@ -93,17 +105,6 @@ public class SignUpActivity extends AppCompatActivity {
         new ServerContact().execute("new_user", json_data.toString());
 
 
-        //Convert international phone numbers to UK local
-        if (userPhoneNo.startsWith("00")) {
-            userPhoneNo = userPhoneNo.substring(2);
-            userPhoneNo = "+" + userPhoneNo;
-        }
-
-        //Convert international phone numbers to UK local
-        if (userPhoneNo.startsWith("+44")) {
-            userPhoneNo = userPhoneNo.substring(3);
-            userPhoneNo = "0" + userPhoneNo;
-        }
 
         //Save user profile in shared pref and goto LandingPage
         updateProfileGotoLanding(name, userPhoneNo, postCode);
