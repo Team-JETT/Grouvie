@@ -31,6 +31,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 
 import jett_apps.grouvie.HelperClasses.ProfileManager;
 import jett_apps.grouvie.HelperObjects.Cinema;
@@ -113,12 +114,13 @@ public class CinemaLocations extends FragmentActivity implements OnMapReadyCallb
     }
 
     public LatLng getLatLngFromLocationName(Context context, String address) {
-        Geocoder geocoder = new Geocoder(context);
+        Geocoder geocoder = new Geocoder(context, Locale.UK);
+//        Geocoder geocoder = new Geocoder(context);
         List<Address> addressList;
         LatLng position = null;
 
         try {
-            addressList = geocoder.getFromLocationName(address, 5);
+            addressList = geocoder.getFromLocationName(address, 3);
             if(addressList == null) {
                 return null;
             }
@@ -146,7 +148,7 @@ public class CinemaLocations extends FragmentActivity implements OnMapReadyCallb
     @Override
     public void onMapReady(GoogleMap googleMap) {
         String postcode = ProfileManager.getPostcode(CinemaLocations.this);
-        LatLng currentLocation = getLatLngFromLocationName(CinemaLocations.this, postcode);
+        LatLng currentLocation = getLatLngFromLocationName(CinemaLocations.this, "SW100NJ");
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
         builder.include(currentLocation);
