@@ -146,7 +146,7 @@ public class CinemaLocations extends FragmentActivity implements OnMapReadyCallb
     @Override
     public void onMapReady(GoogleMap googleMap) {
         String postcode = ProfileManager.getPostcode(CinemaLocations.this);
-        LatLng currentLocation = getLatLngFromLocationName(CinemaLocations.this, postcode);
+        LatLng currentLocation = getLatLngFromLocationName(CinemaLocations.this, "SW100NJ");
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
 
         builder.include(currentLocation);
