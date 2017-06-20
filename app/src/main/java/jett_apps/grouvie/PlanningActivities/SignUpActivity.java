@@ -69,6 +69,9 @@ public class SignUpActivity extends AppCompatActivity {
         String lastName = ((EditText) findViewById(R.id.lastNameBox)).getText().toString();
         String postCode = ((EditText) findViewById(R.id.postCodeBox)).getText().toString();
 
+        //Remove spaces
+        postCode = postCode.replaceAll("\\s+","");
+
         if (firstName.isEmpty() || lastName.isEmpty()
                 || postCode.isEmpty() || userPhoneNo.isEmpty()) {
 

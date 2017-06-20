@@ -20,7 +20,7 @@ public class ProfileManager {
 
     public static void updateAll(Context c, String name, String phone, String postcode) {
 
-        //Remove spaces
+        //TODO: remove this
         postcode = postcode.replaceAll("\\s+","");
 
         SharedPreferences.Editor sp = c

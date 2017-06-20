@@ -49,7 +49,11 @@ public class ProfilePage extends AppCompatActivity {
 
         //Send updated profile to web server if settings are changed
         if (!postcodeText.getText().toString().isEmpty()) {
-           // Send new postcode to web server.
+
+            //Remove spaces
+            postcode = postcode.replaceAll("\\s+","");
+
+            // Send new postcode to web server.
             JSONObject json_data = new JSONObject();
             try {
                 json_data.accumulate("phone_number", phone);
