@@ -19,6 +19,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.concurrent.ExecutionException;
 
 import jett_apps.grouvie.PlanningActivities.SuggestChangeInPlan;
 import jett_apps.grouvie.HelperClasses.PlanManager;
@@ -181,6 +182,19 @@ public class CurrentPlanView extends AppCompatActivity {
         intent.putExtra(CalendarContract.EXTRA_EVENT_END_TIME,
                 calDateEnd.getTimeInMillis());
 
+        startActivity(intent);
+    }
+
+    public void bookTickets(View view) {
+        String googleSearch = "https://www.google.co.uk/search?q=" + p.getSuggestedCinema();
+        String cinemaUrl = "";
+        try {
+            cinemaUrl = new ServerContact().execute("get_cinema_url", p.getSuggestedCinema()).get();
+        } catch (InterruptedException | ExecutionException e) {
+            e.printStackTrace();
+        }
+        Uri uri = Uri.parse(cinemaUrl);
+        Intent intent = new Intent(Intent.ACTION_VIEW, uri);
         startActivity(intent);
     }
 
