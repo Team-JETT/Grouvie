@@ -1,5 +1,7 @@
 package jett_apps.grouvie.Views;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.graphics.Color;
@@ -13,8 +15,15 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutionException;
+
+import jett_apps.grouvie.Adapters.CustomGroupAdapter;
+import jett_apps.grouvie.HelperClasses.ServerContact;
 import jett_apps.grouvie.HelperObjects.Friend;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.R;
@@ -32,39 +41,94 @@ public class GroupView extends AppCompatActivity {
 
         p = (Plan) getIntent().getSerializableExtra(PLAN_MESSAGE);
 
+        JSONObject json = new JSONObject();
+        String result;
+        JSONObject group_replies = null;
+        try {
+            json.accumulate("leader", p.getLeaderPhoneNum());
+            json.accumulate("creation_datetime", p.getCreationDateTime());
+            result = new ServerContact().execute("group_replies", json.toString()).get();
+            group_replies = new JSONObject(result);
+        } catch (JSONException | ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
         final ArrayList<Friend> chosenFriends = p.getEventMembers();
 
-        ListAdapter groupAdapter = new ArrayAdapter<String>(getApplicationContext(),
-                android.R.layout.simple_list_item_1, extractNames(chosenFriends)) {
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View view = super.getView(position, convertView, parent);
-                TextView text = (TextView) view.findViewById(android.R.id.text1);
-                text.setTextColor(Color.WHITE);
-                return view;
+        for(int i = 0; i<chosenFriends.size(); i++) {
+            Friend friend = chosenFriends.get(i);
+            String phoneNum = friend.getPhoneNum();
+
+            String film = null;
+            String time = null;
+            String date = null;
+            String cinema = null;
+
+            JSONObject changes = null;
+            try {
+                changes = group_replies.getJSONObject(phoneNum);
+                film = changes.getString("film");
+                time = changes.getString("showtime");
+                date = changes.getString("date");
+                cinema = changes.getString("cinema");
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
-        };
+
+            friend.setFilmChange(film);
+            friend.setTimeChange(time);
+            friend.setDateChange(date);
+            friend.setCinemaChange(cinema);
+        }
+
+        p.setEventMembers(chosenFriends);
+
+        ListAdapter groupAdapter = new CustomGroupAdapter(GroupView.this, chosenFriends);
 
         ListView groupListView = (ListView) findViewById(R.id.groupView);
         groupListView.setAdapter(groupAdapter);
 
-        groupListView.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
 
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                    }
-                }
-        );
+        groupListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Friend f = chosenFriends.get(position);
+                changesMadeByFriend(f);
+            }
+        });
     }
 
+    public void changesMadeByFriend(Friend friend) {
 
-    public ArrayList<String> extractNames(ArrayList<Friend> list) {
-        ArrayList<String> friends = new ArrayList<>();
-        for (int i=0; i<list.size(); i++) {
-            friends.add(list.get(i).getName());
+        String film = friend.getFilmChange();
+        String time = friend.getTimeChange();
+        String date = friend.getDateChange() ;
+        String cinema = friend.getCinemaChange();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(GroupView.this);
+        builder.setCancelable(true);
+        builder.setTitle(friend.getName());
+        if(film !=null) {
+            builder.setMessage("Suggested Film: " + film);
         }
-        return friends;
+        if(film !=null) {
+            builder.setMessage("Suggested Time: " + time);
+        }
+        if(film !=null) {
+            builder.setMessage("Suggested Date: " + date);
+        }
+        if(film !=null) {
+            builder.setMessage("Suggested Cinema: " + cinema);
+        }
+
+        builder.setPositiveButton("Okay",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
+
 }

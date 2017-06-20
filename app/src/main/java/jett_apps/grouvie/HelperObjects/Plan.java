@@ -2,6 +2,7 @@ package jett_apps.grouvie.HelperObjects;
 
 
 import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;

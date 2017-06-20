@@ -19,7 +19,7 @@ import jett_apps.grouvie.HelperObjects.Film;
 import jett_apps.grouvie.R;
 
 
-public class CustomFilmAdapter extends ArrayAdapter<Film>{
+public class CustomFilmAdapter extends ArrayAdapter<Film> {
 
     private Context context;
 
