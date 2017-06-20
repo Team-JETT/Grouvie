@@ -46,21 +46,9 @@ public class ConfirmPlanView extends AppCompatActivity {
     public void getDirections(View view) {
         String postcode = ProfileManager.getPostcode(view.getContext());
 
-        LatLng cinema = getLatLngFromLocationName(view.getContext(), p.getSuggestedCinema());
-        LatLng home = getLatLngFromLocationName(view.getContext(), postcode);
-
-
-        String uri = String.format(Locale.ENGLISH,"http://maps.google.com/maps/dir/?api=1&origin="
-//                     + (int) home.latitude
-//                     + ","
-//                     + (int) home.longitude
-//                     + "(" + postcode + ")
+        String uri = String.format(Locale.ENGLISH,"http://maps.google.com/maps?&saddr="
                        + postcode
-//                     + (int) cinema.latitude
-//                     + ","
-//                     + (int) cinema.longitude
-//                     + " (" + p.getSuggestedCinema() + ")");
-                       + "&destination="
+                       + "&daddr="
                        + p.getSuggestedCinema());
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
         intent.setPackage("com.google.android.apps.maps");
