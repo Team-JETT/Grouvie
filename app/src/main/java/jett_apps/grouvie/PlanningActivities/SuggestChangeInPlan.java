@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 
@@ -53,6 +54,14 @@ public class SuggestChangeInPlan extends AppCompatActivity {
 
             // Obtain current plan suggested by the leader (leaderPlan)
             suggestedPlan = new Plan(leaderPlan);
+
+        }
+
+        if (ProfileManager.getPhone(SuggestChangeInPlan.this)
+                .equals(leaderPlan.getLeaderPhoneNum())) {
+
+            Button sendButton = (Button) findViewById(R.id.finishChange);
+            sendButton.setText("SEND TO GROUP");
 
         }
 
@@ -163,60 +172,70 @@ public class SuggestChangeInPlan extends AppCompatActivity {
 
     public void done(View view) {
 
-        // We do all these checks to avoid inserting duplicate data into the database.
-        String date = null;
-        String film = null;
-        String cinema = null;
-        String showtime = null;
-
-        //Restoring original leader's plan
         restoreLeaderPlan();
 
-        //If a new date has been suggested, send to database
-        String suggestedDate = suggestedPlan.getSuggestedDate();
-        if (!suggestedDate.equals(leaderPlan.getSuggestedDate())) {
-            date = suggestedDate;
-        }
+        //If Leader is changing the plan
+        if (ProfileManager.getPhone(SuggestChangeInPlan.this)
+                .equals(leaderPlan.getLeaderPhoneNum())) {
 
-        //If a new film has been suggested, send to database
-        String suggestedFilm = suggestedPlan.getSuggestedFilm();
-        if (!suggestedFilm.equals(leaderPlan.getSuggestedFilm())) {
-            film = suggestedFilm;
-        }
+            //TODO: Erkin
 
-        //If a new cinema has been suggested, send to database
-        String suggestedCinema = suggestedPlan.getSuggestedCinema();
-        if (!suggestedCinema.equals(leaderPlan.getSuggestedCinema())) {
-            cinema = suggestedCinema;
-        }
+        } else { //If a group member is suggesting a plan
 
-        //If a new showtime has been suggested, send to database
-        String suggestedShowtime = suggestedPlan.getSuggestedShowTime();
-        if (!suggestedShowtime.equals(leaderPlan.getSuggestedShowTime())) {
-            showtime = suggestedShowtime;
-        }
+            // We do all these checks to avoid inserting duplicate data into the database.
+            String date = null;
+            String film = null;
+            String cinema = null;
+            String showtime = null;
 
-        JSONObject json = new JSONObject();
-        String leaderPhoneNum = null;
-        try {
-            // TODO: Someone confirm with Erkin these are the right variables to use.
-            json.accumulate("phone_number", suggestedPlan.getLeaderPhoneNum());
-            leaderPhoneNum = leaderPlan.getLeaderPhoneNum();
-            json.accumulate("leader", leaderPhoneNum);
-            json.accumulate("creation_datetime", suggestedPlan.getCreationDateTime());
-            json.accumulate("date", (date == null) ? JSONObject.NULL : date);
-            json.accumulate("film", (film == null) ? JSONObject.NULL : film);
-            json.accumulate("cinema", (cinema == null) ? JSONObject.NULL : cinema);
-            json.accumulate("showtime", (showtime == null) ? JSONObject.NULL : showtime);
-        } catch (JSONException e) {
-            e.printStackTrace();
+            //Restoring original leader's plan
+
+            //If a new date has been suggested, send to database
+            String suggestedDate = suggestedPlan.getSuggestedDate();
+            if (!suggestedDate.equals(leaderPlan.getSuggestedDate())) {
+                date = suggestedDate;
+            }
+
+            //If a new film has been suggested, send to database
+            String suggestedFilm = suggestedPlan.getSuggestedFilm();
+            if (!suggestedFilm.equals(leaderPlan.getSuggestedFilm())) {
+                film = suggestedFilm;
+            }
+
+            //If a new cinema has been suggested, send to database
+            String suggestedCinema = suggestedPlan.getSuggestedCinema();
+            if (!suggestedCinema.equals(leaderPlan.getSuggestedCinema())) {
+                cinema = suggestedCinema;
+            }
+
+            //If a new showtime has been suggested, send to database
+            String suggestedShowtime = suggestedPlan.getSuggestedShowTime();
+            if (!suggestedShowtime.equals(leaderPlan.getSuggestedShowTime())) {
+                showtime = suggestedShowtime;
+            }
+
+            JSONObject json = new JSONObject();
+            String leaderPhoneNum = null;
+            try {
+                // TODO: Someone confirm with Erkin these are the right variables to use.
+                json.accumulate("phone_number", suggestedPlan.getLeaderPhoneNum());
+                leaderPhoneNum = leaderPlan.getLeaderPhoneNum();
+                json.accumulate("leader", leaderPhoneNum);
+                json.accumulate("creation_datetime", suggestedPlan.getCreationDateTime());
+                json.accumulate("date", (date == null) ? JSONObject.NULL : date);
+                json.accumulate("film", (film == null) ? JSONObject.NULL : film);
+                json.accumulate("cinema", (cinema == null) ? JSONObject.NULL : cinema);
+                json.accumulate("showtime", (showtime == null) ? JSONObject.NULL : showtime);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            new ServerContact().execute("suggest_plan", json.toString());
+            String type = "" + SUGGEST_CHANGE_TO_LEADER;
+            String suggesterName = ProfileManager.getName(this);
+            String messageBody =  suggesterName + " has suggested a change. Click here to view it!";
+            new FirebaseContact().execute(type, leaderPhoneNum, messageBody);
+            Intent intent = new Intent(SuggestChangeInPlan.this, LandingPage.class);
+            startActivity(intent);
         }
-        new ServerContact().execute("suggest_plan", json.toString());
-        String type = "" + SUGGEST_CHANGE_TO_LEADER;
-        String suggesterName = ProfileManager.getName(this);
-        String messageBody =  suggesterName + " has suggested a change. Click here to view it!";
-        new FirebaseContact().execute(type, leaderPhoneNum, messageBody);
-        Intent intent = new Intent(SuggestChangeInPlan.this, LandingPage.class);
-        startActivity(intent);
     }
 }
