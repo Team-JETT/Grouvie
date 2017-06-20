@@ -19,10 +19,16 @@ public class FirebaseContact extends AsyncTask<String, Integer, String> {
 
     final static String WebServerAddr = "https://fcm.googleapis.com/fcm/send";
 
+    public static final int SEND_PLAN_TO_GROUP = 1;
+    public static final int SUGGEST_CHANGE_TO_LEADER = 2;
+
+
     /*
      * HOW TO USE PARAMS:
-     * params[0] = Topic (Phone number) to send data to.
-     * params[1] = Plan in JSON format being sent to the user.
+     * params[0] = Type of message you want to send
+     * params[1] = Topic (Phone number) to send data to.
+     * params[2] = Notification message you want to send.
+     * params[3] = Plan in JSON format being sent to the user?
      */
     @Override
     protected String doInBackground(String... params) {
@@ -31,32 +37,24 @@ public class FirebaseContact extends AsyncTask<String, Integer, String> {
         HttpPost httpPost = new HttpPost(WebServerAddr);
 
         /* Retrieve and initialise variables. */
-        String topicName = params[0];
-        String planInJSON = params[1];
-        JSONObject plan = null;
-
-        /* Initialise plan with the JSON string planInJSON. */
-        try {
-            plan = new JSONObject(planInJSON);
-        } catch (JSONException e) {
-            Log.e("BAD JSON", "params[1] was not a JSON Object!");
-            e.printStackTrace();
-        }
+        String type = params[0];
+        String topicName = params[1];
+        String notifyMsg = params[2];
 
         /* Create JSON to send to the user. */
         JSONObject notification = new JSONObject();
 
-        try {
-            /* This sends the notification to the user's phone number, which they will be
-               subscribed to once they've gone through the LandingPage. */
-            notification.accumulate("to", "/topics/" + topicName);
-            /* This sends the plan to the user. */
-            notification.accumulate("data", plan);
-        } catch (JSONException e) {
-            Log.e("UNLUCKY", "Could not create/accumulate JSON Object!");
-            e.printStackTrace();
+        int id = Integer.parseInt(type);
+        switch (id) {
+            case SEND_PLAN_TO_GROUP:
+                notification = sendPlan(id, topicName, notifyMsg, params[3]);
+                break;
+            case SUGGEST_CHANGE_TO_LEADER:
+                notification = pingLeader(id, topicName, notifyMsg);
+                break;
+            default:
+                Log.v("WE HAVE PROBLEMS", "Unknown id " + id + " passed");
         }
-        Log.v("SEND PLAN:", notification.toString());
 
         try {
             /* We only need to pass the notification JSON in the body of the httpPost. */
@@ -68,9 +66,9 @@ public class FirebaseContact extends AsyncTask<String, Integer, String> {
         /* Set headers for httpPost. Authorization key is necessary to send a message through
            the WebServerAddr above. */
         httpPost.setHeader("Content-type", "application/json");
-        String auth_key = "AAAA6_Kxqhk:APA91bHRmBQFRxZt2Y93FV8MRYG92EOz3E4bEvmOTU49YM" +
-                "vkgLUd0ddufcoRiFv_IbGPqPgjSitRgF8dZD1nQPb48zhC0gedcfQ-YUtPUJh" +
-                "7z9CWcsF58VueXZmKU7MDhDX5nsW867Gg";
+        String auth_key = "AAAAaPCfQAA:APA91bHZqvzR9hSDUdKVZS7YrZT1yFk1tI09I8JvGf1" +
+                "ATWF66L7-SVP2axZcXW3BLUzbpAJrlEcwbqM82eesc3TTJLyH4PK0K865zFsGKYq" +
+                "7glxKIplq0HTTOKLa9niwJ9_NgtrbmtEQ";
         httpPost.setHeader("Authorization", "key=" + auth_key);
 
         /* Send the httpPost to the user and retrieve the response body. */
@@ -86,6 +84,51 @@ public class FirebaseContact extends AsyncTask<String, Integer, String> {
         /* Return the result of the http request. */
         return (inputStream != null) ?
                 convertStreamToString(inputStream) : "Did not work!";
+    }
+
+    private JSONObject pingLeader(int type, String topicName, String notifyMsg) {
+        JSONObject notification = new JSONObject();
+
+        createNotification(type, topicName, notifyMsg, notification, new JSONObject());
+
+        return notification;
+    }
+
+    private JSONObject sendPlan(int type, String topicName, String notifyMsg, String data) {
+        JSONObject notification = new JSONObject();
+
+        JSONObject plan = null;
+        /* Initialise plan with the JSON string planInJSON. */
+        try {
+            plan = new JSONObject(data);
+        } catch (JSONException e) {
+            Log.e("BAD JSON", "params[3] was not a JSON Object!");
+            e.printStackTrace();
+        }
+
+        createNotification(type, topicName, notifyMsg, notification, plan);
+
+        Log.v("SEND PLAN:", notification.toString());
+
+        return notification;
+    }
+
+    private void createNotification(int type, String topicName, String notifyMsg,
+                                    JSONObject notification, JSONObject plan) {
+        try {
+            /* This sends the notification to the user's phone number, which they will be
+               subscribed to once they've gone through the LandingPage. */
+            notification.accumulate("to", "/topics/" + topicName);
+            /* This sends the plan to the user. */
+            JSONObject data = new JSONObject();
+            data.accumulate("plan", plan);
+            data.accumulate("id", type);
+            data.accumulate("message", notifyMsg);
+            notification.accumulate("data", data);
+        } catch (JSONException e) {
+            Log.e("UNLUCKY", "Could not create/accumulate JSON Object!");
+            e.printStackTrace();
+        }
     }
 
     private static String convertStreamToString(java.io.InputStream is) {

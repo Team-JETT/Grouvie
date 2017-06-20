@@ -17,7 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.concurrent.ExecutionException;
 
 import jett_apps.grouvie.HelperClasses.PlanManager;
 import jett_apps.grouvie.HelperClasses.ProfileManager;
@@ -27,6 +26,7 @@ import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.Notifications.FirebaseContact;
 import jett_apps.grouvie.R;
 
+import static jett_apps.grouvie.Notifications.FirebaseContact.SEND_PLAN_TO_GROUP;
 import static jett_apps.grouvie.Views.LandingPage.DATA;
 
 public class LeaderInitialPlan extends AppCompatActivity {
@@ -100,6 +100,11 @@ public class LeaderInitialPlan extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        String type = "" + SEND_PLAN_TO_GROUP;
+        /* Create notification body for message. */
+        String messageBody = ((leaderName == null) ? "Someone" : leaderName.trim()) +
+                " has created a new plan. Click here to accept it!";
+
         /* Send initial/draft plan to other group members. */
         for (Friend groupMember : chosenGroup) {
             /* Get the recipient member's phone number. */
@@ -107,8 +112,8 @@ public class LeaderInitialPlan extends AppCompatActivity {
             try {
                 /* Update phone_number field in JSON and send it to the user. */
                 json.put("phone_number", topicName);
-                /* TODO: Replace with topicName once you've finished debugging this section. */
-                new FirebaseContact().execute("07587247113"/*topicName*/, json.toString());
+                /* Send notification to phone number. */
+                new FirebaseContact().execute(type, topicName, messageBody, json.toString());
             } catch (JSONException e) {
                 Log.e("CHANGE PHONE_NUMBER", "Failed to change phone number in JSON");
                 e.printStackTrace();
