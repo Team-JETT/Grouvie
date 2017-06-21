@@ -61,11 +61,13 @@ def get_local_data():
     avg_longitude = (total_longitude + Decimal(leader_longitude)) / \
                     total_members
     print "TOTAL MEMBERS: " + str(total_members)
+    result = json.dumps(dParser.get_local_data(phone_data['day'],
+                                               phone_data['month'],
+                                               phone_data['year'],
+                                               avg_latitude, avg_longitude))
+    print result
     stdout.flush()
-    return json.dumps(dParser.get_local_data(phone_data['day'],
-                                             phone_data['month'],
-                                             phone_data['year'],
-                                             avg_latitude, avg_longitude))
+    return result
 
 
 # TODO: UNTESTED
@@ -239,6 +241,7 @@ def reset_user_prefs():
                              phone_data['film'],
                              phone_data['cinema'])
     return ''
+
 
 # TODO: UNTESTED
 @app.route("/delete_single", methods=['GET', 'POST'])
