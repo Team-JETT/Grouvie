@@ -81,11 +81,9 @@ def make_plan():
     showtime = phone_data['showtime']
     film = phone_data['film']
     cinema = phone_data['cinema']
-    latitude = phone_data['latitude']
-    longitude = phone_data['longitude']
     # Make a new entry for the group leader.
     dbManager.insert_grouvie(phone_number, leader, creation_datetime,
-                             date, showtime, film, cinema, latitude, longitude)
+                             date, showtime, film, cinema)
     # Make a new entry in the table for each friend.
     # TODO: What happens if duplicate?
     friends = phone_data['friends']
@@ -94,7 +92,7 @@ def make_plan():
     for friend in friends:
         print str(friend)
         dbManager.insert_grouvie(friend, leader, creation_datetime, date,
-                                 showtime, None, None, None, None, False)
+                                 showtime, None, None, False)
     print "MADE NEW PLAN"
     stdout.flush()
     return ''
@@ -199,6 +197,17 @@ def group_replies():
     return json.dumps(dbManager.group_replies(phone_data['leader'],
                                               phone_data['creation_datetime']))
 
+
+# TODO: UNTESTED
+@app.route("/reset_user_prefs", methods=['GET', 'POST'])
+def reset_user_prefs():
+    phone_data = json.loads(request.data)
+    dbManager.reset_user_prefs(phone_data['leader'],
+                               phone_data['creation_datetime'],
+                               phone_data['date'],
+                               phone_data['showtime'],
+                               phone_data['film'],
+                               phone_data['cinema'])
 
 # TODO: UNTESTED
 @app.route("/delete_single", methods=['GET', 'POST'])

@@ -178,7 +178,19 @@ public class SuggestChangeInPlan extends AppCompatActivity {
         if (ProfileManager.getPhone(SuggestChangeInPlan.this)
                 .equals(leaderPlan.getLeaderPhoneNum())) {
 
-            //TODO: Erkin
+            JSONObject json = new JSONObject();
+            try {
+                json.accumulate("leader", leaderPlan.getLeaderPhoneNum());
+                json.accumulate("creation_datetime", leaderPlan.getCreationDateTime());
+                json.accumulate("date", leaderPlan.getSuggestedDate());
+                json.accumulate("showtime", leaderPlan.getSuggestedShowTime());
+                json.accumulate("film", leaderPlan.getSuggestedFilm());
+                json.accumulate("cinema", leaderPlan.getSuggestedCinema());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            new ServerContact().execute("reset_user_prefs", json.toString());
 
         } else { //If a group member is suggesting a plan
 

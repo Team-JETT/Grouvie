@@ -1,5 +1,4 @@
 import pprint
-
 import psycopg2
 
 # Make a new Grouvie table to store all the plans
@@ -12,8 +11,6 @@ CREATE TABLE GROUVIE(
     SHOWTIME            CHAR(5),
     FILM                TEXT,
     CINEMA              TEXT,
-    LATITUDE            NUMERIC(8, 6),
-    LONGITUDE           NUMERIC(9, 6),
     ACCEPTED            BOOLEAN,
     
     PRIMARY KEY (PHONE_NUMBER, LEADER, CREATION_DATETIME)
@@ -47,7 +44,7 @@ DROP TABLE USERS
 INSERT_GROUVIE = """
 INSERT INTO GROUVIE
 VALUES
-(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+(%s, %s, %s, %s, %s, %s, %s, %s)
 """
 
 # Insert a new entry into the a table
@@ -61,7 +58,7 @@ ACCEPT_PLAN = """
 UPDATE GROUVIE
 SET ACCEPTED = true
 WHERE
-PHONE_NUMBER = %s AND LEADER = %s AND CREATION_DATETIMEE = %s
+PHONE_NUMBER = %s AND LEADER = %s AND CREATION_DATETIME = %s
 """
 
 # Update an already existing entry in the Grouvie table
@@ -78,6 +75,12 @@ UPDATE USERS
 SET NAME = %s, POSTCODE = %s, LATITUDE = %s, LONGITUDE = %s
 WHERE
 PHONE_NUMBER = %s
+"""
+
+RESET_USER_PREFS = """
+UPDATE GROUVIE
+SET DATE = NULL, SHOWTIME = NULL, FILM = NULL, CINEMA = NULL, ACCEPTED = FALSE
+WHERE LEADER = %s AND CREATION_DATETIME = %s AND (PHONE_NUMBER != LEADER)
 """
 
 # Delete entry from a table given a phone_number, leader and showtime
@@ -133,6 +136,7 @@ PHONE_NUMBER IN {}
 GROUVIE = "GROUVIE"
 USER = "USER"
 
+
 class DBManager:
 
     # Establish a new connection with the PostgreSQL database.
@@ -186,12 +190,10 @@ class DBManager:
 
     # Insert a new entry into the Grouvie table.
     def insert_grouvie(self, phone_number, leader, creation_datetime,
-                       date, showtime, film, cinema, latitude, longitude,
-                       accepted):
+                       date, showtime, film, cinema, accepted):
         cnxn, cursor = self.establish_connection()
         cursor.execute(INSERT_GROUVIE, (phone_number, leader, creation_datetime,
-                                        date, showtime, film, cinema, latitude,
-                                        longitude, accepted))
+                                        date, showtime, film, cinema, accepted))
         self.close_connection(cnxn, cursor)
 
     def insert_user(self, phone_number, name, postcode, latitude, longitude):
@@ -243,6 +245,14 @@ class DBManager:
             all_changes[user[0]] = changes_made
 
         return all_changes
+
+    # Reset all user preferences
+    def reset_user_prefs(self, leader, creation_datetime, date,
+                         showtime, film,  cinema):
+        cnxn, cursor = self.establish_connection()
+        cursor.execute(RESET_USER_PREFS, (date, showtime, film, cinema,
+                                          leader, creation_datetime))
+        self.close_connection(cnxn, cursor)
 
     # Delete an entry from the table correlating with a user
     def delete_single_grouvie(self, phone_number, leader, creation_datetime):
@@ -309,8 +319,7 @@ if __name__ == '__main__':
             'SHOWTIME': "s",
             'FILM': "GOTG3",
             'CINEMA': "MEMES",
-            'LATITUDE': 52.111100,
-            'LONGITUDE': 21.211122}
+            'ACCEPTED': False}
     query = {'PHONE_NUMBER': "1",
              'LEADER': 0,
              'SHOWTIME': "s"}
