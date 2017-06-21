@@ -222,7 +222,7 @@ public class CurrentPlanView extends AppCompatActivity {
         try {
             json.accumulate("phone_number", ProfileManager.getPhone(CurrentPlanView.this));
             json.accumulate("leader", p.getLeaderPhoneNum());
-            json.accumulate("creaton_datetime", p.getCreationDateTime());
+            json.accumulate("creation_datetime", p.getCreationDateTime());
         } catch (JSONException e) {
             e.printStackTrace();
         }
