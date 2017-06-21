@@ -57,28 +57,29 @@
         app:layout_constraintRight_toRightOf="parent"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="35dp"
         app:layout_constraintTop_toBottomOf="@+id/SelectedCinema"
         app:layout_constraintLeft_toRightOf="@+id/moviePoster"
-        android:layout_marginLeft="8dp" />
+        android:layout_marginLeft="8dp"
+        app:layout_constraintHorizontal_bias="0.466" />
 
     <TextView
         android:id="@+id/SelectedCinema"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="TextView"
-        android:textColor="@color/grey_300"
-        android:textAlignment="center"
-        android:textSize="25sp"
-        app:layout_constraintVertical_chainStyle="spread_inside"
-        android:layout_marginRight="55dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="55dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        android:text="TextView"
+        android:textAlignment="center"
+        android:textColor="@color/grey_300"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/SelectedFilm"
-        app:layout_constraintLeft_toRightOf="@+id/moviePoster"
-        android:layout_marginLeft="8dp" />
+        app:layout_constraintVertical_chainStyle="spread_inside" />
 
     <TextView
         android:id="@+id/SelectedShowtime"
@@ -89,11 +90,11 @@
         android:textAlignment="center"
         android:textSize="25sp"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="31dp"
         app:layout_constraintTop_toBottomOf="@+id/SelectedDay"
         app:layout_constraintLeft_toRightOf="@+id/moviePoster"
         android:layout_marginLeft="8dp"
-        app:layout_constraintHorizontal_bias="0.475" />
+        app:layout_constraintHorizontal_bias="0.44" />
 
     <Button
         android:id="@+id/viewGroupReplies"
@@ -198,16 +199,16 @@
 
     <ImageView
         android:id="@+id/moviePoster"
-        android:layout_width="100dp"
-        android:layout_height="200dp"
+        android:layout_width="122dp"
+        android:layout_height="160dp"
         app:srcCompat="@drawable/hockeyapp_btn_background"
-        android:layout_marginLeft="37dp"
+        android:layout_marginLeft="30dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/SelectedFilm"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/viewGroupReplies"
-        app:layout_constraintVertical_bias="0.454" />
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/SelectedCinema"
+        app:layout_constraintVertical_bias="0.285" />
 
     <ImageButton
         android:id="@+id/imageButton"
@@ -219,26 +220,22 @@
         app:srcCompat="@mipmap/get_directions"
         app:layout_constraintRight_toLeftOf="@+id/textView2"
         android:layout_marginRight="8dp"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="68dp"
-        app:layout_constraintHorizontal_bias="0.696" />
+        app:layout_constraintHorizontal_bias="0.956"
+        android:layout_marginBottom="19dp"
+        app:layout_constraintBottom_toTopOf="@+id/SelectedFilm" />
 
     <ImageButton
         android:id="@+id/addToCalendar"
         android:layout_width="48dp"
         android:layout_height="46dp"
-        android:layout_marginBottom="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
         android:onClick="addToCalendar"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.118"
         app:srcCompat="@mipmap/add_to_calendar"
         app:layout_constraintLeft_toRightOf="@+id/textView2"
         android:layout_marginLeft="8dp"
-        app:layout_constraintHorizontal_bias="0.333" />
+        android:layout_marginBottom="23dp"
+        app:layout_constraintBottom_toTopOf="@+id/SelectedFilm" />
 
     <ImageButton
         android:id="@+id/imageButton4"
@@ -250,11 +247,10 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:srcCompat="@mipmap/book_tickets"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/SelectedFilm"
         android:layout_marginTop="8dp"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        app:layout_constraintVertical_bias="0.076" />
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/SelectedFilm" />
     />
 
 </android.support.constraint.ConstraintLayout>
