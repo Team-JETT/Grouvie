@@ -81,6 +81,9 @@ def make_plan():
     showtime = phone_data['showtime']
     film = phone_data['film']
     cinema = phone_data['cinema']
+    print "Make plan [" + phone_number + ", " + leader + ", " \
+          + creation_datetime + ", " + date + ", " + showtime +\
+          ", " + film + ", " + cinema + "]"
     # Make a new entry for the group leader.
     dbManager.insert_grouvie(phone_number, leader, creation_datetime,
                              date, showtime, film, cinema, False)
