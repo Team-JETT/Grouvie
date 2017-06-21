@@ -37,7 +37,6 @@ public class LeaderInitialPlan extends AppCompatActivity {
     private String cinemaData;
 
     private Plan data;
-    private Plan p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +44,6 @@ public class LeaderInitialPlan extends AppCompatActivity {
         setContentView(R.layout.activity_leader_initial_plan);
 
         data = (Plan) getIntent().getSerializableExtra(DATA);
-        p = (Plan) getIntent().getSerializableExtra(PLAN_MESSAGE);
 
         chosenDate = data.getSuggestedDate();
         chosenFilm = data.getSuggestedFilm();
@@ -72,7 +70,6 @@ public class LeaderInitialPlan extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         data.setCreationDateTime(dateFormat.format(date));
-        p.setCreationDateTime(dateFormat.format(date));
 
 
         try {
