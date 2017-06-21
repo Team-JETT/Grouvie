@@ -1,12 +1,12 @@
+from os import environ
 from sys import stdout
 from decimal import *
 import simplejson as json
 
-from os import environ
-
 from flask import Flask, request
 from DBManager import DBManager
 from DataParser import DataParser
+
 
 app = Flask(__name__)
 
@@ -61,13 +61,10 @@ def get_local_data():
     avg_longitude = (total_longitude + Decimal(leader_longitude)) / \
                     total_members
     print "TOTAL MEMBERS: " + str(total_members)
-    result = json.dumps(dParser.get_local_data(phone_data['day'],
-                                               phone_data['month'],
-                                               phone_data['year'],
-                                               avg_latitude, avg_longitude))
-    print result
-    stdout.flush()
-    return result
+    return json.dumps(dParser.get_local_data(phone_data['day'],
+                                             phone_data['month'],
+                                             phone_data['year'],
+                                             avg_latitude, avg_longitude))
 
 
 # TODO: UNTESTED
@@ -269,6 +266,7 @@ def delete_plan():
     print "DELETED PLAN"
     stdout.flush()
     return ''
+
 
 @app.route("/get_cinema_url", methods=['GET', 'POST'])
 def get_cinema_url():
