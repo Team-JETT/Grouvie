@@ -184,7 +184,7 @@ def update_postcode():
                            phone_data['postcode'], latitude, longitude)
     print "DONE!!!"
     stdout.flush()
-    return
+    return ''
 
 
 # TODO: UNTESTED
@@ -198,6 +198,7 @@ def suggest_plan():
                              phone_data['showtime'],
                              phone_data['film'],
                              phone_data['cinema'])
+    return ''
 
 
 # TODO: UNTESTED
