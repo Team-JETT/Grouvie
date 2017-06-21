@@ -92,6 +92,8 @@ public class LeaderInitialPlan extends AppCompatActivity {
         String[] friendsNames = getFriendsNames(chosenGroup);
         try {
             json.put("friend_list", Arrays.toString(friendsNames));
+            json.put("img_url", data.getMoviePoster());
+            json.put("showtime_distance", data.getShowtimeDistance());
         } catch (JSONException e) {
             e.printStackTrace();
         }
