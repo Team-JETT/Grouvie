@@ -26,7 +26,7 @@ import jett_apps.grouvie.R;
 import jett_apps.grouvie.Views.CurrentPlanView;
 import jett_apps.grouvie.Views.LandingPage;
 
-import static jett_apps.grouvie.Notifications.FirebaseContact.SUGGEST_CHANGE_TO_LEADER;
+import static jett_apps.grouvie.Notifications.FirebaseContact.PING_MEMBER;
 import static jett_apps.grouvie.Views.CurrentPlanView.LEADER_DATA;
 import static jett_apps.grouvie.Views.LandingPage.DATA;
 
@@ -252,7 +252,7 @@ public class SuggestChangeInPlan extends AppCompatActivity {
                 e.printStackTrace();
             }
             new ServerContact().execute("suggest_plan", json.toString());
-            String type = "" + SUGGEST_CHANGE_TO_LEADER;
+            String type = "" + PING_MEMBER;
             String suggesterName = ProfileManager.getName(this);
             String messageBody =  suggesterName + " has suggested a change. Click here to view it!";
             new FirebaseContact().execute(type, leaderPhoneNum, messageBody);

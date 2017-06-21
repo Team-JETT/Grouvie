@@ -20,7 +20,7 @@ public class FirebaseContact extends AsyncTask<String, Integer, String> {
     final static String WebServerAddr = "https://fcm.googleapis.com/fcm/send";
 
     public static final int SEND_PLAN_TO_GROUP = 1;
-    public static final int SUGGEST_CHANGE_TO_LEADER = 2;
+    public static final int PING_MEMBER = 2;
 
 
     /*
@@ -49,7 +49,7 @@ public class FirebaseContact extends AsyncTask<String, Integer, String> {
             case SEND_PLAN_TO_GROUP:
                 notification = sendPlan(id, topicName, notifyMsg, params[3]);
                 break;
-            case SUGGEST_CHANGE_TO_LEADER:
+            case PING_MEMBER:
                 notification = createNotification(id, topicName, notifyMsg, new JSONObject());
                 break;
             default:

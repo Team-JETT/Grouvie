@@ -20,7 +20,6 @@ import java.util.ArrayList;
 import jett_apps.grouvie.HelperObjects.Friend;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.R;
-import jett_apps.grouvie.Views.GroupView;
 import jett_apps.grouvie.Views.LandingPage;
 
 import static jett_apps.grouvie.Notifications.FirebaseContact.*;
@@ -56,7 +55,7 @@ public class MessagingService extends FirebaseMessagingService {
 //                sendNotification(notifyMsg, LandingPage.class);
                 sendPlan(notifyMsg, planInJSON);
                 break;
-            case SUGGEST_CHANGE_TO_LEADER:
+            case PING_MEMBER:
                 sendNotification(notifyMsg, LandingPage.class);
                 break;
             default:
