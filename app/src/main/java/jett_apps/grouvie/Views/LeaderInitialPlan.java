@@ -128,6 +128,11 @@ public class LeaderInitialPlan extends AppCompatActivity {
         startActivity(intent);
     }
 
+
+    public void sendInitialPlan(View view) {
+
+    }
+
     public static String[] getFriendsNames(ArrayList<Friend> friends) {
         String[] names = new String[friends.size()];
         for (int i = 0; i < friends.size(); ++i) {
