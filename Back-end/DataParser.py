@@ -1,5 +1,6 @@
 from concurrent import futures
 from bs4 import BeautifulSoup
+import pprint
 import concurrent
 import requests
 import re
@@ -148,16 +149,14 @@ class DataParser:
                 times = i['time']
                 if filmname in local_data:
                     local_data[filmname]["cinema"].append(
-                        {cinema: [{"showtimes": times,
-                                   "distance": CINEMA_DIST[cinema]}]})
+                        {cinema: [{"showtimes": times}]})
                 else:
                     local_data[filmname] = {}
                     poster, overview = self.fast_get_film_info(filmname)
                     local_data[filmname]["image"] = poster
                     local_data[filmname]["overview"] = overview
                     local_data[filmname]["cinema"] = \
-                        [{cinema: [{"showtimes": times,
-                                    "distance": CINEMA_DIST[cinema]}]}]
+                        [{cinema: [{"showtimes": times}]}]
 
         executor = concurrent.futures.ThreadPoolExecutor(NUM_OF_CINEMAS)
         futures = [executor.submit(get_films_for_cinema, cinema_name)
