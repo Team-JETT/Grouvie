@@ -117,14 +117,14 @@ public class CurrentPlanView extends AppCompatActivity {
             getDirections.setVisibility(View.VISIBLE);
             bookTickets.setVisibility(View.VISIBLE);
             addEvent.setVisibility(View.VISIBLE);
+            viewReplies.setVisibility(View.VISIBLE);
             accept.setVisibility(View.INVISIBLE);
-            viewReplies.setVisibility(View.INVISIBLE);
         } else {
             getDirections.setVisibility(View.INVISIBLE);
             bookTickets.setVisibility(View.INVISIBLE);
             addEvent.setVisibility(View.INVISIBLE);
+            viewReplies.setVisibility(View.INVISIBLE);
             accept.setVisibility(View.VISIBLE);
-            viewReplies.setVisibility(View.VISIBLE);
         }
 
         Button backButton = (Button) findViewById(R.id.backButton);
