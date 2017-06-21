@@ -50,7 +50,6 @@ def get_local_data():
     """
     phone_data = json.loads(request.data)
     friends = phone_data['friends']
-    print phone_data
     leader_latitude, leader_longitude = \
         dParser.get_latlong(phone_data['postcode'])
 
@@ -61,7 +60,7 @@ def get_local_data():
     avg_latitude = (total_latitude + Decimal(leader_latitude)) / total_members
     avg_longitude = (total_longitude + Decimal(leader_longitude)) / \
                     total_members
-    print phone_data
+    print "TOTAL MEMBERS: " + str(total_members)
     stdout.flush()
     return json.dumps(dParser.get_local_data(phone_data['day'],
                                              phone_data['month'],
@@ -94,8 +93,8 @@ def make_plan():
     print str(friends)
     for friend in friends:
         print str(friend)
-        dbManager.insert_grouvie(friend, leader, creation_datetime, date,
-                                 showtime, None, None, False)
+        dbManager.insert_grouvie(friend, leader, creation_datetime, None,
+                                 None, None, None, False)
     print "MADE NEW PLAN"
     stdout.flush()
     return ''
@@ -187,6 +186,8 @@ def suggest_plan():
 @app.route("/accept_plan", methods=['GET', 'POST'])
 def accept_plan():
     phone_data = json.loads(request.data)
+    print "ACCEPT PLAN: " + str(phone_data)
+    stdout.flush()
     dbManager.accept_plan(phone_data['phone_number'],
                           phone_data['leader'],
                           phone_data['creation_datetime'])
@@ -197,7 +198,7 @@ def accept_plan():
 @app.route("/group_replies", methods=['GET', 'POST'])
 def group_replies():
     phone_data = json.loads(request.data)
-    print "GROUP REPLIES " + phone_data
+    print "GROUP REPLIES " + str(phone_data)
     stdout.flush()
     return json.dumps(dbManager.group_replies(phone_data['leader'],
                                               phone_data['creation_datetime']))
