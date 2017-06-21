@@ -95,9 +95,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
 
         //TODO: Remove this and the button for release
-        Button signInButton = (Button) findViewById(R.id.signinButton);
+//        Button signInButton = (Button) findViewById(R.id.signinButton);
 //        Button signUpButton = (Button) findViewById(R.id.signupButton);
-        signInButton.setVisibility(View.VISIBLE);
+//        signInButton.setVisibility(View.VISIBLE);
 //        signUpButton.setVisibility(View.VISIBLE);
 
         //TODO: Remove above beofore release
@@ -267,7 +267,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
 
                             //Sign in successful, going to Signup page
                             Intent intent = new Intent(MainActivity.this, SignUpActivity.class);
-                            intent.putExtra(USER_PHONE_NO, user.getPhoneNumber());
+                            String phoneNumber = user.getPhoneNumber();
+
+                            intent.putExtra(USER_PHONE_NO, phoneNumber);
                             startActivity(intent);
 
                         } else {

@@ -72,7 +72,6 @@ public class LeaderInitialPlan extends AppCompatActivity {
 
         try {
             json.accumulate("phone_number", leaderPhoneNum);
-            json.accumulate("leader_name", leaderName);
             json.accumulate("leader", leaderPhoneNum);
             json.accumulate("date", chosenDate);
             json.accumulate("creation_datetime", dateFormat.format(date));
