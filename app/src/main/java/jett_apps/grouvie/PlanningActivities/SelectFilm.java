@@ -105,7 +105,8 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                 Random random = new Random();
                 int randomIndex = random.nextInt(films.size());
 //                int randomIndex = 9;
-                String filmTitle = films.get(randomIndex).getFilmName();
+                Film film = films.get(randomIndex);
+                String filmTitle = film.getFilmName();
 
                 Log.v("CHOSEN FILM", filmTitle);
                 JSONArray cinema_data = null;
@@ -117,11 +118,12 @@ public class SelectFilm extends AppCompatActivity implements LocationListener {
                 }
                 final JSONArray cinemaData = cinema_data;
 
-                Intent cinemaIntent = new Intent(SelectFilm.this, SelectCinema.class);
+                Intent cinemaIntent = new Intent(SelectFilm.this, CinemaLocations.class);
 
 
                 data.setCinemaData(cinemaData.toString());
                 data.setSuggestedFilm(filmTitle);
+                data.setMoviePoster(film.getImageUrl());
                 cinemaIntent.putExtra(DATA, data);
 
                 startActivity(cinemaIntent);
