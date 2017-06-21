@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -133,7 +134,9 @@ public class GroupView extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Friend f = chosenFriends.get(position);
-                changesMadeByFriend(f);
+                if (!f.hasAccepted()) {
+                    changesMadeByFriend(f);
+                }
             }
         });
 
@@ -149,18 +152,6 @@ public class GroupView extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(GroupView.this);
         builder.setCancelable(true);
         builder.setTitle(friend.getName());
-        if(film !=null) {
-            builder.setMessage("Suggested Film: " + film);
-        }
-        if(film !=null) {
-            builder.setMessage("Suggested Time: " + time);
-        }
-        if(film !=null) {
-            builder.setMessage("Suggested Date: " + date);
-        }
-        if(film !=null) {
-            builder.setMessage("Suggested Cinema: " + cinema);
-        }
 
         builder.setPositiveButton("Okay",
                 new DialogInterface.OnClickListener() {
@@ -169,6 +160,21 @@ public class GroupView extends AppCompatActivity {
                     }
                 });
         AlertDialog dialog = builder.create();
+        String message = "";
+        if(film !=null) {
+            message +="Suggested Film: " + film;
+        }
+        if(time !=null) {
+            message += "\n" + "Suggested Time: " + time;
+        }
+        if(date !=null) {
+            message += "\n" + "Suggested Date: " + date;
+        }
+        if(cinema !=null) {
+            message += "\n" + "Suggested Cinema: " + cinema;
+        }
+
+        dialog.setMessage(message);
         dialog.show();
     }
 

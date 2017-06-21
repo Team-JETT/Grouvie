@@ -57,7 +57,7 @@ public class MessagingService extends FirebaseMessagingService {
                 sendPlan(notifyMsg, planInJSON);
                 break;
             case SUGGEST_CHANGE_TO_LEADER:
-                sendNotification(notifyMsg, GroupView.class);
+                sendNotification(notifyMsg, LandingPage.class);
                 break;
             default:
                 Log.v("BAD ID", "Id " + id + " is unused in firebase notifications");
