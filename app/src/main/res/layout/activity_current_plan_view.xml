@@ -189,12 +189,12 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/rounded_button"
         android:elevation="10dp"
-        android:onClick="cancelPlan"
+        android:onClick="acceptPlan"
         android:text="Accept Plan"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        app:layout_constraintTop_toBottomOf="@+id/viewGroupReplies" />
+        app:layout_constraintTop_toBottomOf="@+id/viewGroupReplies"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/moviePoster"
