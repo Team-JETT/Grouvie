@@ -28,6 +28,7 @@ import jett_apps.grouvie.R;
 
 import static jett_apps.grouvie.Notifications.FirebaseContact.SEND_PLAN_TO_GROUP;
 import static jett_apps.grouvie.Views.LandingPage.DATA;
+import static jett_apps.grouvie.Views.LandingPage.PLAN_MESSAGE;
 
 public class LeaderInitialPlan extends AppCompatActivity {
 
@@ -36,6 +37,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
     private String cinemaData;
 
     private Plan data;
+    private Plan p;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class LeaderInitialPlan extends AppCompatActivity {
         setContentView(R.layout.activity_leader_initial_plan);
 
         data = (Plan) getIntent().getSerializableExtra(DATA);
+        p = (Plan) getIntent().getSerializableExtra(PLAN_MESSAGE);
 
         chosenDate = data.getSuggestedDate();
         chosenFilm = data.getSuggestedFilm();
@@ -69,6 +72,8 @@ public class LeaderInitialPlan extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date();
         data.setCreationDateTime(dateFormat.format(date));
+        p.setCreationDateTime(dateFormat.format(date));
+
 
         try {
             json.accumulate("phone_number", leaderPhoneNum);
