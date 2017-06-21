@@ -60,7 +60,7 @@ def get_local_data():
     avg_latitude = (total_latitude + Decimal(leader_latitude)) / total_members
     avg_longitude = (total_longitude + Decimal(leader_longitude)) / \
                     total_members
-    print "TOTAL MEMBERS: " + total_members
+    print "TOTAL MEMBERS: " + str(total_members)
     stdout.flush()
     return json.dumps(dParser.get_local_data(phone_data['day'],
                                              phone_data['month'],
