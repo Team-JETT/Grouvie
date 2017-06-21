@@ -198,6 +198,7 @@ def suggest_plan():
                              phone_data['showtime'],
                              phone_data['film'],
                              phone_data['cinema'])
+    return ''
 
 
 # TODO: UNTESTED
