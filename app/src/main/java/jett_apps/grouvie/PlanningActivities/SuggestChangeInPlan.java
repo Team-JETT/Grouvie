@@ -185,12 +185,12 @@ public class SuggestChangeInPlan extends AppCompatActivity {
 
             JSONObject json = new JSONObject();
             try {
-                json.accumulate("leader", leaderPlan.getLeaderPhoneNum());
-                json.accumulate("creation_datetime", leaderPlan.getCreationDateTime());
-                json.accumulate("date", leaderPlan.getSuggestedDate());
-                json.accumulate("showtime", leaderPlan.getSuggestedShowTime());
-                json.accumulate("film", leaderPlan.getSuggestedFilm());
-                json.accumulate("cinema", leaderPlan.getSuggestedCinema());
+                json.accumulate("leader", suggestedPlan.getLeaderPhoneNum());
+                json.accumulate("creation_datetime", suggestedPlan.getCreationDateTime());
+                json.accumulate("date", suggestedPlan.getSuggestedDate());
+                json.accumulate("showtime", suggestedPlan.getSuggestedShowTime());
+                json.accumulate("film", suggestedPlan.getSuggestedFilm());
+                json.accumulate("cinema", suggestedPlan.getSuggestedCinema());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
