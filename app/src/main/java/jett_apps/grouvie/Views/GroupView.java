@@ -92,13 +92,31 @@ public class GroupView extends AppCompatActivity {
                 try {
                     changes = group_replies.getJSONObject(phoneNum);
                     film = changes.getString("film");
-                    time = changes.getString("showtime");
-                    date = changes.getString("date");
-                    cinema = changes.getString("cinema");
-                    hasAccepted = changes.getBoolean("accepted");
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                try {
+                    time = changes.getString("showtime");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    date = changes.getString("date");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    cinema = changes.getString("cinema");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                String b = null;
+                try {
+                    b = changes.getString("accepted");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                hasAccepted = Boolean.parseBoolean(b);
 
                 friend.setFilmChange(film);
                 friend.setTimeChange(time);
