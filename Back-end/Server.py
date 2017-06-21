@@ -94,8 +94,8 @@ def make_plan():
     print str(friends)
     for friend in friends:
         print str(friend)
-        dbManager.insert_grouvie(friend, leader, creation_datetime, date,
-                                 showtime, None, None, False)
+        dbManager.insert_grouvie(friend, leader, creation_datetime, None,
+                                 None, None, None, False)
     print "MADE NEW PLAN"
     stdout.flush()
     return ''
