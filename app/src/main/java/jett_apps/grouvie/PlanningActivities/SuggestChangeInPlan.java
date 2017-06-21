@@ -23,7 +23,6 @@ import jett_apps.grouvie.HelperClasses.ServerContact;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.Notifications.FirebaseContact;
 import jett_apps.grouvie.R;
-import jett_apps.grouvie.Views.CinemaLocations;
 import jett_apps.grouvie.Views.CurrentPlanView;
 import jett_apps.grouvie.Views.LandingPage;
 
@@ -134,7 +133,7 @@ public class SuggestChangeInPlan extends AppCompatActivity {
         cinema.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), CinemaLocations.class);
+                Intent intent = new Intent(v.getContext(), SelectCinema.class);
                 intent.putExtra(DATA, suggestedPlan);
                 startActivity(intent);
             }
@@ -241,7 +240,7 @@ public class SuggestChangeInPlan extends AppCompatActivity {
             String leaderPhoneNum = null;
             try {
                 // TODO: Someone confirm with Erkin these are the right variables to use.
-                json.accumulate("phone_number", suggestedPlan.getLeaderPhoneNum());
+                json.accumulate("phone_number", ProfileManager.getPhone(SuggestChangeInPlan.this));
                 leaderPhoneNum = leaderPlan.getLeaderPhoneNum();
                 json.accumulate("leader", leaderPhoneNum);
                 json.accumulate("creation_datetime", suggestedPlan.getCreationDateTime());
