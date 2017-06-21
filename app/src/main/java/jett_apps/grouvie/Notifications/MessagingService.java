@@ -102,12 +102,14 @@ public class MessagingService extends FirebaseMessagingService {
             String leaderPhoneNum = planInJSON.getString("leader");
             String creationDate = planInJSON.getString("creation_datetime");
             String moviePoster = planInJSON.getString("img_url");
+            String cinemaData = planInJSON.getString("cinema_data");
             String showtimeDistance = planInJSON.getString("showtime_distance");
 
             plan = new Plan(film, cinema, showtime, date, members, leaderPhoneNum);
             plan.setCreationDateTime(creationDate);
             plan.setMoviePoster(moviePoster);
             plan.setShowtimeDistance(showtimeDistance);
+            plan.setCinemaData(cinemaData);
         } catch (JSONException e) {
             Log.e("BAD JSON SENT", "JSON sent to user was not an event plan");
             e.printStackTrace();
