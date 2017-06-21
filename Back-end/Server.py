@@ -184,7 +184,7 @@ def update_postcode():
                            phone_data['postcode'], latitude, longitude)
     print "DONE!!!"
     stdout.flush()
-    return
+    return ''
 
 
 # TODO: UNTESTED
