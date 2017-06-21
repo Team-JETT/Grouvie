@@ -1,3 +1,4 @@
+from sys import stdout
 import pprint
 import psycopg2
 
@@ -243,6 +244,8 @@ class DBManager:
             if user[6] is not None:
                 changes_made["cinema"] = user[6]
             all_changes[user[0]] = changes_made
+        print all_changes
+        stdout.flush()
 
         return all_changes
 
