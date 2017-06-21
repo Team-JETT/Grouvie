@@ -28,24 +28,32 @@ import static jett_apps.grouvie.Views.LandingPage.SENT_PLAN;
 
 public class MessagingService extends FirebaseMessagingService {
 
-    private Plan plan;
+    private Plan plan = null;
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         JSONObject data = new JSONObject(remoteMessage.getData());
+        String planTxt = null;
         JSONObject planInJSON = null;
         String notifyMsg = "Hello World!";
         int id = 0;
         try {
-            planInJSON = data.getJSONObject("plan");
+            planTxt = data.getString("plan");
+            planInJSON = new JSONObject(planTxt);
             notifyMsg = data.getString("message");
             id = data.getInt("id");
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
+        Log.e("DEBUG", "" + id);
+        Log.e("DEBUG", notifyMsg);
+        Log.e("DEBUG", planInJSON.toString());
+
         switch (id) {
             case SEND_PLAN_TO_GROUP:
+                Log.e("WE HERE", "HELLO WORLD");
+//                sendNotification(notifyMsg, LandingPage.class);
                 sendPlan(notifyMsg, planInJSON);
                 break;
             case SUGGEST_CHANGE_TO_LEADER:
