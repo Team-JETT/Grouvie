@@ -187,6 +187,8 @@ def suggest_plan():
 @app.route("/accept_plan", methods=['GET', 'POST'])
 def accept_plan():
     phone_data = json.loads(request.data)
+    print "ACCEPT PLAN: " + str(phone_data)
+    stdout.flush()
     dbManager.accept_plan(phone_data['phone_number'],
                           phone_data['leader'],
                           phone_data['creation_datetime'])
