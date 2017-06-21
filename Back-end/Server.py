@@ -224,17 +224,21 @@ def group_replies():
 
 
 # TODO: UNTESTED
-@app.route("/reset_user_prefs", methods=['GET', 'POST'])
+@app.route("/update_leader_plan", methods=['GET', 'POST'])
 def reset_user_prefs():
     phone_data = json.loads(request.data)
     print "RESET USER PREFS: " + str(phone_data)
     stdout.flush()
     dbManager.reset_user_prefs(phone_data['leader'],
-                               phone_data['creation_datetime'],
-                               phone_data['date'],
-                               phone_data['showtime'],
-                               phone_data['film'],
-                               phone_data['cinema'])
+                               phone_data['creation_datetime'])
+    dbManager.update_grouvie(phone_data['leader'],
+                             phone_data['leader'],
+                             phone_data['creation_datetime'],
+                             phone_data['date'],
+                             phone_data['showtime'],
+                             phone_data['film'],
+                             phone_data['cinema'])
+    return ''
 
 # TODO: UNTESTED
 @app.route("/delete_single", methods=['GET', 'POST'])

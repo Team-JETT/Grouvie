@@ -275,11 +275,9 @@ class DBManager:
         return all_changes
 
     # Reset all user preferences
-    def reset_user_prefs(self, leader, creation_datetime, date,
-                         showtime, film,  cinema):
+    def reset_user_prefs(self, leader, creation_datetime):
         cnxn, cursor = self.establish_connection()
-        cursor.execute(RESET_USER_PREFS, (date, showtime, film, cinema,
-                                          leader, creation_datetime))
+        cursor.execute(RESET_USER_PREFS, (leader, creation_datetime))
         self.close_connection(cnxn, cursor)
 
     # Delete an entry from the table correlating with a user

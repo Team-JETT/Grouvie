@@ -195,7 +195,7 @@ public class SuggestChangeInPlan extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            new ServerContact().execute("reset_user_prefs", json.toString());
+            new ServerContact().execute("update_leader_plan", json.toString());
 
         } else { //If a group member is suggesting a plan
 
