@@ -188,7 +188,7 @@ public class GroupView extends AppCompatActivity {
         }
         new ServerContact().execute("confirm_plan", json.toString());
 
-        Intent intent = new Intent(view.getContext(), CurrentPlanView.class);
+        Intent intent = new Intent(view.getContext(), LandingPage.class);
         startActivity(intent);
     }
 

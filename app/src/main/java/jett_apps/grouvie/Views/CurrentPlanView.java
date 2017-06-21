@@ -77,8 +77,8 @@ public class CurrentPlanView extends AppCompatActivity {
 
         Button button = (Button) findViewById(R.id.cancelPlan);
         Button acceptButton = (Button) findViewById(R.id.acceptPlan);
-        Button change = (Button) findViewById(R.id.suggestChange);
         Button accept = (Button) findViewById(R.id.acceptPlan);
+        Button viewReplies = (Button) findViewById(R.id.viewGroupReplies);
 
         if(!ProfileManager.getPhone(this).equals(p.getLeaderPhoneNum())) {
             button.setVisibility(View.INVISIBLE);
@@ -117,14 +117,14 @@ public class CurrentPlanView extends AppCompatActivity {
             getDirections.setVisibility(View.VISIBLE);
             bookTickets.setVisibility(View.VISIBLE);
             addEvent.setVisibility(View.VISIBLE);
-            change.setVisibility(View.VISIBLE);
-            accept.setVisibility(View.VISIBLE);
+            accept.setVisibility(View.INVISIBLE);
+            viewReplies.setVisibility(View.INVISIBLE);
         } else {
             getDirections.setVisibility(View.INVISIBLE);
             bookTickets.setVisibility(View.INVISIBLE);
             addEvent.setVisibility(View.INVISIBLE);
-            change.setVisibility(View.INVISIBLE);
-            accept.setVisibility(View.INVISIBLE);
+            accept.setVisibility(View.VISIBLE);
+            viewReplies.setVisibility(View.VISIBLE);
         }
 
         Button backButton = (Button) findViewById(R.id.backButton);
