@@ -134,8 +134,10 @@ class DataParser:
             # E.g. Cineworld London - Enfield: 10477
             cinema_id = CINEMA_CID[cinema]
             # Get list of films showing at this cinema
-            url = "http://moviesapi.herokuapp.com/cinemas/{}/" \
+            url = "https://mysterious-eyrie-40497.herokuapp.com/cinemas/{}/" \
                   "showings/{}".format(cinema_id, date)
+            #url = "http://moviesapi.herokuapp.com/cinemas/{}/" \
+            #      "showings/{}".format(cinema_id, date)
             films = requests.get(url)
             # Create a JSON object storing film name, cinema, showtimes and
             # distance to the cinema.
@@ -187,7 +189,7 @@ if __name__ == '__main__':
     dParser = DataParser()
     # print dParser.get_latlong("en12lz")
     start_time = time.time()
-    #pprint.PrettyPrinter(indent=4).pprint(
-    #    dParser.get_local_data(25, 6, 2017, 51.636743, -0.069069))
+    pprint.PrettyPrinter(indent=4).pprint(
+        dParser.get_local_data(25, 6, 2017, 51.636743, -0.069069))
     print dParser.get_cinema_url('Cineworld fullham road')
     print time.time() - start_time
