@@ -78,7 +78,7 @@ public class CurrentPlanView extends AppCompatActivity {
         ImageButton bookTickets = (ImageButton) findViewById(R.id.imageButton4);
         ImageButton addEvent = (ImageButton) findViewById(R.id.addToCalendar);
 
-        if (p.isConfirmed()) {
+        if (/*p.isConfirmed()*/true) {
             getDirections.setVisibility(View.VISIBLE);
             bookTickets.setVisibility(View.VISIBLE);
             addEvent.setVisibility(View.VISIBLE);
