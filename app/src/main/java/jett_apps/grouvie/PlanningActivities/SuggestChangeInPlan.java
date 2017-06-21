@@ -24,6 +24,7 @@ import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.Notifications.FirebaseContact;
 import jett_apps.grouvie.R;
 import jett_apps.grouvie.Views.CinemaLocations;
+import jett_apps.grouvie.Views.CurrentPlanView;
 import jett_apps.grouvie.Views.LandingPage;
 
 import static jett_apps.grouvie.Notifications.FirebaseContact.SUGGEST_CHANGE_TO_LEADER;
@@ -185,17 +186,22 @@ public class SuggestChangeInPlan extends AppCompatActivity {
 
             JSONObject json = new JSONObject();
             try {
-                json.accumulate("leader", leaderPlan.getLeaderPhoneNum());
-                json.accumulate("creation_datetime", leaderPlan.getCreationDateTime());
-                json.accumulate("date", leaderPlan.getSuggestedDate());
-                json.accumulate("showtime", leaderPlan.getSuggestedShowTime());
-                json.accumulate("film", leaderPlan.getSuggestedFilm());
-                json.accumulate("cinema", leaderPlan.getSuggestedCinema());
+                json.accumulate("leader", suggestedPlan.getLeaderPhoneNum());
+                json.accumulate("creation_datetime", suggestedPlan.getCreationDateTime());
+                json.accumulate("date", suggestedPlan.getSuggestedDate());
+                json.accumulate("showtime", suggestedPlan.getSuggestedShowTime());
+                json.accumulate("film", suggestedPlan.getSuggestedFilm());
+                json.accumulate("cinema", suggestedPlan.getSuggestedCinema());
             } catch (JSONException e) {
                 e.printStackTrace();
             }
 
             new ServerContact().execute("update_leader_plan", json.toString());
+
+            Intent intent = new Intent(SuggestChangeInPlan.this, CurrentPlanView.class);
+            intent.putExtra(DATA, suggestedPlan);
+            startActivity(intent);
+
 
         } else { //If a group member is suggesting a plan
 

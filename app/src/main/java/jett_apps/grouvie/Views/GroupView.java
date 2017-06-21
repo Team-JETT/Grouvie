@@ -31,6 +31,7 @@ public class GroupView extends AppCompatActivity {
 
     private Plan p;
     ArrayList<Friend> chosenFriends = new ArrayList<>();
+    private ListAdapter groupAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,15 +47,6 @@ public class GroupView extends AppCompatActivity {
         } else {
             confirmPlan.setVisibility(View.INVISIBLE);
         }
-
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-
-            }
-        }, 20000);
-
 
         JSONObject json = new JSONObject();
         String result;
@@ -122,12 +114,20 @@ public class GroupView extends AppCompatActivity {
             p.setEventMembers(chosenFriends);
         }
 
+        groupAdapter = new CustomGroupAdapter(GroupView.this, chosenFriends);
 
-        ListAdapter groupAdapter = new CustomGroupAdapter(GroupView.this, chosenFriends);
+        final Handler handler = new Handler();
+        handler.postDelayed( new Runnable() {
+
+            @Override
+            public void run() {
+                groupAdapter = new CustomGroupAdapter(GroupView.this, chosenFriends);
+                handler.postDelayed( this, 1000 );
+            }
+        }, 1000 );
 
         ListView groupListView = (ListView) findViewById(R.id.groupView);
         groupListView.setAdapter(groupAdapter);
-
 
         groupListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

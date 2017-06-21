@@ -4,7 +4,6 @@ package jett_apps.grouvie.HelperObjects;
 import android.support.annotation.NonNull;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -48,7 +47,6 @@ public class Plan implements Serializable, Comparable<Plan> {
         this.leaderPhoneNum = leaderPhoneNum;
     }
 
-    // TODO: Someone explain to Erkin why this is here???????
     public Plan(Plan oldPlan) {
         this.suggestedFilm = oldPlan.getSuggestedFilm();
         this.suggestedCinema = oldPlan.getSuggestedCinema();
@@ -63,6 +61,7 @@ public class Plan implements Serializable, Comparable<Plan> {
         this.suggestedMonth = oldPlan.getSuggestedMonth();
         this.suggestedYear = oldPlan.getSuggestedYear();
         this.listOfFilms = oldPlan.getListOfFilms();
+        this.creationDateTime = oldPlan.getCreationDateTime();
     }
 
     public void confirmPlan() {
