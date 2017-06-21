@@ -1,5 +1,6 @@
 from concurrent import futures
 from bs4 import BeautifulSoup
+import pprint
 import concurrent
 import requests
 import re
@@ -134,8 +135,10 @@ class DataParser:
             # E.g. Cineworld London - Enfield: 10477
             cinema_id = CINEMA_CID[cinema]
             # Get list of films showing at this cinema
-            url = "http://moviesapi.herokuapp.com/cinemas/{}/" \
+            url = "https://mysterious-eyrie-40497.herokuapp.com/cinemas/{}/" \
                   "showings/{}".format(cinema_id, date)
+            #url = "http://moviesapi.herokuapp.com/cinemas/{}/" \
+            #      "showings/{}".format(cinema_id, date)
             films = requests.get(url)
             # Create a JSON object storing film name, cinema, showtimes and
             # distance to the cinema.
@@ -146,16 +149,14 @@ class DataParser:
                 times = i['time']
                 if filmname in local_data:
                     local_data[filmname]["cinema"].append(
-                        {cinema: [{"showtimes": times,
-                                   "distance": CINEMA_DIST[cinema]}]})
+                        {cinema: [{"showtimes": times}]})
                 else:
                     local_data[filmname] = {}
                     poster, overview = self.fast_get_film_info(filmname)
                     local_data[filmname]["image"] = poster
                     local_data[filmname]["overview"] = overview
                     local_data[filmname]["cinema"] = \
-                        [{cinema: [{"showtimes": times,
-                                    "distance": CINEMA_DIST[cinema]}]}]
+                        [{cinema: [{"showtimes": times}]}]
 
         executor = concurrent.futures.ThreadPoolExecutor(NUM_OF_CINEMAS)
         futures = [executor.submit(get_films_for_cinema, cinema_name)
@@ -187,7 +188,7 @@ if __name__ == '__main__':
     dParser = DataParser()
     # print dParser.get_latlong("en12lz")
     start_time = time.time()
-    #pprint.PrettyPrinter(indent=4).pprint(
-    #    dParser.get_local_data(25, 6, 2017, 51.636743, -0.069069))
+    pprint.PrettyPrinter(indent=4).pprint(
+        dParser.get_local_data(25, 6, 2017, 51.636743, -0.069069))
     print dParser.get_cinema_url('Cineworld fullham road')
     print time.time() - start_time

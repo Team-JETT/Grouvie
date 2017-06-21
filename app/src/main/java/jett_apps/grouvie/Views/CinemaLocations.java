@@ -123,7 +123,7 @@ public class CinemaLocations extends FragmentActivity implements OnMapReadyCallb
         LatLng position = null;
 
         try {
-            addressList = geocoder.getFromLocationName(address, 3);
+            addressList = geocoder.getFromLocationName(address + ", London", 3);
             if(addressList == null) {
                 return null;
             }
