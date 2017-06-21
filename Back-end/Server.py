@@ -83,7 +83,7 @@ def make_plan():
     cinema = phone_data['cinema']
     # Make a new entry for the group leader.
     dbManager.insert_grouvie(phone_number, leader, creation_datetime,
-                             date, showtime, film, cinema)
+                             date, showtime, film, cinema, False)
     # Make a new entry in the table for each friend.
     # TODO: What happens if duplicate?
     friends = phone_data['friends']
