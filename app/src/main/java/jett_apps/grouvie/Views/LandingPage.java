@@ -96,6 +96,10 @@ public class LandingPage extends AppCompatActivity {
                 new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
+
+                        //Fixing the off by one in the date picker
+                        month = month + 1;
+
                         String chosenDate = day + "/" + month + "/" + year;
 
                         Intent intent = new Intent(view.getContext(), SelectGroup.class);
