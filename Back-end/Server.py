@@ -194,6 +194,8 @@ def accept_plan():
 @app.route("/group_replies", methods=['GET', 'POST'])
 def group_replies():
     phone_data = json.loads(request.data)
+    print "GROUP REPLIES " + phone_data
+    stdout.flush()
     return json.dumps(dbManager.group_replies(phone_data['leader'],
                                               phone_data['creation_datetime']))
 
