@@ -114,13 +114,15 @@ public class GroupView extends AppCompatActivity {
             p.setEventMembers(chosenFriends);
         }
 
+        groupAdapter = new CustomGroupAdapter(GroupView.this, chosenFriends);
+
         final Handler handler = new Handler();
         handler.postDelayed( new Runnable() {
 
             @Override
             public void run() {
                 groupAdapter = new CustomGroupAdapter(GroupView.this, chosenFriends);
-                handler.postDelayed( this, 60 * 1000 );
+                handler.postDelayed( this, 1000 );
             }
         }, 1000 );
 
