@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutionException;
 
 import jett_apps.grouvie.Adapters.CustomGroupAdapter;
+import jett_apps.grouvie.HelperClasses.ProfileManager;
 import jett_apps.grouvie.HelperClasses.ServerContact;
 import jett_apps.grouvie.HelperObjects.Friend;
 import jett_apps.grouvie.HelperObjects.Plan;
@@ -40,6 +42,14 @@ public class GroupView extends AppCompatActivity {
         setContentView(R.layout.activity_group_view);
 
         p = (Plan) getIntent().getSerializableExtra(PLAN_MESSAGE);
+
+        Button confirmPlan = (Button) findViewById(R.id.confirmPlan);
+
+        if(ProfileManager.getPhone(this).equals(p.getLeaderPhoneNum())) {
+            confirmPlan.setVisibility(View.VISIBLE);
+        } else {
+            confirmPlan.setVisibility(View.INVISIBLE);
+        }
 
         JSONObject json = new JSONObject();
         String result;
@@ -135,6 +145,12 @@ public class GroupView extends AppCompatActivity {
                 });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public void confirmPlan(View view) {
+        p.confirmPlan();
+        Intent intent = new Intent(view.getContext(), CurrentPlanView.class);
+        startActivity(intent);
     }
 
 }
