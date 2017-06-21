@@ -108,7 +108,7 @@ public class CinemaLocations extends FragmentActivity implements OnMapReadyCallb
 
 
         Snackbar snack = Snackbar.make(findViewById(android.R.id.content),
-                                       "Tap on a marker then on cinema name to select a film.",
+                                       "Tap on a marker to select a cinema.",
                                         Snackbar.LENGTH_LONG);
         View view = snack.getView();
         FrameLayout.LayoutParams params =(FrameLayout.LayoutParams)view.getLayoutParams();
