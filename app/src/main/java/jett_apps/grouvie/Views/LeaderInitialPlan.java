@@ -31,7 +31,6 @@ import static jett_apps.grouvie.Views.LandingPage.DATA;
 
 public class LeaderInitialPlan extends AppCompatActivity {
 
-    private double latitude, longitude;
     private String chosenFilm, chosenCinema, chosenTime, chosenDate;
     private ArrayList<Friend> chosenGroup;
     private String cinemaData;
@@ -73,15 +72,12 @@ public class LeaderInitialPlan extends AppCompatActivity {
 
         try {
             json.accumulate("phone_number", leaderPhoneNum);
-            json.accumulate("leader_name", leaderName);
             json.accumulate("leader", leaderPhoneNum);
             json.accumulate("date", chosenDate);
             json.accumulate("creation_datetime", dateFormat.format(date));
             json.accumulate("showtime", chosenTime);
             json.accumulate("film", chosenFilm);
             json.accumulate("cinema", chosenCinema);
-            json.accumulate("latitude", latitude);
-            json.accumulate("longitude", longitude);
             String[] friendsNumbers = getFriendsNumbers(chosenGroup);
             json.accumulate("friends", Arrays.toString(friendsNumbers));
         } catch (JSONException e) {
