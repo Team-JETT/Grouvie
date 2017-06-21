@@ -91,7 +91,8 @@ public class MessagingService extends FirebaseMessagingService {
                     /* Remove the leading "[" in both the name and phone number. */
                     name = name.substring(1);
                     number = number.substring(1);
-                } else if (i == numOfContacts - 1) {
+                }
+                if (i == numOfContacts - 1) {
                     /* Remove the trailing "]" in both the name and phone number. */
                     name = name.substring(0, name.length() - 1);
                     number = number.substring(0, number.length() - 1);
