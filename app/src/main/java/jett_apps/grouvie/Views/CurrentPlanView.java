@@ -63,8 +63,22 @@ public class CurrentPlanView extends AppCompatActivity {
             chosenFriends = p.getEventMembers();
         }
 
+        JSONObject json = new JSONObject();
+        String result = "";
+        try {
+            json.accumulate("leader", p.getLeaderPhoneNum());
+            json.accumulate("creation_datetime", p.getCreationDateTime());
+            result = new ServerContact().execute("is_plan_confirmed", json.toString()).get();
+        } catch (JSONException | ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        boolean planConfirmed = Boolean.parseBoolean(result);
+
         Button button = (Button) findViewById(R.id.cancelPlan);
         Button acceptButton = (Button) findViewById(R.id.acceptPlan);
+        Button change = (Button) findViewById(R.id.suggestChange);
+        Button accept = (Button) findViewById(R.id.acceptPlan);
 
         if(!ProfileManager.getPhone(this).equals(p.getLeaderPhoneNum())) {
             button.setVisibility(View.INVISIBLE);
@@ -78,15 +92,6 @@ public class CurrentPlanView extends AppCompatActivity {
         ImageButton bookTickets = (ImageButton) findViewById(R.id.imageButton4);
         ImageButton addEvent = (ImageButton) findViewById(R.id.addToCalendar);
 
-        if (/*p.isConfirmed()*/true) {
-            getDirections.setVisibility(View.VISIBLE);
-            bookTickets.setVisibility(View.VISIBLE);
-            addEvent.setVisibility(View.VISIBLE);
-        } else {
-            getDirections.setVisibility(View.INVISIBLE);
-            bookTickets.setVisibility(View.INVISIBLE);
-            addEvent.setVisibility(View.INVISIBLE);
-        }
 
 
         ImageView moviePoster = (ImageView) findViewById(R.id.moviePoster);
@@ -107,6 +112,20 @@ public class CurrentPlanView extends AppCompatActivity {
 
         TextView day = (TextView) findViewById(R.id.SelectedDay);
         day.setText(chosenDay);
+
+        if (planConfirmed) {
+            getDirections.setVisibility(View.VISIBLE);
+            bookTickets.setVisibility(View.VISIBLE);
+            addEvent.setVisibility(View.VISIBLE);
+            change.setVisibility(View.VISIBLE);
+            accept.setVisibility(View.VISIBLE);
+        } else {
+            getDirections.setVisibility(View.INVISIBLE);
+            bookTickets.setVisibility(View.INVISIBLE);
+            addEvent.setVisibility(View.INVISIBLE);
+            change.setVisibility(View.INVISIBLE);
+            accept.setVisibility(View.INVISIBLE);
+        }
 
         Button backButton = (Button) findViewById(R.id.backButton);
         backButton.setOnClickListener(new View.OnClickListener() {

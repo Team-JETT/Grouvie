@@ -179,7 +179,15 @@ public class GroupView extends AppCompatActivity {
     }
 
     public void confirmPlan(View view) {
-        p.confirmPlan();
+        JSONObject json = new JSONObject();
+        try {
+            json.accumulate("leader", p.getLeaderPhoneNum());
+            json.accumulate("creation_datetime", p.getCreationDateTime());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        new ServerContact().execute("confirm_plan", json.toString());
+
         Intent intent = new Intent(view.getContext(), CurrentPlanView.class);
         startActivity(intent);
     }
