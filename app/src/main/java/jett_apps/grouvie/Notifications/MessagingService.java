@@ -100,7 +100,9 @@ public class MessagingService extends FirebaseMessagingService {
                 members.add(new Friend(name, number));
             }
             String leaderPhoneNum = planInJSON.getString("leader");
+            String creationDate = planInJSON.getString("creation_datetime");
             plan = new Plan(film, cinema, showtime, date, members, leaderPhoneNum);
+            plan.setCreationDateTime(creationDate);
         } catch (JSONException e) {
             Log.e("BAD JSON SENT", "JSON sent to user was not an event plan");
             e.printStackTrace();
