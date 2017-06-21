@@ -102,7 +102,7 @@ public class LandingPage extends AppCompatActivity {
 
                         leaderData.setSuggestedDate(chosenDate);
                         leaderData.setSuggestedDay(day);
-                        leaderData.setSuggestedMonth(month+1);
+                        leaderData.setSuggestedMonth(month);
                         leaderData.setSuggestedYear(year);
 
                         intent.putExtra(DATA, leaderData);
