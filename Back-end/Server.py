@@ -115,9 +115,9 @@ def is_plan_confirmed():
     phone_data = json.loads(request.data)
     result = dbManager.is_plan_confirmed(phone_data['leader'],
                                          phone_data['creation_datetime'])
-    print result
+    print str(result)
     stdout.flush()
-    return result
+    return str(result)
 
 
 @app.route("/new_user", methods=['GET', 'POST'])
