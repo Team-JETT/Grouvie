@@ -36,6 +36,7 @@ import static jett_apps.grouvie.Views.LandingPage.PLAN_MESSAGE;
 public class GroupView extends AppCompatActivity {
 
     private Plan p;
+    ArrayList<Friend> chosenFriends = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,7 +69,7 @@ public class GroupView extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                final ArrayList<Friend> chosenFriends = p.getEventMembers();
+                chosenFriends = p.getEventMembers();
                 if (group_replies != null) {
 
 
@@ -104,23 +105,22 @@ public class GroupView extends AppCompatActivity {
                     p.setEventMembers(chosenFriends);
                 }
 
-                ListAdapter groupAdapter = new CustomGroupAdapter(GroupView.this, chosenFriends);
-
-                ListView groupListView = (ListView) findViewById(R.id.groupView);
-                groupListView.setAdapter(groupAdapter);
-
-
-                groupListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Friend f = chosenFriends.get(position);
-                        changesMadeByFriend(f);
-                    }
-                });
-
             }
         }, 20000);
 
+        ListAdapter groupAdapter = new CustomGroupAdapter(GroupView.this, chosenFriends);
+
+        ListView groupListView = (ListView) findViewById(R.id.groupView);
+        groupListView.setAdapter(groupAdapter);
+
+
+        groupListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Friend f = chosenFriends.get(position);
+                changesMadeByFriend(f);
+            }
+        });
 
     }
 
