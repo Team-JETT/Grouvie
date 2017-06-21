@@ -62,6 +62,19 @@ WHERE
 PHONE_NUMBER = %s AND LEADER = %s AND CREATION_DATETIME = %s
 """
 
+CONFIRM_PLAN = """
+UPDATE GROUVIE
+SET ACCEPTED = true
+WHERE
+LEADER = %s AND CREATION_DATETIME = %s AND PHONE_NUMBER = LEADER
+"""
+
+IS_PLAN_CONFIRMED = """
+SELECT ACCEPTED FROM GROUVIE
+WHERE
+LEADER = %s AND CREATION_DATETIME = %s AND PHONE_NUMBER = LEADER
+"""
+
 # Update an already existing entry in the Grouvie table
 UPDATE_GROUVIE = """
 UPDATE GROUVIE
@@ -223,6 +236,18 @@ class DBManager:
         cursor.execute(UPDATE_USERS, (name, postcode, latitude, longitude,
                                       phone_number))
         self.close_connection(cnxn, cursor)
+
+    def confirm_plan(self, leader, creation_datetime):
+        cnxn, cursor = self.establish_connection()
+        cursor.execute(CONFIRM_PLAN, (leader, creation_datetime))
+        self.close_connection(cnxn, cursor)
+
+    def is_plan_confirmed(self, leader, creation_datetime):
+        cnxn, cursor = self.establish_connection()
+        cursor.execute(IS_PLAN_CONFIRMED, (leader, creation_datetime))
+        results = cursor.fetchall()
+        self.close_connection(cnxn, cursor)
+        return results[0][0]
 
     # Get group replies for a plan
     def group_replies(self, leader, creation_datetime):
