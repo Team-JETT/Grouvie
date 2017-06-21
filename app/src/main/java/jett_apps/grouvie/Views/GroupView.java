@@ -3,21 +3,15 @@ package jett_apps.grouvie.Views;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -31,7 +25,7 @@ import jett_apps.grouvie.HelperObjects.Friend;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.R;
 
-import static jett_apps.grouvie.Views.LandingPage.PLAN_MESSAGE;
+import static jett_apps.grouvie.Views.LandingPage.DATA;
 
 public class GroupView extends AppCompatActivity {
 
@@ -43,7 +37,7 @@ public class GroupView extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_group_view);
 
-        p = (Plan) getIntent().getSerializableExtra(PLAN_MESSAGE);
+        p = (Plan) getIntent().getSerializableExtra(DATA);
 
         Button confirmPlan = (Button) findViewById(R.id.confirmPlan);
 

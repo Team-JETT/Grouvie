@@ -22,19 +22,19 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.concurrent.ExecutionException;
 
-import jett_apps.grouvie.Notifications.FirebaseContact;
-import jett_apps.grouvie.PlanningActivities.SuggestChangeInPlan;
 import jett_apps.grouvie.HelperClasses.PlanManager;
+import jett_apps.grouvie.HelperClasses.ProfileManager;
+import jett_apps.grouvie.HelperClasses.ServerContact;
 import jett_apps.grouvie.HelperObjects.Friend;
 import jett_apps.grouvie.HelperObjects.Plan;
-import jett_apps.grouvie.HelperClasses.ProfileManager;
+import jett_apps.grouvie.PlanningActivities.SuggestChangeInPlan;
 import jett_apps.grouvie.R;
-import jett_apps.grouvie.HelperClasses.ServerContact;
 
-import static jett_apps.grouvie.Views.LandingPage.PLAN_MESSAGE;
+import static jett_apps.grouvie.Views.LandingPage.DATA;
 
 public class CurrentPlanView extends AppCompatActivity {
 
+    public static final String LEADER_DATA = "leader_plan";
     private ArrayList<Friend> chosenFriends;
     private String chosenDay;
     private String chosenTime;
@@ -53,7 +53,7 @@ public class CurrentPlanView extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        Plan updatedPlan = (Plan) intent.getSerializableExtra(PLAN_MESSAGE);
+        Plan updatedPlan = (Plan) intent.getSerializableExtra(DATA);
         if (updatedPlan != null) {
             p = updatedPlan;
             chosenFilm = p.getSuggestedFilm();
@@ -140,13 +140,13 @@ public class CurrentPlanView extends AppCompatActivity {
 
     public void viewGroupReplies(View view) {
         Intent intent = new Intent(view.getContext(), GroupView.class);
-        intent.putExtra(PLAN_MESSAGE, p);
+        intent.putExtra(DATA, p);
         startActivity(intent);
     }
 
     public void makeChange(View view) {
         Intent intent = new Intent(view.getContext(), SuggestChangeInPlan.class);
-        intent.putExtra(PLAN_MESSAGE, p);
+        intent.putExtra(LEADER_DATA, p);
         startActivity(intent);
     }
 

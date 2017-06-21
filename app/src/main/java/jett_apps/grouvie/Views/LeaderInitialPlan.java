@@ -28,8 +28,6 @@ import jett_apps.grouvie.R;
 
 import static jett_apps.grouvie.Notifications.FirebaseContact.SEND_PLAN_TO_GROUP;
 import static jett_apps.grouvie.Views.LandingPage.DATA;
-import static jett_apps.grouvie.Views.LandingPage.PLAN_MESSAGE;
-
 public class LeaderInitialPlan extends AppCompatActivity {
 
     private String chosenFilm, chosenCinema, chosenTime, chosenDate;

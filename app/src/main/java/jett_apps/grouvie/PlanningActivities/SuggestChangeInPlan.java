@@ -26,9 +26,9 @@ import jett_apps.grouvie.R;
 import jett_apps.grouvie.Views.CinemaLocations;
 import jett_apps.grouvie.Views.LandingPage;
 
-import static jett_apps.grouvie.Views.LandingPage.DATA;
-import static jett_apps.grouvie.Views.LandingPage.PLAN_MESSAGE;
 import static jett_apps.grouvie.Notifications.FirebaseContact.SUGGEST_CHANGE_TO_LEADER;
+import static jett_apps.grouvie.Views.CurrentPlanView.LEADER_DATA;
+import static jett_apps.grouvie.Views.LandingPage.DATA;
 
 public class SuggestChangeInPlan extends AppCompatActivity {
 
@@ -45,17 +45,22 @@ public class SuggestChangeInPlan extends AppCompatActivity {
         //Update suggested plan so far
         suggestedPlan = (Plan) getIntent().getSerializableExtra(DATA);
 
+        if (leaderPlan == null) {
+            restoreLeaderPlan();
+        }
+
         //If this is initial run of this activity
         if (suggestedPlan == null ) {
 
             // Get current leader plan and save it to obtaining changes later on
-            leaderPlan = (Plan) getIntent().getSerializableExtra(PLAN_MESSAGE);
+            leaderPlan = (Plan) getIntent().getSerializableExtra(LEADER_DATA);
             saveLeaderPlan();
 
             // Obtain current plan suggested by the leader (leaderPlan)
             suggestedPlan = new Plan(leaderPlan);
 
         }
+
 
         if (ProfileManager.getPhone(SuggestChangeInPlan.this)
                 .equals(leaderPlan.getLeaderPhoneNum())) {
@@ -166,8 +171,8 @@ public class SuggestChangeInPlan extends AppCompatActivity {
         Gson gson = new Gson();
         String json = sp.getString(LEADER_PLAN_KEY, "");
         leaderPlan = gson.fromJson(json, Plan.class);
-        spEditor.remove(LEADER_PLAN_KEY);
-        spEditor.apply();
+//        spEditor.remove(LEADER_PLAN_KEY);
+//        spEditor.apply();
     }
 
     public void done(View view) {

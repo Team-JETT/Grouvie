@@ -25,8 +25,6 @@ import jett_apps.grouvie.R;
 
 public class LandingPage extends AppCompatActivity {
 
-    public static final String PLAN_MESSAGE = "PLAN_MESSAGE";
-
     public static final String DATA = "DATA";
     public static final String CHANGE_MESSAGE = "CHANGE_MESSAGE";
     public static final String SENT_PLAN = "SENT_PLAN";
@@ -71,8 +69,8 @@ public class LandingPage extends AppCompatActivity {
                         Plan p = currentPlans.get(position);
                         //Sending the current plan to the final planning page
                         Intent intent = new Intent(view.getContext(), CurrentPlanView.class);
-                        intent.putExtra(PLAN_MESSAGE, p);
-                        Plan savedP = (Plan) intent.getSerializableExtra(PLAN_MESSAGE);
+                        intent.putExtra(DATA, p);
+                        Plan savedP = (Plan) intent.getSerializableExtra(DATA);
                         startActivity(intent);
 
                     }
