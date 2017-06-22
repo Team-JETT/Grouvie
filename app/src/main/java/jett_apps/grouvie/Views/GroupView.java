@@ -226,7 +226,7 @@ public class GroupView extends AppCompatActivity {
             result += "th";
         }
         result += " ";
-        int month = Integer.parseInt(date.trim().substring(3, 5));
+        int month = Integer.parseInt(date.trim().substring(3, 4));
         String monthString = new DateFormatSymbols().getMonths()[month - 1];
         result += monthString;
         return result;

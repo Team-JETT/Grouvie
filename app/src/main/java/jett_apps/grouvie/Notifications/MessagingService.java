@@ -125,8 +125,7 @@ public class MessagingService extends FirebaseMessagingService {
 
         /* Send plan through intent. This should be retrieved in LandingPage. */
         intent.putExtra(SENT_PLAN, plan);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_ONE_SHOT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
         /* Add notification sound. */
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
