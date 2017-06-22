@@ -193,6 +193,17 @@ public class GroupView extends AppCompatActivity {
         }
         new ServerContact().execute("confirm_plan", json.toString());
 
+        String type = "" + PING_MEMBER;
+        String suggesterName = ProfileManager.getName(this);
+        String messageBody =  suggesterName + " has confirmed a plan. Click here to view it!";
+        ArrayList<Friend> friends = p.getEventMembers();
+
+        for (Friend f : friends) {
+            String friendPhone = f.getPhoneNum();
+            new FirebaseContact().execute(type, friendPhone, messageBody);
+        }
+
+
         Intent intent = new Intent(view.getContext(), LandingPage.class);
         startActivity(intent);
     }

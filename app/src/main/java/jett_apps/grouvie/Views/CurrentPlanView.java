@@ -46,7 +46,7 @@ public class CurrentPlanView extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_current_plan_view);
         isAccepted = false;
@@ -73,14 +73,63 @@ public class CurrentPlanView extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        JSONObject object = new JSONObject();
+        String s;
+        JSONObject group_replies = null;
+        try {
+            object.accumulate("leader", p.getLeaderPhoneNum());
+            object.accumulate("creation_datetime", p.getCreationDateTime());
+            s = new ServerContact().execute("get_leader_plan", object.toString()).get();
+            group_replies = new JSONObject(s);
+        } catch (JSONException | ExecutionException | InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        if (group_replies != null) {
+
+
+            try {
+                String film = group_replies.getString("film");
+                if (film != null) {
+
+                    chosenFilm = film;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                String showtime = group_replies.getString("showtime");
+                if (showtime != null) {
+                    chosenTime = showtime;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                String date = group_replies.getString("date");
+                if (date != null) {
+                    chosenDay = date;
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            try {
+                String cinema = group_replies.getString("cinema");
+                if (cinema != null) {
+                    chosenCinema = cinema;
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
         boolean planConfirmed = Boolean.parseBoolean(result);
 
         Button button = (Button) findViewById(R.id.cancelPlan);
         Button acceptButton = (Button) findViewById(R.id.acceptPlan);
-        Button accept = (Button) findViewById(R.id.acceptPlan);
         Button viewReplies = (Button) findViewById(R.id.viewGroupReplies);
 
-        if(!ProfileManager.getPhone(this).equals(p.getLeaderPhoneNum())) {
+        if (!ProfileManager.getPhone(this).equals(p.getLeaderPhoneNum())) {
             button.setVisibility(View.INVISIBLE);
             acceptButton.setVisibility(View.VISIBLE);
         } else {
@@ -91,7 +140,6 @@ public class CurrentPlanView extends AppCompatActivity {
         ImageButton getDirections = (ImageButton) findViewById(R.id.imageButton);
         ImageButton bookTickets = (ImageButton) findViewById(R.id.imageButton4);
         ImageButton addEvent = (ImageButton) findViewById(R.id.addToCalendar);
-
 
 
         ImageView moviePoster = (ImageView) findViewById(R.id.moviePoster);
@@ -113,29 +161,32 @@ public class CurrentPlanView extends AppCompatActivity {
         TextView day = (TextView) findViewById(R.id.SelectedDay);
         day.setText(chosenDay);
 
-        if (planConfirmed) {
-            getDirections.setVisibility(View.VISIBLE);
-            bookTickets.setVisibility(View.VISIBLE);
-            addEvent.setVisibility(View.VISIBLE);
-            viewReplies.setVisibility(View.INVISIBLE);
-            accept.setVisibility(View.INVISIBLE);
-        } else {
-            getDirections.setVisibility(View.INVISIBLE);
-            bookTickets.setVisibility(View.INVISIBLE);
-            addEvent.setVisibility(View.INVISIBLE);
-            viewReplies.setVisibility(View.VISIBLE);
-            accept.setVisibility(View.VISIBLE);
-        }
 
-        Button backButton = (Button) findViewById(R.id.backButton);
-        backButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CurrentPlanView.this, LandingPage.class);
-                startActivity(intent);
+
+            if (planConfirmed) {
+                getDirections.setVisibility(View.VISIBLE);
+                bookTickets.setVisibility(View.VISIBLE);
+                addEvent.setVisibility(View.VISIBLE);
+                viewReplies.setVisibility(View.INVISIBLE);
+                acceptButton.setVisibility(View.INVISIBLE);
+            } else {
+                getDirections.setVisibility(View.INVISIBLE);
+                bookTickets.setVisibility(View.INVISIBLE);
+                addEvent.setVisibility(View.INVISIBLE);
+                viewReplies.setVisibility(View.VISIBLE);
+                acceptButton.setVisibility(View.VISIBLE);
             }
-        });
 
+            Button backButton = (Button) findViewById(R.id.backButton);
+            backButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(CurrentPlanView.this, LandingPage.class);
+                    startActivity(intent);
+                }
+            });
+
+        }
     }
 
     public void viewGroupReplies(View view) {

@@ -16,10 +16,12 @@ import com.google.gson.Gson;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import jett_apps.grouvie.HelperClasses.ProfileManager;
 import jett_apps.grouvie.HelperClasses.ServerContact;
+import jett_apps.grouvie.HelperObjects.Friend;
 import jett_apps.grouvie.HelperObjects.Plan;
 import jett_apps.grouvie.Notifications.FirebaseContact;
 import jett_apps.grouvie.R;
@@ -197,6 +199,17 @@ public class SuggestChangeInPlan extends AppCompatActivity {
             }
 
             new ServerContact().execute("update_leader_plan", json.toString());
+
+            String type = "" + PING_MEMBER;
+            String suggesterName = ProfileManager.getName(this);
+            String messageBody =  suggesterName + " has made a change. Click here to view it!";
+            ArrayList<Friend> friends = leaderPlan.getEventMembers();
+
+            for (Friend f : friends) {
+                String friendPhone = f.getPhoneNum();
+                new FirebaseContact().execute(type, friendPhone, messageBody);
+            }
+
 
             Intent intent = new Intent(SuggestChangeInPlan.this, CurrentPlanView.class);
             intent.putExtra(DATA, suggestedPlan);
